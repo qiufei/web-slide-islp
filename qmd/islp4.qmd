@@ -31,7 +31,7 @@
 -  Suppose there are three possible diagnoses: *stroke*, *drug overdose*, and *epileptic seizure*. 
 - We *could* try coding them numerically (e.g., 1=stroke, 2=drug overdose, 3=epileptic seizure).
 
-![Medical conditions coding](figures/coding.png){fig-align="center"}
+![Medical conditions coding](figures/4_1a.png){fig-align="center"}
 :::
 
 ::: incremental
@@ -51,7 +51,7 @@
 
 ## Visualizing the Default Data
 
-![The Default data set](figures/4_1.png){fig-align="center" width="800"}
+![The Default data set](figures/4_1a.png){fig-align="center" width="800"}
 
 ::: {.callout-note appearance="simple"}
 - **Left:** Scatterplot of income and balance, color-coded by default status (orange = defaulted, blue = did not default).
@@ -321,10 +321,12 @@ $$
 ## LDA: Example with Three Classes
 
 ![Multivariate Gaussian distribution with three classes, and LDA decision boundaries](figures/4_6.png)
+
 ::: {.callout-note appearance="simple"}
 - **Left:**  Ellipses contain 95% of the probability for each class. Dashed lines: Bayes decision boundaries.
 - **Right:** 20 observations from each class. Solid lines: LDA decision boundaries.
 :::
+
 - LDA approximates the Bayes decision boundaries.
 
 ## LDA on the Default Data
@@ -429,19 +431,19 @@ $$
 
 ## Naive Bayes: Example
 ::: {layout-ncol=3}
-![f11](figures/4_10_1.png)
+![f11](figures/4_10a.png)
 
-![f12](figures/4_10_2.png)
+![f12](figures/4_10a.png)
 
-![f13](figures/4_10_3.png)
+![f13](figures/4_10b.png)
 :::
 
 ::: {layout-ncol=3}
-![f21](figures/4_10_4.png)
+![f21](figures/4_10a.png)
 
-![f22](figures/4_10_5.png)
+![f22](figures/4_10b.png)
 
-![f23](figures/4_10_6.png)
+![f23](figures/4_10b.png)
 :::
 
 ::: {.callout-note appearance="simple"}

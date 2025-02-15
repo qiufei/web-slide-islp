@@ -153,7 +153,7 @@ Besides finding directions of greatest variance, PCA also finds *linear surfaces
 -   **First Two Principal Components:** The *plane* closest to the observations.
 -   **And so on...**
 
-![Ninety observations simulated in three dimensions.](figures/12_2.png)
+![Ninety observations simulated in three dimensions.](figures/12_2a.png)
 
 ::: {.callout-note appearance="simple"}
 *Left*: The first two principal component directions span the plane that best fits the data. *Right*: The first two principal component score vectors give the coordinates of the projection of the 90 observations onto the plane.

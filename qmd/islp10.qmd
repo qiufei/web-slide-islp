@@ -5,7 +5,7 @@
 -   It is a subfield of machine learning.
 -   The cornerstone of deep learning is the **neural network**.
 
-![](figures/10_1_1.png){fig-align="center" width=50%}
+![](figures/10_1.png){fig-align="center" width=50%}
 :::
 
 ## What is Data Mining, Machine Learning and Statistical Learning
@@ -114,7 +114,7 @@ $$
 - Figure 10.4 shows a multilayer network for the MNIST digit classification task.
 -  MNIST: handwritten digits, 28x28 grayscale images (784 pixels).
 
-![](figures/10_3.png)
+![](figures/10_3a.png)
 :::
 
 ## MNIST Dataset
@@ -208,7 +208,7 @@ Neural networks significantly outperform linear methods on this task.
 
 ## CNN Example: Tiger Classification
 
-![](figures/10_6.png)
+![](figures/10_6.jpg)
 
 -   Input: Image of a tiger.
 -   Convolutional layers identify low-level features (edges, stripes).
@@ -316,7 +316,7 @@ $$
     -   Improves generalization.
     -   Acts as a form of regularization.
 
-![](figures/10_9.png)
+![](figures/10_9.jpg)
 
 :::
 
@@ -328,7 +328,7 @@ $$
 -   Example: ResNet50.
 -   **Weight Freezing:**  Use the pretrained convolutional layers as feature extractors and train only the final layers.
 
-![](figures/10_10.png)
+![](figures/10_10a.jpg)
 
 :::
 
@@ -398,7 +398,7 @@ $$
 -   Process the sequence of word embeddings using the RNN.
 
 ## Word Embeddings: Example
-![](figures/10_13.png)
+![](figures/10_13a.png)
 - One hot encoding vector length is the vocabulary size.
 - Word embeddings provide dense representation.
 
@@ -518,7 +518,7 @@ $$
 -   Early stopping: Stop training when validation error starts to increase.
 
 ## Dropout Learning
-![](figures/10_19.png)
+![](figures/10_19a.png)
 
 ## Network Tuning
 

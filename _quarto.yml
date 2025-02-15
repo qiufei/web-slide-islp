@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: html
 
 website:
   site-url: https://qiufei.github.io/web-slide-r

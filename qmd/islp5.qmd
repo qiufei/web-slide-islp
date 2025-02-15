@@ -5,7 +5,7 @@
 
 - This chapter introduces powerful statistical techniques that help us better understand and utilize our models.
 
-![](figures/chapter_5.png)
+![](figures/5_1.png)
 
 :::
 

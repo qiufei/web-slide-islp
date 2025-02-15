@@ -3,7 +3,7 @@
 ::: {layout-ncol=2}
 Linear models are relatively simple and interpretable, but they might not be powerful enough for prediction, because the linearity assumption is often an oversimplification.
 
-![](figures/f6_22.png)
+![](figures/7_12.png)
 
 *  Linear Regression
 *  Ridge Regression
@@ -182,9 +182,9 @@ To make the piecewise cubic more reasonable, we introduce constraints:
 ::: {layout-ncol=3}
 ![Unconstrained piecewise cubic polynomial](figures/7_3.png){width=80%}
 
-![Continuous Piecewise Cubic](figures/7_3_2.png){width=80%}
+![Continuous Piecewise Cubic](figures/7_3.png){width=80%}
 
-![Cubic Spline. Continuous, first and second contiuous derivatives](figures/7_3_3.png){width=80%}
+![Cubic Spline. Continuous, first and second contiuous derivatives](figures/7_3.png){width=80%}
 :::
 
 ## Constraints and Splines (Cont.)
@@ -197,7 +197,7 @@ To make the piecewise cubic more reasonable, we introduce constraints:
 
 - A *linear spline* is continuous, fitting a line in each region, with continuity at each knot.
 
-![Linear Spline](figures/7_3_4.png)
+![Linear Spline](figures/7_3.png)
 
 ## The Spline Basis Representation
 
