@@ -1,3 +1,3 @@
-# web-slide-r
+# big data mining and analysis
 
-R语言课程幻灯片
+course slides
