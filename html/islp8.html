@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>islp8</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../https://assets.qiufei.site/personal/profile.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-eeb6d1c97efeeb0cfaf56837413d2c8e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8aa8884591a9136173b71f6048871fae.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://qiufei.github.io"> 
+<span class="menu-text">首页</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://qiufei.github.io/web-slide-r"> 
+<span class="menu-text">R课件</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://qiufei.github.io/web-slide-marketing"> 
+<span class="menu-text">营销课件</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="introduction-tree-based-methods" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-tree-based-methods">Introduction: Tree-Based Methods 🌳</h2>
+<p>This chapter introduces tree-based methods for regression and classification. These methods involve segmenting the predictor space into simpler regions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tree-based methods are simple, interpretable, but often not as accurate as other methods. We’ll explore techniques like bagging, random forests, and boosting to improve their performance.</p>
+</div>
+</div>
+</section>
+<section id="core-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="core-concepts">Core Concepts</h2>
+<p>Before diving into the detail, Let’s clarify some core concepts.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Data Mining</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Machine Learning</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Statistical Learning</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Data mining is the process of discovering patterns, anomalies, and insights from large datasets using a combination of methods from statistics, machine learning, and database management. It’s about extracting useful knowledge from raw data. 🔎</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Machine learning is a subfield of artificial intelligence (AI) that focuses on developing algorithms that allow computers to learn from data, without being explicitly programmed. It involves building models that can make predictions or decisions based on input data.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Statistical learning refers to a set of tools for modeling and understanding complex datasets. It is a recently developed area in statistics and blends with parallel developments in computer science, and in particular machine learning. The tools of statistical learning are both conceptual and practical.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="relationships-of-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="relationships-of-concepts">Relationships of Concepts</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Data Mining] --&gt; C(Common Ground)
+    B[Machine Learning] --&gt; C
+    D[Statistical Learning] --&gt; C
+    C --&gt; E[Insights &amp; Predictions]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Data mining, machine learning, and statistical learning all overlap. They’re all about extracting insights and making predictions from data, but with different emphases and approaches.</p>
+</div>
+</div>
+</section>
+<section id="decision-trees-the-basics" class="level2">
+<h2 class="anchored" data-anchor-id="decision-trees-the-basics">Decision Trees: The Basics 🌲</h2>
+<p>Decision trees segment the predictor space using a series of splitting rules, summarized in a tree structure. They can be used for both regression and classification.</p>
+<ul>
+<li><strong>Simple Interpretation:</strong> Easy to understand and visualize.</li>
+<li><strong>Non-linear Relationships:</strong> Can capture complex non-linear patterns.</li>
+</ul>
+</section>
+<section id="regression-trees-a-simple-example" class="level2">
+<h2 class="anchored" data-anchor-id="regression-trees-a-simple-example">Regression Trees: A Simple Example</h2>
+<p>Let’s start with a regression tree example using the <code>Hitters</code> dataset to predict a baseball player’s salary.</p>
+<ul>
+<li><strong>Predictors:</strong> Years (in the major leagues), Hits (in the previous year).</li>
+<li><strong>Response:</strong> Log Salary (to achieve a more bell-shaped distribution).</li>
+</ul>
+</section>
+<section id="regression-tree-for-hitters-data" class="level2">
+<h2 class="anchored" data-anchor-id="regression-tree-for-hitters-data">Regression Tree for Hitters Data</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F8_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Regression tree for Hitters data</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This tree predicts log(Salary) based on <code>Years</code> and <code>Hits</code>. The numbers in the leaves are the <em>mean</em> log(Salary) for players in that region.</p>
+</div>
+</div>
+</section>
+<section id="interpreting-the-regression-tree" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-regression-tree">Interpreting the Regression Tree</h2>
+<ul>
+<li><strong>Top Split:</strong> <code>Years &lt; 4.5</code> is the most important factor. Less experience generally means lower salary.</li>
+<li><strong>Internal Nodes:</strong> Represent splits in the predictor space (e.g., <code>Hits &lt; 117.5</code>).</li>
+<li><strong>Branches:</strong> Connect the nodes.</li>
+<li><strong>Terminal Nodes (Leaves):</strong> Represent the final predicted values (mean log(Salary) for that region).</li>
+<li><strong>Example:</strong> The left branch means If a player played less than 4.5 years, his predicted log salary is 5.11.</li>
+</ul>
+</section>
+<section id="regions-of-predictor-space" class="level2">
+<h2 class="anchored" data-anchor-id="regions-of-predictor-space">Regions of Predictor Space</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F8_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Three-region partition</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The tree divides the predictor space (Years, Hits) into three rectangular regions (R1, R2, R3). Each region corresponds to a leaf in the tree.</p>
+</div>
+</div>
+</section>
+<section id="building-a-regression-tree-key-steps" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-regression-tree-key-steps">Building a Regression Tree: Key Steps</h2>
+<ol type="1">
+<li><strong>Divide Predictor Space:</strong> Split the space into <em>J</em> distinct, non-overlapping regions (R1, R2, …, RJ).</li>
+<li><strong>Prediction:</strong> For every observation in region Rj, predict the <em>mean</em> of the response values of the training observations in Rj.</li>
+</ol>
+</section>
+<section id="constructing-the-regions-minimizing-rss" class="level2">
+<h2 class="anchored" data-anchor-id="constructing-the-regions-minimizing-rss">Constructing the Regions: Minimizing RSS</h2>
+<p>The goal is to find regions (R1, …, RJ) that minimize the Residual Sum of Squares (RSS):</p>
+<p><span class="math display">\[
+\text{RSS} = \sum_{j=1}^{J} \sum_{i \in R_j} (y_i - \hat{y}_{R_j})^2
+\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(\hat{y}_{R_j}\)</span>:</strong> Mean response for training observations in region <em>Rj</em>.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Finding the <em>absolute best</em> set of regions is computationally infeasible, So a <em>top-down, greedy</em> approach called <strong>recursive binary splitting</strong> is used.</p>
+</div>
+</div>
+</section>
+<section id="recursive-binary-splitting" class="level2">
+<h2 class="anchored" data-anchor-id="recursive-binary-splitting">Recursive Binary Splitting</h2>
+<ul>
+<li><strong>Top-Down:</strong> Start with all observations in one region.</li>
+<li><strong>Greedy:</strong> At each step, make the <em>best</em> split <em>at that moment</em>, without looking ahead.</li>
+<li><strong>Binary:</strong> Each split divides a region into <em>two</em> sub-regions.</li>
+</ul>
+</section>
+<section id="recursive-binary-splitting-the-process" class="level2">
+<h2 class="anchored" data-anchor-id="recursive-binary-splitting-the-process">Recursive Binary Splitting: The Process</h2>
+<ol type="1">
+<li><p><strong>Select Predictor and Cutpoint:</strong> Choose the predictor (Xj) and cutpoint (s) that lead to the <em>greatest possible reduction</em> in RSS when splitting into regions {X|Xj &lt; s} and {X|Xj ≥ s}. Consider <em>all</em> predictors and <em>all</em> possible cutpoints.</p></li>
+<li><p><strong>Minimize:</strong> Find <em>j</em> and <em>s</em> that minimize:</p>
+<p><span class="math display">\[
+\sum_{i: x_i \in R_1(j,s)} (y_i - \hat{y}_{R_1})^2 + \sum_{i: x_i \in R_2(j,s)} (y_i - \hat{y}_{R_2})^2
+\]</span></p></li>
+<li><p><strong>Repeat:</strong> on one of the resulting regions, continuing until a stopping criterion is met (e.g., no region has more than 5 observations).</p></li>
+</ol>
+</section>
+<section id="visualizing-recursive-binary-splitting" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-recursive-binary-splitting">Visualizing Recursive Binary Splitting</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F8_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Recursive binary splitting</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The top right shows the result of recursive binary splitting in two dimensions. The bottom left shows the corresponding tree. The bottom right presents a perspective plot of prediction surface.</p>
+</div>
+</div>
+</section>
+<section id="tree-pruning" class="level2">
+<h2 class="anchored" data-anchor-id="tree-pruning">Tree Pruning ✂️</h2>
+<p>The initial tree-building process often leads to <em>overfitting</em>. A smaller tree with fewer splits can have:</p>
+<ul>
+<li>Lower variance</li>
+<li>Better interpretability</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Cost complexity pruning (weakest link pruning)</strong> is a technique to find the best subtree.</p>
+</div>
+</div>
+</section>
+<section id="cost-complexity-pruning" class="level2">
+<h2 class="anchored" data-anchor-id="cost-complexity-pruning">Cost Complexity Pruning</h2>
+<ul>
+<li><p><strong>Goal:</strong> Find a subtree <em>T</em> (subset of the full tree <em>T0</em>) that minimizes a penalized RSS:</p>
+<p><span class="math display">\[
+\sum_{m=1}^{|T|} \sum_{x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha|T|
+\]</span></p></li>
+<li><p><strong>|T|:</strong> Number of terminal nodes.</p></li>
+<li><p><strong>α:</strong> Tuning parameter (controls the trade-off between subtree complexity and fit).</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As α increases, the penalty for having many terminal nodes increases, leading to smaller subtrees.</p>
+</div>
+</div>
+</section>
+<section id="algorithm-8.1-building-a-regression-tree" class="level2">
+<h2 class="anchored" data-anchor-id="algorithm-8.1-building-a-regression-tree">Algorithm 8.1 Building a Regression Tree</h2>
+<ol type="1">
+<li><p><strong>Grow a Large Tree:</strong> Using recursive binary splitting, grow a large tree on the training data. Stop when each terminal node has less than some pre-specified minimum number of observations.</p></li>
+<li><p><strong>Cost Complexity Pruning:</strong> Apply cost complexity pruning to the large tree to get a sequence of best subtrees, as a function of <em>α</em>.</p></li>
+<li><p><strong>Choose α:</strong> Use K-fold cross-validation to choose the optimal <em>α</em>.</p>
+<ul>
+<li>Divide training data into K folds.</li>
+<li>For each fold, repeat steps 1 &amp; 2 on the other K-1 folds.</li>
+<li>Evaluate mean squared prediction error on the held-out fold.</li>
+<li>Average the results and pick <em>α</em> that minimizes the average error.</li>
+</ul></li>
+<li><p><strong>Return Subtree:</strong> Return the subtree from Step 2 that corresponds to the chosen <em>α</em>.</p></li>
+</ol>
+</section>
+<section id="classification-trees" class="level2">
+<h2 class="anchored" data-anchor-id="classification-trees">Classification Trees</h2>
+<p>Very similar to regression trees, but used to predict a <em>qualitative</em> response.</p>
+<ul>
+<li><strong>Prediction:</strong> Predict the <em>most commonly occurring class</em> in the region.</li>
+<li><strong>Interpretation:</strong> Consider <em>class proportions</em> in each region.</li>
+</ul>
+</section>
+<section id="growing-a-classification-tree" class="level2">
+<h2 class="anchored" data-anchor-id="growing-a-classification-tree">Growing a Classification Tree</h2>
+<ul>
+<li>Recursive binary splitting is used, but RSS <em>cannot</em> be used as the splitting criterion.</li>
+<li><strong>Alternatives to RSS:</strong>
+<ul>
+<li>Classification error rate</li>
+<li>Gini index</li>
+<li>Entropy</li>
+</ul></li>
+</ul>
+</section>
+<section id="splitting-criteria-classification-error-rate" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-criteria-classification-error-rate">Splitting Criteria: Classification Error Rate</h2>
+<p><span class="math display">\[
+E = 1 - \max_k (\hat{p}_{mk})
+\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(\hat{p}_{mk}\)</span>:</strong> Proportion of training observations in the <em>m</em>th region that are from the <em>k</em>th class.</li>
+<li><strong>Problem:</strong> Not sensitive enough for tree growing.</li>
+</ul>
+</section>
+<section id="splitting-criteria-gini-index" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-criteria-gini-index">Splitting Criteria: Gini Index</h2>
+<p><span class="math display">\[
+G = \sum_{k=1}^{K} \hat{p}_{mk}(1 - \hat{p}_{mk})
+\]</span></p>
+<ul>
+<li>Measure of total variance across <em>K</em> classes.</li>
+<li>Small value if all <span class="math inline">\(\hat{p}_{mk}\)</span> are close to 0 or 1 (node purity).</li>
+</ul>
+</section>
+<section id="splitting-criteria-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-criteria-entropy">Splitting Criteria: Entropy</h2>
+<p><span class="math display">\[
+D = -\sum_{k=1}^{K} \hat{p}_{mk} \log \hat{p}_{mk}
+\]</span> - Takes a value near zero if the node is pure. - Gini index and entropy are numerically similar.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Gini index and entropy are preferred over the classification error rate for <em>growing</em> the tree because they are more sensitive to node purity. For <em>pruning</em>, any of the three can be used, but classification error is often preferred for final prediction accuracy.</p>
+</div>
+</div>
+</section>
+<section id="example-heart-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-heart-data">Example: Heart Data</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F8_6.svg" class="img-fluid figure-img"></p>
+<figcaption>Heart data unpruned tree</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This figure shows an unpruned tree for classifying heart disease presence (<code>Yes</code>/<code>No</code>) based on 13 predictors. Qualitative predictors can be handled directly.</p>
+</div>
+</div>
+</section>
+<section id="trees-vs.-linear-models" class="level2">
+<h2 class="anchored" data-anchor-id="trees-vs.-linear-models">Trees vs.&nbsp;Linear Models</h2>
+<ul>
+<li><strong>Linear Regression:</strong> Assumes a linear model: <span class="math inline">\(f(X) = \beta_0 + \sum_{j=1}^{p} X_j \beta_j\)</span></li>
+<li><strong>Regression Trees:</strong> Assume a model of the form: <span class="math inline">\(f(X) = \sum_{m=1}^{M} c_m \cdot 1(X \in R_m)\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The best model depends on the true relationship. If the relationship is close to linear, linear regression will likely outperform a decision tree. If highly non-linear, decision trees may be better.</p>
+</div>
+</div>
+</section>
+<section id="trees-vs.-linear-models---visual-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="trees-vs.-linear-models---visual-comparison">Trees vs.&nbsp;Linear Models - Visual Comparison</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F8_7.svg" class="img-fluid figure-img"></p>
+<figcaption>Trees vs.&nbsp;Linear Models</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Top: Linear decision boundary. Linear model (left) is better. Bottom: Non-linear boundary. Decision tree (right) is better.</p>
+</div>
+</div>
+</section>
+<section id="advantages-of-trees" class="level2">
+<h2 class="anchored" data-anchor-id="advantages-of-trees">Advantages of Trees 👍</h2>
+<ul>
+<li><strong>Easy to Explain:</strong> Simpler to explain than even linear regression.</li>
+<li><strong>Human Decision-Making:</strong> Some believe they mirror human decision-making more closely.</li>
+<li><strong>Graphical Representation:</strong> Can be displayed visually.</li>
+<li><strong>Qualitative Predictors:</strong> Handle qualitative predictors without dummy variables.</li>
+</ul>
+</section>
+<section id="disadvantages-of-trees" class="level2">
+<h2 class="anchored" data-anchor-id="disadvantages-of-trees">Disadvantages of Trees 👎</h2>
+<ul>
+<li><strong>Lower Predictive Accuracy:</strong> Generally don’t have the same level of predictive accuracy as other methods.</li>
+<li><strong>Non-Robust:</strong> Small changes in the data can cause large changes in the tree.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aggregating multiple decision trees (bagging, random forests, boosting) can significantly improve predictive performance.</p>
+</div>
+</div>
+</section>
+<section id="ensemble-methods-combining-multiple-models" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-methods-combining-multiple-models">Ensemble Methods: Combining Multiple Models</h2>
+<p>An <strong>ensemble method</strong> combines multiple “weak learner” models (like decision trees) to create a more powerful model.</p>
+<ul>
+<li><strong>Weak Learner:</strong> A simple model with mediocre predictions.</li>
+<li><strong>Ensemble:</strong> A combination of weak learners.</li>
+</ul>
+</section>
+<section id="bagging-bootstrap-aggregation" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-bootstrap-aggregation">Bagging (Bootstrap Aggregation)</h2>
+<ul>
+<li><strong>Goal:</strong> Reduce the variance of a statistical learning method (especially useful for decision trees, which have high variance).</li>
+<li><strong>Idea:</strong> Average many trees built on bootstrapped datasets.</li>
+</ul>
+</section>
+<section id="bagging-the-process" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-the-process">Bagging: The Process</h2>
+<ol type="1">
+<li><strong>Bootstrap:</strong> Generate <em>B</em> different bootstrapped training datasets (random samples with replacement from the original data).</li>
+<li><strong>Train:</strong> Train a decision tree on each bootstrapped dataset. Grow the trees deep (don’t prune).</li>
+<li><strong>Average:</strong> For a given test observation, average the predictions from all <em>B</em> trees (for regression) or take a majority vote (for classification).</li>
+</ol>
+</section>
+<section id="bagging-out-of-bag-oob-error" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-out-of-bag-oob-error">Bagging: Out-of-Bag (OOB) Error</h2>
+<ul>
+<li><strong>OOB Observations:</strong> For each tree, the observations <em>not</em> used in the bootstrapped sample.</li>
+<li><strong>OOB Prediction:</strong> Predict the response for each observation using only the trees where it was OOB.</li>
+<li><strong>OOB Error:</strong> A valid estimate of the test error.</li>
+</ul>
+</section>
+<section id="bagging-variable-importance" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-variable-importance">Bagging: Variable Importance</h2>
+<ul>
+<li><strong>Interpretability Loss:</strong> Bagging improves accuracy but sacrifices interpretability.</li>
+<li><strong>Variable Importance Measures:</strong> Can still get an overall summary of predictor importance.
+<ul>
+<li><strong>Regression:</strong> Record the total decrease in RSS due to splits on a given predictor, averaged over all <em>B</em> trees.</li>
+<li><strong>Classification:</strong> Record the total decrease in the Gini index due to splits on a given predictor, averaged over all <em>B</em> trees.</li>
+</ul></li>
+</ul>
+</section>
+<section id="random-forests" class="level2">
+<h2 class="anchored" data-anchor-id="random-forests">Random Forests</h2>
+<ul>
+<li><strong>Improvement over Bagging:</strong> Introduces a “tweak” that <em>decorrelates</em> the trees.</li>
+<li><strong>Random Subset of Predictors:</strong> At each split, consider only a <em>random sample</em> of <em>m</em> predictors (typically, <span class="math inline">\(m \approx \sqrt{p}\)</span>).</li>
+</ul>
+</section>
+<section id="random-forests-rationale" class="level2">
+<h2 class="anchored" data-anchor-id="random-forests-rationale">Random Forests: Rationale</h2>
+<ul>
+<li><strong>Strong Predictor Problem:</strong> In bagging, if there’s one very strong predictor, most trees will use it in the top split, making the trees similar.</li>
+<li><strong>Decorrelation:</strong> By limiting the predictors at each split, random forests give other predictors a chance, leading to less correlated trees and lower variance when averaged.</li>
+</ul>
+</section>
+<section id="boosting" class="level2">
+<h2 class="anchored" data-anchor-id="boosting">Boosting</h2>
+<ul>
+<li><strong>Sequential Tree Growth:</strong> Trees are grown <em>sequentially</em>, using information from previously grown trees.</li>
+<li><strong>Slow Learning:</strong> Boosting “learns slowly” by fitting small trees to the <em>residuals</em>.</li>
+<li><strong>No Bootstrapping:</strong> Uses a modified version of the original data.</li>
+</ul>
+</section>
+<section id="boosting-the-process" class="level2">
+<h2 class="anchored" data-anchor-id="boosting-the-process">Boosting: The Process</h2>
+<ol type="1">
+<li><p><strong>Initialize:</strong> Set the initial prediction to 0 and residuals to the observed values.</p></li>
+<li><p><strong>Iterate (for b = 1 to B):</strong></p>
+<ul>
+<li>Fit a small tree (with <em>d</em> splits) to the <em>residuals</em>.</li>
+<li>Update the fitted function by adding a <em>shrunken</em> version of the new tree: <span class="math inline">\(\hat{f}(x) \leftarrow \hat{f}(x) + \lambda \hat{f}^b(x)\)</span></li>
+<li>Update the residuals: <span class="math inline">\(r_i \leftarrow r_i - \lambda \hat{f}^b(x_i)\)</span></li>
+</ul></li>
+<li><p><strong>Output:</strong> The boosted model is the sum of all trees: <span class="math inline">\(\hat{f}(x) = \sum_{b=1}^{B} \lambda \hat{f}^b(x)\)</span></p></li>
+</ol>
+</section>
+<section id="boosting-tuning-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="boosting-tuning-parameters">Boosting: Tuning Parameters</h2>
+<ul>
+<li><strong>B (Number of Trees):</strong> Boosting <em>can</em> overfit if <em>B</em> is too large (but often slowly). Use cross-validation.</li>
+<li><strong>λ (Shrinkage Parameter):</strong> A small positive number (e.g., 0.01 or 0.001) that controls the learning rate.</li>
+<li><strong>d (Number of Splits):</strong> Controls the complexity of each tree. Often <em>d</em> = 1 (stumps) works well, resulting in an additive model.</li>
+</ul>
+</section>
+<section id="bayesian-additive-regression-trees-bart" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-additive-regression-trees-bart">Bayesian Additive Regression Trees (BART)</h2>
+<p>BART, like other ensemble methods, utilizes decision trees as building blocks. Key differentiators include:</p>
+<ul>
+<li><strong>Random Tree Structure:</strong> Similar to random forests, BART introduces randomness in tree construction.</li>
+<li><strong>Sequential Updates:</strong> Like boosting, BART iteratively refines its model.</li>
+<li><strong>Tree Perturbation:</strong> Instead of fitting entirely new trees, BART modifies existing trees from previous iterations.</li>
+</ul>
+</section>
+<section id="bart-core-idea" class="level2">
+<h2 class="anchored" data-anchor-id="bart-core-idea">BART: Core Idea</h2>
+<ul>
+<li><strong>Initialization:</strong> All trees start with a single root node, predicting the mean of the response.</li>
+<li><strong>Iteration:</strong> For each tree, BART <em>randomly perturbs</em> the tree from the previous iteration:
+<ul>
+<li>Change the tree structure (add/prune branches).</li>
+<li>Change predictions in terminal nodes.</li>
+</ul></li>
+<li><strong>Output:</strong> A collection of prediction models (one for each iteration). The final prediction is typically the average after a “burn-in” period.</li>
+</ul>
+</section>
+<section id="bart-key-features" class="level2">
+<h2 class="anchored" data-anchor-id="bart-key-features">BART: Key Features</h2>
+<ul>
+<li><strong>Guards Against Overfitting:</strong> Perturbing trees rather than fitting new ones limits how aggressively the model fits the data.</li>
+<li><strong>Small Trees:</strong> Individual trees are usually small.</li>
+<li><strong>Bayesian Interpretation:</strong> Can be viewed as a Bayesian approach, with tree perturbations representing draws from a posterior distribution.</li>
+</ul>
+</section>
+<section id="summary-of-tree-ensemble-methods" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-tree-ensemble-methods">Summary of Tree Ensemble Methods</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 17%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Tree Growth</th>
+<th>Data Sampling</th>
+<th>Key Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bagging</td>
+<td>Independent</td>
+<td>Bootstrapped</td>
+<td>Average many trees to reduce variance.</td>
+</tr>
+<tr class="even">
+<td>Random Forests</td>
+<td>Independent</td>
+<td>Bootstrapped +</td>
+<td>Decorrelate trees by limiting predictors.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>Random Subset</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Boosting</td>
+<td>Sequential</td>
+<td>None (Modified)</td>
+<td>Learn slowly by fitting to residuals.</td>
+</tr>
+<tr class="odd">
+<td>BART</td>
+<td>Sequential,</td>
+<td>None</td>
+<td>Perturb trees to avoid local optima, Bayesian.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Perturbed</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>Tree-based methods are powerful tools for both regression and classification.</li>
+<li>Single decision trees are interpretable but can overfit.</li>
+<li>Ensemble methods (bagging, random forests, boosting, BART) improve predictive performance by combining multiple trees.</li>
+<li>Each ensemble method has its own approach to building and combining trees.</li>
+</ul>
+</section>
+<section id="thoughts-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion 🤔</h2>
+<ul>
+<li>When might a single decision tree be preferred over an ensemble method, even if its accuracy is slightly lower?</li>
+<li>How might you choose between bagging, random forests, and boosting for a particular problem? What factors would you consider?</li>
+<li>Can you think of real-world scenarios where tree-based methods would be particularly well-suited?</li>
+<li>What are some limitations of tree-based methods, even with ensemble techniques?</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/qiufei\.github\.io\/web-slide-r");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>🔋<a href="https://posit.co"><img src="https://posit.co/wp-content/themes/Posit/assets/images/posit-logo-2024.svg" class="img-fluid" alt="Posit" width="65"></a></p>
+</div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ 邱飞 © 2025
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://beian.miit.gov.cn">
+<p>浙ICP备 2024072710号-1</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33021202002511">
+<p>浙公网安备 33021202002511号</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:hfutqiufei@163.com">
+      <i class="bi bi-envelope-at-fill" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
