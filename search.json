@@ -2650,7 +2650,7 @@
     "href": "qmd/islp4.html#lda-example-with-three-classes",
     "title": "",
     "section": "LDA: Example with Three Classes",
-    "text": "LDA: Example with Three Classes\n ::: {.callout-note appearance=“simple”} - Left: Ellipses contain 95% of the probability for each class. Dashed lines: Bayes decision boundaries. - Right: 20 observations from each class. Solid lines: LDA decision boundaries. ::: - LDA approximates the Bayes decision boundaries."
+    "text": "LDA: Example with Three Classes\n\n\n\nMultivariate Gaussian distribution with three classes, and LDA decision boundaries\n\n\n\n\n\n\n\n\n\nLeft: Ellipses contain 95% of the probability for each class. Dashed lines: Bayes decision boundaries.\nRight: 20 observations from each class. Solid lines: LDA decision boundaries.\n\n\n\n\n\nLDA approximates the Bayes decision boundaries."
   },
   {
     "objectID": "qmd/islp4.html#lda-on-the-default-data",
