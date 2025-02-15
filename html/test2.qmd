@@ -1,0 +1,17 @@
+---
+title: "logo"
+format:
+  revealjs:
+    embed-resources: true
+    logo: https://assets.qiufei.site/personal/wx_qrcode.png
+    footer: <a href="../">退出</a>
+---
+
+## 这是
+
+测试多个qmd放到一个html文件夹下。
+
+## wode
+
+## ppt
+
