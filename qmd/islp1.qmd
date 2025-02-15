@@ -81,7 +81,7 @@ The goal is to build a model that can predict a person's wage based on these fac
 
 ## Wage Data: Wage vs. Age
 
-![Wage as a function of age](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg)
+![Wage as a function of age](figures/1_1.png)
 
 ::: {style="font-size: 0.8em;"}
 
@@ -93,7 +93,7 @@ The goal is to build a model that can predict a person's wage based on these fac
 
 ## Wage Data: Wage vs. Year & Education
 
-![Wage as a function of year and education](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg)
+![Wage as a function of year and education](figures/1_1.png)
 
 ::: {style="font-size: 0.8em;"}
 
@@ -110,7 +110,7 @@ The goal is to build a model that can predict a person's wage based on these fac
 
 ## Stock Market Data: Previous Day's Change
 
-![Boxplots of previous day's change](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg)
+![Boxplots of previous day's change](figures/1_2.png)
 
 ::: {style="font-size: 0.8em;"}
 
@@ -121,7 +121,7 @@ The goal is to build a model that can predict a person's wage based on these fac
 
 ## Stock Market Data: Predicting with QDA
 
-![Quadratic Discriminant Analysis](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_3.svg)
+![Quadratic Discriminant Analysis](figures/1_3.png)
 
 ::: {style="font-size: 0.8em;"}
 - A statistical learning method called *quadratic discriminant analysis (QDA)* was used to predict market direction.
@@ -135,7 +135,7 @@ The goal is to build a model that can predict a person's wage based on these fac
 
 ## Gene Expression Data: Principal Components
 
-![Principal Components Analysis](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg)
+![Principal Components Analysis](figures/1_4.png)
 
 ::: {style="font-size: 0.75em;"}
 - **Challenge:** Visualizing 6,830 dimensions is impossible!

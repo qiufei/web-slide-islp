@@ -1,0 +1,406 @@
+## Introduction
+
+::: {style="text-align: justify;"}
+In this chapter, we delve into **Support Vector Machines (SVMs)**, a powerful set of supervised learning models used for classification and regression. Originating in the computer science community in the 1990s, SVMs have gained widespread popularity due to their effectiveness in various applications. They're often considered one of the best "out-of-the-box" classifiers, meaning they perform well with minimal tuning.
+:::
+
+## Key Concepts
+
+Before diving into SVM, let's clarify some fundamental concepts:
+
+::: columns
+::: {.column width="50%"}
+### Data Mining
+::: {style="text-align: justify;"}
+Extracting useful patterns, trends, and information from large datasets. It uses techniques from various fields, including statistics and computer science.
+:::
+
+### Machine Learning
+::: {style="text-align: justify;"}
+A field of artificial intelligence that focuses on enabling computers to learn from data without being explicitly programmed. It involves algorithms that can improve their performance on a task as they are exposed to more data.
+:::
+:::
+
+::: {.column width="50%"}
+### Statistical Learning
+::: {style="text-align: justify;"}
+A subfield of statistics and machine learning. It focuses on developing and applying models and algorithms for prediction and inference, with an emphasis on statistical properties and interpretability.
+:::
+:::
+:::
+
+## Relationship Between Concepts
+
+```{mermaid}
+graph LR
+    A[Data Mining] --> C(Common Ground)
+    B[Machine Learning] --> C
+    D[Statistical Learning] --> C
+    C --> E[Insights & Predictions]
+```
+
+::: nonincremental
+- **Data Mining** is the broadest field, encompassing the overall process of knowledge discovery.
+- **Machine Learning** provides the algorithms that can learn from data.
+- **Statistical Learning** provides a theoretical framework for understanding and improving these algorithms, focusing on statistical rigor.
+:::
+
+## Support Vector Machines: Overview
+
+::: {style="text-align: justify;"}
+SVM is a generalization of a simpler classifier called the **maximal margin classifier.** We will explore the following concepts, each building upon the previous:
+
+1.  **Maximal Margin Classifier:** The foundation, but limited to linearly separable data.
+2.  **Support Vector Classifier:** An extension allowing for some misclassifications (soft margin), making it applicable to a wider range of datasets.
+3.  **Support Vector Machine:** A further extension using kernels to handle non-linear class boundaries.
+:::
+
+::: aside
+**Note:** People often use "support vector machines" as a blanket term. We'll be precise in distinguishing between the three concepts.
+:::
+
+## 9.1 Maximal Margin Classifier
+
+### 9.1.1 What is a Hyperplane?
+
+::: {style="text-align: justify;"}
+A hyperplane is a flat affine subspace with a dimension one less than its ambient space. Think of it as a generalization of lines and planes:
+
+-   **In 2D:** A hyperplane is a line.
+-   **In 3D:** A hyperplane is a plane.
+-   **In p dimensions:** A hyperplane is a (p-1)-dimensional flat subspace. It divides the space into two half-spaces.
+:::
+
+**Mathematical Definition:**
+
+A hyperplane in p-dimensional space is defined by the equation:
+
+$$
+\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p = 0
+$$
+
+::: nonincremental
+-   $X = (X_1, X_2, ..., X_p)^T$ represents a point in p-dimensional space.
+-   $\beta_0, \beta_1, ..., \beta_p$ are the parameters (coefficients) of the hyperplane.
+:::
+
+#### Hyperplane: Sides
+
+::: {style="text-align: justify;"}
+The hyperplane equation divides the space:
+
+-   $\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p > 0$: Points on one side.
+-   $\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p < 0$: Points on the other side.
+-   The sign of the left-hand side determines which side a point lies on.
+:::
+![Hyperplane in 2D](figures/6_7.png)
+
+::: nonincremental
+*   **FIGURE 9.1**: The blue area indicates where 1 + 2X1 + 3X2 > 0, and the purple area indicates where 1 + 2X1 + 3X2 < 0.
+:::
+
+### 9.1.2 Classification Using a Separating Hyperplane
+
+::: {style="text-align: justify;"}
+Suppose we have training data with *n* observations and *p* features, falling into two classes (-1 and 1):
+
+$$
+X = \begin{bmatrix}
+x_{11} & \cdots & x_{1p} \\
+\vdots & \ddots & \vdots \\
+x_{n1} & \cdots & x_{np}
+\end{bmatrix},
+\quad
+y = \begin{bmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{bmatrix},
+\quad y_i \in \{-1, 1\}
+$$
+
+If a *separating hyperplane* exists (meaning the classes are linearly separable), it satisfies:
+
+$$
+y_i(\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{ip}) > 0
+$$
+
+for all *i* = 1, ..., *n*. This means all points are classified correctly.
+:::
+
+#### Classification Rule
+
+We can classify a new test observation $x^* = (x_1^*, x_2^*, ..., x_p^*)^T$ using the sign of:
+
+$$
+f(x^*) = \beta_0 + \beta_1x_1^* + \beta_2x_2^* + \dots + \beta_px_p^*
+$$
+
+::: {style="text-align: justify;"}
+-   If  $f(x^*)$> 0, assign to class 1.
+-   If  $f(x^*)$< 0, assign to class -1.
+-   The *magnitude* of  $f(x^*)$ indicates the confidence of the classification. Larger magnitude means farther from the hyperplane and higher confidence.
+:::
+
+#### Separating Hyperplanes (Visual)
+
+![Separating Hyperplanes](figures/9_2.png)
+
+-   **FIGURE 9.2 Left:** Multiple separating hyperplanes exist when data is linearly separable.
+-   **FIGURE 9.2 Right:** The decision boundary created by a separating hyperplane. The blue and purple grids show how test observations would be classified.
+
+### 9.1.3 The Maximal Margin Classifier
+
+::: {style="text-align: justify;"}
+If the data is linearly separable, infinitely many separating hyperplanes exist. The *maximal margin classifier* chooses the hyperplane that maximizes the *margin*.
+
+-   **Margin:** The minimum distance from the hyperplane to any training observation. It's like creating the widest possible "street" separating the classes.
+-   **Maximal Margin Hyperplane:** The separating hyperplane that achieves the largest margin.
+:::
+
+#### Maximal Margin Intuition
+
+::: {style="text-align: justify;"}
+The maximal margin hyperplane is the "mid-line" of the widest "slab" (or "street") that can be placed between the two classes without touching any data points. A larger margin on the training data is hoped to lead to a larger margin on the test data, and thus better classification.
+:::
+
+#### Maximal Margin Classifier (Visual)
+
+![Maximal Margin Classifier](figures/9_3.png)
+
+-   **FIGURE 9.3:** The maximal margin hyperplane is shown as a solid line. The dashed lines define the margin. The points on the dashed lines are the *support vectors*.
+
+### Support Vectors
+
+::: {style="text-align: justify;"}
+-   **Support Vectors:** The training observations that lie exactly on the margin (the dashed lines in the figure).
+-   These points *support* the maximal margin hyperplane. If they move, the hyperplane moves.
+-   The maximal margin hyperplane depends *only* on the support vectors, not on any other observations. This is a crucial property.
+:::
+
+### 9.1.4 Construction of the Maximal Margin Classifier
+
+The maximal margin hyperplane is found by solving the following optimization problem:
+
+$$
+\begin{aligned}
+&\underset{\beta_0, \beta_1, \dots, \beta_p, M}{\text{maximize}} && M \\
+&\text{subject to} && \sum_{j=1}^p \beta_j^2 = 1, \\
+& && y_i(\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{ip}) \geq M \quad \forall i = 1, \dots, n.
+\end{aligned}
+$$
+
+-   **M:** The margin width, which we want to maximize.
+-   $\sum \beta_j^2 = 1$: A constraint to ensure a unique solution. It doesn't restrict the hyperplane itself, but it scales the coefficients.
+-   $y_i(\dots) \geq M$: Ensures all observations are on the correct side of the hyperplane *and* at least a distance *M* away.
+
+### 9.1.5 The Non-separable Case
+
+The maximal margin classifier works *only* if a separating hyperplane exists. If the classes overlap, no such hyperplane exists, and the optimization problem has no solution.
+
+![Non-separable Data](figures/9_4.png)
+
+-   **FIGURE 9.4:** An example where the classes are not linearly separable.
+
+## 9.2 Support Vector Classifiers
+
+### 9.2.1 Overview of the Support Vector Classifier
+
+To handle non-separable cases (and improve robustness even in separable cases), we introduce the *support vector classifier*, also known as the *soft margin classifier*. It allows some observations to be on the *wrong side of the margin* or even the *wrong side of the hyperplane*. This makes the margin "soft".
+
+#### Why Soft Margins?
+
+-   **Non-Separable Data:** Essential for overlapping classes.
+-   **Robustness:** Makes the classifier less sensitive to individual observations, reducing overfitting. A single outlier shouldn't drastically change the decision boundary.
+
+#### Sensitivity to Outliers (Visual)
+
+![Sensitivity to Outliers](figures/9_5.png)
+
+-   **FIGURE 9.5:** Adding a single outlier (right panel) dramatically changes the maximal margin hyperplane. This demonstrates the sensitivity of the maximal margin classifier.
+
+#### Soft Margin Example (Visual)
+
+![Soft Margin Example](figures/9_6.png)
+
+- **FIGURE 9.6 Left:** Most points are correctly classified and outside the margin. Some points violate the margin.
+- **FIGURE 9.6 Right:** Some points are even misclassified (on the wrong side of the hyperplane).
+
+### 9.2.2 Details of the Support Vector Classifier
+
+The support vector classifier solves a modified optimization problem:
+
+$$
+\begin{aligned}
+&\underset{\beta_0, \beta_1, \dots, \beta_p, \epsilon_1, \dots, \epsilon_n, M}{\text{maximize}} && M \\
+&\text{subject to} && \sum_{j=1}^p \beta_j^2 = 1, \\
+& && y_i(\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{ip}) \geq M(1 - \epsilon_i), \\
+& && \epsilon_i \geq 0, \quad \sum_{i=1}^n \epsilon_i \leq C.
+\end{aligned}
+$$
+
+-   $\epsilon_1, \dots, \epsilon_n$: *Slack variables*. They allow observations to be on the wrong side of the margin or hyperplane.
+-   *C*: A non-negative tuning parameter (a "budget" for violations). It controls the trade-off between margin width and the number/severity of violations.
+
+#### Slack Variables Explained
+
+-   $\epsilon_i = 0$: The *i*th observation is on the correct side of the margin.
+-   $\epsilon_i > 0$: The *i*th observation is on the wrong side of the margin (margin violation).
+-   $\epsilon_i > 1$: The *i*th observation is on the wrong side of the *hyperplane* (misclassified).
+
+#### Tuning Parameter *C*
+
+-   **C = 0:** No budget for violations. Reduces to the maximal margin classifier (if separable).
+-   **Small C:** Narrow margin, fewer violations, potentially lower bias but higher variance (more overfitting).
+-   **Large C:** Wider margin, more violations, potentially higher bias but lower variance (less overfitting).
+-    **C** is typically chosen using cross-validation.
+
+#### Impact of C (Visual)
+
+![Impact of C](figures/9_7.png)
+
+-   **FIGURE 9.7:** Shows the effect of different *C* values. Larger *C* leads to a wider margin and more support vectors.
+
+#### Support Vectors (Revisited)
+
+In the support vector classifier, *support vectors* are the observations that:
+
+-   Lie exactly on the margin ($\epsilon_i = 0$ and correctly classified)
+-   Lie on the wrong side of the margin ($0 < \epsilon_i \leq 1$)
+-   Lie on the wrong side of the hyperplane ($\epsilon_i > 1$)
+
+::: {style="text-align: justify;"}
+Only support vectors affect the hyperplane. Observations on the correct side of the margin and sufficiently far away have *no* influence. This contributes to the robustness of the SVM.
+:::
+
+## 9.3 Support Vector Machines
+
+### 9.3.1 Classification with Non-Linear Decision Boundaries
+
+The support vector classifier finds *linear* decision boundaries. What if the true boundary is non-linear?
+
+One approach: Enlarge the feature space using polynomial features (e.g.,  $X_1^2$,  $X_1X_2$, etc.). This can make the data linearly separable in the *enlarged* space.
+
+![Non-linear Data](figures/9_8.png)
+
+- **FIGURE 9.8 Left:** Clearly non-linear boundary.
+- **FIGURE 9.8 Right:** A linear classifier performs poorly.
+
+But, explicitly enlarging the feature space can be computationally expensive (or even impossible).
+
+### 9.3.2 The Support Vector Machine
+
+The *support vector machine (SVM)* extends the support vector classifier by using *kernels* to implicitly enlarge the feature space, without explicitly calculating the transformed features.
+
+**Key Idea:** The solution to the support vector classifier depends only on *inner products* of the observations, not the observations themselves.
+
+**Inner Product:** $\langle x_i, x_{i'} \rangle = \sum_{j=1}^p x_{ij}x_{i'j}$.
+
+#### Kernels
+
+A *kernel* is a function that quantifies the similarity between two observations:
+
+$$
+K(x_i, x_{i'})
+$$
+
+-   **Linear Kernel:** $K(x_i, x_{i'}) = \langle x_i, x_{i'} \rangle$. This gives the standard support vector classifier.
+-   **Polynomial Kernel:** $K(x_i, x_{i'}) = (1 + \langle x_i, x_{i'} \rangle)^d$.
+-   **Radial Kernel:** $K(x_i, x_{i'}) = \exp(-\gamma \sum_{j=1}^p (x_{ij} - x_{i'j})^2)$.
+
+By replacing the inner product with a kernel in the support vector classifier algorithm, we get the SVM. The resulting decision function is:
+
+$$
+f(x) = \beta_0 + \sum_{i \in S} \alpha_i K(x, x_i)
+$$
+
+where *S* is the set of support vector indices.
+
+#### SVM with Polynomial Kernel (Visual)
+
+![SVM with Polynomial Kernel](figures/9_9.png)
+
+-   **FIGURE 9.9 Left:** SVM with a polynomial kernel (degree 3) fits the non-linear data much better than a linear classifier.
+
+#### SVM with Radial Kernel (Visual)
+
+![SVM with Radial Kernel](figures/9_9.png)
+
+-   **FIGURE 9.9 Right:** SVM with a radial kernel also captures the non-linear boundary well.
+
+#### Radial Kernel Intuition
+
+-   The radial kernel has *local* behavior.
+-   If a test observation $x^*$ is far from a training observation $x_i$, then $K(x^*, x_i)$ is very small. This means $x_i$ has little influence on the prediction for $x^*$.
+-   Only *nearby* training observations significantly affect the prediction.
+-   $\gamma$ controls the "reach" of the kernel.
+
+#### Computational Advantage of Kernels
+
+The key advantage of kernels is that we only need to compute $K(x_i, x_{i'})$ for all pairs of training observations. We *never* need to explicitly compute the (potentially infinite-dimensional) feature mapping. This makes the computation feasible even for very complex feature spaces.
+
+### 9.3.3 An Application to the Heart Disease Data
+
+The text compares SVM to LDA on the Heart Disease Data, using ROC curves for both the training and testing data set.
+
+![ROC_train](figures/9_10.png)
+
+-   **FIGURE 9.10 Left:** The support vector classifier performs slightly better.
+-   **FIGURE 9.10 Right:** The SVM using a radial basis kernel with γ = 10-1 gives almost perfect fit on training set.
+
+---
+
+![ROC_test](figures/9_11.png)
+
+-   **FIGURE 9.11 Left:** The support vector classifier still have slight advantage over LDA.
+-   **FIGURE 9.11 Right:** On test data, The SVM using a radial basis kernel with γ = 10-1, which had the best training performance, actually performs the worst. SVM with γ = 10-2 and γ = 10-3 is similar with support vector classifier.
+
+## 9.4 SVMs with More than Two Classes
+
+SVMs are naturally designed for *binary* classification. To extend them to K > 2 classes, two common approaches are used:
+
+1.  **One-versus-One:** Construct (K choose 2) SVMs, each comparing a pair of classes. Classify a test observation by majority vote.
+
+2.  **One-versus-All:** Fit K SVMs, each comparing one class to the rest. Classify a test observation to the class with the highest decision function value.
+
+## 9.5 Relationship to Logistic Regression
+
+SVMs are closely related to logistic regression! The support vector classifier can be rewritten in a "Loss + Penalty" form:
+
+$$
+\underset{\beta_0, \beta_1, \dots, \beta_p}{\text{minimize}} \left\{ \sum_{i=1}^n \max[0, 1 - y_i(\beta_0 + \beta_1x_{i1} + \dots + \beta_px_{ip})] + \lambda \sum_{j=1}^p \beta_j^2 \right\}
+$$
+
+- The loss function is called *hinge loss*.
+- The penalty term is a ridge penalty.
+
+#### Hinge Loss vs. Logistic Regression Loss
+
+![Loss compare](figures/9_12.png)
+
+- **FIGURE 9.12:** Comparing the hinge loss (SVM) and the logistic regression loss. They are very similar.
+- Hinge Loss: exactly zero for correctly classified and far away observations.
+- Logistic Regression Loss: never exactly zero, but can be close to zero.
+
+::: {style="text-align: justify;"}
+Due to the similarity of the loss functions, SVM and logistic regression often give similar results. SVM is better with well-separated classes, and logistic regression is often preferred when classes overlap.
+:::
+
+## Summary
+
+-   **Support Vector Machines (SVMs)** are powerful classification tools.
+-   **Maximal Margin Classifier:** The foundation, for linearly separable data.
+-   **Support Vector Classifier (Soft Margin):** Handles non-separable data and improves robustness.
+-   **Support Vector Machine (Kernel Trick):** Handles non-linear boundaries efficiently.
+-   **Kernels:** Implicitly map data to high-dimensional spaces.
+-   **Support Vectors:** The key observations that define the decision boundary.
+-   **Tuning Parameters:** *C* (soft margin) and kernel parameters (e.g., $\gamma$ for radial kernel) control the bias-variance trade-off.
+-   **Relationship to Logistic Regression:** SVMs are closely related, with hinge loss being similar to logistic regression's loss.
+
+## Thoughts and Discussion
+
+1.  **Why are support vectors so important?** What does this tell us about the robustness of SVMs?
+2.  **How does the choice of kernel and its parameters affect the SVM's decision boundary?** Consider the radial kernel's $\gamma$ parameter.
+3.  **When might you prefer logistic regression over an SVM, and vice-versa?** Think about the characteristics of your data and the assumptions of each method.
+4.  **How does the `one-versus-one` method compare to the `one-versus-all` approach?** Think in computational complexity aspect and performance aspect.
+5.  **Can we apply the kernel trick to other linear models besides the support vector classifier?** If so, how?
