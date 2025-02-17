@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp3</title>
+<title>Introduction to Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +53,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,26 +133,90 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Linear Regression</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="introduction-to-linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-linear-regression">Introduction to Linear Regression</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="what-is-data-mining" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-data-mining">What is Data Mining? 🤔</h2>
+<blockquote class="blockquote">
+<p>Data mining is the process of discovering patterns, insights, and knowledge from large datasets. It involves using various techniques from statistics, computer science, and database management to extract valuable information. It’s like being a detective, but instead of solving crimes, you’re uncovering hidden clues within data.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Think of it like sifting through a mountain of data to find hidden gems of information! 💎 It’s like panning for gold, but instead of gold, you’re finding valuable insights!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-machine-learning">What is Machine Learning? 🤖</h2>
+<blockquote class="blockquote">
+<p>Machine learning is a field of artificial intelligence (AI) that focuses on enabling computers to learn from data without being explicitly programmed (i.e., without being given specific rules for every situation). It involves developing algorithms that can identify patterns, make predictions, and improve their performance over time as they are exposed to more data.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Essentially, machine learning allows computers to learn and adapt, much like humans do! The computer learns <em>from</em> the data, rather than having a programmer tell it <em>exactly</em> what to do.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-statistical-learning">What is Statistical Learning? 📈</h2>
+<blockquote class="blockquote">
+<p>Statistical learning is a framework for understanding data using statistical methods. It encompasses a vast set of tools for modeling and understanding complex datasets. It’s a recently developed area in statistics and blends with parallel developments in computer science, such as machine learning. It provides the theoretical underpinnings for many machine learning techniques.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>It is the theoretical foundation that underpins many machine learning techniques. Think of it as the “science” behind the “magic” of machine learning. It provides the mathematical and statistical rigor.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="relationship-between-data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-between-data-mining-machine-learning-and-statistical-learning">Relationship Between Data Mining, Machine Learning, and Statistical Learning</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
 <div>
-
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Data Mining] --&gt; C(Common Ground)
+    B[Machine Learning] --&gt; C
+    D[Statistical Learning] --&gt; C
+    C --&gt; E[Insights &amp; Predictions]
+</pre>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li>Linear regression is a fundamental approach in supervised learning, used primarily for predicting a quantitative response.</li>
-<li>It’s a cornerstone in statistical learning, widely used and extensively studied.</li>
-</ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/2_1.png" class="img-fluid"></p>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
@@ -159,22 +226,74 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Linear regression serves as a stepping stone to more complex statistical learning methods. Many advanced techniques can be seen as extensions or generalizations of linear regression.</p>
+<p>Data mining, machine learning, and statistical learning overlap significantly. They all involve analyzing data to extract insights and make predictions. Statistical learning provides a theoretical foundation, while machine learning focuses on algorithms and prediction. Data mining applies these techniques to large, often unstructured datasets, to uncover hidden patterns.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="key-questions-in-linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="key-questions-in-linear-regression">Key Questions in Linear Regression</h2>
-<p>We explore the <code>Advertising</code> data to address several key questions:</p>
+<section id="introduction-to-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-linear-regression">Introduction to Linear Regression</h2>
+<blockquote class="blockquote">
+<p>Linear regression is a fundamental approach in <em>supervised learning</em>, a type of machine learning where we have labeled data (input features and corresponding output values). It’s used primarily for predicting a <em>quantitative response</em> – a numerical value (e.g., sales, price, height).</p>
+</blockquote>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>It’s like trying to find the best-fitting straight line through a set of data points. 📏 Think of plotting points on a graph and then drawing the line that best captures the overall trend.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-to-linear-regression-continued" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-linear-regression-continued">Introduction to Linear Regression (Continued)</h2>
+<ul>
+<li>Linear regression is a <em>cornerstone</em> in statistical learning. It’s widely used, extensively studied, and forms the basis for many other, more advanced techniques.</li>
+<li>Many advanced statistical learning methods can be seen as <em>extensions</em> or <em>generalizations</em> of linear regression. It’s often the first technique you learn, and it’s a building block for more complex methods.</li>
+</ul>
+</section>
+<section id="visualizing-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-linear-regression">Visualizing Linear Regression</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Relationship between advertising spending and sales</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This plot shows the relationship between advertising spending (on TV, radio, and newspaper) and sales. The x-axis represents the advertising budget (in thousands of dollars) for each medium, and the y-axis represents sales (in thousands of units). Linear regression helps us understand and quantify these relationships – how much does sales increase for each dollar spent on advertising?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-questions-in-linear-regression-13" class="level2">
+<h2 class="anchored" data-anchor-id="key-questions-in-linear-regression-13">Key Questions in Linear Regression (1/3)</h2>
+<p>We’ll explore the <code>Advertising</code> data to address several key questions:</p>
 <ol type="1">
-<li><strong>Relationship Existence:</strong> Is there a connection between advertising budget and sales?</li>
-<li><strong>Relationship Strength:</strong> How strong is the link between budget and sales?</li>
-<li><strong>Media Contribution:</strong> Which advertising media (TV, radio, newspaper) contribute to sales?</li>
-<li><strong>Association Size:</strong> How much does sales increase for each dollar spent on each medium?</li>
-<li><strong>Prediction Accuracy:</strong> Can we accurately predict future sales?</li>
-<li><strong>Linearity Check:</strong> Is the relationship between advertising and sales linear?</li>
-<li><strong>Media Synergy:</strong> Do the advertising media work together synergistically (interaction effect)?</li>
+<li><strong>Relationship Existence:</strong> Is there a statistically significant connection between advertising budget and sales? 📊 In other words, is there any evidence that advertising spending affects sales at all?</li>
+</ol>
+</section>
+<section id="key-questions-in-linear-regression-23" class="level2">
+<h2 class="anchored" data-anchor-id="key-questions-in-linear-regression-23">Key Questions in Linear Regression (2/3)</h2>
+<ol start="2" type="1">
+<li><strong>Relationship Strength:</strong> If there is a relationship, how strong is the link between budget and sales? 💪 Is it a weak, moderate, or strong connection?</li>
+<li><strong>Media Contribution:</strong> Which advertising media (TV, radio, newspaper) contribute to sales? 📺📻📰 Are all media equally effective, or do some have a greater impact?</li>
+<li><strong>Association Size:</strong> How much does sales increase for each dollar spent on each medium? 💵 Quantifying the impact</li>
+</ol>
+</section>
+<section id="key-questions-in-linear-regression-33" class="level2">
+<h2 class="anchored" data-anchor-id="key-questions-in-linear-regression-33">Key Questions in Linear Regression (3/3)</h2>
+<ol start="5" type="1">
+<li><strong>Prediction Accuracy:</strong> Can we accurately predict future sales based on advertising spending? 🔮 How reliable are our predictions?</li>
+<li><strong>Linearity Check:</strong> Is the relationship between advertising and sales linear? 📏 Does a straight line adequately capture the relationship, or is a curve a better fit?</li>
+<li><strong>Media Synergy:</strong> Do the advertising media work together synergistically (interaction effect)? 🤝 Does spending on one medium <em>enhance</em> the effectiveness of another?</li>
 </ol>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -182,29 +301,53 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Addressing these questions helps determine if a relationship exists, its strength, individual media contributions, prediction accuracy, the linearity of the connection, and potential synergy effects.</p>
+<p>Addressing these questions helps determine if a relationship exists, its strength, individual media contributions, prediction accuracy, the linearity of the connection, and potential synergy effects. By answering these, we can make informed decisions about advertising strategies.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="simple-linear-regression-the-basics" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression-the-basics">Simple Linear Regression: The Basics</h2>
-<p>Simple linear regression predicts a quantitative response, <span class="math inline">\(Y\)</span>, using a single predictor variable, <span class="math inline">\(X\)</span>, assuming a linear relationship:</p>
+<p>Simple linear regression predicts a quantitative response, <span class="math inline">\(Y\)</span>, using a single predictor variable, <span class="math inline">\(X\)</span>, assuming a <em>linear relationship</em>:</p>
 <p><span class="math display">\[
 Y \approx \beta_0 + \beta_1X
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\beta_0\)</span>: Intercept (value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span>).</li>
-<li><span class="math inline">\(\beta_1\)</span>: Slope (change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span>).</li>
-<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the model <em>coefficients</em> or <em>parameters</em>.</li>
+<li><span class="math inline">\(\beta_0\)</span>: Intercept (value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span>). This is where the line crosses the Y-axis.</li>
+<li><span class="math inline">\(\beta_1\)</span>: Slope (change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(X\)</span>). This determines how steep the line is.</li>
+<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the model <em>coefficients</em> or <em>parameters</em>. These are the values we need to estimate from the data.</li>
 </ul>
+</section>
+<section id="simple-linear-regression-equation-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="simple-linear-regression-equation-visualization">Simple Linear Regression: Equation Visualization</h2>
+<p>The equation <span class="math inline">\(Y \approx \beta_0 + \beta_1X\)</span> represents a straight line:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph Linear Equation
+    A[Y] --&gt; B(β₀ + β₁X)
+    end
+    B --&gt; C[β₀: Intercept]
+    B --&gt; D[β₁: Slope]
+    C --&gt; E[Value of Y when X = 0]
+    D --&gt; F[Change in Y for a one-unit increase in X]
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This equation represents a straight line, where <span class="math inline">\(\beta_0\)</span> is the y-intercept, and <span class="math inline">\(\beta_1\)</span> is the slope.</p>
+<p>This equation defines a straight line where the intercept (<span class="math inline">\(\beta_0\)</span>) is the point where the line crosses the Y-axis (when X is zero), and the slope (<span class="math inline">\(\beta_1\)</span>) determines the steepness and direction of the line. If β₁ is positive, Y increases as X increases. If β₁ is negative, Y decreases as X increases.</p>
 </div>
 </div>
 </div>
@@ -216,10 +359,13 @@ Y \approx \beta_0 + \beta_1X
 \text{sales} \approx \beta_0 + \beta_1 \times \text{TV}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(Y\)</span>: Sales (in thousands of units).</li>
-<li><span class="math inline">\(X\)</span>: TV advertising budget (in thousands of dollars).</li>
+<li><span class="math inline">\(Y\)</span>: Sales (in thousands of units). This is the <em>response</em> variable – what we’re trying to predict.</li>
+<li><span class="math inline">\(X\)</span>: TV advertising budget (in thousands of dollars). This is the <em>predictor</em> variable – what we’re using to make the prediction.</li>
 </ul>
-<p>Once we estimate the coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (denoted as <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span>), we can predict sales:</p>
+</section>
+<section id="simple-linear-regression-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="simple-linear-regression-prediction">Simple Linear Regression: Prediction</h2>
+<p>Once we estimate the coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (denoted as <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span>), we can <em>predict</em> sales for a given TV advertising budget (<em>x</em>):</p>
 <p><span class="math display">\[
 \hat{y} = \hat{\beta_0} + \hat{\beta_1}x
 \]</span></p>
@@ -229,36 +375,74 @@ Y \approx \beta_0 + \beta_1X
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The “hat” symbol (^) indicates an estimated value. <span class="math inline">\(\hat{y}\)</span> is the <em>predicted</em> value of sales.</p>
+<p>The “hat” symbol (^) indicates an <em>estimated</em> value. <span class="math inline">\(\hat{y}\)</span> is the <em>predicted</em> value of sales, based on our estimated linear model. It’s our best guess for the sales, given the TV advertising budget.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="estimating-the-coefficients-least-squares" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-coefficients-least-squares">Estimating the Coefficients: Least Squares</h2>
-<p>Our goal is to find <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> that best fit the data, meaning the line should be as close as possible to the data points <span class="math inline">\((x_i, y_i)\)</span>. We use the <em>least squares</em> method, which minimizes the <em>residual sum of squares</em> (RSS):</p>
+<p>Our goal is to find <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> that <em>best fit</em> the data. “Best fit” means the line should be as close as possible to the data points <span class="math inline">\((x_i, y_i)\)</span>. We use the <em>least squares</em> method. Intuitively, we want to find the line that minimizes the overall “error” between the observed data and the predicted values.</p>
+</section>
+<section id="estimating-the-coefficients-residual-sum-of-squares-rss" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-coefficients-residual-sum-of-squares-rss">Estimating the Coefficients: Residual Sum of Squares (RSS)</h2>
+<p>The <em>least squares</em> method minimizes the <em>residual sum of squares</em> (RSS):</p>
 <p><span class="math display">\[
 \text{RSS} = \sum_{i=1}^{n} (y_i - \hat{y_i})^2 = \sum_{i=1}^{n} (y_i - \hat{\beta_0} - \hat{\beta_1}x_i)^2
 \]</span></p>
 <ul>
-<li><span class="math inline">\(y_i\)</span>: Actual sales for the <span class="math inline">\(i\)</span>-th observation.</li>
-<li><span class="math inline">\(\hat{y_i}\)</span>: Predicted sales for the <span class="math inline">\(i\)</span>-th observation.</li>
-<li><span class="math inline">\(e_i = y_i - \hat{y_i}\)</span>: The <em>residual</em> for the <span class="math inline">\(i\)</span>-th observation (the difference between the actual and predicted values).</li>
+<li><span class="math inline">\(y_i\)</span>: Actual sales for the <span class="math inline">\(i\)</span>-th observation. The <em>observed</em> value.</li>
+<li><span class="math inline">\(\hat{y_i}\)</span>: Predicted sales for the <span class="math inline">\(i\)</span>-th observation. The value predicted by our linear model.</li>
+<li><span class="math inline">\(e_i = y_i - \hat{y_i}\)</span>: The <em>residual</em> for the <span class="math inline">\(i\)</span>-th observation (the difference between the actual and predicted values). This is the “error” for a single data point.</li>
 </ul>
+</section>
+<section id="visualizing-residuals" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-residuals">Visualizing Residuals</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph Residual Calculation
+    A[Observed Data (yᵢ)] --&gt; C{Residual (eᵢ)}
+    B[Predicted Data (ŷᵢ)] --&gt; C
+    C --&gt; D[eᵢ = yᵢ - ŷᵢ]
+    end
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Least squares finds the line that minimizes the sum of the squared vertical distances between the data points and the line.</p>
+<p>The residual (<span class="math inline">\(e_i\)</span>) represents the error in our prediction for each data point. It’s the vertical distance between the actual data point and the point on the regression line. Least squares aims to minimize the <em>sum of the squared</em> residuals. We square the residuals to ensure they are all positive and to penalize larger errors more heavily.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-the-coefficients-least-squares-explained" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-coefficients-least-squares-explained">Estimating the Coefficients: Least Squares Explained</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Least squares finds the line that minimizes the sum of the squared vertical distances between the data points and the line. We’re essentially finding the line that makes the overall prediction error as small as possible. By squaring the distances, we ensure that positive and negative errors don’t cancel each other out, and we give more weight to larger errors.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="estimating-the-coefficients-formulas" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-coefficients-formulas">Estimating the Coefficients: Formulas</h2>
-<p>Using calculus, we find the values of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> that minimize RSS:</p>
+<p>Using calculus (specifically, taking partial derivatives and setting them to zero), we find the values of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> that minimize RSS:</p>
 <p><span class="math display">\[
 \hat{\beta_1} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
 \]</span></p>
@@ -266,16 +450,40 @@ Y \approx \beta_0 + \beta_1X
 \hat{\beta_0} = \bar{y} - \hat{\beta_1}\bar{x}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\bar{x}\)</span>: Sample mean of <span class="math inline">\(X\)</span>.</li>
-<li><span class="math inline">\(\bar{y}\)</span>: Sample mean of <span class="math inline">\(Y\)</span>.</li>
+<li><span class="math inline">\(\bar{x}\)</span>: Sample mean of <span class="math inline">\(X\)</span>. The average value of the predictor.</li>
+<li><span class="math inline">\(\bar{y}\)</span>: Sample mean of <span class="math inline">\(Y\)</span>. The average value of the response.</li>
 </ul>
+</section>
+<section id="interpreting-the-coefficient-formulas-12" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-coefficient-formulas-12">Interpreting the Coefficient Formulas (1/2)</h2>
+<p>The formula for the slope, <span class="math inline">\(\hat{\beta_1}\)</span>, can be interpreted as:</p>
+<p><span class="math display">\[
+\hat{\beta_1} = \frac{\text{Covariance}(X, Y)}{\text{Variance}(X)}
+\]</span></p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>These formulas provide the best estimates for the slope and intercept based on the available data. The slope (<span class="math inline">\(\hat{\beta_1}\)</span>) represents the average change in Y for a one-unit increase in X, and the intercept (<span class="math inline">\(\hat{\beta_0}\)</span>) is the predicted value of Y when X is zero.</p>
+<p>The numerator measures the <em>covariance</em> between X and Y, which indicates how much X and Y vary together. The denominator measures the <em>variance</em> of X, which indicates how much X varies on its own. The slope is essentially the covariance scaled by the variance of X.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="interpreting-the-coefficient-formulas-22" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-coefficient-formulas-22">Interpreting the Coefficient Formulas (2/2)</h2>
+<p>The formula for the intercept, <span class="math inline">\(\hat{\beta_0}\)</span>, ensures that the regression line passes through the point (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>).</p>
+<p><span class="math display">\[
+\hat{\beta_0} = \bar{y} - \hat{\beta_1}\bar{x}
+\]</span></p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This means that when X is equal to its average value (<span class="math inline">\(\bar{x}\)</span>), the predicted value of Y (<span class="math inline">\(\hat{y}\)</span>) will be equal to the average value of Y (<span class="math inline">\(\bar{y}\)</span>).</p>
 </div>
 </div>
 </div>
@@ -284,17 +492,20 @@ Y \approx \beta_0 + \beta_1X
 <h2 class="anchored" data-anchor-id="visualizing-the-least-squares-fit">Visualizing the Least Squares Fit</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/3_1.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_1.svg" class="img-fluid figure-img"></p>
 <figcaption>Least Squares Fit</figcaption>
 </figure>
 </div>
+</section>
+<section id="visualizing-the-least-squares-fit-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-least-squares-fit-explanation">Visualizing the Least Squares Fit: Explanation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This figure shows the least squares regression line for <code>sales</code> versus <code>TV</code> advertising. Each grey line segment represents a <em>residual</em>, the difference between the observed <code>sales</code> value and the value predicted by the line. The least squares method minimizes the sum of the squares of these residuals.</p>
+<p>This figure shows the least squares regression line for <code>sales</code> versus <code>TV</code> advertising. Each grey line segment represents a <em>residual</em> – the difference between the actual sales value and the sales value predicted by the line. The least squares method finds the line that minimizes the sum of the squares of these residuals, resulting in the “best-fitting” line.</p>
 </div>
 </div>
 </div>
@@ -302,13 +513,38 @@ Y \approx \beta_0 + \beta_1X
 <section id="assessing-coefficient-accuracy-population-vs.-sample" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-coefficient-accuracy-population-vs.-sample">Assessing Coefficient Accuracy: Population vs.&nbsp;Sample</h2>
 <ul>
-<li><strong>Population Regression Line:</strong> The “true” (but usually unknown) relationship: <span class="math inline">\(Y = \beta_0 + \beta_1X + \epsilon\)</span>.</li>
-<li><strong>Least Squares Line:</strong> The estimated relationship based on our sample: <span class="math inline">\(\hat{y} = \hat{\beta_0} + \hat{\beta_1}x\)</span>.</li>
-<li><span class="math inline">\(\epsilon\)</span>: random error term</li>
+<li><strong>Population Regression Line:</strong> The “true” (but usually unknown) relationship: <span class="math inline">\(Y = \beta_0 + \beta_1X + \epsilon\)</span>. This represents the ideal, underlying relationship in the <em>entire population</em>. We almost never know this.</li>
+<li><strong>Least Squares Line:</strong> The estimated relationship based on our <em>sample</em>: <span class="math inline">\(\hat{y} = \hat{\beta_0} + \hat{\beta_1}x\)</span>. This is our best guess at the true relationship, based on the data we have. It’s an <em>estimate</em> of the population regression line.</li>
+<li><span class="math inline">\(\epsilon\)</span>: random error term, which captures all the factors that influence Y but are not included in the model. It represents the inherent randomness in the relationship.</li>
 </ul>
+</section>
+<section id="population-vs.-sample-regression-lines-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="population-vs.-sample-regression-lines-visualization">Population vs.&nbsp;Sample Regression Lines: Visualization</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/3_3.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Population vs.&nbsp;Sample Regression Lines</figcaption>
+</figure>
+</div>
+</section>
+<section id="population-vs-sample-regression-lines-left-panel-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="population-vs-sample-regression-lines-left-panel-explanation">Population vs Sample Regression Lines: Left Panel Explanation</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The left panel shows the true population regression line (red) and the estimated least squares line (blue) from a <em>single</em> sample. The blue line is our best estimate of the red line, based on one particular set of data.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="population-vs-sample-regression-lines-right-panel-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="population-vs-sample-regression-lines-right-panel-explanation">Population vs Sample Regression Lines: Right Panel Explanation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_3.svg" class="img-fluid figure-img"></p>
 <figcaption>Population vs.&nbsp;Sample Regression Lines</figcaption>
 </figure>
 </div>
@@ -318,7 +554,7 @@ Y \approx \beta_0 + \beta_1X
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The left panel shows the true population regression line (red) and the estimated least squares line (blue) from a single sample. The right panel shows ten different least squares lines, each estimated from a different sample drawn from the same population. The least squares lines vary, but they cluster around the true population line.</p>
+<p>The right panel shows ten different least squares lines, each estimated from a <em>different</em> sample drawn from the same population. The least squares lines vary, but they cluster around the true population line (red). This illustrates the concept of <em>sampling variability</em> – our estimates will vary depending on the specific sample we draw.</p>
 </div>
 </div>
 </div>
@@ -327,15 +563,18 @@ Y \approx \beta_0 + \beta_1X
 <h2 class="anchored" data-anchor-id="assessing-coefficient-accuracy-unbiasedness">Assessing Coefficient Accuracy: Unbiasedness</h2>
 <ul>
 <li><span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> are <em>estimates</em> of the true (unknown) parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</li>
-<li>These estimates are <em>unbiased</em>: on average, they will equal the true values. This means if we took many samples and calculated the estimates each time, the average of the estimates would converge to the true values.</li>
+<li>These estimates are <em>unbiased</em>: on average, they will equal the true values.</li>
 </ul>
+</section>
+<section id="unbiasedness-explained" class="level2">
+<h2 class="anchored" data-anchor-id="unbiasedness-explained">Unbiasedness Explained</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Unbiasedness means that our estimation method doesn’t systematically over- or underestimate the true values.</p>
+<p>Unbiasedness means that our estimation method doesn’t systematically over- or underestimate the true values. If we took many samples and calculated the estimates each time, the average of the estimates would converge to the true values. This is a desirable property of an estimator – it means that, in the long run, our estimation method will give us the right answer.</p>
 </div>
 </div>
 </div>
@@ -343,22 +582,47 @@ Y \approx \beta_0 + \beta_1X
 <section id="assessing-coefficient-accuracy-standard-error" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-coefficient-accuracy-standard-error">Assessing Coefficient Accuracy: Standard Error</h2>
 <ul>
-<li><strong>Standard Error:</strong> Measures the average amount that an estimate (<span class="math inline">\(\hat{\beta_0}\)</span> or <span class="math inline">\(\hat{\beta_1}\)</span>) differs from the true value (<span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span>).</li>
-<li>Formulas for standard errors:</li>
+<li><strong>Standard Error:</strong> Measures the average amount that an estimate (<span class="math inline">\(\hat{\beta_0}\)</span> or <span class="math inline">\(\hat{\beta_1}\)</span>) differs from the true value (<span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span>). It quantifies the typical uncertainty in our estimates. It’s like a measure of the “spread” of the estimates we would get if we took many samples.</li>
 </ul>
+</section>
+<section id="standard-error-formulas" class="level2">
+<h2 class="anchored" data-anchor-id="standard-error-formulas">Standard Error: Formulas</h2>
+<p>Formulas for standard errors:</p>
 <p><span class="math display">\[
 \text{SE}(\hat{\beta_0})^2 = \sigma^2 \left[ \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2} \right]
 \]</span></p>
 <p><span class="math display">\[
 \text{SE}(\hat{\beta_1})^2 = \frac{\sigma^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
-\]</span> - <span class="math inline">\(\sigma^2\)</span>: Variance of the error term <span class="math inline">\(\epsilon\)</span> (usually unknown, estimated by the <em>residual standard error</em>, RSE).</p>
+\]</span> - <span class="math inline">\(\sigma^2\)</span>: Variance of the error term <span class="math inline">\(\epsilon\)</span> (usually unknown, estimated by the <em>residual standard error</em>, RSE). This represents the variability of the data around the true regression line.</p>
+</section>
+<section id="standard-error-interpretation-12" class="level2">
+<h2 class="anchored" data-anchor-id="standard-error-interpretation-12">Standard Error: Interpretation (1/2)</h2>
+<p><span class="math display">\[
+\text{SE}(\hat{\beta_0})^2 = \sigma^2 \left[ \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2} \right]
+\]</span></p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Smaller standard errors indicate more precise estimates. Notice that SE(<span class="math inline">\(\hat{\beta_1}\)</span>) is smaller when the <span class="math inline">\(x_i\)</span> values are more spread out.</p>
+<p>The standard error of the intercept depends on the sample size (n), the variance of the error term (σ²), the average value of X (x̄), and the spread of the X values. A larger sample size (n) leads to a smaller standard error.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="standard-error-interpretation-22" class="level2">
+<h2 class="anchored" data-anchor-id="standard-error-interpretation-22">Standard Error: Interpretation (2/2)</h2>
+<p><span class="math display">\[
+\text{SE}(\hat{\beta_1})^2 = \frac{\sigma^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\]</span></p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Smaller standard errors indicate more precise estimates. Notice that SE(<span class="math inline">\(\hat{\beta_1}\)</span>) is smaller when the <span class="math inline">\(x_i\)</span> values are more spread out – having a wider range of X values (larger denominator) gives us more information about the slope, leading to a more precise estimate. Also, a smaller error variance (σ²) leads to a smaller standard error.</p>
 </div>
 </div>
 </div>
@@ -366,7 +630,12 @@ Y \approx \beta_0 + \beta_1X
 <section id="assessing-coefficient-accuracy-confidence-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-coefficient-accuracy-confidence-intervals">Assessing Coefficient Accuracy: Confidence Intervals</h2>
 <ul>
-<li><strong>Confidence Interval:</strong> A range of values that is likely to contain the true unknown value of a parameter, with a certain level of confidence (e.g., 95%).</li>
+<li><strong>Confidence Interval:</strong> A range of values that is likely to contain the true unknown value of a parameter, with a certain level of confidence (e.g., 95%). It gives us a sense of how much our estimate might vary if we took different samples.</li>
+</ul>
+</section>
+<section id="confidence-interval-formula-and-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-interval-formula-and-interpretation">Confidence Interval: Formula and Interpretation</h2>
+<ul>
 <li>Approximate 95% confidence interval for <span class="math inline">\(\beta_1\)</span>:</li>
 </ul>
 <p><span class="math display">\[
@@ -378,7 +647,7 @@ Y \approx \beta_0 + \beta_1X
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This means that if we were to repeatedly sample from the population and construct 95% confidence intervals, approximately 95% of those intervals would contain the true value of <span class="math inline">\(\beta_1\)</span>.</p>
+<p>This means that if we were to repeatedly sample from the population and construct 95% confidence intervals, approximately 95% of those intervals would contain the true value of <span class="math inline">\(\beta_1\)</span>. It gives us a range within which we are reasonably confident the true parameter lies. The interval is centered around our estimate (<span class="math inline">\(\hat{\beta_1}\)</span>) and its width depends on the standard error.</p>
 </div>
 </div>
 </div>
@@ -386,23 +655,31 @@ Y \approx \beta_0 + \beta_1X
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
 <ul>
-<li><strong>Null Hypothesis (H₀):</strong> There is no relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (<span class="math inline">\(\beta_1 = 0\)</span>).</li>
-<li><strong>Alternative Hypothesis (Hₐ):</strong> There is <em>some</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (<span class="math inline">\(\beta_1 \neq 0\)</span>).</li>
+<li><strong>Null Hypothesis (H₀):</strong> There is <em>no</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (<span class="math inline">\(\beta_1 = 0\)</span>). This is the “skeptical” viewpoint – we assume there’s no relationship unless the data provide strong evidence otherwise.</li>
+<li><strong>Alternative Hypothesis (Hₐ):</strong> There is <em>some</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (<span class="math inline">\(\beta_1 \neq 0\)</span>). This is what we’re trying to find evidence for.</li>
+</ul>
+</section>
+<section id="hypothesis-testing-t-statistic-and-p-value" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-t-statistic-and-p-value">Hypothesis Testing: t-statistic and p-value</h2>
+<ul>
 <li><strong>t-statistic:</strong> Measures how many standard deviations <span class="math inline">\(\hat{\beta_1}\)</span> is away from 0:</li>
 </ul>
 <p><span class="math display">\[
 t = \frac{\hat{\beta_1} - 0}{\text{SE}(\hat{\beta_1})}
 \]</span></p>
 <ul>
-<li><strong>p-value:</strong> The probability of observing a t-statistic as extreme as, or more extreme than, the one calculated, <em>assuming</em> <span class="math inline">\(H_0\)</span> is true.</li>
+<li><strong>p-value:</strong> The probability of observing a t-statistic as extreme as, or more extreme than, the one calculated, <em>assuming</em> <span class="math inline">\(H_0\)</span> is true. It tells us how likely it is to see data like ours if there really is no relationship between X and Y.</li>
 </ul>
+</section>
+<section id="hypothesis-testing-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-interpretation">Hypothesis Testing: Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>A small p-value (typically &lt; 0.05) provides evidence <em>against</em> the null hypothesis, suggesting a relationship between X and Y.</p>
+<p>A small p-value (typically &lt; 0.05) provides evidence <em>against</em> the null hypothesis, suggesting a statistically significant relationship between X and Y. A large t-statistic (in absolute value) corresponds to a small p-value. If the p-value is small, it means it’s unlikely to observe such a large t-statistic if there were truly no relationship between X and Y.</p>
 </div>
 </div>
 </div>
@@ -436,13 +713,16 @@ t = \frac{\hat{\beta_1} - 0}{\text{SE}(\hat{\beta_1})}
 </tr>
 </tbody>
 </table>
+</section>
+<section id="hypothesis-testing-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-example-interpretation">Hypothesis Testing: Example Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The table shows the results of regressing <code>sales</code> on <code>TV</code> advertising. The very small p-value for <code>TV</code> provides strong evidence that <span class="math inline">\(\beta_1 \neq 0\)</span>, meaning there <em>is</em> a relationship between TV advertising and sales.</p>
+<p>The table shows the results of regressing <code>sales</code> on <code>TV</code> advertising. The very small p-value for <code>TV</code> provides strong evidence that <span class="math inline">\(\beta_1 \neq 0\)</span>, meaning there <em>is</em> a statistically significant relationship between TV advertising and sales. The t-statistic for TV (17.67) is very large, indicating that the estimated coefficient for TV is many standard errors away from zero.</p>
 </div>
 </div>
 </div>
@@ -450,8 +730,11 @@ t = \frac{\hat{\beta_1} - 0}{\text{SE}(\hat{\beta_1})}
 <section id="assessing-model-accuracy-rse" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-accuracy-rse">Assessing Model Accuracy: RSE</h2>
 <ul>
-<li><strong>Residual Standard Error (RSE):</strong> An estimate of the standard deviation of the error term <span class="math inline">\(\epsilon\)</span>. It represents the average amount that the response will deviate from the true regression line.</li>
+<li><strong>Residual Standard Error (RSE):</strong> An estimate of the standard deviation of the error term <span class="math inline">\(\epsilon\)</span>. It represents the average amount that the response will deviate from the true regression line. It’s a measure of the model’s lack of fit – how much the data points tend to scatter around the regression line.</li>
 </ul>
+</section>
+<section id="rse-formula" class="level2">
+<h2 class="anchored" data-anchor-id="rse-formula">RSE: Formula</h2>
 <p><span class="math display">\[
 \text{RSE} = \sqrt{\frac{1}{n-2}\text{RSS}} = \sqrt{\frac{1}{n-2}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}
 \]</span></p>
@@ -461,7 +744,7 @@ t = \frac{\hat{\beta_1} - 0}{\text{SE}(\hat{\beta_1})}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Lower RSE values indicate a better fit. The RSE is measured in the units of Y.</p>
+<p>Lower RSE values indicate a better fit, meaning the model’s predictions are closer to the actual values. The RSE is measured in the units of Y. The (n-2) in the denominator represents the degrees of freedom, accounting for the fact that we’ve estimated two parameters (β₀ and β₁).</p>
 </div>
 </div>
 </div>
@@ -469,21 +752,27 @@ t = \frac{\hat{\beta_1} - 0}{\text{SE}(\hat{\beta_1})}
 <section id="assessing-model-accuracy-r²" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-accuracy-r²">Assessing Model Accuracy: R²</h2>
 <ul>
-<li><strong>R² Statistic:</strong> Measures the <em>proportion of variance explained</em> by the model. It always falls between 0 and 1.</li>
+<li><strong>R² Statistic:</strong> Measures the <em>proportion of variance explained</em> by the model. It’s a measure of how well the model captures the variability in the response. It always falls between 0 and 1.</li>
 </ul>
+</section>
+<section id="r²-formula" class="level2">
+<h2 class="anchored" data-anchor-id="r²-formula">R²: Formula</h2>
 <p><span class="math display">\[
 R^2 = \frac{\text{TSS} - \text{RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{TSS}}
 \]</span></p>
 <ul>
-<li><strong>Total Sum of Squares (TSS):</strong> <span class="math inline">\(\sum(y_i - \bar{y})^2\)</span> - Measures the total variance in the response <span class="math inline">\(Y\)</span>.</li>
+<li><strong>Total Sum of Squares (TSS):</strong> <span class="math inline">\(\sum(y_i - \bar{y})^2\)</span> - Measures the total variance in the response <span class="math inline">\(Y\)</span> <em>before</em> considering the predictor. It represents the total variability in the response.</li>
 </ul>
+</section>
+<section id="r²-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="r²-interpretation">R²: Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>R² closer to 1 indicates that a large proportion of the variability in the response is explained by the regression. R² is the square of the correlation between X and Y in simple linear regression.</p>
+<p>R² closer to 1 indicates that a large proportion of the variability in the response is explained by the regression. An R² of 0 means the model explains none of the variability (the model is no better than just predicting the average value of Y). In simple linear regression, R² is the square of the correlation between X and Y. It can be interpreted as the percentage of the variation in Y that can be attributed to X.</p>
 </div>
 </div>
 </div>
@@ -512,13 +801,16 @@ R^2 = \frac{\text{TSS} - \text{RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{T
 </tr>
 </tbody>
 </table>
+</section>
+<section id="assessing-model-accuracy-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="assessing-model-accuracy-example-interpretation">Assessing Model Accuracy: Example Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>For the regression of <code>sales</code> on <code>TV</code>, the RSE is 3.26 (thousands of units), and the R² is 0.612. This means that about 61.2% of the variability in sales is explained by TV advertising.</p>
+<p>For the regression of <code>sales</code> on <code>TV</code>, the RSE is 3.26 (thousands of units). This means that, on average, the actual sales values deviate from the true regression line by about 3,260 units. The R² is 0.612, meaning that 61.2% of the variability in sales is explained by TV advertising. The F-statistic is a measure of overall model significance (relevant for multiple regression, discussed later).</p>
 </div>
 </div>
 </div>
@@ -530,7 +822,7 @@ R^2 = \frac{\text{TSS} - \text{RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{T
 Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\beta_j\)</span>: The average effect on <span class="math inline">\(Y\)</span> of a one-unit increase in <span class="math inline">\(X_j\)</span>, <em>holding all other predictors fixed</em>.</li>
+<li><span class="math inline">\(\beta_j\)</span>: The average effect on <span class="math inline">\(Y\)</span> of a one-unit increase in <span class="math inline">\(X_j\)</span>, <em>holding all other predictors fixed</em>. This is a crucial point – the interpretation of each coefficient is <em>conditional</em> on the other predictors being in the model.</li>
 </ul>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -538,7 +830,7 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Each predictor now has its own slope coefficient.</p>
+<p>Each predictor now has its own slope coefficient, representing its unique contribution to the response, <em>while controlling for the other predictors</em>. This allows us to isolate the effect of each predictor.</p>
 </div>
 </div>
 </div>
@@ -548,6 +840,10 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 <p><span class="math display">\[
 \text{sales} = \beta_0 + \beta_1 \times \text{TV} + \beta_2 \times \text{radio} + \beta_3 \times \text{newspaper} + \epsilon
 \]</span></p>
+<p>Here, we’re trying to predict sales using TV, radio, <em>and</em> newspaper advertising budgets.</p>
+</section>
+<section id="multiple-linear-regression-example-results" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-linear-regression-example-results">Multiple Linear Regression: Example Results</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -589,13 +885,16 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 </tr>
 </tbody>
 </table>
+</section>
+<section id="multiple-linear-regression-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-linear-regression-example-interpretation">Multiple Linear Regression: Example Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Holding TV and newspaper advertising fixed, spending an additional $1,000 on radio advertising is associated with an increase in sales of approximately 189 units. The newspaper coefficient is not statistically significant. The interpretation changes compared to simple linear regression due to correlations between the predictors.</p>
+<p><em>Holding TV and newspaper advertising fixed</em>, spending an additional $1,000 on radio advertising is associated with an increase in sales of approximately 189 units. The newspaper coefficient is not statistically significant (p-value &gt; 0.05), suggesting that <em>after accounting for TV and radio advertising</em>, newspaper advertising does not have a significant impact on sales.</p>
 </div>
 </div>
 </div>
@@ -643,13 +942,16 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 </tr>
 </tbody>
 </table>
+</section>
+<section id="correlation-matrix-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-matrix-explanation">Correlation Matrix: Explanation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This correlation matrix shows the pairwise correlations between the variables in the <code>Advertising</code> data. Notice the moderate correlation (0.35) between <code>radio</code> and <code>newspaper</code>. This explains the difference in the <code>newspaper</code> coefficient between the simple and multiple linear regressions.</p>
+<p>This correlation matrix shows the pairwise correlations between the variables in the <code>Advertising</code> data. Notice the moderate correlation (0.35) between <code>radio</code> and <code>newspaper</code>. This correlation can affect the coefficients in the multiple regression model, explaining why the <code>newspaper</code> coefficient is not significant in the multiple regression, even though it might be significant in a simple linear regression with only <code>newspaper</code>. The correlation between radio and newspaper “confounds” the effect of newspaper on sales.</p>
 </div>
 </div>
 </div>
@@ -657,7 +959,7 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 <section id="important-questions-in-multiple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="important-questions-in-multiple-linear-regression">Important Questions in Multiple Linear Regression</h2>
 <ol type="1">
-<li><strong>Any Useful Predictors?</strong> Is at least <em>one</em> predictor useful in predicting the response? (F-test)</li>
+<li><strong>Any Useful Predictors?</strong> Is at least <em>one</em> predictor useful in predicting the response? (F-test, discussed next)</li>
 <li><strong>All or Subset?</strong> Do <em>all</em> predictors help explain <span class="math inline">\(Y\)</span>, or only a subset? (Variable selection)</li>
 <li><strong>Model Fit:</strong> How well does the model fit the data? (RSE, R²)</li>
 <li><strong>Prediction:</strong> Given predictor values, what should we predict for the response, and how accurate is our prediction? (Prediction intervals, confidence intervals)</li>
@@ -666,8 +968,13 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \epsilon
 <section id="one-is-there-a-relationship-f-test" class="level2">
 <h2 class="anchored" data-anchor-id="one-is-there-a-relationship-f-test">One: Is There a Relationship? (F-test)</h2>
 <ul>
-<li><strong>Null Hypothesis (H₀):</strong> <em>All</em> coefficients are zero (<span class="math inline">\(\beta_1 = \beta_2 = \dots = \beta_p = 0\)</span>).</li>
-<li><strong>Alternative Hypothesis (Hₐ):</strong> At least <em>one</em> coefficient is non-zero.</li>
+<li><strong>Null Hypothesis (H₀):</strong> <em>All</em> coefficients are zero (<span class="math inline">\(\beta_1 = \beta_2 = \dots = \beta_p = 0\)</span>). This means <em>none</em> of the predictors are related to the response.</li>
+<li><strong>Alternative Hypothesis (Hₐ):</strong> At least <em>one</em> coefficient is non-zero. This means at least one predictor is related to the response.</li>
+</ul>
+</section>
+<section id="f-statistic-formula" class="level2">
+<h2 class="anchored" data-anchor-id="f-statistic-formula">F-statistic: Formula</h2>
+<ul>
 <li><strong>F-statistic:</strong></li>
 </ul>
 <p><span class="math display">\[
@@ -679,7 +986,7 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>If there’s <em>no</em> relationship between the response and predictors, the F-statistic will be close to 1. If Hₐ is true, F will be <em>greater</em> than 1.</p>
+<p>If there’s <em>no</em> relationship between the response and predictors, the F-statistic will be close to 1. If Hₐ is true, F will be <em>greater</em> than 1. The larger the F-statistic, the stronger the evidence against the null hypothesis. The numerator represents the variance explained by the model, and the denominator represents the unexplained variance. The values <em>p</em> and <em>(n - p - 1)</em> are the degrees of freedom for the numerator and denominator, respectively.</p>
 </div>
 </div>
 </div>
@@ -708,13 +1015,16 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 </tr>
 </tbody>
 </table>
+</section>
+<section id="f-test-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="f-test-example-interpretation">F-test: Example Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The F-statistic for the multiple regression of <code>sales</code> on <code>TV</code>, <code>radio</code>, and <code>newspaper</code> is 570. This is much larger than 1, providing strong evidence against the null hypothesis. The p-value is essentially zero, indicating that at least one advertising medium is related to sales.</p>
+<p>The F-statistic for the multiple regression of <code>sales</code> on <code>TV</code>, <code>radio</code>, and <code>newspaper</code> is 570. This is much larger than 1, providing strong evidence <em>against</em> the null hypothesis. The associated p-value is essentially zero, indicating that at least one advertising medium is significantly related to sales. The high R² (0.897) also indicates a good model fit – the predictors explain a large proportion of the variance in sales.</p>
 </div>
 </div>
 </div>
@@ -722,21 +1032,24 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 <section id="two-deciding-on-important-variables-variable-selection" class="level2">
 <h2 class="anchored" data-anchor-id="two-deciding-on-important-variables-variable-selection">Two: Deciding on Important Variables (Variable Selection)</h2>
 <ul>
-<li><strong>Goal:</strong> Identify the subset of predictors that are most strongly related to the response.</li>
-<li><strong>Methods:</strong>
+<li><p><strong>Goal:</strong> Identify the <em>subset</em> of predictors that are most strongly related to the response. We want to find the most important predictors and exclude those that don’t contribute meaningfully to the model. We aim for a <em>parsimonious</em> model – one that is as simple as possible while still explaining the data well.</p></li>
+<li><p><strong>Methods:</strong></p>
 <ul>
-<li><em>Forward Selection:</em> Start with the null model (intercept only) and add predictors one by one.</li>
-<li><em>Backward Selection:</em> Start with all predictors and remove them one by one.</li>
-<li><em>Mixed Selection:</em> Combination of forward and backward selection.</li>
+<li><em>Forward Selection:</em> Start with the null model (intercept only) and add predictors one by one, based on which improves the model fit the most (e.g., largest decrease in RSS or increase in R²).</li>
+<li><em>Backward Selection:</em> Start with all predictors and remove them one by one, based on which has the least impact on the model fit (e.g., smallest decrease in RSS or decrease in R²).</li>
+<li><em>Mixed Selection:</em> Combination of forward and backward selection, allowing for both adding and removing predictors at each step.</li>
 </ul></li>
 </ul>
+</section>
+<section id="variable-selection-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="variable-selection-explanation">Variable Selection: Explanation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>We typically can’t try all possible subsets of predictors (there are 2ᵖ of them!), so we use these more efficient methods.</p>
+<p>We typically can’t try all possible subsets of predictors (there are 2<sup>p</sup> of them!), so we use these more efficient, step-wise methods to find a good model. These methods provide a computationally feasible way to search for a good subset of predictors.</p>
 </div>
 </div>
 </div>
@@ -744,16 +1057,19 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 <section id="three-model-fit-rse-and-r²" class="level2">
 <h2 class="anchored" data-anchor-id="three-model-fit-rse-and-r²">Three: Model Fit (RSE and R²)</h2>
 <ul>
-<li><strong>RSE and R²:</strong> Same interpretations as in simple linear regression.</li>
-<li><strong>Important Note:</strong> R² will <em>always</em> increase when more variables are added to the model, even if those variables are only weakly associated with the response.</li>
+<li><strong>RSE and R²:</strong> Same interpretations as in simple linear regression. RSE measures the average prediction error, and R² measures the proportion of variance explained.</li>
+<li><strong>Important Note:</strong> R² will <em>always</em> increase when more variables are added to the model, even if those variables are only weakly associated with the response. This is because adding variables always reduces the RSS on the <em>training</em> data.</li>
 </ul>
+</section>
+<section id="model-fit-caveat" class="level2">
+<h2 class="anchored" data-anchor-id="model-fit-caveat">Model Fit: Caveat</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Adding more variables always reduces the RSS on the <em>training</em> data, but may not improve predictions on <em>new</em> data.</p>
+<p>Adding more variables may not improve predictions on <em>new</em> data (test data). We need to be careful not to <em>overfit</em> the training data by including too many predictors. Techniques like <em>cross-validation</em> can help assess model performance on unseen data and prevent overfitting. Adjusted R² is another metric that penalizes the addition of unnecessary variables.</p>
 </div>
 </div>
 </div>
@@ -762,24 +1078,35 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 <h2 class="anchored" data-anchor-id="four-predictions">Four: Predictions</h2>
 <p>Three sources of uncertainty in predictions:</p>
 <ol type="1">
-<li><strong>Coefficient Uncertainty:</strong> The least squares plane is only an <em>estimate</em> of the true population regression plane. (Reducible error, addressed with confidence intervals)</li>
-<li><strong>Model Bias:</strong> The linear model is likely an approximation. (Reducible error, addressed by considering more complex models)</li>
-<li><strong>Irreducible Error:</strong> Even if we knew the true relationship, we couldn’t predict <span class="math inline">\(Y\)</span> perfectly because of the random error <span class="math inline">\(\epsilon\)</span>. (Addressed with prediction intervals)</li>
+<li><strong>Coefficient Uncertainty:</strong> The least squares plane is only an <em>estimate</em> of the true population regression plane. (Reducible error – we can reduce this by getting more data).</li>
+<li><strong>Model Bias:</strong> The linear model is likely an approximation of the true relationship. (Reducible error – we can reduce this by using a more flexible model).</li>
+<li><strong>Irreducible Error:</strong> Even if we knew the true relationship, we couldn’t predict <span class="math inline">\(Y\)</span> perfectly because of the random error <span class="math inline">\(\epsilon\)</span>. (We can’t reduce this).</li>
 </ol>
+</section>
+<section id="addressing-prediction-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="addressing-prediction-uncertainty">Addressing Prediction Uncertainty</h2>
+<ul>
+<li><strong>Coefficient Uncertainty:</strong> Addressed with <em>confidence intervals</em>.</li>
+<li><strong>Model Bias:</strong> Addressed by considering more complex models (e.g., non-linear models, interaction terms).</li>
+<li><strong>Irreducible Error:</strong> Addressed with <em>prediction intervals</em>.</li>
+</ul>
 </section>
 <section id="confidence-vs.-prediction-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="confidence-vs.-prediction-intervals">Confidence vs.&nbsp;Prediction Intervals</h2>
 <ul>
-<li><strong>Confidence Interval:</strong> Quantifies uncertainty around the <em>average</em> response value.</li>
-<li><strong>Prediction Interval:</strong> Quantifies uncertainty around a <em>single</em> response value.</li>
+<li><strong>Confidence Interval:</strong> Quantifies uncertainty around the <em>average</em> response value for a given set of predictor values. It tells us where the <em>average</em> response is likely to fall, given the predictor values.</li>
+<li><strong>Prediction Interval:</strong> Quantifies uncertainty around a <em>single</em> response value for a given set of predictor values. It tells us where an <em>individual</em> response is likely to fall, given the predictor values.</li>
 </ul>
+</section>
+<section id="confidence-vs.-prediction-intervals-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-vs.-prediction-intervals-comparison">Confidence vs.&nbsp;Prediction Intervals: Comparison</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Prediction intervals are <em>always</em> wider than confidence intervals because they account for both the uncertainty in estimating the population regression plane <em>and</em> the inherent variability of individual data points around that plane.</p>
+<p>Prediction intervals are <em>always</em> wider than confidence intervals because they account for both the uncertainty in estimating the population regression plane <em>and</em> the inherent variability of individual data points around that plane (the irreducible error). Confidence intervals only account for the uncertainty in estimating the <em>average</em> response.</p>
 </div>
 </div>
 </div>
@@ -787,21 +1114,22 @@ F = \frac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n - p - 1)}
 <section id="qualitative-predictors" class="level2">
 <h2 class="anchored" data-anchor-id="qualitative-predictors">Qualitative Predictors</h2>
 <ul>
-<li><strong>Qualitative Predictor (Factor):</strong> A variable with categorical values (levels).</li>
-<li><strong>Dummy Variable:</strong> A numerical variable used to represent a qualitative predictor in a regression model.
-<ul>
-<li>For a predictor with two levels: Create one dummy variable.</li>
-<li>For a predictor with more than two levels: Create one fewer dummy variable than the number of levels.</li>
-<li>One level will serve as a baseline.</li>
-</ul></li>
+<li><strong>Qualitative Predictor (Factor):</strong> A variable with categorical values (levels). Examples: gender (male/female), region (North/South/East/West), type of product (A/B/C).</li>
+<li><strong>Dummy Variable:</strong> A numerical variable used to represent a qualitative predictor in a regression model. We convert categorical values into numerical codes.</li>
 </ul>
+</section>
+<section id="dummy-variables-how-they-work" class="level2">
+<h2 class="anchored" data-anchor-id="dummy-variables-how-they-work">Dummy Variables: How They Work</h2>
+<pre><code>-   For a predictor with two levels: Create *one* dummy variable.
+-   For a predictor with more than two levels: Create *one fewer dummy variable than the number of levels.
+-   One level will serve as a *baseline* (reference) level.</code></pre>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<pre><code>Each dummy variable is coded as 0 or 1, indicating the absence or presence of a particular level.</code></pre>
+<p>Each dummy variable is coded as 0 or 1, indicating the <em>absence</em> or <em>presence</em> of a particular level. The baseline level is implicitly represented when all dummy variables are 0.</p>
 </div>
 </div>
 </div>
@@ -818,6 +1146,9 @@ x_i = \begin{cases}
 0 &amp; \text{if person } i \text{ does not own a house}
 \end{cases}
 \]</span></p>
+</section>
+<section id="qualitative-predictors-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-predictors-regression-model">Qualitative Predictors: Regression Model</h2>
 <ul>
 <li>Regression model:</li>
 </ul>
@@ -827,13 +1158,56 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 \beta_0 + \epsilon_i &amp; \text{if person } i \text{ does not own a house}
 \end{cases}
 \]</span></p>
+</section>
+<section id="qualitative-predictors-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-predictors-interpretation">Qualitative Predictors: Interpretation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span class="math inline">\(\beta_0\)</span> represents the average credit card balance for non-owners, and <span class="math inline">\(\beta_0 + \beta_1\)</span> represents the average balance for owners. <span class="math inline">\(\beta_1\)</span> is the average <em>difference</em> in balance between owners and non-owners.</p>
+<p><span class="math inline">\(\beta_0\)</span> represents the average credit card balance for non-owners (the baseline group). <span class="math inline">\(\beta_0 + \beta_1\)</span> represents the average balance for owners. <span class="math inline">\(\beta_1\)</span> is the average <em>difference</em> in balance between owners and non-owners. The coefficient of the dummy variable represents the difference in the mean response between the level represented by the dummy variable and the baseline level.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="qualitative-predictors-more-than-two-levels" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-predictors-more-than-two-levels">Qualitative Predictors: More than Two Levels</h2>
+<p>Suppose we have a qualitative predictor, <code>region</code>, with three levels: North, South, and West. We create <em>two</em> dummy variables:</p>
+<p><span class="math display">\[
+x_{i1} = \begin{cases}
+1 &amp; \text{if person } i \text{ is from the North} \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+x_{i2} = \begin{cases}
+1 &amp; \text{if person } i \text{ is from the South} \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+</section>
+<section id="qualitative-predictors-multi-level-regression" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-predictors-multi-level-regression">Qualitative Predictors: Multi-Level Regression</h2>
+<p>The regression model would be:</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i = \begin{cases}
+\beta_0 + \beta_1 + \epsilon_i &amp; \text{if North} \\
+\beta_0 + \beta_2 + \epsilon_i &amp; \text{if South} \\
+\beta_0 + \epsilon_i &amp; \text{if West (baseline)}
+\end{cases}
+\]</span></p>
+</section>
+<section id="qualitative-predictors-multi-level-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-predictors-multi-level-interpretation">Qualitative Predictors: Multi-Level Interpretation</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math inline">\(\beta_0\)</span> represents the average balance for people from the West (the baseline). <span class="math inline">\(\beta_1\)</span> represents the average difference in balance between people from the North and the West. <span class="math inline">\(\beta_2\)</span> represents the average difference in balance between people from the South and the West.</p>
 </div>
 </div>
 </div>
@@ -841,17 +1215,20 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <section id="interactions" class="level2">
 <h2 class="anchored" data-anchor-id="interactions">Interactions</h2>
 <ul>
-<li><strong>Additive Assumption:</strong> The effect of one predictor on the response does <em>not</em> depend on the values of other predictors.</li>
-<li><strong>Interaction Effect (Synergy):</strong> The effect of one predictor on the response <em>does</em> depend on the values of other predictors.</li>
-<li><strong>Interaction Term:</strong> Include the <em>product</em> of two predictors in the model.</li>
+<li><strong>Additive Assumption:</strong> The effect of one predictor on the response does <em>not</em> depend on the values of other predictors. The effect of each predictor is independent of the others. This is a simplifying assumption, but it may not always be true.</li>
+<li><strong>Interaction Effect (Synergy):</strong> The effect of one predictor on the response <em>does</em> depend on the values of other predictors. The combined effect of two predictors is different from the sum of their individual effects.</li>
+<li><strong>Interaction Term:</strong> Include the <em>product</em> of two predictors in the model to capture the interaction effect.</li>
 </ul>
+</section>
+<section id="interactions-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="interactions-explanation">Interactions: Explanation</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Interactions allow the relationship between a predictor and the response to vary depending on the values of other predictors.</p>
+<p>Interactions allow the relationship between a predictor and the response to vary depending on the values of other predictors. They allow for a more flexible and realistic model, capturing situations where the effect of one predictor is amplified or diminished by another.</p>
 </div>
 </div>
 </div>
@@ -861,7 +1238,11 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <p><span class="math display">\[
 \text{sales} = \beta_0 + \beta_1 \times \text{TV} + \beta_2 \times \text{radio} + \beta_3 \times (\text{TV} \times \text{radio}) + \epsilon
 \]</span></p>
-<p>This can be rewritten as:</p>
+<p>This model includes an interaction term between TV and radio advertising.</p>
+</section>
+<section id="interactions-rewritten-equation" class="level2">
+<h2 class="anchored" data-anchor-id="interactions-rewritten-equation">Interactions: Rewritten Equation</h2>
+<p>The model with the interaction term can be rewritten as:</p>
 <p><span class="math display">\[
 \text{sales} = \beta_0 + (\beta_1 + \beta_3 \times \text{radio}) \times \text{TV} + \beta_2 \times \text{radio} + \epsilon
 \]</span></p>
@@ -871,7 +1252,28 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Now, the slope for <code>TV</code> depends on the value of <code>radio</code>. The interaction term allows for synergy between the advertising media.</p>
+<p>Now, the slope for <code>TV</code> (<span class="math inline">\(\beta_1 + \beta_3 \times \text{radio}\)</span>) depends on the value of <code>radio</code>. The interaction term (<span class="math inline">\(\beta_3\)</span>) allows for synergy between the advertising media. If <span class="math inline">\(\beta_3\)</span> is positive, the effect of TV advertising increases as radio advertising increases. If <span class="math inline">\(\beta_3\)</span> is negative, the effect of TV advertising decreases as radio advertising increases.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="interactions-qualitative-and-quantitative-predictors" class="level2">
+<h2 class="anchored" data-anchor-id="interactions-qualitative-and-quantitative-predictors">Interactions: Qualitative and Quantitative Predictors</h2>
+<p>We can also include interactions between qualitative and quantitative predictors. For example, we could model the relationship between <code>balance</code>, <code>income</code>, and <code>student</code> (a qualitative variable indicating whether someone is a student) as:</p>
+<p><span class="math display">\[
+\text{balance} = \beta_0 + \beta_1 \times \text{income} + \beta_2 \times \text{student} + \beta_3 \times (\text{income} \times \text{student}) + \epsilon
+\]</span></p>
+<p>where <code>student</code> is a dummy variable (1 if student, 0 otherwise).</p>
+</section>
+<section id="interaction-qualitative-and-quantitative-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interaction-qualitative-and-quantitative-interpretation">Interaction: Qualitative and Quantitative Interpretation</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This model allows for different slopes for students and non-students. The coefficient β₃ represents the <em>difference</em> in the slope of the income-balance relationship between students and non-students. This allows the effect of income on balance to be different for students compared to non-students.</p>
 </div>
 </div>
 </div>
@@ -879,9 +1281,12 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <section id="non-linear-relationships-polynomial-regression" class="level2">
 <h2 class="anchored" data-anchor-id="non-linear-relationships-polynomial-regression">Non-linear Relationships: Polynomial Regression</h2>
 <ul>
-<li><strong>Linearity Assumption:</strong> The relationship between the predictors and the response is linear.</li>
-<li><strong>Polynomial Regression:</strong> Include polynomial terms (e.g., <span class="math inline">\(X^2\)</span>, <span class="math inline">\(X^3\)</span>) of the predictors in the model to capture non-linear relationships.</li>
+<li><strong>Linearity Assumption:</strong> The relationship between the predictors and the response is linear. This is another simplifying assumption that may not always hold.</li>
+<li><strong>Polynomial Regression:</strong> Include <em>polynomial terms</em> (e.g., <span class="math inline">\(X^2\)</span>, <span class="math inline">\(X^3\)</span>) of the predictors in the model to capture <em>non-linear</em> relationships.</li>
 </ul>
+</section>
+<section id="polynomial-regression-example" class="level2">
+<h2 class="anchored" data-anchor-id="polynomial-regression-example">Polynomial Regression: Example</h2>
 <p><span class="math display">\[
 \text{mpg} = \beta_0 + \beta_1 \times \text{horsepower} + \beta_2 \times \text{horsepower}^2 + \epsilon
 \]</span></p>
@@ -891,13 +1296,46 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This is still a <em>linear</em> regression model (linear in the coefficients), but it models a <em>non-linear</em> relationship between <code>mpg</code> and <code>horsepower</code>.</p>
+<p>This is still a <em>linear</em> regression model (linear in the coefficients), but it models a <em>non-linear</em> (quadratic) relationship between <code>mpg</code> and <code>horsepower</code>. We’re fitting a curve rather than a straight line to the data.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-polynomial-regression" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-polynomial-regression">Visualizing Polynomial Regression</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_8.svg" class="img-fluid" alt="Polynomial Regression"> ## Polynomial Regression: degree = 1</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/3_8.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_8.svg" class="img-fluid figure-img"></p>
 <figcaption>Polynomial Regression</figcaption>
 </figure>
 </div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Here is the linear fit (dashed), and It does not fit the data well</p>
+</div>
+</div>
+</div>
+</section>
+<section id="polynomial-regression-degree-2" class="level2">
+<h2 class="anchored" data-anchor-id="polynomial-regression-degree-2">Polynomial Regression: degree = 2</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F3_8.svg" class="img-fluid figure-img"></p>
+<figcaption>Polynomial Regression</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The plot shows a linear fit (dashed) and a quadratic fit (degree = 2, solid) to the relationship between <code>horsepower</code> and <code>mpg</code>. The quadratic fit captures the non-linear relationship better. We can see that as horsepower increases, mpg initially decreases, but then the rate of decrease slows down, and eventually, mpg might even start to increase slightly at very high horsepower levels.</p>
 </div>
 </div>
 </div>
@@ -905,42 +1343,89 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i = \begin{cases}
 <section id="potential-problems-in-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="potential-problems-in-linear-regression">Potential Problems in Linear Regression</h2>
 <ol type="1">
-<li><strong>Non-linearity:</strong> The relationship between response and predictors is not linear. (Use residual plots to detect)</li>
-<li><strong>Correlation of Error Terms:</strong> Errors are not independent. (Common in time series data)</li>
-<li><strong>Non-constant Variance of Error Terms (Heteroscedasticity):</strong> Variance of errors changes with the response. (Funnel shape in residual plot)</li>
+<li><strong>Non-linearity:</strong> The relationship between response and predictors is not linear.</li>
+<li><strong>Correlation of Error Terms:</strong> Errors are not independent (e.g., time series data).</li>
+<li><strong>Non-constant Variance of Error Terms (Heteroscedasticity):</strong> Variance of errors changes with the response or predictors.</li>
 <li><strong>Outliers:</strong> Observations with unusual response values.</li>
 <li><strong>High Leverage Points:</strong> Observations with unusual predictor values.</li>
 <li><strong>Collinearity:</strong> Predictors are highly correlated.</li>
 </ol>
+</section>
+<section id="potential-problems-impact" class="level2">
+<h2 class="anchored" data-anchor-id="potential-problems-impact">Potential Problems: Impact</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>These problems can affect the accuracy and interpretability of the regression model.</p>
+<p>These problems can affect the accuracy and interpretability of the regression model. They can lead to biased coefficient estimates, incorrect standard errors, and misleading conclusions. It’s important to diagnose and address these issues to ensure the model is reliable and valid.</p>
 </div>
 </div>
 </div>
+</section>
+<section id="problem-1-non-linearity" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1-non-linearity">Problem 1: Non-linearity</h2>
+<ul>
+<li><strong>Detection:</strong> Residual plots (plot of residuals vs.&nbsp;predicted values or predictors). A non-linear pattern in the residual plot suggests non-linearity.</li>
+<li><strong>Solution:</strong> Non-linear transformations of the predictors (log, square root, polynomial terms), or use non-linear regression models.</li>
+</ul>
+</section>
+<section id="problem-2-correlation-of-error-terms" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2-correlation-of-error-terms">Problem 2: Correlation of Error Terms</h2>
+<ul>
+<li><strong>Detection:</strong> Examine the context of the data (e.g., time series data, clustered data). Autocorrelation plots for time series data.</li>
+<li><strong>Solution:</strong> Use time series methods (e.g., autoregressive models) or generalized least squares.</li>
+</ul>
+</section>
+<section id="problem-3-heteroscedasticity" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3-heteroscedasticity">Problem 3: Heteroscedasticity</h2>
+<ul>
+<li><strong>Detection:</strong> Residual plots. A “funnel” shape (increasing or decreasing spread of residuals) suggests heteroscedasticity.</li>
+<li><strong>Solution:</strong> Transformations of the response variable (e.g., log(Y)), weighted least squares.</li>
+</ul>
+</section>
+<section id="problem-4-outliers" class="level2">
+<h2 class="anchored" data-anchor-id="problem-4-outliers">Problem 4: Outliers</h2>
+<ul>
+<li><strong>Detection:</strong> Residual plots, studentized residuals. Observations with very large residuals (e.g., |studentized residual| &gt; 3) are potential outliers.</li>
+<li><strong>Solution:</strong> Investigate the outliers. If they are due to data entry errors, correct them. If not, consider robust regression methods or removing the outliers (with caution).</li>
+</ul>
+</section>
+<section id="problem-5-high-leverage-points" class="level2">
+<h2 class="anchored" data-anchor-id="problem-5-high-leverage-points">Problem 5: High Leverage Points</h2>
+<ul>
+<li><strong>Detection:</strong> Leverage statistics. Observations with high leverage have a large influence on the regression line.</li>
+<li><strong>Solution:</strong> Investigate the points. If they are errors, correct them. If not, consider their impact on the model.</li>
+</ul>
+</section>
+<section id="problem-6-collinearity" class="level2">
+<h2 class="anchored" data-anchor-id="problem-6-collinearity">Problem 6: Collinearity</h2>
+<ul>
+<li><strong>Detection:</strong> Correlation matrix of predictors. Variance inflation factor (VIF). High correlation (&gt; 0.7 or 0.8) or VIF values (&gt; 5 or 10) suggest collinearity.</li>
+<li><strong>Solution:</strong> Remove one or more of the collinear predictors, combine collinear predictors, or use regularization techniques (ridge regression, lasso).</li>
+</ul>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
 <li>Linear regression is a fundamental and versatile tool for predicting a quantitative response.</li>
-<li>It relies on assumptions about linearity, additivity, and the error terms.</li>
-<li>We can assess model fit using RSE and R², and assess coefficient significance using t-statistics and p-values.</li>
-<li>Multiple linear regression allows for multiple predictors, and we can use the F-test to check for any relationship between the predictors and the response.</li>
-<li>Extensions like qualitative predictors, interaction terms, and polynomial regression increase the flexibility of the linear model.</li>
+<li>It relies on assumptions about linearity, additivity, and the error terms. It’s important to check these assumptions.</li>
+<li>We can assess model fit (RSE, R²), coefficient significance (t-statistics, p-values), and overall significance (F-test).</li>
+<li>Multiple linear regression handles multiple predictors, allowing us to isolate the effect of each predictor while controlling for others.</li>
+<li>Extensions (qualitative predictors, interactions, polynomial regression) enhance flexibility, allowing us to model more complex relationships.</li>
+<li>Diagnosing and addressing potential problems is crucial for ensuring the reliability and validity of the model.</li>
 </ul>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
 <ul>
-<li>How do we choose the “best” model among a set of possible models (e.g., different combinations of predictors, interactions, polynomial terms)?</li>
-<li>What are the limitations of linear regression, and when might other, more complex methods be more appropriate?</li>
-<li>How can we effectively diagnose and address the potential problems in linear regression (non-linearity, collinearity, etc.)?</li>
-<li>How can the insights from a linear regression model be used to inform real-world decisions (e.g., marketing strategies)?</li>
-<li>How does the size and quality of data affect the model outcome?</li>
+<li>How do we choose the “best” model among a set of possible models? (Model selection criteria, cross-validation, adjusted R², AIC, BIC)</li>
+<li>What are the limitations of linear regression, and when might other methods be more appropriate? (Non-linear relationships, complex interactions, non-normal errors, high dimensionality)</li>
+<li>How can we effectively diagnose and address the potential problems in linear regression? (Residual plots, transformations, robust regression, generalized linear models)</li>
+<li>How can the insights from a linear regression model be used to inform real-world decisions? (Marketing: optimizing advertising spend, finance: predicting stock prices, healthcare: identifying risk factors for diseases)</li>
+<li>How does the size and quality of the data affect the model outcome? (More data is generally better; garbage in, garbage out; consider potential biases in the data)</li>
+<li>What are some ethical considerations when using linear regression (or any statistical model) for decision-making? (Fairness, transparency, accountability)</li>
 </ul>
 
 

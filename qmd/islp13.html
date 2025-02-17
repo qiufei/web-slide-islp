@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp13</title>
+<title>Multiple Testing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,48 +130,89 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Multiple Testing</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="introduction-multiple-testing" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-multiple-testing">Introduction Multiple Testing</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><p>This chapter shifts focus from <strong>estimation and prediction</strong> to <strong>hypothesis testing</strong>, a key aspect of statistical inference.</p></li>
-<li><p>We’ll explore the challenges of <strong>multiple testing</strong>: testing many null hypotheses simultaneously.</p></li>
-<li><p>Goal: Understand how to interpret results and avoid erroneously rejecting too many null hypotheses in a “big data” setting.</p></li>
-</ul>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-statistical-learning-and-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-statistical-learning-and-hypothesis-testing">Introduction: Statistical Learning and Hypothesis Testing</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[5,5]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="https://www.statlearning.com/s/The-Elements-of-Statistical-Learning-2nd-Edition-Springer.jpeg" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>Statistical learning is a set of tools for modeling and understanding complex datasets. It is a vital area with applications in many fields. Hypothesis testing, a core concept in statistical inference, allows us to use data to answer “yes-or-no” questions, moving beyond simply estimating values or making predictions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-challenge-of-big-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-of-big-data">The Challenge of Big Data</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[5,5]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="https://www.inventateq.com/top-stories/wp-content/uploads/2024/05/bigdata2.png.webp" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>In today’s world of “big data,” we’re often faced with testing hundreds or even thousands of hypotheses at once. This is called <strong>multiple testing</strong>. The main challenge is to avoid “false positives” — incorrectly rejecting a true null hypothesis. We want to make sure our “discoveries” are real, not just random noise! 🔍</p>
+</div>
+</div>
 </div>
 </section>
 <section id="review-of-hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="review-of-hypothesis-testing">Review of Hypothesis Testing</h2>
-<div class="incremental">
-<ul class="incremental">
-<li>Hypothesis testing provides a framework to answer “yes-or-no” questions using data.</li>
-<li>Examples of questions:
-<ul class="incremental">
-<li>Is a coefficient in linear regression equal to zero?</li>
-<li>Is there a difference in the expected blood pressure between a control and treatment group?</li>
+<p>Hypothesis testing gives us a formal way to use data to answer specific questions. It provides a structured framework to evaluate evidence and make informed decisions.</p>
+<ul>
+<li><p><strong>Goal:</strong> Decide if there’s enough evidence to reject a pre-defined assumption (the null hypothesis).</p></li>
+<li><p><strong>Examples:</strong></p>
+<ul>
+<li>In linear regression, is a specific coefficient significantly different from zero? This tells us if a predictor truly influences the outcome.</li>
+<li>In a clinical trial, does a new drug actually lower blood pressure compared to a placebo?</li>
 </ul></li>
 </ul>
-</div>
 </section>
 <section id="steps-in-hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="steps-in-hypothesis-testing">Steps in Hypothesis Testing</h2>
-<div class="r-fit-text">
+<p>We generally follow these steps:</p>
 <ol type="1">
-<li><p><strong>Define Hypotheses</strong>:</p>
+<li><strong>Define Hypotheses:</strong>
 <ul>
-<li><strong>Null Hypothesis (H₀)</strong>: The default assumption (e.g., no difference, no effect).</li>
-<li><strong>Alternative Hypothesis (Hₐ)</strong>: Contradicts the null (e.g., there is a difference).</li>
+<li><strong>Null Hypothesis (H₀):</strong> The default assumption – usually representing “no effect” or “no difference.”</li>
+<li><strong>Alternative Hypothesis (Hₐ):</strong> What we suspect might be true if H₀ isn’t.</li>
 </ul></li>
-<li><p><strong>Construct Test Statistic</strong>: A value summarizing evidence against H₀.</p></li>
-<li><p><strong>Compute p-value</strong>: Probability of observing a test statistic as extreme or more extreme than the observed one, <em>assuming H₀ is true</em>.</p></li>
-<li><p><strong>Decide</strong>: Based on the p-value, decide whether to reject H₀.</p></li>
+<li><strong>Construct Test Statistic:</strong> Calculate a value that summarizes how strongly the data contradicts H₀.</li>
 </ol>
-</div>
+</section>
+<section id="steps-in-hypothesis-testing-continued" class="level2">
+<h2 class="anchored" data-anchor-id="steps-in-hypothesis-testing-continued">Steps in Hypothesis Testing (Continued)</h2>
+<ol start="3" type="1">
+<li><p><strong>Compute p-value:</strong> Find the probability of seeing data as extreme (or more extreme) than what we observed, <em>assuming H₀ is true</em>.</p></li>
+<li><p><strong>Decide:</strong> Based on the p-value (and a pre-set threshold), decide whether to reject H₀.</p></li>
+</ol>
 </section>
 <section id="defining-the-hypotheses" class="level2">
 <h2 class="anchored" data-anchor-id="defining-the-hypotheses">Defining the Hypotheses</h2>
@@ -181,7 +222,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Null Hypothesis (H₀)</strong>: The baseline assumption, often representing “no effect” or “no difference.” We aim to find evidence <em>against</em> the null hypothesis.</p>
+<p><strong>Null Hypothesis (H₀):</strong> The baseline assumption. We look for evidence <em>against</em> this. Think of it like the “status quo” or “innocent until proven guilty.”</p>
 </div>
 </div>
 </div>
@@ -191,7 +232,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Alternative Hypothesis (Hₐ)</strong>: Represents what we might suspect is true if H₀ is false. Often simply the negation of H₀ (e.g., if H₀ is “A=B”, then Hₐ is “A≠B”).</p>
+<p><strong>Alternative Hypothesis (Hₐ):</strong> What we think might be true if H₀ is false. It’s often the opposite of H₀. For instance, if H₀ is “A=B,” then Hₐ is “A≠B.”</p>
 </div>
 </div>
 </div>
@@ -199,82 +240,112 @@ window.Quarto = {
 <section id="constructing-the-test-statistic" class="level2">
 <h2 class="anchored" data-anchor-id="constructing-the-test-statistic">Constructing the Test Statistic</h2>
 <ul>
-<li>The test statistic measures how much the data deviates from what’s expected under H₀.</li>
-<li>Its form depends on the specific hypothesis being tested.</li>
-<li>Example:
-<ul>
-<li>Testing equality of means (μₜ = μc) between a treatment and control group: Use a <strong>two-sample t-statistic</strong>.</li>
-</ul></li>
+<li><p>The test statistic measures how far the data is from what we’d expect if H₀ were true.</p></li>
+<li><p>The exact formula depends on the specific hypothesis.</p></li>
+<li><p><strong>Example:</strong> If we’re comparing the average values (means) of two groups (like treatment and control), we often use a <strong>two-sample t-statistic</strong>.</p></li>
 </ul>
 </section>
-<section id="two-sample-t-statistic" class="level2">
-<h2 class="anchored" data-anchor-id="two-sample-t-statistic">Two-Sample t-statistic</h2>
+<section id="two-sample-t-statistic-formula" class="level2">
+<h2 class="anchored" data-anchor-id="two-sample-t-statistic-formula">Two-Sample t-statistic: Formula</h2>
+<p>The two-sample t-statistic is calculated like this:</p>
 <p><span class="math display">\[
 T = \frac{\hat{\mu}_t - \hat{\mu}_c}{s \sqrt{\frac{1}{n_t} + \frac{1}{n_c}}}
 \]</span></p>
-<p>where</p>
+<p>where:</p>
 <ul>
-<li>$ _t, _c$: Sample means of treatment and control groups</li>
-<li>$ n_t, n_c $: Sample sizes of treatment and control groups</li>
-<li>$ s $: Pooled standard deviation</li>
+<li>$ _t, _c$: The <em>sample means</em> of the treatment and control groups. These are our best guesses for the true average values.</li>
+<li>$ n_t, n_c $: The number of observations in each group.</li>
+<li>$ s $: The “pooled standard deviation” (explained next).</li>
 </ul>
-<p><span class="math display">\[ s = \sqrt{\frac{(n_t - 1)s_t^2 + (n_c - 1)s_c^2}{n_t + n_c - 2}} \]</span> - <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the variance of the treatment and control groups, respectively. - A large (absolute) value of T provides evidence against Ho.</p>
+</section>
+<section id="pooled-standard-deviation" class="level2">
+<h2 class="anchored" data-anchor-id="pooled-standard-deviation">Pooled Standard Deviation</h2>
+<p>The pooled standard deviation, <em>s</em>, combines the variability within each group:</p>
+<p><span class="math display">\[ s = \sqrt{\frac{(n_t - 1)s_t^2 + (n_c - 1)s_c^2}{n_t + n_c - 2}} \]</span></p>
+<ul>
+<li><p><span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are the sample variances of the treatment and control groups. They measure how spread out the data is within each group.</p></li>
+<li><p>A large absolute value of T (|T|) suggests that the group means are significantly different, providing evidence <em>against</em> the null hypothesis.</p></li>
+</ul>
 </section>
 <section id="computing-the-p-value" class="level2">
 <h2 class="anchored" data-anchor-id="computing-the-p-value">Computing the p-value</h2>
 <ul>
-<li><strong>p-value</strong>: Probability of observing a test statistic as extreme as, or more extreme than, the one calculated from the data, <em>assuming the null hypothesis is true</em>.</li>
-<li>A small p-value indicates strong evidence <em>against</em> H₀.</li>
+<li><p><strong>p-value:</strong> The probability of observing a test statistic as extreme as (or more extreme than) the one we calculated, <em>if the null hypothesis were actually true</em>.</p></li>
+<li><p>A small p-value means the data is unlikely under H₀, providing strong evidence <em>against</em> it.</p></li>
 </ul>
+</section>
+<section id="p-value-important-clarification" class="level2">
+<h2 class="anchored" data-anchor-id="p-value-important-clarification">p-value: Important Clarification</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The p-value is <strong>not</strong> the probability that H₀ is true. It’s the probability of the <em>data</em> (or more extreme data), given that H₀ <em>is</em> true.</p>
+<p>The p-value is <strong>not</strong> the probability that H₀ is true. It’s the probability of seeing the observed <em>data</em> (or more extreme data), <em>given that</em> H₀ <em>is</em> true. This is a very important distinction! 🧐</p>
 </div>
 </div>
 </div>
 </section>
 <section id="example-p-value-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="example-p-value-interpretation">Example: p-value Interpretation</h2>
-<p><img src="figures/6_7.png" class="img-fluid" alt="Density function for N(0,1)"> The density function for the <em>N</em>(0, 1) distribution, with the ver- tical line indicating a value of 2.33. 1% of the area under the curve falls to the right of the vertical line, so there is only a 2% chance of observing a <em>N</em>(0, 1) value that is greater than 2.33 or less than −2.33. Therefore, if a test statistic has a <em>N</em>(0, 1) null distribution, then an observed test statistic of <em>T</em> = 2.33 leads to a <em>p</em>-value of 0.02.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_7.svg" class="img-fluid figure-img"></p>
+<figcaption>Density function for N(0,1)</figcaption>
+</figure>
+</div>
+<p>This figure shows the probability density function of a standard normal distribution, often called a “bell curve.” The vertical line marks a value of 2.33.</p>
+</section>
+<section id="example-p-value-interpretation-continued" class="level2">
+<h2 class="anchored" data-anchor-id="example-p-value-interpretation-continued">Example: p-value Interpretation (Continued)</h2>
+<ul>
+<li>Only 1% of the area under the curve is to the right of 2.33.</li>
+<li>This means there’s only a 2% chance of getting a value from this distribution that’s either greater than 2.33 or less than -2.33.</li>
+<li>If our test statistic follows this distribution when H₀ is true, and we observe a test statistic of T = 2.33, the p-value would be 0.02.</li>
+</ul>
 </section>
 <section id="null-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="null-distribution">Null Distribution</h2>
 <ul>
-<li>The distribution of the test statistic under H₀ is called the <strong>null distribution</strong>.</li>
-<li>Common null distributions:
+<li><p>The <strong>null distribution</strong> is the probability distribution of the test statistic <em>assuming the null hypothesis is true</em>. It tells us what values of the test statistic are likely (or unlikely) if there’s no real effect.</p></li>
+<li><p>Common examples:</p>
 <ul>
-<li>Normal distribution</li>
-<li>t-distribution</li>
-<li>χ²-distribution</li>
+<li>Normal distribution (bell curve)</li>
+<li>t-distribution (similar to normal, but used for smaller samples)</li>
+<li>χ²-distribution (Chi-squared distribution)</li>
 <li>F-distribution</li>
 </ul></li>
-<li>Knowing the null distribution allows us to calculate p-values.</li>
+<li><p>We need to know the null distribution to calculate p-values.</p></li>
 </ul>
 </section>
 <section id="decision-making" class="level2">
 <h2 class="anchored" data-anchor-id="decision-making">Decision Making</h2>
 <ul>
-<li>We reject H₀ if the p-value is below a pre-defined significance level (α).</li>
-<li><strong>Significance level (α)</strong>: The threshold for rejecting H₀ (commonly 0.05).</li>
-<li>If p-value &lt; α, we reject H₀; otherwise, we <em>fail to reject</em> H₀.</li>
+<li><p>We reject H₀ if the p-value is smaller than a pre-defined “significance level” (α).</p></li>
+<li><p><strong>Significance level (α):</strong> The cutoff for rejecting H₀. A common choice is α = 0.05 (5%).</p></li>
+<li><p><strong>Decision Rule:</strong></p>
+<ul>
+<li>If p-value &lt; α, we reject H₀.</li>
+<li>If p-value ≥ α, we <em>fail to reject</em> H₀.</li>
+</ul></li>
 </ul>
+</section>
+<section id="decision-making-important-note" class="level2">
+<h2 class="anchored" data-anchor-id="decision-making-important-note">Decision Making: Important Note</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>We never “accept” H₀. We only “reject” or “fail to reject” it.</p>
+<p>We never “accept” H₀. We only “reject” or “fail to reject” it. Failing to reject doesn’t mean H₀ is definitely true, just that we don’t have enough evidence to say it’s false.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="type-i-and-type-ii-errors" class="level2">
-<h2 class="anchored" data-anchor-id="type-i-and-type-ii-errors">Type I and Type II Errors</h2>
+<section id="type-i-and-type-ii-errors-a-table" class="level2">
+<h2 class="anchored" data-anchor-id="type-i-and-type-ii-errors-a-table">Type I and Type II Errors: A Table</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -287,216 +358,318 @@ T = \frac{\hat{\mu}_t - \hat{\mu}_c}{s \sqrt{\frac{1}{n_t} + \frac{1}{n_c}}}
 <tr class="odd">
 <td>Reject H₀</td>
 <td>Type I Error</td>
-<td>Correct</td>
+<td>Correct Decision</td>
 </tr>
 <tr class="even">
 <td>Fail to Reject H₀</td>
-<td>Correct</td>
+<td>Correct Decision</td>
 <td>Type II Error</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><strong>Type I error</strong>: Rejecting H₀ when it’s actually true (false positive). Probability = α.</li>
-<li><strong>Type II error</strong>: Failing to reject H₀ when it’s false (false negative).</li>
-<li><strong>Power</strong>: Probability of correctly rejecting H₀ when it’s false (1 - Probability of Type II error).</li>
+<li><strong>Type I error:</strong> Rejecting H₀ when it’s actually true (a “false positive”). The probability of this is α (the significance level).</li>
+<li><strong>Type II error:</strong> Failing to reject H₀ when it’s actually false (a “false negative”).</li>
+</ul>
+</section>
+<section id="type-i-and-type-ii-errors-definitions" class="level2">
+<h2 class="anchored" data-anchor-id="type-i-and-type-ii-errors-definitions">Type I and Type II Errors: Definitions</h2>
+<ul>
+<li><p><strong>Power:</strong> The probability of correctly rejecting H₀ when it’s false (1 - Probability of Type II error). We want high power! 💪</p></li>
+<li><p>Our goal is to control the chance of Type I errors (α) while maximizing power (minimizing Type II errors).</p></li>
 </ul>
 </section>
 <section id="the-challenge-of-multiple-testing" class="level2">
 <h2 class="anchored" data-anchor-id="the-challenge-of-multiple-testing">The Challenge of Multiple Testing</h2>
 <ul>
-<li>When testing a single hypothesis, controlling the Type I error rate (α) is straightforward.</li>
-<li><strong>Problem</strong>: When testing <em>many</em> hypotheses, the chance of making <em>at least one</em> Type I error increases dramatically, even if each individual test has a low α.</li>
-<li>Analogy: Flipping many coins – even fair coins will show “all tails” eventually.</li>
+<li><p>When testing a <em>single</em> hypothesis, it’s relatively easy to control the Type I error rate (α).</p></li>
+<li><p><strong>Problem:</strong> When we test <em>many</em> hypotheses at the same time, the chance of making <em>at least one</em> Type I error goes way up, even if each individual test has a low α.</p></li>
+</ul>
+</section>
+<section id="multiple-testing-an-analogy" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-testing-an-analogy">Multiple Testing: An Analogy</h2>
+<ul>
+<li><p><strong>Analogy:</strong> Imagine flipping a fair coin many times. Each flip has a 50/50 chance, but if you flip enough times, you’re <em>bound</em> to see some “unlikely” streaks (like all heads) just by random chance.</p></li>
+<li><p>Similarly, when testing many hypotheses, some will look “significant” (low p-value) just by chance, even if all the null hypotheses are true.</p></li>
 </ul>
 </section>
 <section id="illustration-the-stockbroker" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-the-stockbroker">Illustration: The Stockbroker</h2>
 <ul>
-<li>A stockbroker claims to predict Apple’s stock price for 10 days.</li>
-<li>She emails 1024 potential clients, each with a different prediction sequence (2¹⁰ = 1024 possibilities).</li>
-<li>One client receives a perfect prediction! But it’s just due to chance, not skill.</li>
-<li>This illustrates how making many “guesses” (tests) can lead to seemingly significant results purely by chance.</li>
+<li><p>A stockbroker claims they can predict whether Apple’s stock will go up or down for the next 10 days.</p></li>
+<li><p>They email 1024 potential clients, each getting a different sequence of predictions (2¹⁰ = 1024 possible sequences).</p></li>
+<li><p>Just by chance, one client will get a perfect prediction! They might think the stockbroker is amazing, but it’s just random luck.</p></li>
+<li><p>This shows how making many “guesses” (tests) can lead to seemingly significant results purely by chance.</p></li>
 </ul>
 </section>
 <section id="family-wise-error-rate-fwer" class="level2">
 <h2 class="anchored" data-anchor-id="family-wise-error-rate-fwer">Family-Wise Error Rate (FWER)</h2>
 <ul>
-<li><p><strong>FWER</strong>: The probability of making <em>at least one</em> Type I error among <em>m</em> hypothesis tests.</p></li>
+<li><p><strong>FWER:</strong> The probability of making <em>at least one</em> Type I error (false positive) among <em>all</em> the hypothesis tests we do.</p></li>
 <li><p>If all <em>m</em> tests are independent and all null hypotheses are true, then:</p></li>
 </ul>
 <p><span class="math display">\[ \text{FWER}(\alpha) = 1 - (1 - \alpha)^m \]</span></p>
 <ul>
-<li>This shows that FWER increases rapidly with <em>m</em>.</li>
+<li>This formula shows that the FWER increases quickly as <em>m</em> (the number of tests) increases.</li>
 </ul>
 </section>
-<section id="fwer-example" class="level2">
-<h2 class="anchored" data-anchor-id="fwer-example">FWER Example</h2>
+<section id="fwer-example-visualized" class="level2">
+<h2 class="anchored" data-anchor-id="fwer-example-visualized">FWER Example: Visualized</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/13_2.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_2.svg" class="img-fluid figure-img"></p>
 <figcaption>FWER vs.&nbsp;Number of Hypotheses</figcaption>
 </figure>
 </div>
-<p>The family-wise error rate, as a function of the number of hypotheses tested (displayed on the log scale), for three values of α: α = 0.05 (orange), α = 0.01 (blue), and α = 0.001 (purple). The dashed line indicates 0.05. For example, in order to control the FWER at 0.05 when testing m = 50 null hypotheses, we must control the Type I error for each null hypothesis at level α = 0.001.</p>
+<p>This graph shows how the FWER changes as we test more hypotheses (the x-axis is on a log scale), for different values of α.</p>
+</section>
+<section id="fwer-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="fwer-example-interpretation">FWER Example: Interpretation</h2>
+<ul>
+<li><p>The dashed line is at 0.05.</p></li>
+<li><p>To keep the FWER at 0.05 when testing 50 null hypotheses, we need to control the Type I error for <em>each individual hypothesis</em> at a much lower level (around α = 0.001).</p></li>
+<li><p>As we test more hypotheses, we need to be more and more strict with our individual significance levels to maintain the same overall FWER.</p></li>
+</ul>
 </section>
 <section id="controlling-the-fwer" class="level2">
 <h2 class="anchored" data-anchor-id="controlling-the-fwer">Controlling the FWER</h2>
 <ul>
-<li>To control the FWER at level α, we need stricter criteria for rejecting each individual hypothesis.</li>
-<li>Common methods:
+<li><p>To control the FWER at a specific level (α), we need stricter rules for rejecting each hypothesis.</p></li>
+<li><p>Common methods:</p>
 <ul>
-<li><strong>Bonferroni Correction</strong>: Reject H₀j if its p-value is less than α/m. Simple, but often too conservative (low power).</li>
-<li><strong>Holm’s Method</strong>: A step-down procedure that’s less conservative than Bonferroni.</li>
+<li><strong>Bonferroni Correction:</strong> Very simple, but often too conservative.</li>
+<li><strong>Holm’s Method:</strong> Less conservative than Bonferroni.</li>
 </ul></li>
 </ul>
 </section>
 <section id="bonferroni-correction" class="level2">
 <h2 class="anchored" data-anchor-id="bonferroni-correction">Bonferroni Correction</h2>
-<p>FWER(α/m) ≤ m × α/m = α. - Advantages: - Simple - Guaranteed to control the FWER. - Disadvantage: - Very Conservative, may miss the true effect.</p>
+<ul>
+<li><p><strong>Rule:</strong> Reject H₀j if its p-value is less than α/m. Divide the desired overall significance level (α) by the number of tests (m).</p></li>
+<li><p><strong>Guarantee:</strong> FWER(α/m) ≤ m × α/m = α. The Bonferroni correction ensures the FWER is no larger than α.</p></li>
+<li><p><strong>Advantages:</strong></p>
+<ul>
+<li>Easy to do.</li>
+<li>Guaranteed FWER control.</li>
+</ul></li>
+<li><p><strong>Disadvantage:</strong></p>
+<ul>
+<li>Can be very conservative (low power), especially when <em>m</em> is large. We might miss real effects.</li>
+</ul></li>
+</ul>
 </section>
 <section id="holms-method" class="level2">
 <h2 class="anchored" data-anchor-id="holms-method">Holm’s Method</h2>
+<p>Holm’s method is a <em>step-down</em> procedure, which is less conservative than Bonferroni:</p>
 <ol type="1">
-<li><p>Specify α, the level at which to control the FWER.</p></li>
-<li><p>Compute p-values, p1, …, pm, for the <em>m</em> null hypotheses <em>H</em>01,…,<em>H</em>0<em>m</em>.</p></li>
-<li><p>Order the <em>m</em> p-values so that <em>p</em>(1) ≤ <em>p</em>(2) ≤ … ≤ <em>p</em>(m).</p></li>
-<li><p>Define <span class="math display">\[ L = \min\big\{j:p_{(j)} &gt; \frac{\alpha}{m+1-j} \big\} \]</span></p></li>
-<li><p>Reject all null hypotheses H0j for which pj &lt; p(L).</p>
-<ul>
-<li>It controls the FWER, but it is less conservative than Bonferroni.</li>
-<li>It will reject more null hypotheses, typically resulting in fewer Type II errors and hence greater power.</li>
-<li>Holm will always reject more tests than Bonferroni</li>
-</ul></li>
+<li><strong>Specify α:</strong> Choose the desired overall FWER (e.g., α = 0.05).</li>
+<li><strong>Compute p-values:</strong> Calculate p-values (p1, …, pm) for all <em>m</em> hypotheses.</li>
+<li><strong>Order p-values:</strong> Sort the p-values from smallest to largest: p(1) ≤ p(2) ≤ … ≤ p(m).</li>
+<li><strong>Find L:</strong> <span class="math display">\[ L = \min\big\{j:p_{(j)} &gt; \frac{\alpha}{m+1-j} \big\} \]</span></li>
 </ol>
+</section>
+<section id="holms-method-continued" class="level2">
+<h2 class="anchored" data-anchor-id="holms-method-continued">Holm’s Method (Continued)</h2>
+<ol start="5" type="1">
+<li><strong>Reject:</strong> Reject all null hypotheses H0j for which pj &lt; p(L).</li>
+</ol>
+<ul>
+<li><strong>Advantages:</strong>
+<ul>
+<li>Controls the FWER.</li>
+<li>Less conservative than Bonferroni (higher power). Holm will always reject at least as many hypotheses as Bonferroni, and usually more.</li>
+</ul></li>
+</ul>
 </section>
 <section id="holms-method-illustration" class="level2">
 <h2 class="anchored" data-anchor-id="holms-method-illustration">Holm’s method illustration</h2>
-<p><img src="figures/13_3.png" class="img-fluid" alt="Holm’s and Bonferroni"> Each panel displays, for a separate simulation, the sorted <em>p</em>-values for tests of <em>m</em> = 10 null hypotheses. The <em>p</em>-values corresponding to the m0 = 2 true null hypotheses are displayed in black, and the rest are in red. When controlling the FWER at level 0.05, the Bonferroni procedure rejects all null hypotheses that fall below the black line, and the Holm procedure rejects all null hypotheses that fall below the blue line. The region between the blue and black lines indicates null hypotheses that are rejected using the <em>Holm</em> procedure but not using the Bonferroni procedure. In the center panel, the Holm procedure rejects one more null hypothesis than the Bonferroni procedure. In the right-hand panel, it rejects five more null hypotheses.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Holm’s and Bonferroni</figcaption>
+</figure>
+</div>
+<p>Each panel shows sorted p-values from simulations with 10 hypotheses. Black dots are true null hypotheses (2 out of 10), and red dots are false null hypotheses.</p>
+</section>
+<section id="holms-method-illustration-continued" class="level2">
+<h2 class="anchored" data-anchor-id="holms-method-illustration-continued">Holm’s method illustration (Continued)</h2>
+<ul>
+<li>The black line is the Bonferroni threshold (α/m).</li>
+<li>The blue line is the Holm threshold (α/(m+1-j)).</li>
+<li>The area between the lines shows hypotheses rejected by Holm but not Bonferroni.</li>
+<li>Holm rejects more hypotheses, giving it higher power.</li>
+</ul>
 </section>
 <section id="other-fwer-control-methods" class="level2">
 <h2 class="anchored" data-anchor-id="other-fwer-control-methods">Other FWER Control Methods</h2>
 <ul>
-<li><p><strong>Tukey’s Method</strong>: For comparing all pairs of group means.</p></li>
-<li><p><strong>Scheffé’s Method</strong>: For testing any linear combination of group means <em>after</em> looking at the data.</p></li>
-<li><p>These methods are more powerful than Bonferroni/Holm in specific situations, but less general.</p></li>
+<li><p><strong>Tukey’s Method:</strong> Specifically for comparing all possible pairs of group means in ANOVA (Analysis of Variance).</p></li>
+<li><p><strong>Scheffé’s Method:</strong> Allows testing <em>any</em> linear combination of group means, even after seeing the data. Very flexible, but also very conservative.</p></li>
+<li><p>These are more powerful than Bonferroni/Holm in their specific situations, but less general.</p></li>
 </ul>
 </section>
 <section id="trade-off-fwer-and-power" class="level2">
 <h2 class="anchored" data-anchor-id="trade-off-fwer-and-power">Trade-Off: FWER and Power</h2>
-<p><img src="figures/13_5.png" class="img-fluid" alt="FWER and Power"> In a simulation setting in which 90% of the <em>m</em> null hypotheses are true, we display the <em>power</em> (the fraction of false null hypotheses that we successfully reject) as a function of the family-wise error rate. The curves correspond to <em>m</em> = 10 (<em>orange</em>), <em>m</em> = 100 (<em>blue</em>), and <em>m</em> = 500 (<em>purple</em>). As the value of <em>m</em> increases, the power decreases. The vertical dashed line indicates a FWER of 0.05. - Controlling FWER strictly (low α) reduces power (increases Type II errors). - When <em>m</em> is large, controlling FWER can make it very difficult to reject <em>any</em> null hypotheses, even false ones.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_5.svg" class="img-fluid figure-img"></p>
+<figcaption>FWER and Power</figcaption>
+</figure>
+</div>
+<p>This plot shows how FWER and power are related in a simulation where 90% of the null hypotheses are true.</p>
+</section>
+<section id="trade-off-fwer-and-power-continued" class="level2">
+<h2 class="anchored" data-anchor-id="trade-off-fwer-and-power-continued">Trade-Off: FWER and Power (Continued)</h2>
+<ul>
+<li><p>As <em>m</em> (number of hypotheses) increases, power goes down for a fixed FWER.</p></li>
+<li><p>Controlling the FWER very strictly (low α) means lower power (more Type II errors). We’re less likely to find true effects.</p></li>
+<li><p>The dashed vertical line is at FWER = 0.05.</p></li>
+<li><p>This shows the key trade-off: being more conservative (controlling FWER) reduces our ability to find real effects.</p></li>
+</ul>
 </section>
 <section id="false-discovery-rate-fdr" class="level2">
 <h2 class="anchored" data-anchor-id="false-discovery-rate-fdr">False Discovery Rate (FDR)</h2>
 <ul>
-<li><strong>FDR</strong>: The expected proportion of <em>false positives</em> among all <em>rejected</em> null hypotheses.</li>
+<li><strong>FDR:</strong> The expected proportion of <em>false positives</em> (Type I errors) among all the <em>rejected</em> null hypotheses.</li>
 </ul>
 <p><span class="math display">\[ \text{FDR} = E\left(\frac{\text{Number of Type I Errors}}{\text{Number of Rejected Hypotheses}}\right) = E\left(\frac{V}{R}\right) \]</span></p>
 <ul>
-<li><p>Controlling FDR is less stringent than controlling FWER. It allows for some false positives, but aims to keep their proportion low.</p></li>
-<li><p><strong>Motivation</strong>: In exploratory analyses with large <em>m</em>, we might be willing to tolerate some false positives to discover more true effects.</p></li>
+<li><p>Where V is the number of Type I Errors and R is the number of Rejected Hypotheses.</p></li>
+<li><p>Controlling the FDR is <em>less strict</em> than controlling the FWER. It allows for <em>some</em> false positives, but aims to keep their proportion low.</p></li>
+</ul>
+</section>
+<section id="fdr-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="fdr-motivation">FDR: Motivation</h2>
+<ul>
+<li><p><strong>Motivation:</strong> In exploratory studies with many hypotheses (<em>m</em>), we might be okay with <em>some</em> false positives to discover more true effects. We’re prioritizing discovery over absolute certainty.</p></li>
+<li><p>FDR control is good when we’re more interested in finding potential leads than in making rock-solid claims.</p></li>
 </ul>
 </section>
 <section id="benjamini-hochberg-bh-procedure" class="level2">
 <h2 class="anchored" data-anchor-id="benjamini-hochberg-bh-procedure">Benjamini-Hochberg (BH) Procedure</h2>
-<p>A simple procedure to control the FDR at a desired level, <em>q</em>:</p>
+<p>The Benjamini-Hochberg (BH) procedure is a popular way to control the FDR at a desired level, <em>q</em>:</p>
 <ol type="1">
-<li>Specify <em>q</em>, the level at which to control the FDR.</li>
-<li>Compute p-values, p1, …, pm, for the <em>m</em> null hypotheses <em>H</em>01,…,<em>H</em>0<em>m</em>.</li>
-<li>Order the <em>m</em> p-values so that <em>p</em>(1) ≤ <em>p</em>(2) ≤ … ≤ <em>p</em>(m).</li>
-<li>Define <span class="math display">\[L = \max\{j : p_{(j)} \leq qj/m\}.\]</span></li>
-<li>Reject all null hypotheses H0j for which pj ≤ p(L).</li>
+<li><strong>Specify <em>q</em>:</strong> Choose the desired FDR level (e.g., <em>q</em> = 0.10).</li>
+<li><strong>Compute p-values:</strong> Get p-values (p1, …, pm) for all <em>m</em> hypotheses.</li>
+<li><strong>Order p-values:</strong> Sort them from smallest to largest: p(1) ≤ p(2) ≤ … ≤ p(m).</li>
+<li><strong>Find L:</strong> <span class="math display">\[L = \max\{j : p_{(j)} \leq qj/m\}.\]</span></li>
+<li><strong>Reject:</strong> Reject all null hypotheses H0j for which pj ≤ p(L).</li>
 </ol>
-<ul>
-<li>Guarantees FDR ≤ <em>q</em> under independence (or mild dependence) of p-values.</li>
-</ul>
 </section>
-<section id="bh-procedure-key-idea" class="level2">
-<h2 class="anchored" data-anchor-id="bh-procedure-key-idea">BH Procedure: Key Idea</h2>
+<section id="benjamini-hochberg-bh-procedure-continued" class="level2">
+<h2 class="anchored" data-anchor-id="benjamini-hochberg-bh-procedure-continued">Benjamini-Hochberg (BH) Procedure (Continued)</h2>
 <ul>
-<li>The threshold for rejecting a hypothesis depends on <em>all</em> the p-values (through <em>L</em>), not just its own.</li>
-<li>This makes it less conservative than Bonferroni/Holm for FWER control.</li>
+<li><p><strong>Guarantee:</strong> The BH procedure guarantees that FDR ≤ <em>q</em> if the p-values are independent (or have some types of mild dependence).</p></li>
+<li><p><strong>Key Idea:</strong> The cutoff for rejecting a hypothesis depends on <em>all</em> the p-values (through <em>L</em>), not just its own. This adaptive cutoff makes it less conservative than Bonferroni or Holm.</p></li>
 </ul>
 </section>
 <section id="example-bh-and-bonferroni" class="level2">
 <h2 class="anchored" data-anchor-id="example-bh-and-bonferroni">Example: BH and Bonferroni</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/13_6.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_6.svg" class="img-fluid figure-img"></p>
 <figcaption>BH and Bonferroni</figcaption>
 </figure>
 </div>
-<p>Each panel displays the same set of <em>m</em> = 2,000 ordered <em>p</em>-values for the Fund data. The green lines indicate the <em>p</em>-value thresholds corresponding to FWER control, via the Bonferroni procedure, at levels α = 0.05 (left), α = 0.1 (center), and α = 0.3 (right). The orange lines indicate the <em>p</em>-value thresholds corresponding to FDR control, via Benjamini-Hochberg, at levels <em>q</em> = 0.05 (<em>left</em>), <em>q</em> = 0.1 (<em>center</em>), and <em>q</em> = 0.3 (<em>right</em>). When the FDR is controlled at level <em>q</em> = 0.1, 146 null hypotheses are rejected (<em>center</em>); the corresponding <em>p</em>-values are shown in <em>blue</em>. When the FDR is controlled at level <em>q</em> = 0.3, 279 null hypotheses are rejected (<em>right</em>); the corresponding <em>p</em>-values are shown in <em>blue</em>.</p>
+<p>This figure shows the same set of 2000 ordered p-values, comparing Bonferroni (FWER control) and BH (FDR control) thresholds.</p>
+</section>
+<section id="example-bh-and-bonferroni-continued" class="level2">
+<h2 class="anchored" data-anchor-id="example-bh-and-bonferroni-continued">Example: BH and Bonferroni (Continued)</h2>
+<ul>
+<li>Green lines are Bonferroni thresholds for different α levels.</li>
+<li>Orange lines are BH thresholds for different <em>q</em> levels.</li>
+<li>Blue dots show p-values of rejected null hypotheses under BH.</li>
+<li>BH rejects many more hypotheses than Bonferroni for the same level of error control (e.g., compare α=0.1 and q=0.1). This shows the increased power of FDR control.</li>
+</ul>
 </section>
 <section id="re-sampling-approaches" class="level2">
 <h2 class="anchored" data-anchor-id="re-sampling-approaches">Re-Sampling Approaches</h2>
 <ul>
-<li>So far, we assumed we know the <em>theoretical null distribution</em> of the test statistic (e.g., t-distribution).</li>
-<li><strong>Problem</strong>: Sometimes, the theoretical null distribution is unknown or assumptions are violated.</li>
-<li><strong>Solution</strong>: Use <em>re-sampling</em> (e.g., permutation tests) to approximate the null distribution.</li>
+<li><p>So far, we’ve assumed we know the <em>theoretical null distribution</em> of the test statistic (like the t-distribution or F-distribution).</p></li>
+<li><p><strong>Problem:</strong> Sometimes, the theoretical null distribution is unknown, or the assumptions needed for it to be valid aren’t met (e.g., data isn’t normally distributed, small sample size).</p></li>
+<li><p><strong>Solution:</strong> Use <em>re-sampling</em> methods (like permutation tests) to <em>estimate</em> the null distribution from the data itself.</p></li>
 </ul>
 </section>
 <section id="permutation-test-example" class="level2">
 <h2 class="anchored" data-anchor-id="permutation-test-example">Permutation Test: Example</h2>
 <ul>
-<li>Testing equality of means between two groups (X and Y).</li>
-<li>If H₀ is true (and distributions of X and Y are the same), then randomly swapping observations between groups shouldn’t change the distribution of the test statistic.</li>
-<li>We can <em>permute</em> the data many times, calculate the test statistic each time, and build an empirical null distribution.</li>
+<li><p>Suppose we want to compare the average values of two groups (X and Y).</p></li>
+<li><p><strong>Null Hypothesis (H₀):</strong> The distributions of X and Y are the same. This means the group labels (“X” or “Y”) are essentially random.</p></li>
+<li><p><strong>Idea:</strong> If H₀ is true, then randomly swapping observations between the groups shouldn’t systematically change the test statistic.</p></li>
+<li><p>We can <em>permute</em> (shuffle) the data many times, calculate the test statistic each time, and build an empirical null distribution.</p></li>
 </ul>
 </section>
 <section id="permutation-test-steps" class="level2">
 <h2 class="anchored" data-anchor-id="permutation-test-steps">Permutation Test: Steps</h2>
 <ol type="1">
-<li>Calculate the test statistic (e.g., t-statistic) on the original data.</li>
-<li>Repeatedly (many times):
+<li><p><strong>Calculate the test statistic:</strong> Compute the test statistic (e.g., the t-statistic) on the <em>original</em> data.</p></li>
+<li><p><strong>Repeat many times:</strong></p>
 <ul>
-<li>Randomly permute the observations between groups.</li>
-<li>Calculate the test statistic on the permuted data.</li>
+<li>Randomly shuffle the observations between the two groups.</li>
+<li>Calculate the test statistic on the <em>shuffled</em> data.</li>
 </ul></li>
-<li>The p-value is the proportion of permuted test statistics that are as extreme or more extreme than the original test statistic.</li>
+<li><p><strong>Calculate the p-value:</strong> The p-value is the proportion of shuffled test statistics that are as extreme as (or more extreme than) the original test statistic.</p></li>
 </ol>
 </section>
 <section id="resampling-for-fdr-control" class="level2">
 <h2 class="anchored" data-anchor-id="resampling-for-fdr-control">Resampling for FDR Control</h2>
 <ul>
-<li>We can also use re-sampling to estimate the FDR directly, without calculating p-values first.</li>
-<li>The key idea is to approximate:
+<li><p>We can also use re-sampling to estimate the FDR directly, without calculating p-values first.</p></li>
+<li><p>The idea is to approximate:</p>
 <ul>
-<li>E(V) (expected number of false positives) by permuting the data and counting rejections under the null.</li>
-<li>R (total number of rejections) from the original data. <span class="math display">\[FDR = E(\frac{V}{R}) \approx \frac{E(V)}{R} \]</span></li>
+<li>E(V): The expected number of false positives. We estimate this by shuffling the data (simulating the null hypothesis) and counting how many hypotheses we’d reject.</li>
+<li>R: The total number of rejections on the <em>original</em> data.</li>
 </ul></li>
-<li>Using re-sampling to estimate the null distribution can pool information from multiple hypothesis.</li>
+</ul>
+<p><span class="math display">\[FDR = E(\frac{V}{R}) \approx \frac{E(V)}{R} \]</span></p>
+<ul>
+<li>Using re-sampling to estimate the null distribution can combine information across multiple hypotheses.</li>
 </ul>
 </section>
 <section id="when-is-re-sampling-useful" class="level2">
 <h2 class="anchored" data-anchor-id="when-is-re-sampling-useful">When is Re-Sampling Useful?</h2>
 <ul>
 <li>When the theoretical null distribution is unknown or unreliable.</li>
-<li>When assumptions for the theoretical distribution are violated (e.g., non-normality, small sample size).</li>
-<li>Provides a flexible way to perform hypothesis testing in complex situations.</li>
+<li>When assumptions for the theoretical distribution are violated (e.g., data isn’t normally distributed, sample size is small).</li>
+<li>Provides a flexible way to do hypothesis testing in complex situations where standard theoretical results don’t apply.</li>
 </ul>
 </section>
-<section id="re-sampling-example" class="level2">
-<h2 class="anchored" data-anchor-id="re-sampling-example">Re-Sampling Example</h2>
-<p><img src="figures/13_7.png" class="img-fluid" alt="Theoretical and resampling null distribution comparison"> The 11th gene in the Khan dataset has a test statistic of <em>T</em> = −2.09. Its theoretical and <em>re-sampling</em> null distributions are almost identical. The theoretical <em>p</em>-value equals 0.041 and the re-sampling <em>p</em>-value equals 0.042.</p>
-<p><img src="figures/13_8.png" class="img-fluid" alt="Theoretical and resampling null distribution comparison"> The 877th gene in the <em>Khan</em> dataset has a test statistic of T = −0.57. Its theoretical and re-sampling null distributions are quite different. The theoretical <em>p</em>-value equals 0.571, and the re-sampling <em>p</em>-value equals 0.673.</p>
+<section id="re-sampling-example-comparison-with-theoretical-null" class="level2">
+<h2 class="anchored" data-anchor-id="re-sampling-example-comparison-with-theoretical-null">Re-Sampling Example: Comparison with Theoretical Null</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_7.svg" class="img-fluid figure-img"></p>
+<figcaption>Theoretical and resampling null distribution comparison</figcaption>
+</figure>
+</div>
+<p>This shows the theoretical and re-sampling null distributions for the 11th gene in the Khan dataset. They’re very similar. The theoretical p-value is 0.041, and the re-sampling p-value is 0.042.</p>
+</section>
+<section id="re-sampling-example-different-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="re-sampling-example-different-distributions">Re-Sampling Example: Different Distributions</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F13_8.svg" class="img-fluid figure-img"></p>
+<figcaption>Theoretical and resampling null distribution comparison</figcaption>
+</figure>
+</div>
+<p>This shows the theoretical and re-sampling null distributions for the 877th gene in the Khan dataset. They’re quite <em>different</em>. The theoretical p-value is 0.571, and the re-sampling p-value is 0.673. This shows how re-sampling can be more accurate when the theoretical distribution isn’t a good fit.</p>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li>Multiple testing poses challenges: increased risk of false positives.</li>
-<li><strong>FWER</strong> control is strict (Bonferroni, Holm), but can have low power.</li>
-<li><strong>FDR</strong> control is less stringent, allowing for more discoveries.</li>
-<li><strong>Re-sampling</strong> methods provide a flexible way to perform inference when theoretical null distributions are unavailable or unreliable.</li>
+<li><p><strong>Multiple testing:</strong> Testing many hypotheses at once increases the risk of false positives (Type I errors).</p></li>
+<li><p><strong>FWER control:</strong> Strict methods like Bonferroni and Holm control the chance of <em>any</em> false positives, but can have low power.</p></li>
+<li><p><strong>FDR control:</strong> Less strict, allowing some false positives to increase discovery. The Benjamini-Hochberg (BH) procedure is a common method.</p></li>
+<li><p><strong>Re-sampling:</strong> A flexible way to estimate null distributions and do inference when theoretical assumptions are violated or the null distribution is unknown.</p></li>
 </ul>
 </section>
 <section id="thoughts-for-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-for-discussion">Thoughts for Discussion 🤔</h2>
 <ul>
-<li>How do you choose between controlling FWER and FDR in practice?</li>
-<li>What are the trade-offs involved?</li>
-<li>Can you think of real-world scenarios where multiple testing is crucial?</li>
-<li>When would you prefer using resampling approach?</li>
+<li><p>How do you choose between controlling the FWER and the FDR in practice? What factors affect your decision?</p></li>
+<li><p>What are the trade-offs in choosing a stricter (FWER) versus a more lenient (FDR) approach?</p></li>
+<li><p>Can you think of real-world situations where multiple testing is important (e.g., genomics, A/B testing, finance)?</p></li>
+<li><p>When would you prefer to use a re-sampling approach (like a permutation test) instead of a theoretical null distribution?</p></li>
 </ul>
 
 

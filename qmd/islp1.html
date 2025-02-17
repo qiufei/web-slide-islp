@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp1</title>
+<title>Statistical Learning: An Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,54 +104,90 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Learning: An Introduction</h1>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="welcome" class="level2">
 <h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<div color="#FFFFFF">
-<p><strong>Welcome to Statistical Learning!</strong></p>
+<div class="r-fit-text">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div color="#FFFFFF">
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span style="color:#2E86C1;"><strong>Welcome to Statistical Learning!</strong></span> 🚀</p>
+</div>
+</div>
+</div>
 <p>This chapter provides a gentle introduction to the exciting world of statistical learning, a powerful toolkit for understanding data. We will explore the core concepts, see real-world examples, and start our journey toward building predictive models.</p>
-</div>
 </section>
 <section id="what-is-statistical-learning" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-statistical-learning">What is Statistical Learning?</h2>
-<p>Statistical learning refers to a vast set of tools for <em>understanding data</em>. These tools can be broadly classified into two categories:</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>1. Supervised Learning:</strong></p>
+<p>Statistical learning refers to a vast set of tools for <em>understanding data</em>. It’s about extracting meaningful insights and making predictions from data. These tools can be broadly classified into two categories: <strong>Supervised</strong> and <strong>Unsupervised Learning</strong>.</p>
+<p>Think of it like using data to teach a computer to:</p>
+<ul>
+<li><strong>Predict:</strong> Estimate a future outcome (e.g., will a customer click on an ad?).</li>
+<li><strong>Infer:</strong> Understand relationships between variables (e.g., what factors influence house prices?).</li>
+<li><strong>Discover:</strong> Find hidden patterns and structures (e.g., what groups of customers have similar buying habits?).</li>
+</ul>
+</section>
+<section id="supervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-learning">Supervised Learning</h2>
+<p><strong>Supervised Learning:</strong></p>
 <ul>
 <li>Building a model to <em>predict</em> or <em>estimate</em> an output based on one or more inputs (also known as predictors, features, or independent variables).</li>
-<li>Think of it like teaching a computer to learn from examples where you provide both the questions (inputs) and the answers (outputs).</li>
-<li><strong>Example:</strong> Predicting a house price based on its size, location, and number of bedrooms.</li>
+<li>Think of it like teaching a computer to learn from examples where you provide both the questions (inputs) and the answers (outputs). The algorithm learns the relationship between them.</li>
+<li><strong>Example:</strong> Predicting a house price based on its size, location, and number of bedrooms. We <em>know</em> the house prices (the “answers”) for our training data.</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<p><strong>2. Unsupervised Learning:</strong></p>
+</section>
+<section id="unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="unsupervised-learning">Unsupervised Learning</h2>
+<p><strong>Unsupervised Learning:</strong></p>
 <ul>
-<li>Discovering relationships and structure in data <em>without</em> a predefined output variable.</li>
-<li>Here, you’re letting the computer explore the data and find patterns on its own.</li>
-<li><strong>Example:</strong> Grouping customers into different segments based on their purchasing behavior, without knowing in advance what those segments should be.</li>
+<li>Discovering relationships and structure in data <em>without</em> a predefined output variable. There’s no “answer key.”</li>
+<li>Here, you’re letting the computer explore the data and find patterns on its own. The algorithm identifies groupings or patterns without being told what to look for.</li>
+<li><strong>Example:</strong> Grouping customers into different segments based on their purchasing behavior, without knowing in advance what those segments should be. We don’t have pre-labeled groups.</li>
 </ul>
-</div>
-</div>
 </section>
 <section id="supervised-vs.-unsupervised-a-visual-analogy" class="level2">
 <h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-a-visual-analogy">Supervised vs.&nbsp;Unsupervised: A Visual Analogy</h2>
-<div data-layout-valign="center">
-<p>Imagine you have a basket of fruits.</p>
+<p>Imagine you have a basket of fruits 🍎🍌🍊.</p>
 <ul>
-<li><strong>Supervised Learning:</strong> You tell a child, “This is an apple, this is a banana, this is an orange.” Then you show them a new fruit and ask, “What is this?”</li>
-<li><strong>Unsupervised Learning:</strong> You give the child the basket and say, “Sort these fruits into groups however you think is best.” The child might group them by color, shape, or size, discovering inherent patterns without being told what to look for.</li>
+<li><strong>Supervised Learning:</strong> You tell a child, “This is an apple, this is a banana, this is an orange.” Then you show them a new fruit and ask, “What is this?” You’re providing <em>labeled</em> examples. The child learns to <em>classify</em> the fruits based on your labels.</li>
 </ul>
-</div>
+</section>
+<section id="supervised-vs.-unsupervised-a-visual-analogy-cont." class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-a-visual-analogy-cont.">Supervised vs.&nbsp;Unsupervised: A Visual Analogy (Cont.)</h2>
+<ul>
+<li><strong>Unsupervised Learning:</strong> You give the child the basket and say, “Sort these fruits into groups however you think is best.” The child might group them by color, shape, or size, discovering inherent patterns <em>without</em> being told what to look for. The child <em>discovers</em> the categories.</li>
+</ul>
 </section>
 <section id="data-mining-machine-learning-and-statistical-learning" class="level2">
 <h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning">Data Mining, Machine Learning, and Statistical Learning</h2>
-<p>These terms are often used interchangeably, but there are subtle differences:</p>
+<p>These terms are often used interchangeably, but there are subtle differences. This diagram helps visualize their relationships:</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -168,21 +204,28 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+</section>
+<section id="data-mining-machine-learning-and-statistical-learning-cont." class="level2">
+<h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning-cont.">Data Mining, Machine Learning, and Statistical Learning (Cont.)</h2>
 <ul>
-<li><strong>Data Mining:</strong> Focuses on discovering patterns and extracting knowledge from <em>large</em> datasets, often using techniques from database management and computer science.</li>
-<li><strong>Machine Learning:</strong> Primarily concerned with building algorithms that can <em>learn from and make predictions on data</em>. Emphasizes predictive accuracy and computational efficiency.</li>
-<li><strong>Statistical Learning:</strong> A subfield of statistics that emphasizes <em>model interpretability and understanding the uncertainty</em> associated with predictions. Provides a rigorous statistical framework for machine learning.</li>
+<li><p><strong>Data Mining:</strong> Focuses on discovering patterns and extracting knowledge from <em>large</em> datasets, often using techniques from database management and computer science. Think “big data” and finding hidden patterns. It’s often about exploratory analysis in very large datasets.</p></li>
+<li><p><strong>Machine Learning:</strong> Primarily concerned with building algorithms that can <em>learn from and make predictions on data</em>. Emphasizes predictive accuracy and computational efficiency. The focus is on the algorithm <em>learning</em> to make good predictions. It’s more focused on the <em>algorithms</em> themselves and their performance.</p></li>
+</ul>
+</section>
+<section id="data-mining-machine-learning-and-statistical-learning-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning-cont.-1">Data Mining, Machine Learning, and Statistical Learning (Cont.)</h2>
+<ul>
+<li><strong>Statistical Learning:</strong> A subfield of statistics that emphasizes <em>model interpretability and understanding the uncertainty</em> associated with predictions. Provides a rigorous statistical framework for machine learning. It combines statistical rigor with machine learning techniques. We want to <em>understand</em> why the model makes the predictions it does, and how confident we are in those predictions.</li>
 </ul>
 </section>
 <section id="real-world-applications" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-applications">Real-World Applications</h2>
-<p>Let’s explore some real-world data sets:</p>
+<p>Let’s explore some real-world data sets that we will use throughout the course:</p>
 <ol type="1">
-<li><strong>Wage Data:</strong> Analyzing factors that influence a person’s wage.</li>
-<li><strong>Stock Market Data:</strong> Predicting stock market movements.</li>
-<li><strong>Gene Expression Data:</strong> Identifying groups of genes with similar expression patterns.</li>
+<li><strong>Wage Data:</strong> Analyzing factors that influence a person’s wage. (Supervised - Regression)</li>
+<li><strong>Stock Market Data:</strong> Predicting stock market movements. (Supervised - Classification)</li>
+<li><strong>Gene Expression Data:</strong> Identifying groups of genes with similar expression patterns. (Unsupervised - Clustering)</li>
 </ol>
-<p>We will use these data sets throughout the course to illustrate various statistical learning techniques.</p>
 </section>
 <section id="wage-data-understanding-income" class="level2">
 <h2 class="anchored" data-anchor-id="wage-data-understanding-income">Wage Data: Understanding Income</h2>
@@ -202,7 +245,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The goal is to build a model that can predict a person’s wage based on these factors.</p>
+<p>The goal is to build a model that can predict a person’s wage based on these factors. This is a <em>supervised learning</em> problem because we have wage data (the “output”). Specifically, it’s a <em>regression</em> problem because the output (wage) is a continuous variable.</p>
 </div>
 </div>
 </section>
@@ -210,159 +253,447 @@ Note
 <h2 class="anchored" data-anchor-id="wage-data-wage-vs.-age">Wage Data: Wage vs.&nbsp;Age</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/1_1.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
 <figcaption>Wage as a function of age</figcaption>
 </figure>
 </div>
-<div style="font-size: 0.8em;">
-<ul>
-<li><strong>Left Panel:</strong> This scatterplot shows individual wages plotted against age. The blue line represents the <em>average</em> wage for a given age.</li>
-<li><strong>Trend:</strong> Wage generally <em>increases</em> with age until around 60, then <em>decreases</em>. This suggests a <em>non-linear</em> relationship.</li>
-<li><strong>Variability:</strong> There’s significant spread around the average, meaning age alone isn’t a perfect predictor.</li>
-</ul>
-</div>
 </section>
-<section id="wage-data-wage-vs.-year-education" class="level2">
-<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-year-education">Wage Data: Wage vs.&nbsp;Year &amp; Education</h2>
+<section id="wage-data-wage-vs.-age-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-age-analysis---1">Wage Data: Wage vs.&nbsp;Age (Analysis - 1)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/1_1.png" class="img-fluid figure-img"></p>
-<figcaption>Wage as a function of year and education</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of age</figcaption>
 </figure>
 </div>
-<div style="font-size: 0.8em;">
 <ul>
-<li><strong>Center Panel:</strong> Shows wage versus year. There’s a gradual <em>increase</em> in average wage over time (2003-2009).</li>
-<li><strong>Right Panel:</strong> Boxplots of wage for different education levels (1 = lowest, 5 = highest). Higher education generally leads to <em>higher</em> wages.</li>
-<li><strong>Conclusion:</strong> Combining age, year, and education will likely provide the <em>most accurate</em> wage prediction.</li>
+<li><strong>Left Panel:</strong> This scatterplot shows individual wages plotted against age. Each point represents a person.</li>
 </ul>
+</section>
+<section id="wage-data-wage-vs.-age-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-age-analysis---2">Wage Data: Wage vs.&nbsp;Age (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of age</figcaption>
+</figure>
 </div>
+<ul>
+<li>The blue line represents the <em>average</em> wage for a given age.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-age-analysis---3" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-age-analysis---3">Wage Data: Wage vs.&nbsp;Age (Analysis - 3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of age</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Trend:</strong> Wage generally <em>increases</em> with age until around 60, then <em>decreases</em>. This suggests a <em>non-linear</em> relationship. It’s not a straight line!</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-age-analysis---4" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-age-analysis---4">Wage Data: Wage vs.&nbsp;Age (Analysis - 4)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of age</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Variability:</strong> There’s significant spread around the average, meaning age alone isn’t a perfect predictor. Many other factors influence wage.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-year" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-year">Wage Data: Wage vs.&nbsp;Year</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of year</figcaption>
+</figure>
+</div>
+</section>
+<section id="wage-data-wage-vs.-year-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-year-analysis---1">Wage Data: Wage vs.&nbsp;Year (Analysis - 1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of year</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Center Panel:</strong> Shows wage versus year. Each point represents a person.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-year-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-year-analysis---2">Wage Data: Wage vs.&nbsp;Year (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of year</figcaption>
+</figure>
+</div>
+<ul>
+<li>the line shows the trend.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-year-analysis---3" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-year-analysis---3">Wage Data: Wage vs.&nbsp;Year (Analysis - 3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of year</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Observation:</strong> There’s a gradual <em>increase</em> in average wage over time (2003-2009). This could be due to inflation, economic growth, or other factors.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-education" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-education">Wage Data: Wage vs.&nbsp;Education</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of education</figcaption>
+</figure>
+</div>
+</section>
+<section id="wage-data-wage-vs.-education-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-education-analysis---1">Wage Data: Wage vs.&nbsp;Education (Analysis - 1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of education</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Right Panel:</strong> Boxplots of wage for different education levels (1 = lowest, 5 = highest).</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-education-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-education-analysis---2">Wage Data: Wage vs.&nbsp;Education (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of education</figcaption>
+</figure>
+</div>
+<ul>
+<li>Boxplots show the distribution of wages within each education group. The box represents the middle 50% of the data, the line in the box is the median, and the “whiskers” extend to the most extreme data points within 1.5 times the interquartile range (IQR) from the box. Outliers are shown as individual points.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-education-analysis---3" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-education-analysis---3">Wage Data: Wage vs.&nbsp;Education (Analysis - 3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of education</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Observation:</strong> Higher education generally leads to <em>higher</em> wages. The boxes (representing the middle 50% of wages) are generally higher for higher education levels.</li>
+</ul>
+</section>
+<section id="wage-data-wage-vs.-education-analysis---4" class="level2">
+<h2 class="anchored" data-anchor-id="wage-data-wage-vs.-education-analysis---4">Wage Data: Wage vs.&nbsp;Education (Analysis - 4)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Wage as a function of education</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Conclusion:</strong> Combining age, year, and education will likely provide the <em>most accurate</em> wage prediction. We need to consider <em>multiple</em> factors.</li>
+</ul>
 </section>
 <section id="stock-market-data-predicting-direction" class="level2">
 <h2 class="anchored" data-anchor-id="stock-market-data-predicting-direction">Stock Market Data: Predicting Direction</h2>
 <ul>
 <li><strong>Goal:</strong> Predict whether the S&amp;P 500 stock index will <em>increase</em> or <em>decrease</em> on a given day.</li>
 <li><strong>Input:</strong> Percentage changes in the index over the <em>previous 5 days</em>.</li>
-<li><strong>Output:</strong> Categorical (qualitative) – either “Up” or “Down”. This is a <em>classification</em> problem.</li>
+<li><strong>Output:</strong> Categorical (qualitative) – either “Up” or “Down”. This is a <em>classification</em> problem (predicting a category, not a number).</li>
 </ul>
 </section>
 <section id="stock-market-data-previous-days-change" class="level2">
 <h2 class="anchored" data-anchor-id="stock-market-data-previous-days-change">Stock Market Data: Previous Day’s Change</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/1_2.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
 <figcaption>Boxplots of previous day’s change</figcaption>
 </figure>
 </div>
-<div style="font-size: 0.8em;">
-<ul>
-<li><strong>Left Panel:</strong> Boxplots show the distribution of the <em>previous day’s</em> percentage change, separated by whether the market went “Up” or “Down” <em>today</em>.</li>
-<li><strong>Observation:</strong> The two boxplots are very <em>similar</em>, suggesting that yesterday’s performance is <em>not</em> a strong predictor of today’s direction.</li>
-<li><strong>Center and Right Panel</strong>:The boxplots show the <em>2 days previous</em> and <em>3 days previous</em> percentage change, separated by whether the market went “Up” or “Down” <em>today</em>. The two boxplots are very <em>similar</em>.</li>
-</ul>
+</section>
+<section id="stock-market-data-previous-days-change-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-previous-days-change-analysis---1">Stock Market Data: Previous Day’s Change (Analysis - 1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of previous day’s change</figcaption>
+</figure>
 </div>
+<ul>
+<li><strong>Left Panel:</strong> Boxplots show the distribution of the <em>previous day’s</em> percentage change.</li>
+</ul>
+</section>
+<section id="stock-market-data-previous-days-change-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-previous-days-change-analysis---2">Stock Market Data: Previous Day’s Change (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of previous day’s change</figcaption>
+</figure>
+</div>
+<ul>
+<li>The boxplots are separated by whether the market went “Up” or “Down” <em>today</em>.</li>
+</ul>
+</section>
+<section id="stock-market-data-previous-days-change-analysis---3" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-previous-days-change-analysis---3">Stock Market Data: Previous Day’s Change (Analysis - 3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of previous day’s change</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Observation:</strong> The two boxplots are very <em>similar</em>. This means the distributions of yesterday’s returns are almost the same whether the market goes up or down today.</li>
+</ul>
+</section>
+<section id="stock-market-data-previous-days-change-analysis---4" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-previous-days-change-analysis---4">Stock Market Data: Previous Day’s Change (Analysis - 4)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of previous day’s change</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Conclusion:</strong> This suggests that yesterday’s performance is <em>not</em> a strong predictor of today’s direction.</li>
+</ul>
+</section>
+<section id="stock-market-data-two-days-previous" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-two-days-previous">Stock Market Data: Two Day’s Previous</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of two day’s previous</figcaption>
+</figure>
+</div>
+</section>
+<section id="stock-market-data-two-days-previous-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-two-days-previous-analysis">Stock Market Data: Two Day’s Previous (Analysis)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of two day’s previous</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Center Panel:</strong> Boxplots show the distribution of the <em>2 day’s previous</em> percentage change, separated by whether the market went “Up” or “Down” <em>today</em>.</li>
+<li><strong>Observation:</strong> The two boxplots are very <em>similar</em>.</li>
+</ul>
+</section>
+<section id="stock-market-data-three-days-previous" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-three-days-previous">Stock Market Data: Three Day’s Previous</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of three day’s previous</figcaption>
+</figure>
+</div>
+</section>
+<section id="stock-market-data-three-days-previous-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-three-days-previous-analysis">Stock Market Data: Three Day’s Previous (Analysis)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Boxplots of three day’s previous</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Right Panel:</strong> Boxplots show the distribution of the <em>3 day’s previous</em> percentage change, separated by whether the market went “Up” or “Down” <em>today</em>.</li>
+<li><strong>Observation:</strong> The two boxplots are very <em>similar</em>.</li>
+</ul>
 </section>
 <section id="stock-market-data-predicting-with-qda" class="level2">
 <h2 class="anchored" data-anchor-id="stock-market-data-predicting-with-qda">Stock Market Data: Predicting with QDA</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/1_3.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_3.svg" class="img-fluid figure-img"></p>
 <figcaption>Quadratic Discriminant Analysis</figcaption>
 </figure>
 </div>
-<div style="font-size: 0.8em;">
-<ul>
-<li>A statistical learning method called <em>quadratic discriminant analysis (QDA)</em> was used to predict market direction.</li>
-<li><strong>Result:</strong> The model correctly predicted the direction about 60% of the time. This is better than random guessing (50%), but still far from perfect. It suggests weak trends <em>might</em> exist.</li>
-</ul>
+</section>
+<section id="stock-market-data-predicting-with-qda-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-predicting-with-qda-analysis---1">Stock Market Data: Predicting with QDA (Analysis - 1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Quadratic Discriminant Analysis</figcaption>
+</figure>
 </div>
+<ul>
+<li>A statistical learning method called <em>quadratic discriminant analysis (QDA)</em> was used to predict market direction. QDA is a classification method. It assumes that the data within each class (“Up” or “Down”) follows a Gaussian (normal) distribution, but with different covariance matrices for each class.</li>
+</ul>
+</section>
+<section id="stock-market-data-predicting-with-qda-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="stock-market-data-predicting-with-qda-analysis---2">Stock Market Data: Predicting with QDA (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Quadratic Discriminant Analysis</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Result:</strong> The model correctly predicted the direction about 60% of the time. This is better than random guessing (50%), but still far from perfect. It suggests weak trends <em>might</em> exist, but predicting the stock market is <em>hard</em>!</li>
+</ul>
 </section>
 <section id="gene-expression-data-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="gene-expression-data-clustering">Gene Expression Data: Clustering</h2>
 <ul>
-<li><strong>Goal:</strong> Identify <em>groups</em> (clusters) of cancer cell lines based on their gene expression measurements.</li>
-<li><strong>Input:</strong> 6,830 gene expression measurements for each of 64 cancer cell lines.</li>
-<li><strong>Output:</strong> <em>None</em>. This is an <em>unsupervised learning</em> problem (specifically, a <em>clustering</em> problem).</li>
+<li><strong>Goal:</strong> Identify <em>groups</em> (clusters) of cancer cell lines based on their gene expression measurements. We want to see if cell lines naturally group together based on how their genes are expressed.</li>
+<li><strong>Input:</strong> 6,830 gene expression measurements for each of 64 cancer cell lines. Each measurement represents the activity level of a gene.</li>
+<li><strong>Output:</strong> <em>None</em>. This is an <em>unsupervised learning</em> problem (specifically, a <em>clustering</em> problem). We don’t have pre-defined groups; we want to <em>discover</em> them.</li>
 </ul>
 </section>
 <section id="gene-expression-data-principal-components" class="level2">
 <h2 class="anchored" data-anchor-id="gene-expression-data-principal-components">Gene Expression Data: Principal Components</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/1_4.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
 <figcaption>Principal Components Analysis</figcaption>
 </figure>
 </div>
-<div style="font-size: 0.75em;">
-<ul>
-<li><strong>Challenge:</strong> Visualizing 6,830 dimensions is impossible!</li>
-<li><strong>Solution:</strong> <em>Principal Component Analysis (PCA)</em> reduces the data to two dimensions (Z1 and Z2) that capture the most important information.</li>
-<li><strong>Left Panel:</strong> Each point represents a cell line, colored by a <em>suggested</em> cluster. At least four groups seems clear.</li>
-<li><strong>Right Panel:</strong> Same plot, but points are colored by the <em>actual</em> cancer type (14 types).</li>
-<li><strong>Observation:</strong> Cell lines with the same cancer type tend to cluster together, validating the unsupervised clustering. This means that even though we didn’t <em>tell</em> the algorithm the cancer types, it was able to <em>discover</em> them (to some extent) from the gene expression data.</li>
-</ul>
+</section>
+<section id="gene-expression-data-principal-components-analysis---1" class="level2">
+<h2 class="anchored" data-anchor-id="gene-expression-data-principal-components-analysis---1">Gene Expression Data: Principal Components (Analysis - 1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Principal Components Analysis</figcaption>
+</figure>
 </div>
+<ul>
+<li><strong>Challenge:</strong> Visualizing 6,830 dimensions is impossible! We can’t directly “look” at the data.</li>
+</ul>
+</section>
+<section id="gene-expression-data-principal-components-analysis---2" class="level2">
+<h2 class="anchored" data-anchor-id="gene-expression-data-principal-components-analysis---2">Gene Expression Data: Principal Components (Analysis - 2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Principal Components Analysis</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Solution:</strong> <em>Principal Component Analysis (PCA)</em> reduces the data to two dimensions (Z1 and Z2) that capture the most important information. PCA finds the directions of greatest variation in the data. These directions are called <em>principal components</em>.</li>
+</ul>
+</section>
+<section id="gene-expression-data-principal-components-analysis---3" class="level2">
+<h2 class="anchored" data-anchor-id="gene-expression-data-principal-components-analysis---3">Gene Expression Data: Principal Components (Analysis - 3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Principal Components Analysis</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Left Panel:</strong> Each point represents a cell line, colored by a <em>suggested</em> cluster. At least four groups seem clear. This shows the result of the <em>unsupervised</em> clustering. A clustering algorithm (like k-means) was likely applied to the data <em>after</em> PCA was used to reduce the dimensionality.</li>
+</ul>
+</section>
+<section id="gene-expression-data-principal-components-analysis---4" class="level2">
+<h2 class="anchored" data-anchor-id="gene-expression-data-principal-components-analysis---4">Gene Expression Data: Principal Components (Analysis - 4)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Principal Components Analysis</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Right Panel:</strong> Same plot as the left panel (using the same PCA dimensions), but points are colored by the <em>actual</em> cancer type (14 types). This is the “ground truth” that we <em>didn’t</em> use for clustering.</li>
+</ul>
+</section>
+<section id="gene-expression-data-principal-components-analysis---5" class="level2">
+<h2 class="anchored" data-anchor-id="gene-expression-data-principal-components-analysis---5">Gene Expression Data: Principal Components (Analysis - 5)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F1_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Principal Components Analysis</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Observation:</strong> Cell lines with the same cancer type tend to cluster together, validating the unsupervised clustering. This means that even though we didn’t <em>tell</em> the algorithm the cancer types, it was able to <em>discover</em> them (to some extent) from the gene expression data. This is the power of unsupervised learning!</li>
+</ul>
 </section>
 <section id="a-brief-history-of-statistical-learning" class="level2">
 <h2 class="anchored" data-anchor-id="a-brief-history-of-statistical-learning">A Brief History of Statistical Learning</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li><strong>Early Beginnings (19th Century):</strong> Least squares (linear regression).</li>
-<li><strong>Mid-20th Century (1930s-1970s):</strong> Linear discriminant analysis, logistic regression, generalized linear models.</li>
-<li><strong>Computational Revolution (1980s onwards):</strong> Non-linear methods become feasible (e.g., trees, generalized additive models). Neural Networks and Support Vector Machine were proposed.</li>
-<li><strong>Modern Era:</strong> Statistical learning emerges as a distinct field, fueled by powerful software (like Python) and increasing data availability.</li>
+<li><p><strong>Early Beginnings (19th Century):</strong> <em>Least squares</em> (linear regression) was developed by Legendre and Gauss. This is the foundation of many statistical learning methods. The goal is to find the line that minimizes the sum of squared differences between observed and predicted values.</p></li>
+<li><p><strong>Mid-20th Century (1930s-1970s):</strong> <em>Linear discriminant analysis</em> (LDA) was developed by Fisher(1936). <em>Logistic regression</em> was developed. These expanded the toolkit for classification and modeling different types of data. <em>Generalized linear models</em> (GLMs) were introduced, providing a unified framework for linear regression, logistic regression, and other models.</p></li>
 </ul>
-</div>
+</section>
+<section id="a-brief-history-of-statistical-learning-cont." class="level2">
+<h2 class="anchored" data-anchor-id="a-brief-history-of-statistical-learning-cont.">A Brief History of Statistical Learning (Cont.)</h2>
+<ul>
+<li><p><strong>Computational Revolution (1980s onwards):</strong> Non-linear methods become feasible (e.g., <em>trees</em>, <em>generalized additive models</em>). <em>Neural Networks</em> and <em>Support Vector Machines</em> were proposed. Computers became powerful enough to handle more complex calculations.</p></li>
+<li><p><strong>Modern Era:</strong> Statistical learning emerges as a distinct field, fueled by powerful software (like R and Python) and increasing data availability. The combination of data, algorithms, and computing power drives the field forward.</p></li>
+</ul>
 </section>
 <section id="notation" class="level2">
 <h2 class="anchored" data-anchor-id="notation">Notation</h2>
-<div style="font-size: 0.8em;">
+<p>It’s important to understand the notation we’ll use throughout the course:</p>
 <ul>
-<li><strong>n:</strong> Number of <em>observations</em> (data points).</li>
-<li><strong>p:</strong> Number of <em>variables</em> (features, predictors).</li>
-<li><strong>x<sub>ij</sub>:</strong> Value of the <em>j</em>th variable for the <em>i</em>th observation.</li>
-<li><strong>X:</strong> A matrix (n x p) representing the data. Think of it as a spreadsheet.</li>
-<li><strong>y<sub>i</sub>:</strong> the ith observation of the variable on which we wish to make predictions</li>
-<li><strong>Bold lowercase (e.g., a):</strong> A vector of length <em>n</em>.</li>
-<li><strong>Normal lowercase (e.g., a):</strong> A scalar (single number) or a vector <em>not</em> of length <em>n</em>.</li>
-<li><strong>Bold capitals (e.g., A):</strong> A matrix.</li>
+<li><p><strong>n:</strong> Number of <em>observations</em> (data points). Think of this as the number of rows in your data table. Each observation is a single instance of what you’re studying (e.g., a person, a day, a cell line).</p></li>
+<li><p><strong>p:</strong> Number of <em>variables</em> (features, predictors). Think of this as the number of columns in your data table <em>excluding</em> the outcome variable (if there is one). Each variable is a characteristic you’re measuring (e.g., age, education, stock price change).</p></li>
 </ul>
-</div>
+</section>
+<section id="notation-cont." class="level2">
+<h2 class="anchored" data-anchor-id="notation-cont.">Notation (Cont.)</h2>
+<ul>
+<li><p><strong>x<sub>ij</sub>:</strong> Value of the <em>j</em>th variable for the <em>i</em>th observation. This is a specific entry in your data table. For example, x<sub>35</sub> would be the value of the 5th variable for the 3rd observation.</p></li>
+<li><p><strong>X:</strong> A matrix (n x p) representing the data. Think of it as a spreadsheet where rows are observations and columns are variables.</p></li>
+<li><p><strong>y<sub>i</sub>:</strong> the i<sup>th</sup> observation of the variable on which we wish to make predictions</p></li>
+</ul>
+</section>
+<section id="notation-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="notation-cont.-1">Notation (Cont.)</h2>
+<ul>
+<li><p><strong>Bold lowercase (e.g., a):</strong> A vector of length <em>n</em>. This typically represents all the values of a single variable across all observations. For example, <strong>y</strong> might represent a vector of all the wages in the Wage dataset.</p></li>
+<li><p><strong>Normal lowercase (e.g., a):</strong> A scalar (single number) or a vector <em>not</em> of length <em>n</em>.</p></li>
+<li><p><strong>Bold capitals (e.g., A):</strong> A matrix.</p></li>
+</ul>
 </section>
 <section id="notation-example-wage-data" class="level2">
 <h2 class="anchored" data-anchor-id="notation-example-wage-data">Notation: Example (Wage Data)</h2>
-<div style="font-size: 0.8em;">
+<p>Let’s apply the notation to the Wage data example:</p>
 <ul>
-<li>n = 3000 (3000 people)</li>
-<li>p = 11 (variables like year, age, education, etc.)</li>
+<li>n = 3000 (3000 people - our observations)</li>
+<li>p = 11 (variables like year, age, education, etc. - our predictors)</li>
 <li>x<sub>23</sub> would be the value of the 3rd variable (e.g., education) for the 2nd person.</li>
-<li><strong>X</strong> is a 3000 x 11 matrix.</li>
+<li><strong>X</strong> is a 3000 x 11 matrix (our data table).</li>
 <li>y<sub>1</sub>: the first person’s wage.</li>
 </ul>
-</div>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<div style="font-size: 0.9em;">
 <ul>
-<li>Statistical learning provides tools to understand data, both with and without a specific outcome to predict.</li>
+<li>Statistical learning provides tools to understand data, both with (supervised) and without (unsupervised) a specific outcome to predict.</li>
 <li>Supervised learning aims to predict an output, while unsupervised learning explores data structure.</li>
 <li>Data mining, machine learning, and statistical learning are related but have different emphases.</li>
 <li>Real-world applications include predicting wages, stock market movements, and clustering gene expression data.</li>
 <li>Understanding notation is crucial for following the rest of the course.</li>
 </ul>
-</div>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
-<div style="font-size: 0.9em;">
 <ul>
 <li>Can you think of other examples of supervised and unsupervised learning problems in your field of interest?</li>
-<li>Why is it important to understand the <em>limitations</em> of statistical learning models, even when they achieve good predictive accuracy?</li>
-<li>What are the potential ethical implications of using statistical learning models in areas like hiring, loan applications, or criminal justice?</li>
+<li>Why is it important to understand the <em>limitations</em> of statistical learning models, even when they achieve good predictive accuracy? (Hint: Consider issues like overfitting, bias, and the fact that correlation doesn’t imply causation.)</li>
+<li>What are the potential ethical implications of using statistical learning models in areas like hiring, loan applications, or criminal justice? (Hint: Consider issues like fairness, transparency, and accountability.)</li>
 <li>How do you imagine the combination of increasing data availability, more powerful hardware, and user-friendly software will further transform the field of statistical learning, making more sophisticated machine learning available to even more researchers?</li>
 </ul>
-</div>
 
 
 </section>

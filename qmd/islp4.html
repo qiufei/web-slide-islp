@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp4</title>
+<title>Statistical Learning: Classification</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +53,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,292 +133,721 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Learning: Classification</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="introduction-to-classification" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-classification">Introduction to Classification</h2>
-<div class="incremental">
-<ul class="incremental">
-<li>So far, we’ve focused on <strong>regression</strong> problems, where the response variable is <em>quantitative</em>.</li>
-<li>Now, we shift gears to <strong>classification</strong> problems, where the response variable is <em>qualitative</em> (categorical).</li>
-<li><strong>Goal:</strong> To predict a qualitative response – that is, to classify an observation into a category or class.</li>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="welcome-to-classification" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-classification">Welcome to Classification! 👋</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>So far, we’ve journeyed through the world of <strong>regression</strong>, where we predicted <em>numbers</em>. Now, we’re switching gears to <strong>classification</strong>, where we predict <em>categories</em>. Think of it like sorting objects into different boxes! 📦</p>
+</div>
+</div>
+</div>
+</section>
+<section id="regression-vs.-classification-the-big-picture" class="level2">
+<h2 class="anchored" data-anchor-id="regression-vs.-classification-the-big-picture">Regression vs.&nbsp;Classification: The Big Picture</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Regression:</strong> Predicting a <em>quantitative</em> (numerical) response.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
 <li>Examples:
-<ul class="incremental">
-<li>Predicting whether a patient has a specific disease (yes/no).</li>
-<li>Classifying an email as spam or not spam.</li>
-<li>Determining whether a credit card transaction is fraudulent.</li>
+<ul>
+<li>Predicting house prices 🏠</li>
+<li>Estimating sales revenue 💰</li>
+<li>Forecasting stock prices 📈</li>
 </ul></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="regression-vs.-classification-the-big-picture-continued" class="level2">
+<h2 class="anchored" data-anchor-id="regression-vs.-classification-the-big-picture-continued">Regression vs.&nbsp;Classification: The Big Picture (Continued)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Classification:</strong> Predicting a <em>qualitative</em> (categorical) response.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Examples:
+<ul>
+<li>Diagnosing a disease (present or absent) ⚕️</li>
+<li>Filtering spam emails (spam or not spam) 📧</li>
+<li>Detecting fraudulent transactions (fraud or not fraud) 💳</li>
+</ul></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="what-is-classification" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-classification">What is Classification?</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><strong>Classification</strong> involves assigning an observation to a category, or class.</li>
-<li>It’s like sorting things into different boxes. 📦</li>
-<li>Many methods first predict the <em>probability</em> of belonging to each category, and classify based on those probabilities.</li>
+<li><strong>Classification</strong> is like sorting objects into distinct groups based on their features.</li>
+<li>We assign each observation to a specific category or class.</li>
 </ul>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Observation 1] --&gt; C(Class A)
+    B[Observation 2] --&gt; D(Class B)
+    C --&gt; E[Classification]
+    D --&gt; E
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="classification-vs.-regression" class="level2">
-<h2 class="anchored" data-anchor-id="classification-vs.-regression">Classification vs.&nbsp;Regression</h2>
+<section id="classification-probabilities-first" class="level2">
+<h2 class="anchored" data-anchor-id="classification-probabilities-first">Classification: Probabilities First</h2>
+<ul>
+<li>Many classification methods start by predicting the <em>probability</em> of an observation belonging to each category.</li>
+<li>Then, based on these probabilities (and a threshold), we make the final classification.</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Example:</strong>
+<ul>
+<li>An email: 70% chance of being spam, 30% chance of not being spam.</li>
+<li>With a 50% threshold, we’d classify it as spam! 📧</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="classification-vs.-regression-a-clear-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="classification-vs.-regression-a-clear-comparison">Classification vs.&nbsp;Regression: A Clear Comparison</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 40%">
+<col style="width: 40%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Feature</th>
-<th>Regression</th>
-<th>Classification</th>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Regression</th>
+<th style="text-align: left;">Classification</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Response Variable</td>
-<td>Quantitative</td>
-<td>Qualitative</td>
+<td style="text-align: left;">Response Variable</td>
+<td style="text-align: left;">Quantitative (numerical)</td>
+<td style="text-align: left;">Qualitative (categorical)</td>
 </tr>
 <tr class="even">
-<td>Goal</td>
-<td>Predict a numerical value</td>
-<td>Predict a category</td>
+<td style="text-align: left;">Goal</td>
+<td style="text-align: left;">Predict a <em>number</em></td>
+<td style="text-align: left;">Predict a <em>category</em></td>
 </tr>
 <tr class="odd">
-<td>Example</td>
-<td>Predict house price</td>
-<td>Predict disease presence (yes/no)</td>
+<td style="text-align: left;">Example</td>
+<td style="text-align: left;">Predict house price</td>
+<td style="text-align: left;">Predict disease presence (yes/no)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Output</td>
+<td style="text-align: left;">Continuous value</td>
+<td style="text-align: left;">Discrete category</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 </section>
-<section id="why-not-linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="why-not-linear-regression">Why Not Linear Regression?</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="why-not-linear-regression-for-categories" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-linear-regression-for-categories">Why NOT Linear Regression for Categories? 🤔</h2>
 <ul>
-<li>Text material pointed out linear regression is not appropriate in the case of a qualitative response.</li>
-<li>Suppose there are three possible diagnoses: <em>stroke</em>, <em>drug overdose</em>, and <em>epileptic seizure</em>.</li>
-<li>We <em>could</em> try coding them numerically (e.g., 1=stroke, 2=drug overdose, 3=epileptic seizure).</li>
+<li><p>Linear regression is designed for <em>numbers</em>. What happens if we try to use it for categories? Let’s consider predicting a medical diagnosis with three possibilities:</p>
+<ol type="1">
+<li>Stroke</li>
+<li>Drug overdose</li>
+<li>Epileptic seizure</li>
+</ol></li>
 </ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="a-problematic-coding-scheme" class="level2">
+<h2 class="anchored" data-anchor-id="a-problematic-coding-scheme">A Problematic Coding Scheme 🤕</h2>
+<ul>
+<li><p>We <em>could</em> try to code these numerically:</p>
+<ul>
+<li>1 = Stroke</li>
+<li>2 = Drug overdose</li>
+<li>3 = Epileptic seizure</li>
+</ul></li>
+<li><p>But this approach introduces serious problems!</p></li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_1a.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Fcoding.png" class="img-fluid figure-img"></p>
 <figcaption>Medical conditions coding</figcaption>
 </figure>
 </div>
+</section>
+<section id="the-problems-with-numerical-coding" class="level2">
+<h2 class="anchored" data-anchor-id="the-problems-with-numerical-coding">The Problems with Numerical Coding ❌</h2>
+<div>
+
 </div>
-</div>
-</div>
-<div class="incremental">
-<ul class="incremental">
-<li>But this imposes an <em>order</em> and <em>equal differences</em> that may not make sense!</li>
-<li>Different codings would give completely different models and predictions!</li>
-<li>For <em>binary</em> (two-level) responses, linear regression <em>can</em> work (0/1 coding), but probabilities might fall outside [0,1]. Better options exist!</li>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p><strong>Problem 1: Arbitrary Order:</strong> The coding implies an order (stroke &lt; drug overdose &lt; epileptic seizure) that is medically <em>meaningless</em>.</p></li>
+<li><p><strong>Problem 2: Equal Differences:</strong> It suggests equal differences between conditions (stroke to drug overdose = drug overdose to seizure), which is also <em>not</em> medically valid.</p></li>
+<li><p><strong>Problem 3: Inconsistent Results:</strong> Different coding schemes (e.g., 1=drug overdose, 2=seizure, 3=stroke) would lead to completely <em>different</em> models and predictions!</p></li>
 </ul>
+</div>
+</div>
 </div>
 </section>
-<section id="example-the-default-data" class="level2">
-<h2 class="anchored" data-anchor-id="example-the-default-data">Example: The Default Data</h2>
+<section id="binary-responses-a-special-case" class="level2">
+<h2 class="anchored" data-anchor-id="binary-responses-a-special-case">Binary Responses: A Special Case?</h2>
 <ul>
-<li>We’ll use a simulated dataset called “Default”.</li>
-<li>Goal: Predict whether an individual will default on their credit card payment.</li>
-<li>Predictors:
+<li><p><strong>Binary Responses (Two Categories):</strong> If we have only <em>two</em> categories (yes/no, true/false), we <em>can</em> code them as 0 and 1. Linear regression <em>can</em> be used in this case.</p></li>
+<li><p><strong>However:</strong></p>
 <ul>
-<li>Annual income.</li>
-<li>Monthly credit card balance.</li>
+<li>Linear regression might predict probabilities <em>outside</em> the [0, 1] range. This is nonsensical.</li>
+<li>Better methods exist that are specifically designed for binary classification (like logistic regression!).</li>
 </ul></li>
-<li>Response: <code>default</code> (Yes/No)</li>
 </ul>
+</section>
+<section id="example-the-default-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-the-default-data">Example: The Default Data 💳</h2>
+<ul>
+<li>We’ll use a simulated dataset called “Default” to explore classification.</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Goal:</strong> Predict whether an individual will <em>default</em> on their credit card payment.</li>
+<li><strong>Response:</strong> <code>default</code> (Yes/No) – a binary, qualitative variable.</li>
+<li><strong>Predictors:</strong>
+<ul>
+<li><code>balance</code>: Credit card balance (quantitative).</li>
+<li><code>income</code>: Annual income (quantitative).</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="visualizing-the-default-data" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-default-data">Visualizing the Default Data</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_1a.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg" class="img-fluid figure-img" width="800"></p>
 <figcaption>The Default data set</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="default-data-left-panel---scatterplot" class="level2">
+<h2 class="anchored" data-anchor-id="default-data-left-panel---scatterplot">Default Data: Left Panel - Scatterplot</h2>
+<div>
+
 </div>
-<div class="callout-body-container">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg" class="img-fluid figure-img" width="800"></p>
+<figcaption>The Default data set</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Left:</strong> Scatterplot of income and balance, color-coded by default status (orange = defaulted, blue = did not default).</li>
-<li><strong>Center:</strong> Boxplots of balance, separated by default status. Defaulters tend to have higher balances.</li>
-<li><strong>Right:</strong> Boxplots of income, separated by default status. The relationship is less clear here.</li>
+<li><strong>Left Panel (Scatterplot):</strong>
+<ul>
+<li><code>income</code> (x-axis) vs.&nbsp;<code>balance</code> (y-axis).</li>
+<li>Orange: Individuals who defaulted.</li>
+<li>Blue: Individuals who did not default.</li>
+<li>We see <em>some</em> separation: defaulters tend to have higher balances, but there’s overlap.</li>
+</ul></li>
+</ul>
+</section>
+<section id="default-data-center-panel---balance-boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="default-data-center-panel---balance-boxplots">Default Data: Center Panel - Balance Boxplots</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg" class="img-fluid figure-img" width="800"></p>
+<figcaption>The Default data set</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Center Panel (Boxplots of Balance):</strong>
+<ul>
+<li>Compares <code>balance</code> distribution for defaulters (orange) and non-defaulters (blue).</li>
+<li>The orange boxplot is shifted <em>higher</em>, indicating higher balances for defaulters on average.</li>
+<li>Boxes show the interquartile range (IQR), and whiskers show the range (excluding outliers).</li>
+</ul></li>
+</ul>
+</section>
+<section id="default-data-right-panel---income-boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="default-data-right-panel---income-boxplots">Default Data: Right Panel - Income Boxplots</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg" class="img-fluid figure-img" width="800"></p>
+<figcaption>The Default data set</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Right Panel (Boxplots of Income):</strong>
+<ul>
+<li>Compares <code>income</code> distribution for defaulters (orange) and non-defaulters (blue).</li>
+<li>The relationship is <em>much less clear</em> than with <code>balance</code>. The boxplots largely overlap.</li>
+</ul></li>
+</ul>
+</section>
+<section id="default-data-key-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="default-data-key-takeaway">Default Data: Key Takeaway</h2>
+<ul>
+<li>The visualizations suggest that <code>balance</code> is a <em>stronger predictor</em> of <code>default</code> than <code>income</code>. Higher balances seem associated with a higher probability of default. This guides our model building.</li>
+</ul>
+</section>
+<section id="logistic-regression-modeling-the-probability" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-modeling-the-probability">Logistic Regression: Modeling the <em>Probability</em></h2>
+<ul>
+<li>Logistic regression doesn’t directly model the <em>response</em> (<code>default</code>). Instead, it models the <em>probability</em> that the response belongs to a specific category.</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Specifically:</strong> We model Pr(default = Yes | balance, income) – the probability of defaulting, <em>given</em> balance and income.</li>
+<li>This probability will always be between 0 and 1, which makes perfect sense! 👍</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-tip">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Higher credit card balances seem associated with a higher probability of default.</p>
-</div>
-</div>
-</div>
 </section>
-<section id="logistic-regression-the-core-idea" class="level2">
-<h2 class="anchored" data-anchor-id="logistic-regression-the-core-idea">Logistic Regression: The Core Idea</h2>
+<section id="logistic-regression-from-probability-to-classification" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-from-probability-to-classification">Logistic Regression: From Probability to Classification</h2>
 <ul>
-<li>Instead of modeling the <em>response</em> directly, logistic regression models the <em>probability</em> that Y belongs to a particular category.</li>
-<li>For the Default data, we model: Pr(default = Yes | balance, income)</li>
-<li>This probability will always be between 0 and 1. 👍</li>
-<li>Once we have the probability, we can classify (e.g., predict “default=Yes” if the probability is &gt; 0.5).</li>
+<li>Once we have the estimated probability of default, we can <em>classify</em>.</li>
 </ul>
-</section>
-<section id="the-logistic-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-logistic-model">The Logistic Model</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>We need a function that outputs values between 0 and 1, for any input. The <strong>logistic function</strong> does this!</li>
+<li><strong>Example:</strong>
+<ul>
+<li>If Pr(default = Yes | balance, income) &gt; 0.5, predict “default = Yes”.</li>
+<li>If Pr(default = Yes | balance, income) ≤ 0.5, predict “default = No”.</li>
+</ul></li>
+<li>The 0.5 threshold is common, but it’s adjustable.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="the-logistic-function-bending-between-0-and-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-logistic-function-bending-between-0-and-1">The Logistic Function: Bending Between 0 and 1</h2>
+<ul>
+<li>We need a function that always outputs a value between 0 and 1, no matter the input. The <strong>logistic function</strong> is perfect for this:</li>
 </ul>
 <p><span class="math display">\[
 p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}
 \]</span></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
+</section>
+<section id="logistic-function-breaking-it-down" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-function-breaking-it-down">Logistic Function: Breaking it Down</h2>
 <ul>
-<li><em>p(X)</em>: Probability of the event (e.g., default) given predictor(s) <em>X</em>.</li>
-<li>β₀ and β₁: Coefficients estimated from the data.</li>
-<li><em>e</em>: The base of the natural logarithm (approximately 2.718).</li>
-</ul>
-</div>
-</div>
-</div>
-<ul>
-<li>This produces an S-shaped curve.</li>
+<li><p><em>p(X)</em>: Probability of the event (e.g., default) given predictor(s) <em>X</em>.</p></li>
+<li><p>β₀ and β₁: Coefficients estimated from the data. They control the curve’s shape and position.</p></li>
+<li><p><em>e</em>: The base of the natural logarithm (≈ 2.718).</p></li>
+<li><p><strong>Crucial Feature:</strong> No matter the value of β₀ + β₁X, the output <em>p(X)</em> is <em>always</em> between 0 and 1.</p></li>
 </ul>
 </section>
-<section id="linear-vs.-logistic-regression-on-default-data" class="level2">
-<h2 class="anchored" data-anchor-id="linear-vs.-logistic-regression-on-default-data">Linear vs.&nbsp;Logistic Regression on Default Data</h2>
+<section id="the-logistic-function-an-s-shaped-curve" class="level2">
+<h2 class="anchored" data-anchor-id="the-logistic-function-an-s-shaped-curve">The Logistic Function: An S-Shaped Curve</h2>
+<ul>
+<li>The logistic function creates an S-shaped curve (a sigmoid).</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Low X] --&gt; B(Low p(X) ~ 0)
+    B --&gt; C{Increasing X}
+    C --&gt; D(Increasing p(X))
+    D --&gt; E[High X]
+    E --&gt; F(High p(X) ~ 1)
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li>As X increases, p(X) smoothly transitions from near 0 to near 1.</li>
+</ul>
+</section>
+<section id="linear-vs.-logistic-a-visual-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="linear-vs.-logistic-a-visual-comparison">Linear vs.&nbsp;Logistic: A Visual Comparison</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_2.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg" class="img-fluid figure-img" width="800"></p>
 <figcaption>Classification using the Default data</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li><strong>Left:</strong> Linear regression. Notice the negative probabilities and probabilities &gt; 1! 🙁</li>
-<li><strong>Right:</strong> Logistic regression. Probabilities are always between 0 and 1. 🙂</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Logistic regression provides a more sensible fit for binary outcomes.</p>
-</div>
-</div>
-</div>
 </section>
-<section id="the-logistic-model-continued" class="level2">
-<h2 class="anchored" data-anchor-id="the-logistic-model-continued">The Logistic Model (Continued)</h2>
+<section id="linear-regression-the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-the-problem">Linear Regression: The Problem</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg" class="img-fluid figure-img" width="800"></p>
+<figcaption>Classification using the Default data</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>A little algebra reveals a connection to <em>odds</em>:</li>
+<li><strong>Left Panel (Linear Regression):</strong>
+<ul>
+<li>Blue line: Fit of a linear regression to the <code>default</code> data (0/1 coded).</li>
+<li><em>Major Issue:</em> For low/high <code>balance</code>, predicted probabilities are <em>outside</em> [0, 1]! Probabilities can’t be negative or greater than 1. 🙁</li>
+</ul></li>
+</ul>
+</section>
+<section id="logistic-regression-the-solution" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-the-solution">Logistic Regression: The Solution</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg" class="img-fluid figure-img" width="800"></p>
+<figcaption>Classification using the Default data</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Right Panel (Logistic Regression):</strong>
+<ul>
+<li>Orange curve: Fit of a logistic regression.</li>
+<li>Predicted probabilities are <em>always</em> between 0 and 1, as they should be! 🙂</li>
+<li>The characteristic S-shape.</li>
+</ul></li>
+</ul>
+</section>
+<section id="linear-vs.-logistic-the-verdict" class="level2">
+<h2 class="anchored" data-anchor-id="linear-vs.-logistic-the-verdict">Linear vs.&nbsp;Logistic: The Verdict</h2>
+<ul>
+<li>Logistic regression is <em>far</em> more appropriate for modeling probabilities and binary outcomes. It respects the fundamental constraint that probabilities must be between 0 and 1.</li>
+</ul>
+</section>
+<section id="odds-another-way-to-think-about-probability" class="level2">
+<h2 class="anchored" data-anchor-id="odds-another-way-to-think-about-probability">Odds: Another Way to Think About Probability</h2>
+<ul>
+<li>We can rewrite the logistic model to highlight its connection to <em>odds</em>:</li>
 </ul>
 <p><span class="math display">\[
 \frac{p(X)}{1 - p(X)} = e^{\beta_0 + \beta_1X}
 \]</span></p>
 <ul>
-<li><p>The left side is the <strong>odds</strong>, which can range from 0 to ∞.</p></li>
-<li><p>Taking the logarithm of both sides:</p></li>
+<li><p><strong>Left-hand side:</strong> The <em>odds</em> of the event (e.g., default).</p>
+<ul>
+<li>Odds range from 0 to ∞.</li>
+<li>Odds = 1: Event is equally likely to happen or not.</li>
+<li>Odds &gt; 1: Event is <em>more</em> likely to happen.</li>
+<li>Odds &lt; 1: Event is <em>less</em> likely to happen.</li>
+</ul></li>
+<li><p><strong>Relationship:</strong> Odds = p / (1 - p)</p></li>
+<li><p><strong>Example:</strong> If p(X) = 0.8, odds are 0.8 / (1 - 0.8) = 4. The event is four times more likely to happen than not.</p></li>
+</ul>
+</section>
+<section id="log-odds-logit-the-linear-connection" class="level2">
+<h2 class="anchored" data-anchor-id="log-odds-logit-the-linear-connection">Log-Odds (Logit): The Linear Connection</h2>
+<ul>
+<li>Taking the <em>logarithm</em> of both sides of the odds equation:</li>
 </ul>
 <p><span class="math display">\[
 \log\left(\frac{p(X)}{1 - p(X)}\right) = \beta_0 + \beta_1X
 \]</span></p>
 <ul>
-<li>The left side is the <strong>log-odds</strong> or <strong>logit</strong>. This is <em>linear</em> in X!</li>
+<li><p><strong>Left-hand side:</strong> The <em>log-odds</em> or <em>logit</em>.</p></li>
+<li><p><strong>Right-hand side:</strong> A <em>linear</em> function of X.</p></li>
+<li><p><strong>Key Insight:</strong> Logistic regression models the <em>log-odds</em> as a linear function of the predictors. This explains the “logistic” in its name, even though it’s for classification!</p></li>
 </ul>
 </section>
-<section id="interpreting-the-coefficients" class="level2">
-<h2 class="anchored" data-anchor-id="interpreting-the-coefficients">Interpreting the Coefficients</h2>
+<section id="interpreting-logistic-regression-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-logistic-regression-coefficients">Interpreting Logistic Regression Coefficients</h2>
 <ul>
-<li>In linear regression, β₁ is the <em>average change in Y</em> for a one-unit increase in X.</li>
-<li>In logistic regression, β₁ is the <em>change in the log-odds</em> for a one-unit increase in X.</li>
-<li>Equivalently, a one-unit increase in X <em>multiplies the odds</em> by e<sup>β₁</sup>.</li>
-<li>The <em>amount</em> p(X) changes depends on the <em>current value</em> of X, because the relationship is non-linear.</li>
+<li><p><strong>Linear Regression:</strong> β₁ is the <em>average change in Y</em> for a one-unit increase in X.</p></li>
+<li><p><strong>Logistic Regression:</strong> The interpretation is different because we’re modeling the log-odds.</p></li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p>β₁ is the <em>change in the log-odds</em> for a one-unit increase in X.</p></li>
+<li><p>Equivalently, a one-unit increase in X <em>multiplies the odds</em> by e<sup>β₁</sup>.</p></li>
+<li><p>Because of the non-linear S-curve, the <em>amount</em> p(X) changes for a one-unit increase in X depends on the <em>current value</em> of X. The change is not probability.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-coefficients-maximum-likelihood-mle" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-coefficients-maximum-likelihood-mle">Estimating Coefficients: Maximum Likelihood (MLE)</h2>
+<ul>
+<li><p>We use <strong>maximum likelihood estimation (MLE)</strong> to find the best estimates for β₀, β₁, etc.</p></li>
+<li><p><strong>Goal of MLE:</strong> Find the coefficient values that make the <em>observed data</em> most likely. We want to maximize the probability of observing the actual outcomes (defaults/non-defaults) in our training data, <em>given</em> the coefficients.</p></li>
 </ul>
 </section>
-<section id="estimating-the-coefficients" class="level2">
-<h2 class="anchored" data-anchor-id="estimating-the-coefficients">Estimating the Coefficients</h2>
+<section id="the-likelihood-function-making-data-likely" class="level2">
+<h2 class="anchored" data-anchor-id="the-likelihood-function-making-data-likely">The Likelihood Function: Making Data Likely</h2>
 <ul>
-<li>We use <strong>maximum likelihood estimation (MLE)</strong>.<br>
-</li>
-<li>The goal is to find the coefficients (β₀, β₁, etc.) that make the <em>observed data</em> most likely.</li>
-<li>The likelihood function for logistic regression:</li>
+<li>The <strong>likelihood function</strong> for logistic regression is:</li>
 </ul>
 <p><span class="math display">\[
 l(\beta_0, \beta_1) = \prod_{i:y_i=1} p(x_i) \prod_{i':y_{i'}=0} (1 - p(x_{i'}))
 \]</span></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li>We multiply the probabilities of observing each data point, given the coefficients.</li>
-<li>For defaulters (yᵢ=1), we use p(xᵢ). For non-defaulters (yᵢ’=0), we use 1-p(xᵢ’).</li>
-</ul>
-</div>
-</div>
-</div>
-<ul>
-<li>Software (like R) handles the maximization for us.</li>
-</ul>
 </section>
-<section id="making-predictions" class="level2">
-<h2 class="anchored" data-anchor-id="making-predictions">Making Predictions</h2>
+<section id="likelihood-function-demystified" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-function-demystified">Likelihood Function: Demystified</h2>
 <ul>
-<li><p>Once we have the estimated coefficients, we can predict the probability of default for <em>any</em> given values of balance and income.</p></li>
-<li><p>Example (using coefficients from Table 4.1):</p>
+<li><p>This formula might look complex, but the core idea is simple.</p></li>
+<li><p>We multiply the probabilities of observing each data point, <em>given</em> coefficients β₀ and β₁.</p></li>
+<li><p><strong>First Product:</strong> Π<sub>i:yᵢ=1</sub> p(xᵢ)</p>
 <ul>
-<li>balance = $1,000: p(X) ≈ 0.00576 (less than 1% chance of default)</li>
-<li>balance = $2,000: p(X) ≈ 0.586 (58.6% chance of default)</li>
+<li>Considers individuals who <em>did</em> default (yᵢ = 1).</li>
+<li>For each, p(xᵢ) is the probability of default, given their predictors (xᵢ) and the current coefficients.</li>
 </ul></li>
-<li><p>We can classify based on a threshold (e.g., classify as “default” if p(X) &gt; 0.5).</p></li>
+<li><p><strong>Second Product:</strong> Π<sub>i’:yᵢ’=0</sub> (1 - p(xᵢ’))</p>
+<ul>
+<li>Considers individuals who <em>did not</em> default (yᵢ’ = 0).</li>
+<li>For each, 1 - p(xᵢ’) is the probability of <em>not</em> defaulting.</li>
+</ul></li>
+<li><p><strong>Overall:</strong> Multiplying these probabilities gives the likelihood of the entire dataset, given the coefficients. MLE finds the coefficients that maximize this product.</p></li>
 </ul>
 </section>
-<section id="multiple-logistic-regression" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-logistic-regression">Multiple Logistic Regression</h2>
+<section id="optimization-letting-the-computer-do-the-work" class="level2">
+<h2 class="anchored" data-anchor-id="optimization-letting-the-computer-do-the-work">Optimization: Letting the Computer Do the Work</h2>
 <ul>
-<li>Just like with linear regression, we can include <em>multiple predictors</em>:</li>
+<li><p>We don’t maximize the likelihood function by hand! Statistical software (like R) has built-in optimization algorithms.</p></li>
+<li><p>These algorithms find the values of β₀, β₁, etc., that maximize the likelihood, giving us the <em>maximum likelihood estimates</em>.</p></li>
+</ul>
+</section>
+<section id="making-predictions-from-coefficients-to-probabilities" class="level2">
+<h2 class="anchored" data-anchor-id="making-predictions-from-coefficients-to-probabilities">Making Predictions: From Coefficients to Probabilities</h2>
+<ul>
+<li><p>With the estimated coefficients (β̂₀, β̂₁, etc.), we can predict the probability of default for <em>any</em> given predictor values.</p></li>
+<li><p>Plug the values into the logistic function:</p></li>
+</ul>
+<p>p(X) = e<sup>(β̂₀ + β̂₁X)</sup> / (1 + e<sup>(β̂₀ + β̂₁X)</sup>)</p>
+</section>
+<section id="prediction-example-putting-it-into-practice" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-example-putting-it-into-practice">Prediction Example: Putting it into Practice</h2>
+<ul>
+<li><p>Suppose we get these estimated coefficients (illustrative values):</p>
+<ul>
+<li>β̂₀ = -2</li>
+<li>β̂₁ = 0.005 (where X is <code>balance</code>)</li>
+</ul></li>
+<li><p>Predict default probability for two individuals:</p>
+<ol type="1">
+<li>Individual A: <code>balance</code> = $1,000</li>
+<li>Individual B: <code>balance</code> = $2,000</li>
+</ol></li>
+<li><p><strong>Calculations:</strong></p>
+<ul>
+<li>Individual A: p(X) = e<sup>(-2 + 0.005 * 1000)</sup> / (1 + e<sup>(-2 + 0.005 * 1000)</sup>) ≈ 0.95</li>
+<li>Individual B: p(X) = e<sup>(-2 + 0.005 * 2000)</sup> / (1 + e<sup>(-2 + 0.005 * 2000)</sup>) ≈ 1</li>
+</ul></li>
+<li><p><strong>Predictions:</strong></p>
+<ul>
+<li>Individual A: Estimated probability of default ≈ 95%.</li>
+<li>Individual B: Estimated probability of default ≈ 100%.</li>
+</ul></li>
+</ul>
+</section>
+<section id="from-probabilities-to-classes-the-threshold" class="level2">
+<h2 class="anchored" data-anchor-id="from-probabilities-to-classes-the-threshold">From Probabilities to Classes: The Threshold</h2>
+<ul>
+<li><p>After calculating probabilities, we <em>classify</em> using a threshold.</p></li>
+<li><p><strong>Common Threshold:</strong> 0.5</p></li>
+<li><p><strong>Classification Rule:</strong></p>
+<ul>
+<li>If p(X) &gt; 0.5, predict “default = Yes”.</li>
+<li>If p(X) ≤ 0.5, predict “default = No”.</li>
+</ul></li>
+<li><p><strong>In our example:</strong></p>
+<ul>
+<li>Individual A: Predict “default = Yes” (0.95 &gt; 0.5).</li>
+<li>Individual B: Predict “default = Yes” (1 &gt; 0.5).</li>
+</ul></li>
+</ul>
+</section>
+<section id="multiple-logistic-regression-more-predictors" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-logistic-regression-more-predictors">Multiple Logistic Regression: More Predictors!</h2>
+<ul>
+<li><p>Like linear regression, we can include <em>multiple</em> predictors.</p></li>
+<li><p><strong>The Model:</strong></p></li>
 </ul>
 <p><span class="math display">\[
 \log\left(\frac{p(X)}{1 - p(X)}\right) = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p
-\]</span> <span class="math display">\[
+\]</span></p>
+<p><span class="math display">\[
 p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}}{1 + e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}}
-\]</span> - We estimate the coefficients using MLE. - Interpretation: βⱼ represents the change in log-odds for a one-unit increase in Xⱼ, <em>holding all other predictors constant</em>.</p>
+\]</span></p>
 </section>
-<section id="example-multiple-logistic-regression-on-default-data" class="level2">
-<h2 class="anchored" data-anchor-id="example-multiple-logistic-regression-on-default-data">Example: Multiple Logistic Regression on Default Data</h2>
+<section id="multiple-logistic-regression-explained" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-logistic-regression-explained">Multiple Logistic Regression: Explained</h2>
 <ul>
-<li>Predictors: balance, income, student (dummy variable: 1 if student, 0 if not).</li>
+<li><p>X₁, X₂, …, X<sub>p</sub>: The <em>p</em> predictors.</p></li>
+<li><p>β₀, β₁, β₂, …, β<sub>p</sub>: Coefficients estimated from the data.</p></li>
+<li><p>The log-odds are now a linear function of <em>all</em> predictors.</p></li>
+<li><p>We still use MLE to estimate coefficients.</p></li>
+<li><p><strong>Interpretation:</strong></p>
+<ul>
+<li>β<sub>j</sub>: Change in log-odds for a one-unit increase in X<sub>j</sub>, <em>holding all other predictors constant</em>.</li>
+<li>Equivalently, a one-unit increase in X<sub>j</sub> multiplies the odds by e<sup>β<sub>j</sub></sup>, holding others constant.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-multiple-logistic-regression-on-default" class="level2">
+<h2 class="anchored" data-anchor-id="example-multiple-logistic-regression-on-default">Example: Multiple Logistic Regression on Default</h2>
+<ul>
+<li>Model: <code>default</code> ~ <code>balance</code> + <code>income</code> + <code>student</code></li>
+<li><code>student</code> is a <em>dummy variable</em>:
+<ul>
+<li><code>student</code> = 1 if student, 0 if not.</li>
+</ul></li>
 </ul>
 <table class="caption-top table">
 <colgroup>
@@ -465,264 +897,445 @@ p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}}{1 + e^{\beta_0 + \be
 </tr>
 </tbody>
 </table>
+</section>
+<section id="interpreting-the-coefficients-a-deep-dive" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-coefficients-a-deep-dive">Interpreting the Coefficients: A Deep Dive</h2>
 <ul>
-<li><em>Surprising</em> result: The coefficient for <code>student</code> is <em>negative</em>! This suggests students are <em>less</em> likely to default, holding balance and income constant.</li>
+<li><p><strong>Intercept (β₀ = -10.8690):</strong> Log-odds of default for a non-student with <code>balance</code> = 0 and <code>income</code> = 0. Not directly interpretable.</p></li>
+<li><p><strong>balance (β₁ = 0.0057):</strong> For each $1 increase in <code>balance</code>, the log-odds of default increase by 0.0057, <em>holding income and student status constant</em>. Equivalently, odds multiply by e<sup>0.0057</sup> ≈ 1.0057.</p></li>
+<li><p><strong>income (β₂ = 0.0030):</strong> For each $1 increase in <code>income</code>, the log-odds of default <em>increase</em> by 0.003, holding other variables constant. It’s not significant.</p></li>
+<li><p><strong>student[Yes] (β₃ = -0.6468):</strong> Being a student <em>decreases</em> the log-odds of default by 0.6468, holding <code>balance</code> and <code>income</code> constant. Odds multiply by e<sup>-0.6468</sup> ≈ 0.52. <em>Surprising!</em> We might expect the opposite, but this is <em>controlling for balance and income</em>.</p></li>
 </ul>
 </section>
-<section id="confounding" class="level2">
-<h2 class="anchored" data-anchor-id="confounding">Confounding</h2>
+<section id="confounding-unmasking-hidden-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="confounding-unmasking-hidden-relationships">Confounding: Unmasking Hidden Relationships</h2>
+<ul>
+<li>The surprising student result is due to <strong>confounding</strong>.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_3.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg" class="img-fluid figure-img"></p>
 <figcaption>Confounding in the Default data.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="confounding-left-panel---default-rates" class="level2">
+<h2 class="anchored" data-anchor-id="confounding-left-panel---default-rates">Confounding: Left Panel - Default Rates</h2>
+<div>
+
 </div>
-<div class="callout-body-container">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Confounding in the Default data.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Left:</strong> Default rates for students (orange) and non-students (blue) as a function of balance. Solid lines: default rate at each balance. Dashed lines: <em>overall</em> default rate.</li>
-<li><strong>Right:</strong> Boxplots of balance for students and non-students.</li>
-</ul>
-</div>
-</div>
-</div>
+<li><strong>Left Panel (Default Rates vs.&nbsp;Balance):</strong>
 <ul>
-<li>Students have <em>higher</em> overall default rates (dashed lines), but <em>lower</em> default rates at each balance level (solid lines).</li>
-<li>Reason: <code>student</code> and <code>balance</code> are <em>correlated</em>. Students tend to have higher balances, which are associated with higher default rates.</li>
-<li>This is <strong>confounding</strong>: The effect of one predictor is mixed up with the effect of another.</li>
+<li>Orange: Students.</li>
+<li>Blue: Non-students.</li>
+<li>Solid: Default rate at <em>each</em> balance level.</li>
+<li>Dashed: <em>Overall</em> (average) default rate.</li>
+</ul></li>
+<li><strong>Key:</strong> Students have <em>higher overall</em> default rates (dashed), but <em>lower</em> rates at <em>each balance level</em> (solid).</li>
 </ul>
 </section>
-<section id="multinomial-logistic-regression" class="level2">
-<h2 class="anchored" data-anchor-id="multinomial-logistic-regression">Multinomial Logistic Regression</h2>
+<section id="confounding-right-panel---balance-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="confounding-right-panel---balance-distribution">Confounding: Right Panel - Balance Distribution</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Confounding in the Default data.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>What if the response has <em>more than two</em> categories? (e.g., medical diagnosis: stroke, drug overdose, epileptic seizure)</li>
-<li><strong>Multinomial logistic regression</strong> extends the two-class case.</li>
-<li>We choose a <em>baseline</em> category (e.g., the Kth category).</li>
-<li>We model the log-odds of each category <em>relative to the baseline</em>:</li>
+<li><strong>Right Panel (Boxplots of Balance):</strong>
+<ul>
+<li>Compares <code>balance</code> distribution for students (orange) and non-students (blue).</li>
+<li>Students tend to have <em>higher</em> credit card balances.</li>
+</ul></li>
+</ul>
+</section>
+<section id="confounding-the-full-story" class="level2">
+<h2 class="anchored" data-anchor-id="confounding-the-full-story">Confounding: The Full Story</h2>
+<ol type="1">
+<li><strong>Students have higher balances.</strong> (Right panel boxplots)</li>
+<li><strong>Higher balances lead to higher default rates.</strong> (Our initial finding)</li>
+<li><strong>Thus, students have higher <em>overall</em> default rates due to higher balances.</strong> (Dashed lines in left panel)</li>
+<li><strong>But, <em>controlling for balance</em>, students have <em>lower</em> default rates.</strong> (Solid lines in left panel, and the multiple logistic regression coefficient)</li>
+</ol>
+<ul>
+<li><strong>Confounding:</strong> The effect of <code>student</code> status is mixed up with <code>balance</code>. Without controlling for <code>balance</code>, we get a misleading impression.</li>
+</ul>
+</section>
+<section id="multinomial-logistic-regression-beyond-two-categories" class="level2">
+<h2 class="anchored" data-anchor-id="multinomial-logistic-regression-beyond-two-categories">Multinomial Logistic Regression: Beyond Two Categories</h2>
+<ul>
+<li><p>What if we have <em>more than two</em> response categories?</p></li>
+<li><p><strong>Example:</strong> Medical diagnosis:</p>
+<ol type="1">
+<li>Stroke</li>
+<li>Drug overdose</li>
+<li>Epileptic seizure</li>
+</ol></li>
+<li><p><strong>Multinomial logistic regression</strong> extends logistic regression to handle this.</p></li>
+</ul>
+</section>
+<section id="multinomial-logistic-regression-the-core-concept" class="level2">
+<h2 class="anchored" data-anchor-id="multinomial-logistic-regression-the-core-concept">Multinomial Logistic Regression: The Core Concept</h2>
+<ul>
+<li><p>We choose one category as a <em>baseline</em> (e.g., “stroke”).</p></li>
+<li><p>We model the log-odds of <em>each other category relative to the baseline</em>.</p></li>
+<li><p><strong>Model:</strong></p></li>
 </ul>
 <p><span class="math display">\[
 \log\left(\frac{\Pr(Y = k|X = x)}{\Pr(Y = K|X = x)}\right) = \beta_{k0} + \beta_{k1}x_1 + \dots + \beta_{kp}x_p
 \]</span></p>
+</section>
+<section id="multinomial-logistic-regression-details" class="level2">
+<h2 class="anchored" data-anchor-id="multinomial-logistic-regression-details">Multinomial Logistic Regression: Details</h2>
 <ul>
-<li>There are K-1 sets of coefficients.</li>
-<li>The choice of baseline is arbitrary; the <em>predictions</em> will be the same regardless.</li>
+<li><p><em>k</em>: Index for categories (k = 1, 2, …, K-1). We have K-1 equations.</p></li>
+<li><p><em>K</em>: Baseline category.</p></li>
+<li><p>β<sub>k0</sub>, β<sub>k1</sub>, …, β<sub>kp</sub>: Coefficients for category <em>k</em> (relative to baseline). K-1 sets of these.</p></li>
+<li><p>X = (x₁, x₂, …, x<sub>p</sub>): Predictors.</p></li>
+<li><p>This models the log-odds of being in category <em>k</em> <em>compared to</em> the baseline <em>K</em>, as a linear function of the predictors.</p></li>
+<li><p><strong>Key:</strong> The baseline choice is arbitrary. <em>Predicted probabilities</em> are the same regardless.</p></li>
 </ul>
 </section>
-<section id="multinomial-logistic-regression-softmax-coding" class="level2">
-<h2 class="anchored" data-anchor-id="multinomial-logistic-regression-softmax-coding">Multinomial Logistic Regression: Softmax Coding</h2>
+<section id="multinomial-logistic-regression-softmax-coding-alternative" class="level2">
+<h2 class="anchored" data-anchor-id="multinomial-logistic-regression-softmax-coding-alternative">Multinomial Logistic Regression: Softmax Coding (Alternative)</h2>
 <ul>
-<li>An alternative, equivalent formulation is <strong>softmax coding</strong>.</li>
-<li>Instead of a baseline, we treat all <em>K</em> classes symmetrically:</li>
+<li><p><strong>Softmax coding</strong> is an equivalent formulation, treating all <em>K</em> categories symmetrically.</p></li>
+<li><p><strong>Model:</strong></p></li>
 </ul>
 <p><span class="math display">\[
 \Pr(Y = k|X = x) = \frac{e^{\beta_{k0} + \beta_{k1}x_1 + \dots + \beta_{kp}x_p}}{\sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}x_1 + \dots + \beta_{lp}x_p}}
 \]</span></p>
+</section>
+<section id="softmax-coding-breakdown" class="level2">
+<h2 class="anchored" data-anchor-id="softmax-coding-breakdown">Softmax Coding: Breakdown</h2>
 <ul>
-<li>This is often used in machine learning.</li>
+<li><p>This calculates Pr(Y = k | X).</p></li>
+<li><p>Numerator: Exponentiated linear combination for category <em>k</em>.</p></li>
+<li><p>Denominator: <em>Sum</em> of exponentiated linear combinations for <em>all</em> categories. Ensures probabilities sum to 1.</p></li>
+<li><p><strong>Softmax Function:</strong> Transforms linear combinations into probabilities. Generalizes the logistic function.</p></li>
+<li><p><strong>Use in Machine Learning:</strong> Common in neural networks for multi-class classification.</p></li>
 </ul>
 </section>
-<section id="generative-models-for-classification" class="level2">
-<h2 class="anchored" data-anchor-id="generative-models-for-classification">Generative Models for Classification</h2>
+<section id="generative-models-a-different-approach" class="level2">
+<h2 class="anchored" data-anchor-id="generative-models-a-different-approach">Generative Models: A Different Approach</h2>
 <ul>
-<li>Logistic regression <em>directly</em> models Pr(Y = k | X = x).</li>
-<li>Now we explore an <em>indirect</em> approach:
+<li><p>So far, we’ve <em>directly</em> modeled Pr(Y = k | X) (e.g., logistic regression).</p></li>
+<li><p><strong>Generative models</strong> take an <em>indirect</em> approach:</p>
 <ol type="1">
-<li>Model the distribution of the predictors <em>X</em> separately in each response class (i.e., for each value of <em>Y</em>).</li>
-<li>Use <strong>Bayes’ theorem</strong> to “flip” these around into estimates of Pr(Y = k | X = x).</li>
+<li><strong>Model the distribution of predictors <em>X</em> <em>separately for each response class</em>.</strong> This is Pr(X | Y = k).</li>
+<li><strong>Use Bayes’ theorem to “flip” this to get Pr(Y = k | X).</strong> This is what we want for classification.</li>
 </ol></li>
-<li>These are called <strong>generative models</strong> because they specify how the data is generated.</li>
 </ul>
 </section>
-<section id="bayes-theorem-for-classification" class="level2">
-<h2 class="anchored" data-anchor-id="bayes-theorem-for-classification">Bayes’ Theorem for Classification</h2>
+<section id="bayes-theorem-the-key-to-flipping" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-theorem-the-key-to-flipping">Bayes’ Theorem: The Key to “Flipping”</h2>
 <ul>
-<li>Let π<sub>k</sub> be the <em>prior probability</em> that an observation comes from class <em>k</em>.</li>
-<li>Let f<sub>k</sub>(X) = Pr(X | Y = k) be the <em>density function</em> of X for an observation from class <em>k</em>.</li>
-<li><strong>Bayes’ theorem</strong> states:</li>
+<li>Definitions:
+<ul>
+<li>π<sub>k</sub>: <em>Prior probability</em> of an observation coming from class <em>k</em> (overall probability).</li>
+<li>f<sub>k</sub>(X) = Pr(X | Y = k): <em>Density function</em> of predictors <em>X</em> for class <em>k</em> (how predictors are distributed <em>within</em> class <em>k</em>).</li>
+</ul></li>
+<li><strong>Bayes’ Theorem:</strong></li>
 </ul>
 <p><span class="math display">\[
 \Pr(Y = k|X = x) = \frac{\pi_k f_k(x)}{\sum_{l=1}^K \pi_l f_l(x)}
 \]</span></p>
-<ul>
-<li>To use this, we need to estimate π<sub>k</sub> and f<sub>k</sub>(x). Estimating π<sub>k</sub> is usually easy (fraction of training observations in class k). Estimating f<sub>k</sub>(x) is harder.</li>
-</ul>
 </section>
-<section id="why-bother-with-generative-models" class="level2">
-<h2 class="anchored" data-anchor-id="why-bother-with-generative-models">Why Bother with Generative Models?</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>If we already have logistic regression, why use this indirect approach?</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="bayes-theorem-explained" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-theorem-explained">Bayes’ Theorem: Explained</h2>
 <ul>
-<li>When there is substantial separation between classes, logistic regression parameters can be unstable. Generative models may be better.</li>
-<li>If the distribution of predictors is approximately normal within each class, and the sample size is small, generative models may be more accurate.</li>
-<li>Generative models can be easily extended to more than two response classes.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="linear-discriminant-analysis-lda" class="level2">
-<h2 class="anchored" data-anchor-id="linear-discriminant-analysis-lda">Linear Discriminant Analysis (LDA)</h2>
+<li><p><strong>Left-hand side:</strong> Pr(Y = k | X = x) – <em>Posterior probability</em>. Probability of class <em>k</em>, <em>given</em> predictors <em>x</em>. What we want.</p></li>
+<li><p><strong>Right-hand side:</strong></p>
 <ul>
-<li><strong>Assumptions:</strong>
-<ul>
-<li>f<sub>k</sub>(x) is <em>normal</em> (Gaussian).</li>
-<li>We have a <em>common variance</em> across all K classes (σ²).</li>
+<li>π<sub>k</sub>: Prior probability of class <em>k</em>.</li>
+<li>f<sub>k</sub>(x): Density of predictors <em>X</em> for class <em>k</em>.</li>
+<li>Σ<sub>l=1</sub><sup>K</sup> π<sub>l</sub>f<sub>l</sub>(x): Normalizing constant (sum over all classes). Ensures probabilities sum to 1.</li>
 </ul></li>
-<li>For a single predictor (p=1):</li>
+<li><p><strong>Intuition:</strong> Bayes’ theorem updates our prior belief (π<sub>k</sub>) based on evidence from predictors (f<sub>k</sub>(x)).</p></li>
+<li><p>To use Bayes’ theorem, we must estimate πk and fk(x). Estimating πk is easy, while estimating fk(x) is hard.</p></li>
+</ul>
+</section>
+<section id="why-generative-models-advantages" class="level2">
+<h2 class="anchored" data-anchor-id="why-generative-models-advantages">Why Generative Models? Advantages</h2>
+<ul>
+<li><p>Why this indirect approach when we have direct methods like logistic regression?</p></li>
+<li><p><strong>Stability:</strong> With <em>substantial class separation</em> (predictors clearly distinguish classes), logistic regression parameter estimates can be unstable. Generative models can be more stable.</p></li>
+<li><p><strong>Small Sample Size + Normality:</strong> If predictors are approximately <em>normal</em> within each class, <em>and</em> the sample size is small, generative models like LDA can be more accurate.</p></li>
+<li><p><strong>More Than Two Classes:</strong> Generative models easily handle multiple classes.</p></li>
+</ul>
+</section>
+<section id="linear-discriminant-analysis-lda-a-generative-model" class="level2">
+<h2 class="anchored" data-anchor-id="linear-discriminant-analysis-lda-a-generative-model">Linear Discriminant Analysis (LDA): A Generative Model</h2>
+<ul>
+<li><p><strong>LDA</strong> is a generative model with specific assumptions about predictor distribution.</p></li>
+<li><p><strong>LDA Assumptions:</strong></p>
+<ol type="1">
+<li><strong>Normality:</strong> Density functions f<sub>k</sub>(x) are <em>normal</em> (Gaussian). Predictors follow a bell-shaped distribution within each class.</li>
+<li><strong>Common Variance:</strong> <em>Common variance</em> (σ²) across all <em>K</em> classes. The spread is the same, though means may differ.</li>
+</ol></li>
+</ul>
+</section>
+<section id="lda-the-normal-density-single-predictor" class="level2">
+<h2 class="anchored" data-anchor-id="lda-the-normal-density-single-predictor">LDA: The Normal Density (Single Predictor)</h2>
+<ul>
+<li>For one predictor (p = 1):</li>
 </ul>
 <p><span class="math display">\[
 f_k(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2\sigma^2}(x - \mu_k)^2\right)
 \]</span></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
 <ul>
-<li>μ<sub>k</sub>: mean for class k</li>
-<li>σ²: common variance</li>
+<li>μ<sub>k</sub>: <em>Mean</em> of predictor <em>X</em> for class <em>k</em>.</li>
+<li>σ²: <em>Common variance</em> across all classes.</li>
+<li>The familiar bell-shaped curve.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
-<section id="lda-continued" class="level2">
-<h2 class="anchored" data-anchor-id="lda-continued">LDA (Continued)</h2>
+<section id="lda-the-discriminant-function" class="level2">
+<h2 class="anchored" data-anchor-id="lda-the-discriminant-function">LDA: The Discriminant Function</h2>
 <ul>
-<li>Plugging f<sub>k</sub>(x) into Bayes’ theorem and simplifying, we classify an observation to the class for which this is largest:</li>
+<li><p>Plugging f<sub>k</sub>(x) into Bayes’ theorem and simplifying gives a simple result.</p></li>
+<li><p>Classify to the class with the <em>largest</em>:</p></li>
 </ul>
 <p><span class="math display">\[
 \delta_k(x) = x \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log(\pi_k)
 \]</span></p>
 <ul>
-<li>This is the <strong>discriminant function</strong>. It’s <em>linear</em> in x. That’s why it’s called <em>Linear</em> Discriminant Analysis!</li>
-<li>In practice, we don’t know the true parameters (π<sub>k</sub>, μ<sub>k</sub>, σ²). We <em>estimate</em> them from the training data.</li>
+<li>This is the <strong>discriminant function</strong>.</li>
 </ul>
 </section>
-<section id="lda-estimating-the-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="lda-estimating-the-parameters">LDA: Estimating the Parameters</h2>
+<section id="lda-discriminant-function-breakdown" class="level2">
+<h2 class="anchored" data-anchor-id="lda-discriminant-function-breakdown">LDA Discriminant Function: Breakdown</h2>
 <ul>
-<li><p>μ̂<sub>k</sub> = (1/n<sub>k</sub>) Σ<sub>i:yᵢ=k</sub> xᵢ (sample mean for class k)</p></li>
-<li><p>σ̂² = (1/(n-K)) Σ<sub>k=1</sub><sup>K</sup> Σ<sub>i:yᵢ=k</sub> (xᵢ - μ̂<sub>k</sub>)² (pooled variance estimate)</p></li>
-<li><p>π̂<sub>k</sub> = n<sub>k</sub>/n (sample proportion for class k)</p></li>
-<li><p>We plug these estimates into the discriminant function.</p></li>
+<li><p>δ<sub>k</sub>(x): Discriminant score for class <em>k</em>. Classify to the class with the highest score.</p></li>
+<li><p><strong>Key:</strong> <em>Linear</em> in <em>x</em>. Hence, <em>Linear</em> Discriminant Analysis! Decision boundaries are straight lines (or hyperplanes).</p></li>
+<li><p>Terms:</p>
+<ul>
+<li>x ⋅ (μ<sub>k</sub> / σ²): Influence of predictor <em>x</em> and class mean μ<sub>k</sub>, scaled by variance.</li>
+<li><ul>
+<li>(μ<sub>k</sub>² / 2σ²): Constant for each class, related to mean.</li>
+</ul></li>
+<li>log(π<sub>k</sub>): Incorporates prior probability of class <em>k</em>.</li>
+</ul></li>
 </ul>
 </section>
-<section id="lda-example" class="level2">
-<h2 class="anchored" data-anchor-id="lda-example">LDA: Example</h2>
+<section id="lda-estimating-the-parameters-from-data" class="level2">
+<h2 class="anchored" data-anchor-id="lda-estimating-the-parameters-from-data">LDA: Estimating the Parameters (From Data)</h2>
+<ul>
+<li><p>We don’t know true parameters (π<sub>k</sub>, μ<sub>k</sub>, σ²). We <em>estimate</em> them from training data.</p></li>
+<li><p><strong>Estimates:</strong></p>
+<ul>
+<li><p>μ̂<sub>k</sub> = (1/n<sub>k</sub>) Σ<sub>i:yᵢ=k</sub> xᵢ: <em>Sample mean</em> of <em>X</em> for class <em>k</em>. Average predictor values for observations in class <em>k</em>.</p></li>
+<li><p>σ̂² = (1/(n-K)) Σ<sub>k=1</sub><sup>K</sup> Σ<sub>i:yᵢ=k</sub> (xᵢ - μ̂<sub>k</sub>)²: <em>Pooled variance estimate</em>. Weighted average of within-class variances (reflects common variance assumption).</p></li>
+<li><p>π̂<sub>k</sub> = n<sub>k</sub> / n: <em>Sample proportion</em> of observations in class <em>k</em>.</p></li>
+</ul></li>
+<li><p>Plug <em>estimates</em> into the discriminant function for predictions.</p></li>
+</ul>
+</section>
+<section id="lda-a-visual-example-one-predictor" class="level2">
+<h2 class="anchored" data-anchor-id="lda-a-visual-example-one-predictor">LDA: A Visual Example (One Predictor)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_4.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg" class="img-fluid figure-img"></p>
 <figcaption>One-dimensional normal density functions and LDA decision boundary</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="lda-example-left-panel---density-functions" class="level2">
+<h2 class="anchored" data-anchor-id="lda-example-left-panel---density-functions">LDA Example: Left Panel - Density Functions</h2>
+<div>
+
 </div>
-<div class="callout-body-container">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg" class="img-fluid figure-img"></p>
+<figcaption>One-dimensional normal density functions and LDA decision boundary</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Left:</strong> Two normal density functions. Dashed line: Bayes decision boundary.</li>
-<li><strong>Right:</strong> 20 observations from each class (histograms). Dashed line: Bayes boundary. Solid line: LDA boundary.</li>
-</ul>
-</div>
-</div>
-</div>
+<li><strong>Left Panel:</strong>
 <ul>
-<li>LDA approximates the Bayes classifier.</li>
+<li>Two normal density functions (p=1, K=2).</li>
+<li>Orange: Class 1 (f₁(x)).</li>
+<li>Blue: Class 2 (f₂(x)).</li>
+<li>Dashed: <em>Bayes decision boundary</em>. Optimal boundary, given true distributions. Where densities intersect.</li>
+</ul></li>
 </ul>
 </section>
-<section id="lda-with-multiple-predictors-p-1" class="level2">
-<h2 class="anchored" data-anchor-id="lda-with-multiple-predictors-p-1">LDA with Multiple Predictors (p &gt; 1)</h2>
+<section id="lda-example-right-panel---histograms-and-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="lda-example-right-panel---histograms-and-boundaries">LDA Example: Right Panel - Histograms and Boundaries</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg" class="img-fluid figure-img"></p>
+<figcaption>One-dimensional normal density functions and LDA decision boundary</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><p>We assume X = (X₁, X₂, …, X<sub>p</sub>) follows a <em>multivariate Gaussian</em> distribution, with a class-specific mean vector and a <em>common covariance matrix</em>.</p></li>
-<li><p>Multivariate Gaussian density:</p></li>
+<li><strong>Right Panel:</strong>
+<ul>
+<li>Histograms of 20 observations from each class.</li>
+<li>Orange: Class 1.</li>
+<li>Blue: Class 2.</li>
+<li>Dashed: Bayes decision boundary (same as left).</li>
+<li>Solid: <em>LDA decision boundary</em>. Found by LDA using <em>estimated</em> parameters.</li>
+</ul></li>
+<li><strong>Key:</strong> LDA approximates the Bayes boundary. Here, with normal data and equal variances, LDA does well.</li>
+</ul>
+</section>
+<section id="lda-with-multiple-predictors-p-1-going-multivariate" class="level2">
+<h2 class="anchored" data-anchor-id="lda-with-multiple-predictors-p-1-going-multivariate">LDA with Multiple Predictors (p &gt; 1): Going Multivariate</h2>
+<ul>
+<li><p>With multiple predictors, we extend LDA’s assumptions.</p></li>
+<li><p><strong>Assumption:</strong> Predictors X = (X₁, X₂, …, X<sub>p</sub>) follow a <em>multivariate Gaussian</em> distribution, with a class-specific mean vector and a <em>common covariance matrix</em>.</p></li>
+<li><p><strong>Multivariate Gaussian Density:</strong></p></li>
 </ul>
 <p><span class="math display">\[
 f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Sigma^{-1}(x - \mu)\right)
 \]</span></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li>μ: mean vector</li>
-<li>Σ: covariance matrix</li>
-<li>|Σ|: determinant of Σ</li>
-</ul>
-</div>
-</div>
-</div>
 </section>
-<section id="lda-with-multiple-predictors-continued" class="level2">
-<h2 class="anchored" data-anchor-id="lda-with-multiple-predictors-continued">LDA with Multiple Predictors (Continued)</h2>
+<section id="multivariate-gaussian-deconstructed" class="level2">
+<h2 class="anchored" data-anchor-id="multivariate-gaussian-deconstructed">Multivariate Gaussian: Deconstructed</h2>
 <ul>
-<li>Plugging the multivariate Gaussian density into Bayes’ theorem, we classify to the class for which this is largest:</li>
+<li><em>x</em>: Vector of predictor values (x₁, x₂, …, x<sub>p</sub>).</li>
+<li>μ: <em>Mean vector</em> (μ₁, μ₂, …, μ<sub>p</sub>). Mean of each predictor. In LDA, each class has its own μ<sub>k</sub>.</li>
+<li>Σ: <em>Covariance matrix</em>. p × p matrix describing relationships (covariances) between all predictor pairs. In LDA, <em>common</em> Σ for all classes.</li>
+<li>|Σ|: <em>Determinant</em> of Σ.</li>
+<li>Generalizes the one-dimensional normal distribution to multiple dimensions.</li>
+</ul>
+</section>
+<section id="lda-with-multiple-predictors-the-discriminant-function" class="level2">
+<h2 class="anchored" data-anchor-id="lda-with-multiple-predictors-the-discriminant-function">LDA with Multiple Predictors: The Discriminant Function</h2>
+<ul>
+<li><p>Plug the multivariate Gaussian density into Bayes’ theorem and simplify.</p></li>
+<li><p>Classify to the class with the largest:</p></li>
 </ul>
 <p><span class="math display">\[
 \delta_k(x) = x^T \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k^T\Sigma^{-1}\mu_k + \log \pi_k
 \]</span></p>
 <ul>
-<li>Again, this is <em>linear</em> in x.</li>
-<li>We estimate the parameters (μ<sub>k</sub>, Σ, π<sub>k</sub>) from the training data.</li>
+<li><strong>Key:</strong> Still <em>linear</em> in <em>x</em>. LDA produces linear decision boundaries even with multiple predictors.</li>
+<li>We estimate the parameters (μk, Σ, πk) from the training data, similar to one-dimension case.</li>
 </ul>
 </section>
-<section id="lda-example-with-three-classes" class="level2">
-<h2 class="anchored" data-anchor-id="lda-example-with-three-classes">LDA: Example with Three Classes</h2>
+<section id="lda-example-with-three-classes-visual" class="level2">
+<h2 class="anchored" data-anchor-id="lda-example-with-three-classes-visual">LDA: Example with Three Classes (Visual)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_6.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg" class="img-fluid figure-img"></p>
 <figcaption>Multivariate Gaussian distribution with three classes, and LDA decision boundaries</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="lda-example-three-classes-left-panel---ellipses" class="level2">
+<h2 class="anchored" data-anchor-id="lda-example-three-classes-left-panel---ellipses">LDA Example (Three Classes): Left Panel - Ellipses</h2>
+<div>
+
 </div>
-<div class="callout-body-container">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg" class="img-fluid figure-img"></p>
+<figcaption>Multivariate Gaussian distribution with three classes, and LDA decision boundaries</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Left:</strong> Ellipses contain 95% of the probability for each class. Dashed lines: Bayes decision boundaries.</li>
-<li><strong>Right:</strong> 20 observations from each class. Solid lines: LDA decision boundaries.</li>
-</ul>
-</div>
-</div>
-</div>
+<li><strong>Left Panel:</strong>
 <ul>
-<li>LDA approximates the Bayes decision boundaries.</li>
+<li>Two-dimensional example (p=2), three classes (K=3).</li>
+<li>Ellipses: Contours of constant probability density for each class (95% probability, assuming multivariate Gaussian).</li>
+<li>Dashed: <em>Bayes decision boundaries</em>. Optimal boundaries, given true distributions.</li>
+</ul></li>
 </ul>
 </section>
-<section id="lda-on-the-default-data" class="level2">
-<h2 class="anchored" data-anchor-id="lda-on-the-default-data">LDA on the Default Data</h2>
+<section id="lda-example-three-classes-right-panel---scatterplot-and-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="lda-example-three-classes-right-panel---scatterplot-and-boundaries">LDA Example (Three Classes): Right Panel - Scatterplot and Boundaries</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg" class="img-fluid figure-img"></p>
+<figcaption>Multivariate Gaussian distribution with three classes, and LDA decision boundaries</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>We can apply LDA to the Default data (predicting default based on balance and student status).</li>
-<li>Training error rate: 2.75%. Sounds good, but…</li>
-<li>Two problems:
+<li><strong>Right Panel:</strong>
+<ul>
+<li>20 observations from each class.</li>
+<li>Solid: <em>LDA decision boundaries</em>. Found by LDA using estimated parameters.</li>
+</ul></li>
+<li><strong>Key:</strong> LDA approximates Bayes boundaries. LDA boundaries are linear; Bayes boundaries are slightly curved.</li>
+</ul>
+</section>
+<section id="lda-on-the-default-data-assessing-performance" class="level2">
+<h2 class="anchored" data-anchor-id="lda-on-the-default-data-assessing-performance">LDA on the Default Data: Assessing Performance</h2>
+<ul>
+<li><p>Applying LDA to Default data (predicting default from <code>balance</code> and <code>student</code>).</p></li>
+<li><p><strong>Training Error Rate:</strong> 2.75%. Seems low, but be careful!</p></li>
+<li><p><strong>Two Problems with Training Error:</strong></p>
 <ol type="1">
-<li>Training error rates are usually lower than <em>test error rates</em>.</li>
-<li>Only 3.33% of individuals in the training data defaulted. A <em>useless</em> classifier that always predicts “no default” would have a 3.33% error rate! (This is the <strong>null classifier</strong>.)</li>
+<li><strong>Overfitting:</strong> Training error is usually <em>lower</em> than <em>test error</em>. The model might fit training data too closely, not generalizing well to new data.</li>
+<li><strong>Imbalanced Data:</strong> Only 3.33% of individuals defaulted in training data. <em>Imbalanced</em>. A classifier always predicting “no default” (the <em>null classifier</em>) would have a 3.33% error rate. Our 2.75% isn’t much better!</li>
 </ol></li>
 </ul>
 </section>
-<section id="confusion-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h2>
+<section id="confusion-matrix-a-detailed-performance-view" class="level2">
+<h2 class="anchored" data-anchor-id="confusion-matrix-a-detailed-performance-view">Confusion Matrix: A Detailed Performance View</h2>
 <ul>
-<li>A <strong>confusion matrix</strong> shows the types of errors being made.</li>
+<li>A <strong>confusion matrix</strong> summarizes classifier performance. It shows counts of:
+<ul>
+<li>True Positives (TP)</li>
+<li>True Negatives (TN)</li>
+<li>False Positives (FP) - Type I error</li>
+<li>False Negatives (FN) - Type II error</li>
+</ul></li>
 </ul>
 <table class="caption-top table">
 <colgroup>
@@ -760,172 +1373,398 @@ f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Si
 </tr>
 </tbody>
 </table>
+</section>
+<section id="confusion-matrix-interpreted" class="level2">
+<h2 class="anchored" data-anchor-id="confusion-matrix-interpreted">Confusion Matrix: Interpreted</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 25%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Predicted No Default</th>
+<th style="text-align: left;">Predicted Default</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Actual No Default</td>
+<td style="text-align: left;">9644</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">9667</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Actual Default</td>
+<td style="text-align: left;">252</td>
+<td style="text-align: left;">81</td>
+<td style="text-align: left;">333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">9896</td>
+<td style="text-align: left;">104</td>
+<td style="text-align: left;">10000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>LDA misclassifies 252/333 = 75.7% of defaulters! (Low <strong>sensitivity</strong>.)</li>
-<li>But it correctly classifies (1 - 23/9667) = 99.8% of non-defaulters. (High <strong>specificity</strong>.)</li>
+<li><p><strong>Rows:</strong> <em>Actual</em> class labels.</p></li>
+<li><p><strong>Columns:</strong> <em>Predicted</em> class labels.</p></li>
+<li><p><strong>From the table:</strong></p>
+<ul>
+<li><strong>TN:</strong> 9644 non-defaulters, correctly predicted “no default”.</li>
+<li><strong>FP:</strong> 23 non-defaulters, <em>incorrectly</em> predicted “default”.</li>
+<li><strong>FN:</strong> 252 defaulters, <em>incorrectly</em> predicted “no default”.</li>
+<li><strong>TP:</strong> 81 defaulters, correctly predicted “default”.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="confusion-matrix-key-insights-and-trade-offs" class="level2">
+<h2 class="anchored" data-anchor-id="confusion-matrix-key-insights-and-trade-offs">Confusion Matrix: Key Insights and Trade-offs</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 25%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Predicted No Default</th>
+<th style="text-align: left;">Predicted Default</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Actual No Default</td>
+<td style="text-align: left;">9644</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">9667</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Actual Default</td>
+<td style="text-align: left;">252</td>
+<td style="text-align: left;">81</td>
+<td style="text-align: left;">333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">9896</td>
+<td style="text-align: left;">104</td>
+<td style="text-align: left;">10000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Key Problem:</strong> LDA misclassifies 252/333 defaulters (75.7%). Low <em>sensitivity</em> (recall) – not good at identifying positive cases (defaulters).</li>
+<li><strong>However:</strong> LDA correctly classifies 99.8% of non-defaulters (1 - 23/9667). High <em>specificity</em> – good at identifying negative cases.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="modifying-the-threshold-adjusting-sensitivity-and-specificity" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-the-threshold-adjusting-sensitivity-and-specificity">Modifying the Threshold: Adjusting Sensitivity and Specificity</h2>
+<ul>
+<li><p>LDA (and Bayes classifier) typically use a 0.5 threshold for posterior probability. If Pr(default = Yes | X) &gt; 0.5, predict “default”.</p></li>
+<li><p>We can <em>modify</em> this threshold to change the sensitivity/specificity trade-off.</p></li>
+<li><p><strong>Lowering the Threshold (e.g., to 0.2):</strong></p>
+<ul>
+<li><em>Increases</em> sensitivity: Identify <em>more</em> defaulters (more TPs).</li>
+<li><em>Decreases</em> specificity: Incorrectly classify <em>more</em> non-defaulters as defaulters (more FPs).</li>
+</ul></li>
+<li><p><strong>Raising the Threshold (e.g., to 0.8):</strong></p>
+<ul>
+<li><em>Decreases</em> sensitivity: Identify <em>fewer</em> defaulters (fewer TPs).</li>
+<li><em>Increases</em> specificity: Incorrectly classify <em>fewer</em> non-defaulters (fewer FPs).</li>
+</ul></li>
+<li><p><strong>Best threshold depends on context and relative costs of errors (FP vs.&nbsp;FN).</strong></p></li>
 </ul>
 </section>
-<section id="modifying-the-threshold" class="level2">
-<h2 class="anchored" data-anchor-id="modifying-the-threshold">Modifying the Threshold</h2>
-<ul>
-<li>LDA (and the Bayes classifier) uses a threshold of 0.5 for the posterior probability of default.</li>
-<li>If we <em>lower</em> the threshold (e.g., to 0.2), we can increase sensitivity (correctly identify more defaulters), but at the cost of decreased specificity (more false positives).</li>
-<li>The best threshold depends on the <em>relative costs</em> of the two types of errors.</li>
-</ul>
-</section>
-<section id="roc-curves" class="level2">
-<h2 class="anchored" data-anchor-id="roc-curves">ROC Curves</h2>
+<section id="roc-curves-visualizing-performance-across-thresholds" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curves-visualizing-performance-across-thresholds">ROC Curves: Visualizing Performance Across Thresholds</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_7.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_7.svg" class="img-fluid figure-img"></p>
 <figcaption>Error rates as a function of threshold</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li>Shows various error rates as the threshold changes.</li>
-<li>Black solid line: overall error rate</li>
-<li>Blue dashed line: fraction of defaulters incorrectly classified</li>
-<li>Orange dotted line: fraction of errors among non-defaulters</li>
-</ul>
-</div>
-</div>
-</div>
-<ul>
-<li>A <strong>Receiver Operating Characteristic (ROC) curve</strong> plots the <em>true positive rate</em> (sensitivity) versus the <em>false positive rate</em> (1 - specificity) for all possible thresholds.</li>
-</ul>
 </section>
-<section id="roc-curve-continued" class="level2">
-<h2 class="anchored" data-anchor-id="roc-curve-continued">ROC Curve (Continued)</h2>
+<section id="roc-curves-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curves-explanation">ROC Curves: Explanation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_8.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_7.svg" class="img-fluid figure-img"></p>
+<figcaption>Error rates as a function of threshold</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Shows various error rates as threshold changes.</li>
+<li><strong>Black solid line:</strong> Overall error rate.</li>
+<li><strong>Blue dashed line:</strong> Fraction of defaulters incorrectly classified (1 - sensitivity).</li>
+<li><strong>Orange dotted line:</strong> Fraction of errors among non-defaulters (false positive rate, 1 - specificity).</li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li><p>A <strong>Receiver Operating Characteristic (ROC) curve</strong> visualizes classifier performance across <em>all possible thresholds</em>.</p></li>
+<li><p><strong>Axes:</strong></p>
+<ul>
+<li>X-axis: False Positive Rate (FPR) = 1 - Specificity</li>
+<li>Y-axis: True Positive Rate (TPR) = Sensitivity</li>
+</ul></li>
+<li><p><strong>Each point on the ROC curve represents a different threshold.</strong></p></li>
+</ul>
+</section>
+<section id="roc-curve-interpreting-the-shape" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curve-interpreting-the-shape">ROC Curve: Interpreting the Shape</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_8.svg" class="img-fluid figure-img"></p>
 <figcaption>ROC curve for LDA classifier on Default data</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
 <ul>
-<li>Ideal curve hugs the top left corner (high true positive rate, low false positive rate).</li>
-<li>Dotted line: “no information” classifier.</li>
-</ul>
-</div>
-</div>
-</div>
+<li><p><strong>Ideal ROC Curve:</strong> Hugs the top-left corner. High sensitivity (TPR) with low FPR.</p></li>
+<li><p><strong>Worst-Case ROC Curve:</strong> Diagonal line from bottom-left to top-right (dotted line). No better than random guessing.</p></li>
+<li><p><strong>Area Under the Curve (AUC):</strong> Summarizes performance.</p>
 <ul>
-<li>The <strong>area under the curve (AUC)</strong> summarizes performance. AUC = 1 is perfect; AUC = 0.5 is no better than chance.</li>
+<li>AUC = 1: Perfect classifier.</li>
+<li>AUC = 0.5: No better than random.</li>
+<li>AUC &gt; 0.5: Better than random. Higher AUC is better.</li>
+</ul></li>
 </ul>
 </section>
-<section id="quadratic-discriminant-analysis-qda" class="level2">
-<h2 class="anchored" data-anchor-id="quadratic-discriminant-analysis-qda">Quadratic Discriminant Analysis (QDA)</h2>
+<section id="quadratic-discriminant-analysis-qda-relaxing-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="quadratic-discriminant-analysis-qda-relaxing-assumptions">Quadratic Discriminant Analysis (QDA): Relaxing Assumptions</h2>
 <ul>
-<li><strong>QDA</strong> relaxes the assumption of a <em>common</em> covariance matrix.</li>
-<li>Each class has its <em>own</em> covariance matrix, Σ<sub>k</sub>.</li>
-<li>The discriminant function becomes <em>quadratic</em> in x:</li>
+<li><p><strong>QDA</strong> is another generative model, like LDA.</p></li>
+<li><p><strong>Key Difference:</strong> QDA <em>relaxes</em> the assumption of a <em>common</em> covariance matrix.</p></li>
+<li><p><strong>QDA Assumption:</strong> Each class has its <em>own</em> covariance matrix, Σ<sub>k</sub>. Spread and orientation can differ for each class.</p></li>
+<li><p><strong>Discriminant Function:</strong> Becomes <em>quadratic</em> in <em>x</em>:</p></li>
 </ul>
 <p><span class="math display">\[
 \delta_k(x) = -\frac{1}{2}x^T\Sigma_k^{-1}x + x^T\Sigma_k^{-1}\mu_k - \frac{1}{2}\mu_k^T\Sigma_k^{-1}\mu_k - \frac{1}{2}\log|\Sigma_k| + \log \pi_k
 \]</span></p>
+</section>
+<section id="qda-discriminant-function-explained" class="level2">
+<h2 class="anchored" data-anchor-id="qda-discriminant-function-explained">QDA Discriminant Function: Explained</h2>
 <ul>
-<li>We estimate the parameters (μ<sub>k</sub>, Σ<sub>k</sub>, π<sub>k</sub>) from the training data.</li>
+<li><p>Similar terms to LDA, but with Σ<sub>k</sub> (covariance matrix for class <em>k</em>) instead of Σ.</p></li>
+<li><p><strong>Key:</strong> <em>Quadratic</em> in <em>x</em>. Decision boundaries are curves (ellipses, parabolas, hyperbolas), not lines.</p></li>
+<li><p>We estimate parameters (μk, Σk, πk) from training data.</p></li>
 </ul>
 </section>
-<section id="lda-vs.-qda-bias-variance-trade-off" class="level2">
-<h2 class="anchored" data-anchor-id="lda-vs.-qda-bias-variance-trade-off">LDA vs.&nbsp;QDA: Bias-Variance Trade-Off</h2>
+<section id="lda-vs.-qda-the-bias-variance-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="lda-vs.-qda-the-bias-variance-trade-off">LDA vs.&nbsp;QDA: The Bias-Variance Trade-Off</h2>
 <ul>
-<li>QDA is more <em>flexible</em> than LDA (more parameters to estimate).</li>
-<li>QDA has <em>higher variance</em> but potentially <em>lower bias</em>.</li>
-<li>LDA tends to be better when there are <em>fewer</em> training observations (reducing variance is crucial).</li>
-<li>QDA is recommended when the training set is <em>large</em>, or when the assumption of a common covariance matrix is clearly untenable.</li>
+<li><p><strong>QDA is more flexible than LDA.</strong> More parameters to estimate (own covariance matrix for each class).</p></li>
+<li><p><strong>QDA: Higher variance, potentially lower bias.</strong> More flexible, so can fit data better (lower bias), but more prone to overfitting (higher variance).</p></li>
+<li><p><strong>LDA: Lower variance, potentially higher bias.</strong> Stronger assumption (common covariance), so less flexible (higher bias), but less likely to overfit (lower variance).</p></li>
+<li><p><strong>Which is better?</strong> Depends on data and bias-variance trade-off.</p>
+<ul>
+<li><strong>LDA better when:</strong>
+<ul>
+<li><em>Fewer</em> training observations. Reducing variance is crucial.</li>
+<li>Common covariance assumption is reasonable.</li>
+</ul></li>
+<li><strong>QDA recommended when:</strong>
+<ul>
+<li>Training set is <em>large</em>. Variance less of a concern.</li>
+<li>Common covariance assumption is clearly <em>not</em> tenable (classes have very different spreads/orientations).</li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
-<section id="lda-vs.-qda-example" class="level2">
-<h2 class="anchored" data-anchor-id="lda-vs.-qda-example">LDA vs.&nbsp;QDA: Example</h2>
+<section id="lda-vs.-qda-a-visual-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="lda-vs.-qda-a-visual-comparison">LDA vs.&nbsp;QDA: A Visual Comparison</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_9.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg" class="img-fluid figure-img"></p>
 <figcaption>LDA and QDA decision boundaries</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li><strong>Left:</strong> Classes have <em>common</em> correlation. Bayes boundary (dashed) is linear. LDA (black dotted) is better than QDA (green solid).</li>
-<li><strong>Right:</strong> Classes have <em>different</em> correlations. Bayes boundary is quadratic. QDA is better than LDA.</li>
-</ul>
-</div>
-</div>
-</div>
 </section>
-<section id="naive-bayes" class="level2">
-<h2 class="anchored" data-anchor-id="naive-bayes">Naive Bayes</h2>
+<section id="lda-vs.-qda-example-left-panel---common-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="lda-vs.-qda-example-left-panel---common-correlation">LDA vs.&nbsp;QDA Example: Left Panel - Common Correlation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg" class="img-fluid figure-img"></p>
+<figcaption>LDA and QDA decision boundaries</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>Makes a <em>very</em> strong assumption: <strong>Within each class, the <em>p</em> predictors are independent.</strong></li>
-<li>f<sub>k</sub>(x) = f<sub>k1</sub>(x₁) × f<sub>k2</sub>(x₂) × … × f<sub>kp</sub>(x<sub>p</sub>)
+<li><strong>Left Panel (Common Correlation):</strong>
 <ul>
-<li>f<sub>kj</sub> is the density function of the jth predictor in class k.</li>
+<li>Classes have <em>same</em> correlation between predictors.</li>
+<li>Bayes boundary (dashed): Linear.</li>
+<li>LDA boundary (dotted): Linear, approximates Bayes well.</li>
+<li>QDA boundary (solid): Quadratic, <em>worse</em> than LDA here. QDA overfits.</li>
 </ul></li>
-<li>This simplifies things <em>a lot</em>! We only need to estimate <em>one-dimensional</em> densities.</li>
-<li>We plug this into Bayes’ theorem:</li>
+</ul>
+</section>
+<section id="lda-vs.-qda-example-right-panel---different-correlations" class="level2">
+<h2 class="anchored" data-anchor-id="lda-vs.-qda-example-right-panel---different-correlations">LDA vs.&nbsp;QDA Example: Right Panel - Different Correlations</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg" class="img-fluid figure-img"></p>
+<figcaption>LDA and QDA decision boundaries</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Right Panel (Different Correlations):</strong>
+<ul>
+<li>Classes have <em>different</em> correlations.</li>
+<li>Bayes boundary (dashed): Quadratic.</li>
+<li>QDA boundary (solid): Quadratic, approximates Bayes well.</li>
+<li>LDA boundary (dotted): Linear, performs <em>poorly</em>. Cannot capture the quadratic relationship.</li>
+</ul></li>
+</ul>
+</section>
+<section id="naive-bayes-the-naive-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="naive-bayes-the-naive-assumption">Naive Bayes: The “Naive” Assumption</h2>
+<ul>
+<li><p><strong>Naive Bayes</strong> is another generative model. It makes a <em>very strong</em> simplifying assumption.</p></li>
+<li><p><strong>Assumption:</strong> <em>Within each class, the p predictors are independent</em>. Knowing the class, the value of one predictor gives no info about others.</p></li>
+<li><p>Mathematically: f<sub>k</sub>(x) = f<sub>k1</sub>(x₁) × f<sub>k2</sub>(x₂) × … × f<sub>kp</sub>(x<sub>p</sub>)</p>
+<ul>
+<li>f<sub>kj</sub>(x<sub>j</sub>): Density function of <em>j</em>th predictor <em>within class k</em>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="naive-bayes-explained" class="level2">
+<h2 class="anchored" data-anchor-id="naive-bayes-explained">Naive Bayes: Explained</h2>
+<ul>
+<li><p>Independence assumption simplifies things <em>dramatically</em>. Instead of estimating a complex <em>p</em>-dimensional joint density f<sub>k</sub>(x), we estimate <em>p</em> one-dimensional densities f<sub>kj</sub>(x<sub>j</sub>).</p></li>
+<li><p>Plug into Bayes’ theorem:</p></li>
 </ul>
 <p><span class="math display">\[
 \Pr(Y = k|X = x) = \frac{\pi_k \times f_{k1}(x_1) \times f_{k2}(x_2) \times \dots \times f_{kp}(x_p)}{\sum_{l=1}^K \pi_l \times f_{l1}(x_1) \times f_{l2}(x_2) \times \dots \times f_{lp}(x_p)}
 \]</span></p>
 </section>
-<section id="naive-bayes-estimating-the-one-dimensional-densities" class="level2">
-<h2 class="anchored" data-anchor-id="naive-bayes-estimating-the-one-dimensional-densities">Naive Bayes: Estimating the One-Dimensional Densities</h2>
+<section id="naive-bayes-estimating-one-dimensional-densities" class="level2">
+<h2 class="anchored" data-anchor-id="naive-bayes-estimating-one-dimensional-densities">Naive Bayes: Estimating One-Dimensional Densities</h2>
 <ul>
-<li>If X<sub>j</sub> is <em>quantitative</em>:
+<li><p>Key is estimating f<sub>kj</sub>(x<sub>j</sub>). Depends on whether X<sub>j</sub> is quantitative or qualitative.</p></li>
+<li><p><strong>If X<sub>j</sub> is quantitative:</strong></p>
 <ul>
-<li>We can assume X<sub>j</sub> | Y = k ~ N(μ<sub>jk</sub>, σ<sub>j</sub>²) (Gaussian).</li>
-<li>Or, we can use a non-parametric estimate (e.g., histogram, kernel density estimator).</li>
+<li><p><strong>Option 1 (Parametric):</strong> Assume X<sub>j</sub> | Y = k ~ N(μ<sub>jk</sub>, σ<sub>j</sub>²). Estimate mean (μ<sub>jk</sub>) and variance (σ<sub>j</sub>²) for each predictor <em>j</em> within each class <em>k</em>. <em>Different</em> variance for each predictor and class (unlike LDA).</p></li>
+<li><p><strong>Option 2 (Non-parametric):</strong></p>
+<ul>
+<li><em>Histogram</em>: Divide range of X<sub>j</sub> into bins, count observations in each bin for each class.</li>
+<li><em>Kernel Density Estimation (KDE)</em>: More sophisticated, produces smooth density estimate.</li>
 </ul></li>
-<li>If X<sub>j</sub> is <em>qualitative</em>:
+</ul></li>
+<li><p><strong>If X<sub>j</sub> is qualitative:</strong></p>
 <ul>
-<li>We can simply count the proportion of training observations for each level of the predictor within each class.</li>
+<li>Count <em>proportion</em> of training observations for each level of predictor <em>within each class</em>. Direct probability estimate.</li>
 </ul></li>
 </ul>
 </section>
-<section id="naive-bayes-example" class="level2">
-<h2 class="anchored" data-anchor-id="naive-bayes-example">Naive Bayes: Example</h2>
+<section id="naive-bayes-example-illustrative" class="level2">
+<h2 class="anchored" data-anchor-id="naive-bayes-example-illustrative">Naive Bayes: Example (Illustrative)</h2>
+<ul>
+<li><p>Two classes (K=2), three predictors (p=3). The first two predictors are quantitative, and the third predictor is qualitative with three levels.</p></li>
+<li><p>Shows estimated one-dimensional density functions fkj.</p></li>
+</ul>
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-panel" data-layout-ncol="1">
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10a.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_1.svg" class="img-fluid figure-img"></p>
 <figcaption>f11</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10a.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_2.svg" class="img-fluid figure-img"></p>
 <figcaption>f12</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10b.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_3.svg" class="img-fluid figure-img"></p>
 <figcaption>f13</figcaption>
 </figure>
 </div>
@@ -935,67 +1774,72 @@ f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Si
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-panel" data-layout-ncol="1">
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10a.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_4.svg" class="img-fluid figure-img"></p>
 <figcaption>f21</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10b.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_5.svg" class="img-fluid figure-img"></p>
 <figcaption>f22</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_10b.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_6.svg" class="img-fluid figure-img"></p>
 <figcaption>f23</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
+</section>
+<section id="naive-bayes-surprisingly-good-performance" class="level2">
+<h2 class="anchored" data-anchor-id="naive-bayes-surprisingly-good-performance">Naive Bayes: Surprisingly Good Performance!</h2>
 <ul>
-<li>Two classes (K=2), three predictors (p=3). First two predictors are quantitative, third is qualitative (three levels).</li>
-<li>Estimated density functions f<sub>kj</sub> are shown.</li>
-</ul>
-</div>
-</div>
-</div>
-<ul>
-<li>Naive Bayes often works surprisingly well, despite the strong independence assumption. It reduces variance, which can be beneficial.</li>
+<li><p>Despite the strong (and often unrealistic) independence assumption, Naive Bayes often works well.</p></li>
+<li><p><strong>Why?</strong> Reduces variance. Fewer parameters to estimate, so less prone to overfitting, especially with small data relative to predictors.</p></li>
+<li><p><strong>Bias-Variance Trade-off:</strong> Naive Bayes has high bias (independence assumption) but low variance. Can be a good trade-off.</p></li>
 </ul>
 </section>
-<section id="comparison-of-classification-methods-an-analytical-perspective" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-of-classification-methods-an-analytical-perspective">Comparison of Classification Methods: An Analytical Perspective</h2>
+<section id="comparing-classification-methods-an-analytical-view" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-classification-methods-an-analytical-view">Comparing Classification Methods: An Analytical View</h2>
 <ul>
-<li>Logistic regression, LDA, QDA, and naive Bayes can all be expressed in terms of maximizing Pr(Y = k | X = x).</li>
-<li>Equivalently, we can maximize the log-odds relative to a baseline class (K):</li>
+<li>Logistic regression, LDA, QDA, Naive Bayes: All can be expressed in terms of maximizing Pr(Y = k | X), or log-odds relative to baseline (K):</li>
 </ul>
 <p><span class="math display">\[
 \log\left(\frac{\Pr(Y = k|X = x)}{\Pr(Y = K|X = x)}\right)
 \]</span></p>
 <ul>
-<li>The <em>form</em> of this log-odds expression differs for each method.</li>
+<li>The <em>form</em> of this log-odds expression distinguishes the methods.</li>
 </ul>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 89%">
+<col style="width: 30%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1014,19 +1858,29 @@ f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Si
 </tr>
 <tr class="odd">
 <td style="text-align: left;">QDA</td>
-<td style="text-align: left;">a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> + Σ<sub>j=1</sub><sup>p</sup> Σ<sub>l=1</sub><sup>p</sup> c<sub>kj</sub><sub>l</sub>x<sub>j</sub>x<sub>l</sub> (quadratic)</td>
+<td style="text-align: left;">a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> + Σ<sub>j=1</sub><sup>p</sup> Σ<sub>l=1</sub><sup>p</sup> c<sub>kj,l</sub>x<sub>j</sub>x<sub>l</sub> (quadratic)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Naive Bayes</td>
-<td style="text-align: left;">a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> g<sub>kj</sub>(x<sub>j</sub>) (additive, where g<sub>kj</sub> is a function of x<sub>j</sub>)</td>
+<td style="text-align: left;">a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> g<sub>kj</sub>(x<sub>j</sub>) (additive)</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="comparison-explained" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-explained">Comparison: Explained</h2>
 <ul>
-<li>LDA is a special case of QDA.</li>
-<li>Any classifier with a <em>linear</em> decision boundary is a special case of naive Bayes.</li>
-<li>Logistic regression has the same <em>linear</em> form as LDA, but the coefficients are estimated differently.</li>
-<li>None of the method dominate others universally.</li>
+<li><p><strong>Logistic Regression:</strong> Log-odds are <em>linear</em> in predictors. Coefficients (β<sub>kj</sub>) estimated by MLE.</p></li>
+<li><p><strong>LDA:</strong> Log-odds also <em>linear</em>. Coefficients (a<sub>k</sub>, b<sub>kj</sub>) from multivariate normality and common covariance assumptions.</p></li>
+<li><p><strong>QDA:</strong> Log-odds are <em>quadratic</em>. Allows for more complex boundaries.</p></li>
+<li><p><strong>Naive Bayes:</strong> Log-odds are <em>additive</em>. Each predictor contributes independently through g<sub>kj</sub>(x<sub>j</sub>). Reflects independence.</p></li>
+<li><p><strong>Relationships:</strong></p>
+<ul>
+<li>LDA is special case of QDA (equal covariance matrices).</li>
+<li>Any classifier with <em>linear</em> boundary is special case of Naive Bayes.</li>
+<li>Logistic regression has same <em>linear</em> form as LDA, but coefficients estimated differently (MLE vs.&nbsp;normal assumptions).</li>
+</ul></li>
+<li><p>None of these methods universally dominate the others. The best choice depends on the characteristics of data.</p></li>
 </ul>
 </section>
 <section id="a-comparison-of-classification-methodsan-empirical-comparison" class="level2">
@@ -1043,144 +1897,292 @@ f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Si
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-panel" data-layout-ncol="1">
 <div class="quarto-layout-row">
-<div class="half-width quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_11.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_11.svg" class="img-fluid figure-img"></p>
 <figcaption>FIGURE 4.11</figcaption>
 </figure>
 </div>
 </div>
-<div class="half-width quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/4_12.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_12.svg" class="img-fluid figure-img"></p>
 <figcaption>FIGURE 4.12</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="empirical-comparison-details" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-comparison-details">Empirical Comparison: Details</h2>
+<div>
+
 </div>
-<div class="callout-body-container">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_11.svg" class="img-fluid figure-img"></p>
+<figcaption>FIGURE 4.11</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_12.svg" class="img-fluid figure-img"></p>
+<figcaption>FIGURE 4.12</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>Six different scenarios are involved, scenarios 1-3 Bayes decision boundaries are linear, and scenarios 4-6 Bayes decision boundaries are non-linear.</li>
-<li>There were p=2 quantitative predictors in each of the six scenarios.</li>
-<li>For each scenario, 100 random training data sets were generated.</li>
-<li>Scenario 1 to Scenario 6 are described in the text material page 31 and page 32.</li>
-</ul>
-</div>
-</div>
-</div>
+<li><p>Six scenarios. Scenarios 1-3: Bayes boundaries are linear. Scenarios 4-6: Bayes boundaries are non-linear.</p></li>
+<li><p>p=2 quantitative predictors in each scenario.</p></li>
+<li><p>For each scenario, 100 random training sets generated.</p></li>
+<li><p><strong>Scenario Details:</strong></p>
 <ul>
-<li>When the true decision boundaries are <em>linear</em>, LDA and logistic regression perform well.</li>
-<li>When boundaries are moderately non-linear, QDA or naive Bayes may be better.</li>
-<li>For <em>very</em> complex boundaries, a non-parametric method like KNN can be superior, <em>but</em> the level of smoothness must be chosen carefully.</li>
+<li><strong>Scenario 1:</strong> Two classes, predictors correlation 0, n = 100</li>
+<li><strong>Scenario 2:</strong> Two classes, predictors correlation -0.5, n = 100</li>
+<li><strong>Scenario 3:</strong> Two classes, predictors correlation 0.5, n = 100, modified predictors (nonlinear boundary).</li>
+<li><strong>Scenario 4:</strong> Two classes, independent standard normals, response from QDA (quadratic boundary).</li>
+<li><strong>Scenario 5:</strong> Same as 4, but response from more complex quadratic.</li>
+<li><strong>Scenario 6:</strong> Two classes, independent predictors, complex response (highly non-linear boundary). Compare with K-nearest neighbors (KNN).</li>
+</ul></li>
+<li><p><strong>Results:</strong></p>
+<ul>
+<li><em>Linear</em> boundaries (1 and 2): LDA and logistic regression do well.</li>
+<li>Moderately non-linear (3): QDA outperforms LDA, but logistic regression still good.</li>
+<li>More complex (4, 5, 6): QDA can be better than LDA and logistic.</li>
+<li><em>Very</em> complex (6): Non-parametric KNN can be superior, <em>but</em> smoothness (K) must be chosen carefully.</li>
+</ul></li>
 </ul>
 </section>
-<section id="generalized-linear-models-glms" class="level2">
-<h2 class="anchored" data-anchor-id="generalized-linear-models-glms">Generalized Linear Models (GLMs)</h2>
+<section id="generalized-linear-models-glms-beyond-normality" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-linear-models-glms-beyond-normality">Generalized Linear Models (GLMs): Beyond Normality</h2>
 <ul>
-<li>So far, the response Y is either quantitative(use least squares linear regression to predict) or qualitative(use classification methods).</li>
-<li>But Y is neither qualitative nor quantitative is also possible, like the number of hourly users of a bike sharing program.</li>
-<li>To predict the number of bike users, the least squares linear regression model shown defects(negative fitted values, variance increasing when mean number increasing, response not continuous-valued)</li>
-<li>Poisson regression could provide a much more natural and elegant approach.</li>
+<li><p>So far:</p>
+<ul>
+<li><em>Quantitative</em> responses: Least squares linear regression.</li>
+<li><em>Qualitative</em> responses: Classification methods (logistic, LDA, QDA, Naive Bayes).</li>
+</ul></li>
+<li><p>What if <em>Y</em> is neither?</p></li>
+<li><p><strong>Example:</strong> Predicting hourly users of a bike-sharing program.</p></li>
+<li><p><strong>Characteristics:</strong></p>
+<ul>
+<li><em>Non-negative integers</em>: Can’t have negative or fractional users.</li>
+<li><em>Counts</em>: Number of events (rentals) in a time period.</li>
+</ul></li>
 </ul>
 </section>
-<section id="poisson-regression" class="level2">
-<h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
+<section id="why-not-linear-regression-for-counts" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-linear-regression-for-counts">Why Not Linear Regression for Counts?</h2>
 <ul>
-<li>Suppose the random variable Y takes on nonnegative integer values and follows the Poisson distribution. The probability could be written as:</li>
+<li><p>Problems with using linear regression:</p>
+<ol type="1">
+<li><strong>Negative Predictions:</strong> Linear regression can predict negative values (nonsensical for counts).</li>
+<li><strong>Mean-Variance Relationship:</strong> For counts, variance often <em>increases</em> with the mean. Linear regression assumes constant variance.</li>
+<li><strong>Non-Continuous:</strong> Response is discrete. Linear regression assumes continuous.</li>
+</ol></li>
+<li><p><strong>Solution:</strong> <strong>Poisson regression</strong>. A more natural approach for count data.</p></li>
+</ul>
+</section>
+<section id="poisson-regression-modeling-counts" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-regression-modeling-counts">Poisson Regression: Modeling Counts</h2>
+<ul>
+<li><p><strong>Poisson Distribution:</strong> Often used to model <em>counts</em>.</p></li>
+<li><p><strong>Probability Mass Function:</strong> If Y is Poisson, probability of <em>k</em> events is:</p></li>
 </ul>
 <p><span class="math display">\[
 \Pr(Y = k) = \frac{e^{-\lambda}\lambda^k}{k!}  \quad \text{for } k = 0, 1, 2, \dots
 \]</span></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
 <ul>
-<li>k! means <code>k factorial</code>, λ &gt; 0 is the expected value of Y, which also equals the variance of Y.</li>
-<li>Larger the mean of Y, larger the variance of Y.</li>
-</ul>
-</div>
-</div>
-</div>
-<ul>
-<li>Poisson distribution is used to model counts.</li>
-<li>Number of bike users could be modeled as Poisson distribution with mean value. The mean could vary as a function of the covariates.</li>
+<li><p><em>k</em>: Number of events (non-negative integer).</p></li>
+<li><p><em>k!</em>: <em>k</em> factorial (k! = k × (k-1) × … × 2 × 1). 0! = 1.</p></li>
+<li><p>λ: Parameter (λ &gt; 0). <em>Expected value</em> (mean) <em>and</em> <em>variance</em> of Y.</p></li>
+<li><p><strong>Key:</strong> Mean and variance are <em>equal</em>. As mean (λ) increases, variance increases. Suitable for count data.</p></li>
 </ul>
 </section>
-<section id="poisson-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="poisson-regression-model">Poisson Regression Model</h2>
+<section id="poisson-regression-model-connecting-mean-to-predictors" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-regression-model-connecting-mean-to-predictors">Poisson Regression Model: Connecting Mean to Predictors</h2>
+<ul>
+<li>Model the <em>mean</em> (λ) as a function of predictors.</li>
+</ul>
 <p><span class="math display">\[
 \log(\lambda(X_1, \dots, X_p)) = \beta_0 + \beta_1X_1 + \dots + \beta_pX_p
-\]</span> or equivalently</p>
+\]</span></p>
+<p>or equivalently</p>
 <p><span class="math display">\[
 \lambda(X_1, \dots, X_p) = e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}
 \]</span></p>
+</section>
+<section id="poisson-regression-model-explained" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-regression-model-explained">Poisson Regression Model: Explained</h2>
 <ul>
-<li>The log of λ is linear in predictors.</li>
-<li>λ takes on nonnegative values for all values of covariates.</li>
-<li>We use maximum likelihood to estimate parameters.</li>
+<li><p>λ(X₁, X₂, …, X<sub>p</sub>): Mean (and variance) of Poisson, depends on predictors.</p></li>
+<li><p>β₀, β₁, …, β<sub>p</sub>: Coefficients estimated from data.</p></li>
+<li><p><strong>Link Function:</strong> <em>Log</em> link. <em>Logarithm</em> of mean is linear in predictors.</p></li>
+<li><p><strong>Why log link?</strong></p>
+<ul>
+<li><strong>Non-negativity:</strong> Ensures predicted mean (λ) is <em>non-negative</em>. Exponential function (e<sup>x</sup>) is always positive.</li>
+<li><strong>Linearity:</strong> Models relationship between predictors and <em>log</em> of mean as linear.</li>
+</ul></li>
+<li><p><strong>Estimation:</strong> Use MLE to estimate coefficients.</p></li>
 </ul>
 </section>
 <section id="comparing-poisson-regression-model-to-the-linear-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-poisson-regression-model-to-the-linear-regression-model">Comparing Poisson Regression Model to the linear regression model</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>Interpretation of the coefficients</li>
-<li>Mean-variance relationship</li>
-<li>Nonnegative fitted values</li>
+<li>Interpretation of the coefficients
+<ul>
+<li>In linear regression, coefficients represent linear increase.</li>
+<li>In Poisson regression, coefficients represents the change in the log-mean for a one-unit increase in X, or increase the expected count by a factor of e<sup>β</sup>.</li>
+</ul></li>
+<li>Mean-variance relationship
+<ul>
+<li>In linear regression, variance doesn’t change when mean changes.</li>
+<li>In Poisson regression, variance is equal to mean. The larger the mean, the larger the variance.</li>
+</ul></li>
+<li>Nonnegative fitted values
+<ul>
+<li>In linear regression, fitted values could be negative.</li>
+<li>In Poisson regression, fitted values will always be positive.</li>
+</ul></li>
 <li>Please read text material for details.</li>
 </ul>
+</div>
+</div>
+</div>
 </section>
-<section id="generalized-linear-models-in-greater-generality" class="level2">
-<h2 class="anchored" data-anchor-id="generalized-linear-models-in-greater-generality">Generalized Linear Models in Greater Generality</h2>
+<section id="generalized-linear-models-glms-the-big-picture" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-linear-models-glms-the-big-picture">Generalized Linear Models (GLMs): The Big Picture</h2>
 <ul>
-<li>Three types of regression models have been discussed: linear, logistic and Poisson. They share some common characteristics:
+<li><p>Three regression models:</p>
 <ol type="1">
-<li>Predictors are used to predict response variable. Conditional on predictors, Y belongs to a certain family of distributions. We make different assumption on the family of distributions that Y belongs to, correspondingly, we have different regression models.</li>
-<li>Modeling the mean of Y. Use different <em>link function</em> η, these regression models could be expressed as below:</li>
+<li><strong>Linear Regression:</strong> Quantitative responses (normal distribution, constant variance).</li>
+<li><strong>Logistic Regression:</strong> Binary responses (Bernoulli/binomial distribution).</li>
+<li><strong>Poisson Regression:</strong> Count responses (Poisson distribution).</li>
 </ol></li>
+<li><p>Common characteristics:</p>
+<ol type="1">
+<li><strong>Predictors and Response:</strong> Predictors (X₁, X₂, …, X<sub>p</sub>) predict response (Y).</li>
+<li><strong>Conditional Distribution:</strong> Given predictors, <em>Y</em> belongs to a <em>family of distributions</em>.</li>
+<li><strong>Modeling the Mean:</strong> Model <em>mean</em> of <em>Y</em>, conditional on predictors.</li>
+<li><strong>Link Function:</strong> <em>Link function</em> (η) relates mean of <em>Y</em> to linear combination of predictors.</li>
+</ol></li>
+<li><p><strong>General Form (GLM):</strong></p></li>
 </ul>
 <p><span class="math display">\[
 \eta(E(Y|X_1, \dots, X_p)) = \beta_0 + \beta_1X_1 + \dots + \beta_pX_p
 \]</span></p>
 <ul>
-<li>All these regression models are examples of <strong>Generalized Linear Model(GLM)</strong></li>
+<li><strong>Components:</strong>
+<ul>
+<li><em>Response (Y)</em> and its distribution.</li>
+<li><em>Predictors (X1, X2, …, Xp)</em>.</li>
+<li><em>Link Function (η)</em>.</li>
+<li><em>Linear Predictor</em>: β₀ + β₁X₁ + … + β<sub>p</sub>X<sub>p</sub></li>
+</ul></li>
 </ul>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li>Classification predicts <em>qualitative</em> responses.</li>
-<li>Logistic regression, LDA, QDA, and naive Bayes are common classification methods.</li>
-<li>Logistic regression models the <em>probability</em> of class membership using the logistic function.</li>
-<li>LDA and QDA assume the predictors follow a Gaussian distribution within each class. LDA assumes a <em>common</em> covariance matrix; QDA does not.</li>
-<li>Naive Bayes assumes <em>independence</em> of predictors within each class.</li>
-<li>The choice of method depends on the data and the bias-variance trade-off.</li>
-<li>ROC curves are useful for evaluating classifier performance across a range of thresholds.</li>
-<li>Generalized linear models handle responses from non-normal distributions, Poisson regression model is an example.</li>
+<li><strong>Classification:</strong> Predicting <em>qualitative</em> responses.</li>
+<li>Key methods:
+<ul>
+<li><strong>Logistic Regression:</strong> Models <em>probability</em> using logistic function. Directly models Pr(Y = k | X).</li>
+<li><strong>LDA:</strong> Generative. Assumes multivariate Gaussian predictors, <em>common</em> covariance.</li>
+<li><strong>QDA:</strong> Like LDA, but <em>own</em> covariance matrix per class.</li>
+<li><strong>Naive Bayes:</strong> Generative. Assumes <em>independence</em> of predictors within each class.</li>
+</ul></li>
+<li><strong>Choosing:</strong> Depends on data and bias-variance trade-off.
+<ul>
+<li>LDA/logistic: Linear boundaries.</li>
+<li>QDA: More flexible, non-linear, but higher variance.</li>
+<li>Naive Bayes: Simple, surprisingly good, despite independence.</li>
+</ul></li>
+<li><strong>ROC Curves:</strong> Evaluate performance across thresholds. AUC summarizes.</li>
+<li><strong>Generalized linear models</strong> handle responses from non-normal distributions, and Poisson regression model is an example for count data.</li>
 </ul>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion 🤔</h2>
-<div class="incremental">
-<ul class="incremental">
-<li>Can you think of real-world scenarios where each classification method (logistic regression, LDA, QDA, naive Bayes) might be most appropriate?</li>
-<li>How would you choose the “best” classification method for a given dataset? What metrics would you consider?</li>
-<li>What are the limitations of each method? When might they fail?</li>
-<li>How does the bias-variance trade-off play a role in choosing a classification method?</li>
-<li>Can we apply the knowledge of mean-variance relationship and fitted values to choose suitable regression model?</li>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Real-world scenarios for each method?
+<ul>
+<li><em>Logistic:</em> Credit scoring, medical diagnosis, marketing (churn).</li>
+<li><em>LDA:</em> Predictors approximately normal, similar covariance. Some image recognition/signal processing.</li>
+<li><em>QDA:</em> Normal predictors, <em>different</em> covariances. More complex problems.</li>
+<li><em>Naive Bayes:</em> Text classification (spam filtering), document categorization, sentiment analysis.</li>
+</ul></li>
+<li>Choosing the “best” method?
+<ul>
+<li><em>Understand Data:</em> Explore. Linear/nonlinear? Normal predictors?</li>
+<li><em>Assumptions:</em> Violations?</li>
+<li><em>Bias-Variance:</em> Flexible (high variance, low bias) or constrained (low variance, high bias)? Depends on dataset size/complexity.</li>
+<li><em>Metrics:</em> Cross-validation for test error.
+<ul>
+<li>Accuracy</li>
+<li>Sensitivity (Recall)</li>
+<li>Specificity</li>
+<li>Precision</li>
+<li>F1-score</li>
+<li>AUC</li>
+</ul></li>
+<li><em>Experiment:</em> Try different methods, compare with cross-validation.</li>
+</ul></li>
+<li>Limitations? When might they fail?
+<ul>
+<li><em>Logistic:</em> Assumes linear log-odds. Unstable with severe separation.</li>
+<li><em>LDA:</em> Multivariate normality, common covariance. Outliers.</li>
+<li><em>QDA:</em> Multivariate normality. Overfitting with small data.</li>
+<li><em>Naive Bayes:</em> Independence often violated.</li>
+</ul></li>
+<li>How does the bias-variance trade-off play a role in choosing a classification method?
+<ul>
+<li><em>High Bias, Low Variance:</em> Simpler models (e.g., LDA, Naive Bayes) tend to have higher bias but lower variance. They are less likely to overfit, but they might miss complex relationships in the data.</li>
+<li><em>Low Bias, High Variance:</em> More complex models (e.g., QDA) tend to have lower bias but higher variance. They can fit the data more closely, but they are more prone to overfitting, especially with small datasets.</li>
+<li>The optimal balance depends on the specific dataset and the goals of the analysis.</li>
+</ul></li>
+<li>Can we apply the knowledge of mean-variance relationship and fitted values to choose suitable regression model?
+<ul>
+<li>Yes.</li>
+<li>If variance increases as the mean increase and the response is count data, Poisson regression could be considered.</li>
+<li>If the fitted values are probabilities, which must be between 0 and 1, then models like logistic regression could be considered.</li>
+<li>Understanding the characteristics of data will guide us to select suitable models.</li>
+</ul></li>
 </ul>
+</div>
+</div>
 </div>
 
 

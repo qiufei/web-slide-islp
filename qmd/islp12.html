@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp12</title>
+<title>Unsupervised Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,52 +133,149 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Unsupervised Learning</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="introduction-to-unsupervised-learning" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-unsupervised-learning">Introduction to Unsupervised Learning</h2>
-<div style="font-size: 0.8em;">
-<p>So far, most of this course has focused on <strong>supervised learning</strong> methods like regression and classification.</p>
-<ul>
-<li><strong>Supervised Learning:</strong> We have a set of features (X1, X2, …, Xp) and a response variable (Y). The Goal is to <em>predict</em> Y using the Xs. We “teach” the algorithm.</li>
-<li><strong>Examples:</strong> Linear regression, logistic regression, Support Vector Machine (SVM).</li>
-</ul>
-<p>Now, we’ll explore <strong>unsupervised learning</strong>.</p>
-<ul>
-<li><strong>Unsupervised Learning:</strong> We only have features (X1, X2, …, Xp), <em>without</em> any response variable Y. No “teaching” or “supervision”.</li>
-<li><strong>Goal:</strong> Discover <em>interesting patterns</em> and <em>structure</em> in the data, find relationships.</li>
-<li><strong>Examples:</strong> Principal Component Analysis (PCA), Clustering.</li>
-</ul>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-what-is-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-what-is-statistical-learning">Introduction: What is Statistical Learning?</h2>
+<p>Statistical learning refers to a set of tools and techniques used to understand and extract insights from data. It’s a broad field encompassing both supervised and unsupervised learning approaches. The goal is to build models that can either predict an outcome (supervised) or discover patterns (unsupervised) in data. 📊</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Key Idea:</strong> Statistical learning provides a framework for using data to gain knowledge and make predictions.</p>
+</div>
+</div>
 </div>
 </section>
-<section id="what-is-unsupervised-learning" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-unsupervised-learning">What is Unsupervised Learning?</h2>
-<div style="font-size: 0.8em;">
-<p>Unsupervised learning is a set of statistical tools designed for situations where we have only input features and no output or response variable. Since there’s no “correct answer” to guide the learning process, it’s called “unsupervised.” We’re exploring the data without a specific prediction task in mind.</p>
-<p><strong>Key Goals:</strong></p>
+<section id="supervised-vs.-unsupervised-learning-overview" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning-overview">Supervised vs.&nbsp;Unsupervised Learning: Overview</h2>
+<p>Let’s start by understanding the fundamental difference between supervised and unsupervised learning. Think of it like learning with a teacher versus learning on your own.</p>
 <ul>
-<li><strong>Data Visualization:</strong> Find ways to represent the data to see patterns.</li>
-<li><strong>Discover Subgroups:</strong> Identify clusters or groups within the data or among the variables.</li>
-<li><strong>Data Pre-processing:</strong> Prepare data for supervised learning.</li>
+<li><strong>Supervised Learning:</strong> We have a “teacher” (the response variable, Y) guiding the learning process. 👨‍🏫 The goal is to learn a function that maps inputs to outputs.</li>
+<li><strong>Unsupervised Learning:</strong> We’re exploring the data “without a teacher” to discover hidden patterns. 🕵️‍♀️ There’s no explicit output variable to predict.</li>
 </ul>
-<p>We will cover two major types:</p>
+</section>
+<section id="supervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-learning">Supervised Learning</h2>
+<ul>
+<li><strong>Supervised Learning:</strong> We have a set of features (X1, X2, …, Xp) and a response variable (Y). The goal is to <em>predict</em> Y using the Xs. We “teach” the algorithm by providing examples of inputs and their corresponding outputs.</li>
+<li><strong>Examples:</strong> Linear regression (predicting house prices), logistic regression (predicting customer churn), Support Vector Machine (SVM) (image classification).</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Features (X)] --&gt; B(Model);
+    C[Response (Y)] --&gt; B;
+    B --&gt; D[Predictions];
+    style A fill:#ccf,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style D fill:#ccf,stroke:#333,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The model learns the relationship between features (X) and the response (Y).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="unsupervised-learning">Unsupervised Learning</h2>
+<ul>
+<li><strong>Unsupervised Learning:</strong> We only have features (X1, X2, …, Xp), <em>without</em> any response variable Y. No “teaching” or “supervision” – the algorithm explores the data on its own.</li>
+<li><strong>Goal:</strong> Discover <em>interesting patterns</em> and <em>structure</em> in the data; find relationships among the features and/or observations.</li>
+<li><strong>Examples:</strong> Principal Component Analysis (PCA) (dimensionality reduction), Clustering (finding groups of similar customers).</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Features (X)] --&gt; B(Model);
+    B --&gt; C[Patterns &amp; Structure];
+style A fill:#f9f,stroke:#333,stroke-width:2px
+style B fill:#ccf,stroke:#333,stroke-width:2px
+style C fill:#ccf,stroke:#333,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The model identifies inherent structure within the features (X).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-unsupervised-learning-detailed" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-unsupervised-learning-detailed">What is Unsupervised Learning? (Detailed)</h2>
+<p>Unsupervised learning is a collection of statistical methods used when we only have input data (features) and no corresponding output (response variable). Because there’s no “correct answer” to guide the analysis, we call it “unsupervised.” We’re essentially detectives, exploring the data to uncover hidden relationships and structures. 🔍 It’s about learning the underlying structure of the data itself.</p>
+</section>
+<section id="key-goals-of-unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="key-goals-of-unsupervised-learning">Key Goals of Unsupervised Learning</h2>
+<p>Unsupervised learning serves several important purposes:</p>
+<ul>
+<li><strong>Data Visualization:</strong> Finding ways to represent complex, high-dimensional data in a visually intuitive manner, often by reducing its dimensionality. Think of it like creating a map of your data, making it easier to navigate. 🗺️</li>
+<li><strong>Discover Subgroups:</strong> Identifying clusters or groups within the data. This could be groups of customers with similar buying habits, or groups of genes with related functions. 🧑‍🤝‍🧑 This helps us understand the heterogeneity within the data.</li>
+<li><strong>Data Pre-processing:</strong> Preparing data for supervised learning techniques. For example, we might use unsupervised learning to reduce the number of features or to create new, more informative features before applying a supervised learning algorithm. ⚙️ This can improve the performance and efficiency of supervised models.</li>
+</ul>
+</section>
+<section id="types-of-unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-unsupervised-learning">Types of Unsupervised Learning</h2>
+<p>We’ll focus on two primary types of unsupervised learning:</p>
 <ol type="1">
-<li><strong>Principal Components Analysis (PCA):</strong> Used for visualization and pre-processing.</li>
-<li><strong>Clustering:</strong> Discovering unknown subgroups in data.</li>
+<li><strong>Principal Components Analysis (PCA):</strong> Primarily used for data visualization and dimensionality reduction, making complex data easier to understand by finding the most important “directions” in the data.</li>
+<li><strong>Clustering:</strong> Used to discover unknown subgroups or clusters within a dataset, grouping similar observations together.</li>
 </ol>
-</div>
 </section>
-<section id="supervised-vs.-unsupervised-learning" class="level2">
-<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning">Supervised vs.&nbsp;Unsupervised Learning</h2>
-<div style="font-size: 0.8em;">
+<section id="supervised-vs.-unsupervised-learning-comparison-table" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning-comparison-table">Supervised vs.&nbsp;Unsupervised Learning: Comparison Table</h2>
+<p>Let’s solidify our understanding with a side-by-side comparison:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 40%">
-<col style="width: 44%">
+<col style="width: 9%">
+<col style="width: 43%">
+<col style="width: 46%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -190,80 +287,91 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Goal</strong></td>
-<td style="text-align: left;">Predict a response variable (Y)</td>
-<td style="text-align: left;">Discover patterns and structure</td>
+<td style="text-align: left;">Predict a response variable (Y) based on input features (X).</td>
+<td style="text-align: left;">Discover patterns, structure, and relationships within the data (X).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Data</strong></td>
-<td style="text-align: left;">Features (X) and response (Y)</td>
-<td style="text-align: left;">Features (X) only</td>
+<td style="text-align: left;">Features (X) and a corresponding response variable (Y).</td>
+<td style="text-align: left;">Features (X) only; no response variable.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Evaluation</strong></td>
-<td style="text-align: left;">Clear metrics (e.g., accuracy, R-squared)</td>
-<td style="text-align: left;">More subjective, harder to evaluate</td>
+<td style="text-align: left;">Clear metrics (e.g., accuracy, R-squared, precision, recall) to assess performance.</td>
+<td style="text-align: left;">More subjective, harder to evaluate; often relies on visual inspection or domain knowledge.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Examples</strong></td>
-<td style="text-align: left;">Regression, classification</td>
-<td style="text-align: left;">PCA, clustering</td>
+<td style="text-align: left;">Regression, classification, support vector machines.</td>
+<td style="text-align: left;">PCA, clustering, association rule mining.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>“Correct Answer”</strong></td>
-<td style="text-align: left;">Yes (the response variable)</td>
-<td style="text-align: left;">No (no response variable)</td>
+<td style="text-align: left;">Yes (the response variable provides the “ground truth”).</td>
+<td style="text-align: left;">No (no response variable, so no “ground truth”).</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="supervised-vs.-unsupervised-a-note-of-caution" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-a-note-of-caution">Supervised vs.&nbsp;Unsupervised: A Note of Caution</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Unsupervised learning is often more challenging because there’s no straightforward way to check our work. It’s more exploratory and subjective. We don’t have a “ground truth” to compare our results against.</p>
-</div>
+<p>Unsupervised learning is often more challenging than supervised learning. Why? Because there’s no easy way to check our results! We don’t have a “ground truth” (like a response variable) to compare against. This means the process is more exploratory and subjective, requiring careful interpretation and domain expertise. 🤔</p>
 </div>
 </div>
 </div>
 </section>
 <section id="applications-of-unsupervised-learning" class="level2">
 <h2 class="anchored" data-anchor-id="applications-of-unsupervised-learning">Applications of Unsupervised Learning</h2>
-<div style="font-size: 0.8em;">
-<p>Unsupervised learning is increasingly important in various fields:</p>
+<p>Unsupervised learning has become incredibly valuable across numerous fields:</p>
 <ul>
-<li><strong>Genomics:</strong> A cancer researcher analyzes gene expression levels in patients. Unsupervised learning can help find <em>subgroups</em> of patients or genes, leading to a better understanding of the disease.</li>
-<li><strong>E-commerce:</strong> An online shopping site identifies groups of shoppers with similar browsing and purchase histories. This allows for <em>targeted recommendations</em>, showing each shopper items they’re more likely to be interested in.</li>
-<li><strong>Search Engines:</strong> Search results can be customized based on the <em>click histories</em> of similar users.</li>
-<li><strong>Marketing:</strong> Identify <em>market segments</em> (groups of customers) for targeted advertising.</li>
+<li><strong>Genomics:</strong> Researchers studying cancer might use unsupervised learning to analyze gene expression data. This can help identify different subtypes of cancer, leading to more targeted treatments. 🧬</li>
+<li><strong>E-commerce:</strong> Online retailers use unsupervised learning to group customers with similar browsing and purchasing patterns. This allows for personalized product recommendations, increasing sales and customer satisfaction. 🛍️</li>
+<li><strong>Search Engines:</strong> Unsupervised learning can be used to cluster users based on their click histories, leading to more relevant search results. 🔎</li>
+<li><strong>Marketing:</strong> Identifying <em>market segments</em> (groups of customers with shared characteristics) for targeted advertising campaigns. 🎯</li>
 </ul>
-<p>These are just a few examples. Unsupervised learning is a powerful tool for extracting insights from data where there’s no predefined outcome.</p>
-</div>
 </section>
-<section id="principal-component-analysis-pca" class="level2">
-<h2 class="anchored" data-anchor-id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h2>
-<div style="font-size: 0.8em;">
-<p>Principal Component Analysis (PCA) is a technique to reduce the dimensionality of data while retaining as much <em>variability</em> (information) as possible. It’s like finding the most important “directions” in your data.</p>
+<section id="applications-of-unsupervised-learning-cont." class="level2">
+<h2 class="anchored" data-anchor-id="applications-of-unsupervised-learning-cont.">Applications of Unsupervised Learning (Cont.)</h2>
+<p>These are just a few examples. The power of unsupervised learning lies in its ability to extract insights from data <em>without</em> needing a predefined outcome, making it a versatile tool for discovery in various domains. The ability to uncover hidden patterns is what makes it so powerful.</p>
+</section>
+<section id="diving-into-principal-component-analysis-pca" class="level2">
+<h2 class="anchored" data-anchor-id="diving-into-principal-component-analysis-pca">Diving into Principal Component Analysis (PCA)</h2>
+<p>Now, let’s explore our first unsupervised learning technique: Principal Component Analysis (PCA). PCA is like taking a high-dimensional dataset (many features) and finding the best way to “flatten” it while preserving as much of its original information as possible. It’s a dimensionality reduction technique that finds the most important “directions” in your data.</p>
+</section>
+<section id="what-does-pca-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-pca-do">What does PCA do?</h2>
 <ul>
-<li><strong>Dimensionality Reduction:</strong> Simplifies data by finding a smaller set of <em>representative variables</em> (principal components).</li>
-<li><strong>Data Visualization:</strong> Allows us to visualize high-dimensional data in lower dimensions (e.g., 2D or 3D plots).</li>
-<li><strong>Unsupervised:</strong> PCA only uses the features (X), not any response (Y).</li>
-<li><strong>Feature Space Directions:</strong> Identifies the directions in the feature space along which the original data varies most.</li>
-<li><strong>Data Pre-processing:</strong> Can be used to create new, uncorrelated features for use in supervised learning (e.g., Principal Components Regression).</li>
+<li><strong>Dimensionality Reduction:</strong> PCA simplifies data by finding a smaller set of <em>representative variables</em>, called <strong>principal components</strong>. These components capture most of the variability in the original data.</li>
+<li><strong>Data Visualization:</strong> It allows us to visualize high-dimensional data in lower dimensions (e.g., 2D or 3D plots), making it easier to spot patterns and relationships that would be hidden in higher dimensions.</li>
+<li><strong>Unsupervised:</strong> PCA only uses the features (X) and doesn’t rely on any response variable (Y). It focuses solely on the relationships <em>between</em> the features.</li>
+<li><strong>Feature Space Directions:</strong> Identifies the directions in the feature space along which the original data varies most. These are the “principal components”.</li>
+<li><strong>Data Pre-processing:</strong> PCA can create new, uncorrelated features that can be used in subsequent supervised learning models. This can improve model performance and reduce overfitting.</li>
 </ul>
-</div>
 </section>
-<section id="what-are-principal-components" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-principal-components">What are Principal Components?</h2>
-<div style="font-size: 0.8em;">
-<p>Imagine you have many features (variables). PCA finds new variables, called <strong>principal components</strong>, that are <em>linear combinations</em> of the original features.</p>
+<section id="what-are-principal-components-explained" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-principal-components-explained">What are Principal Components? (Explained)</h2>
+<p>Imagine you have a dataset with many variables (features). PCA helps you find new variables, called <strong>principal components</strong>, which are <em>linear combinations</em> of the original features. It’s like creating new “summary” variables from the original ones, but in a way that maximizes the captured variance.</p>
+</section>
+<section id="understanding-the-first-principal-component-z1" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-first-principal-component-z1">Understanding the First Principal Component (Z1)</h2>
 <ul>
-<li><p><strong>First Principal Component (Z1):</strong> The normalized linear combination of features with the <em>largest variance</em>. It captures the <em>most</em> variability in the data.</p>
+<li><p><strong>First Principal Component (Z1):</strong> This is the most important principal component. It’s the normalized linear combination of the original features that captures the <em>largest variance</em> in the data. It represents the direction of greatest variability in the data cloud.</p>
 <ul>
-<li><strong>Normalized:</strong> The sum of the squared coefficients (loadings) equals 1. This prevents arbitrarily large variances.</li>
-<li><strong>Loadings:</strong> The coefficients (φ) in the linear combination. They tell us how much each original feature contributes to the principal component.</li>
+<li><strong>Normalized:</strong> The sum of the squared coefficients (loadings) equals 1. This ensures that the variance isn’t artificially inflated by using large coefficients. It’s a mathematical constraint for uniqueness.</li>
+<li><strong>Loadings:</strong> The coefficients (φ) in the linear combination are called <em>loadings</em>. They tell us how much each original feature contributes to the principal component. A large loading (in absolute value) means the feature has a strong influence on that component.</li>
 </ul></li>
-<li><p><strong>Subsequent Principal Components:</strong> Linear combinations that capture the <em>most remaining variance</em>, subject to being <em>uncorrelated</em> with previous components.</p></li>
+</ul>
+</section>
+<section id="subsequent-principal-components" class="level2">
+<h2 class="anchored" data-anchor-id="subsequent-principal-components">Subsequent Principal Components</h2>
+<ul>
+<li><strong>Subsequent Principal Components:</strong> These are also linear combinations of the original features, but they capture the <em>most remaining variance</em>, with the constraint that they are <em>uncorrelated</em> (orthogonal) to the previous components. Each component captures a different “direction” of variability in the data, and they are all perpendicular to each other.</li>
 </ul>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -271,24 +379,24 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Formula for the first principal component:</strong> <span class="math display">\[Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + ... + \phi_{p1}X_p\]</span> where <span class="math inline">\(\sum_{j=1}^{p} \phi_{j1}^2 = 1\)</span> (normalization constraint).</p>
-</div>
+<p><strong>Formula for the first principal component:</strong> <span class="math display">\[Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + ... + \phi_{p1}X_p\]</span> where <span class="math inline">\(\sum_{j=1}^{p} \phi_{j1}^2 = 1\)</span> (normalization constraint). The values <span class="math inline">\(\phi_{11},...,\phi_{p1}\)</span> are the <em>loadings</em> of the first principal component.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="geometric-interpretation-of-pca" class="level2">
 <h2 class="anchored" data-anchor-id="geometric-interpretation-of-pca">Geometric Interpretation of PCA</h2>
-<div style="font-size: 0.8em;">
 <p>The principal component loading vectors define directions in the feature space.</p>
 <ul>
-<li><strong>First Principal Component:</strong> The direction along which the data points <em>vary the most</em>.</li>
-<li><strong>Second Principal Component:</strong> The direction, <em>orthogonal</em> (perpendicular) to the first, that captures the <em>next most variance</em>. And so on.</li>
+<li><strong>First Principal Component:</strong> Represents the direction along which the data points <em>vary the most</em>. It’s the line of best fit through the data, minimizing the squared distances from the points to the line.</li>
+<li><strong>Second Principal Component:</strong> The direction, <em>orthogonal</em> (perpendicular) to the first, that captures the <em>next most variance</em>. And so on for subsequent components.</li>
 </ul>
-<p>Projecting the original data points onto these directions gives us the <strong>principal component scores</strong>.</p>
+</section>
+<section id="geometric-interpretation-of-pca-visual" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-interpretation-of-pca-visual">Geometric Interpretation of PCA (Visual)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_14.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_14.svg" class="img-fluid figure-img"></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
@@ -298,46 +406,50 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>In the figure, which displays an advertising data, the green solid line represents the first principal component direction. The blue dashed line represents the second. Since this is a 2D example, there are only two components.</p>
-</div>
+<p>This figure, from an advertising dataset, shows the first two principal components. The green solid line represents the first principal component direction (Z1). The blue dashed line represents the second (Z2). Because this is a two-dimensional example, we only have two components. The lines show the directions of greatest variability in the data. The origin is at the mean of each feature.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="example-usarrests-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-usarrests-data">Example: USArrests Data</h2>
-<div style="font-size: 0.8em;">
-<p>Let’s look at an example using the <code>USArrests</code> dataset, which contains crime statistics for each of the 50 US states:</p>
+<p>Let’s apply PCA to a real-world dataset: the <code>USArrests</code> dataset. This dataset contains crime statistics for each of the 50 US states.</p>
 <ul>
-<li><strong>Features:</strong> <code>Murder</code>, <code>Assault</code>, <code>UrbanPop</code>, <code>Rape</code> (per 100,000 residents)</li>
-<li><strong>Goal:</strong> Visualize the data and find patterns using PCA.</li>
+<li><strong>Features:</strong> <code>Murder</code>, <code>Assault</code>, <code>UrbanPop</code>, <code>Rape</code> (all measured per 100,000 residents).</li>
+<li><strong>Goal:</strong> Visualize the data and identify patterns using PCA. We want to see if we can reduce these four crime variables down to a smaller number of “summary” variables.</li>
 </ul>
+</section>
+<section id="usarrests-data-pca-biplot---image" class="level2">
+<h2 class="anchored" data-anchor-id="usarrests-data-pca-biplot---image">USArrests Data: PCA Biplot - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_1.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_1.svg" class="img-fluid figure-img"></p>
 <figcaption>First two principal components for the USArrests data.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>This is a <strong>biplot</strong>. It shows both the principal component <em>scores</em> (blue state names) and the principal component <em>loadings</em> (orange arrows). For example, the loading for <code>Rape</code> on the first component is 0.54, and on the second component is 0.17. The word <code>Rape</code> is centered at the point (0.54, 0.17).</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="interpreting-the-usarrests-biplot" class="level2">
-<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot">Interpreting the USArrests Biplot</h2>
-<div style="font-size: 0.8em;">
+<section id="usarrests-data-pca-biplot---explanation-1" class="level2">
+<h2 class="anchored" data-anchor-id="usarrests-data-pca-biplot---explanation-1">USArrests Data: PCA Biplot - Explanation 1</h2>
+<p>This plot is called a <strong>biplot</strong>. It shows both the principal component <em>scores</em> (blue state names) and the principal component <em>loadings</em> (orange arrows). The scores represent the projection of each state onto the plane defined by the first two principal components.</p>
+</section>
+<section id="usarrests-data-pca-biplot---explanation-2" class="level2">
+<h2 class="anchored" data-anchor-id="usarrests-data-pca-biplot---explanation-2">USArrests Data: PCA Biplot - Explanation 2</h2>
+<p>The loadings (orange arrows) show the contribution of each original variable to the principal components. For example, the loading for <code>Rape</code> on the first component is 0.54, and on the second component is 0.17. The word <code>Rape</code> is centered at the point (0.54, 0.17). The length and direction of the arrows indicate the strength and direction of the relationship.</p>
+</section>
+<section id="usarrests-data-pca-biplot---explanation-3" class="level2">
+<h2 class="anchored" data-anchor-id="usarrests-data-pca-biplot---explanation-3">USArrests Data: PCA Biplot - Explanation 3</h2>
+<p>The axes are labeled as PC1 and PC2. Each point represents a state, and its position is determined by its scores on the two principal components. States closer together in this plot have similar crime profiles.</p>
+</section>
+<section id="interpreting-the-usarrests-biplot-cont." class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot-cont.">Interpreting the USArrests Biplot (Cont.)</h2>
 <ul>
-<li><strong>First Principal Component (PC1):</strong> Places roughly equal weight on <code>Murder</code>, <code>Assault</code>, and <code>Rape</code>, with much less weight on <code>UrbanPop</code>. This component represents overall crime rates.</li>
-<li><strong>Second Principal Component (PC2):</strong> Places most of its weight on <code>UrbanPop</code>, representing the level of urbanization.</li>
-<li><strong>Correlation:</strong> <code>Murder</code>, <code>Assault</code>, and <code>Rape</code> are close together, indicating they are correlated. <code>UrbanPop</code> is farther away, indicating it’s less correlated with the other three.</li>
+<li><strong>First Principal Component (PC1):</strong> This component places roughly equal weight on <code>Murder</code>, <code>Assault</code>, and <code>Rape</code>, with much less weight on <code>UrbanPop</code>. This suggests that PC1 primarily captures the overall level of violent crime. States with high scores on PC1 have high crime rates across these three categories.</li>
+<li><strong>Second Principal Component (PC2):</strong> This component places most of its weight on <code>UrbanPop</code>, suggesting that it represents the degree of urbanization. States with high scores on PC2 are more urbanized.</li>
+<li><strong>Correlation:</strong> The proximity of <code>Murder</code>, <code>Assault</code>, and <code>Rape</code> in the biplot indicates that these variables are positively correlated. <code>UrbanPop</code> is farther away, indicating it’s less correlated with the other three.</li>
 </ul>
+</section>
+<section id="interpreting-the-usarrests-biplot-loading-table---image" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot-loading-table---image">Interpreting the USArrests Biplot: Loading Table - Image</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -369,196 +481,213 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>The table shows loading vectors. States with large positive scores on PC1 (e.g., California, Nevada, Florida) have high crime rates. States with large positive scores on PC2 (e.g., California) have high urbanization.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="another-interpretation-of-pca" class="level2">
-<h2 class="anchored" data-anchor-id="another-interpretation-of-pca">Another Interpretation of PCA</h2>
-<div style="font-size: 0.8em;">
-<p>Besides finding directions of greatest variance, PCA also finds <em>linear surfaces</em> that are closest to the data points.</p>
+<section id="interpreting-the-usarrests-biplot-loading-table---explanation-1" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot-loading-table---explanation-1">Interpreting the USArrests Biplot: Loading Table - Explanation 1</h2>
+<p>This table shows the numerical values of the loading vectors for each principal component. These numbers correspond to the lengths and directions of the arrows in the biplot.</p>
+</section>
+<section id="interpreting-the-usarrests-biplot-loading-table---explanation-2" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot-loading-table---explanation-2">Interpreting the USArrests Biplot: Loading Table - Explanation 2</h2>
+<p>States with large positive scores on PC1 (e.g., California, Nevada, Florida) have high crime rates, as indicated by the biplot and the large positive loadings for Murder, Assault, and Rape on PC1.</p>
+</section>
+<section id="interpreting-the-usarrests-biplot-loading-table---explanation-3" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-usarrests-biplot-loading-table---explanation-3">Interpreting the USArrests Biplot: Loading Table - Explanation 3</h2>
+<p>States with large positive scores on PC2 (e.g., California) have high urbanization, as indicated by the biplot and the large positive loading for UrbanPop on PC2.</p>
+</section>
+<section id="another-interpretation-of-pca-closest-linear-surfaces" class="level2">
+<h2 class="anchored" data-anchor-id="another-interpretation-of-pca-closest-linear-surfaces">Another Interpretation of PCA: Closest Linear Surfaces</h2>
+<p>PCA can also be understood as finding <em>linear surfaces</em> that are closest to the data points.</p>
 <ul>
-<li><strong>First Principal Component:</strong> The <em>line</em> in p-dimensional space closest to the n observations (in terms of average squared Euclidean distance).</li>
-<li><strong>First Two Principal Components:</strong> The <em>plane</em> closest to the observations.</li>
-<li><strong>And so on…</strong></li>
+<li><strong>First Principal Component:</strong> The <em>line</em> in p-dimensional space that is closest to the n observations (in terms of average squared Euclidean distance). It’s the best-fitting line in the sense of minimizing the sum of squared distances from the points to the line.</li>
+<li><strong>First Two Principal Components:</strong> The <em>plane</em> that is closest to the observations. It’s the best-fitting plane in the same least-squares sense.</li>
+<li><strong>And so on…</strong> For higher dimensions, PCA finds the best-fitting hyperplanes (generalizations of planes to higher dimensions).</li>
 </ul>
+</section>
+<section id="another-interpretation-of-pca-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="another-interpretation-of-pca-visual---image">Another Interpretation of PCA: Visual - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_2a.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_2.svg" class="img-fluid figure-img"></p>
 <figcaption>Ninety observations simulated in three dimensions.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><em>Left</em>: The first two principal component directions span the plane that best fits the data. <em>Right</em>: The first two principal component score vectors give the coordinates of the projection of the 90 observations onto the plane.</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+<section id="another-interpretation-of-pca-visual---explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="another-interpretation-of-pca-visual---explanation-left">Another Interpretation of PCA: Visual - Explanation (Left)</h2>
+<p><em>Left</em>: The first two principal component directions (shown in green) span the plane that best fits the data. It’s like finding the “flattest” plane that passes through the cloud of points, minimizing the distances from the points to the plane.</p>
+</section>
+<section id="another-interpretation-of-pca-visual---explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="another-interpretation-of-pca-visual---explanation-right">Another Interpretation of PCA: Visual - Explanation (Right)</h2>
+<p><em>Right</em>: The first two principal component score vectors give the coordinates of the projection of the 90 observations onto this plane. Projecting the data onto this plane gives us a lower-dimensional representation, capturing the most important aspects of the data’s variability.</p>
 </section>
 <section id="proportion-of-variance-explained-pve" class="level2">
 <h2 class="anchored" data-anchor-id="proportion-of-variance-explained-pve">Proportion of Variance Explained (PVE)</h2>
-<div style="font-size: 0.8em;">
-<p>How much information is <em>lost</em> when we project data onto the first few principal components? We use the <strong>Proportion of Variance Explained (PVE)</strong> to measure this.</p>
+<p>How much information do we <em>lose</em> when we project our data onto the first few principal components? The <strong>Proportion of Variance Explained (PVE)</strong> helps us answer this question. It quantifies the amount of information retained by each principal component.</p>
+</section>
+<section id="understanding-pve" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-pve">Understanding PVE</h2>
 <ul>
-<li><strong>Total Variance:</strong> The sum of the variances of all the original features (assuming they are centered).</li>
-<li><strong>Variance Explained by the m-th PC:</strong> The variance of the m-th principal component.</li>
-<li><strong>PVE of the m-th PC:</strong> The <em>proportion</em> of the total variance explained by the m-th principal component.</li>
+<li><strong>Total Variance:</strong> The sum of the variances of all the original features (assuming the features have been centered). This represents the total variability in the original dataset.</li>
+<li><strong>Variance Explained by the m-th PC:</strong> The variance of the m-th principal component. This is the amount of variability captured by that single component.</li>
+<li><strong>PVE of the m-th PC:</strong> The <em>proportion</em> of the total variance that is explained by the m-th principal component. It tells us how much information is retained by that component, expressed as a percentage of the total.</li>
 </ul>
+</section>
+<section id="pve-formula" class="level2">
+<h2 class="anchored" data-anchor-id="pve-formula">PVE Formula</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Formula for PVE of the m-th PC:</strong> <span class="math display">\[\frac{\sum_{i=1}^{n} z_{im}^2}{\sum_{j=1}^{p} \sum_{i=1}^{n} x_{ij}^2}\]</span></p>
-</div>
+<p><strong>Formula for PVE of the m-th PC:</strong> <span class="math display">\[\frac{\sum_{i=1}^{n} z_{im}^2}{\sum_{j=1}^{p} \sum_{i=1}^{n} x_{ij}^2}\]</span> Where: - <em>z<sub>im</sub></em> is the score of the i-th observation on the m-th principal component. - <em>x<sub>ij</sub></em> is the value of the j-th feature for the i-th observation (after centering). The denominator represents the total variance.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="pve-usarrests-example" class="level2">
-<h2 class="anchored" data-anchor-id="pve-usarrests-example">PVE: USArrests Example</h2>
-<div style="font-size: 0.8em;">
+<section id="pve-usarrests-example-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="pve-usarrests-example-visual---image">PVE: USArrests Example (Visual) - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_3.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_3.svg" class="img-fluid figure-img"></p>
 <figcaption>Scree plot and cumulative PVE plot for the USArrests data.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><em>Left</em>: A <strong>scree plot</strong>, showing the PVE of each principal component. <em>Right</em>: The cumulative PVE.</p>
-</div>
-</div>
-</div>
-<ul>
-<li><strong>PC1:</strong> Explains 62.0% of the variance.</li>
-<li><strong>PC2:</strong> Explains 24.7% of the variance.</li>
-<li><strong>Together:</strong> PC1 and PC2 explain almost 87% of the variance.</li>
-</ul>
-<p>This means that Figure 12.1 (the biplot) provides a good two-dimensional summary of the data. The scree plot helps us decide how many components to keep (look for an “elbow”).</p>
-</div>
 </section>
-<section id="scaling-the-variables" class="level2">
-<h2 class="anchored" data-anchor-id="scaling-the-variables">Scaling the Variables</h2>
-<div style="font-size: 0.8em;">
-<p>Before performing PCA, we usually <em>scale</em> the variables to have a standard deviation of one.</p>
+<section id="pve-usarrests-example-visual---explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="pve-usarrests-example-visual---explanation-left">PVE: USArrests Example (Visual) - Explanation (Left)</h2>
+<p><em>Left</em>: A <strong>scree plot</strong>, showing the PVE of each principal component. Each bar represents a principal component, and the height of the bar indicates the proportion of variance explained by that component.</p>
+</section>
+<section id="pve-usarrests-example-visual---explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="pve-usarrests-example-visual---explanation-right">PVE: USArrests Example (Visual) - Explanation (Right)</h2>
+<p><em>Right</em>: The cumulative PVE. This plot shows the cumulative proportion of variance explained as we add more principal components. It helps us see how much variance is explained by the first few components together.</p>
+</section>
+<section id="pve-usarrests-example-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="pve-usarrests-example-interpretation">PVE: USArrests Example (Interpretation)</h2>
 <ul>
-<li><strong>Why scale?</strong> If variables are measured in different units or have vastly different variances, the variables with the <em>largest variances</em> will dominate the principal components, regardless of whether they are actually the most <em>important</em>.</li>
-<li><strong>Exception:</strong> If variables are measured in the <em>same units</em> (e.g., gene expression levels), we might <em>not</em> want to scale.</li>
+<li><strong>PC1:</strong> Explains 62.0% of the variance in the data.</li>
+<li><strong>PC2:</strong> Explains 24.7% of the variance.</li>
+<li><strong>Together:</strong> PC1 and PC2 explain almost 87% of the total variance.</li>
 </ul>
+<p>This means that the biplot (from earlier slides) provides a reasonably good two-dimensional summary of the data, capturing a large portion of its variability. The scree plot helps us decide how many components to keep. We often look for an “elbow” in the plot – a point where the PVE starts to drop off significantly. This suggests that adding further components adds little additional information.</p>
+</section>
+<section id="scaling-the-variables-a-crucial-step" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-the-variables-a-crucial-step">Scaling the Variables: A Crucial Step</h2>
+<p>Before performing PCA, we usually <em>scale</em> the variables to have a standard deviation of one (also called standardization or z-scoring). This is a very important step in most cases!</p>
+</section>
+<section id="why-scale" class="level2">
+<h2 class="anchored" data-anchor-id="why-scale">Why Scale?</h2>
+<ul>
+<li><strong>Different Units/Variances:</strong> If variables are measured in different units (e.g., meters and kilograms) or have vastly different variances (e.g., one variable ranges from 0 to 1, another from 0 to 1000), the variables with the <em>largest variances</em> will dominate the principal components, regardless of whether they are actually the most <em>important</em> or informative.</li>
+<li><strong>Equal Weight:</strong> Scaling prevents this by putting all variables on a “level playing field.” It ensures that each variable contributes equally to the principal components, based on its <em>relative</em> variability, not its absolute scale.</li>
+</ul>
+</section>
+<section id="when-not-to-scale" class="level2">
+<h2 class="anchored" data-anchor-id="when-not-to-scale">When <em>Not</em> to Scale</h2>
+<ul>
+<li><strong>Same Units:</strong> If variables are measured in the <em>same units</em> (e.g., gene expression levels measured using the same technology), and the differences in variance are scientifically meaningful, we might <em>not</em> want to scale. In this case, the differences in variance might reflect real biological differences.</li>
+</ul>
+</section>
+<section id="scaling-usarrests-example-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-usarrests-example-visual---image">Scaling: USArrests Example (Visual) - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_4.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_4.svg" class="img-fluid figure-img"></p>
 <figcaption>Effect of scaling on the USArrests biplot.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><em>Left</em>: PCA with scaled variables (like Figure 12.1). <em>Right</em>: PCA with unscaled variables. <code>Assault</code> dominates the first PC because it has the highest variance.</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+<section id="scaling-usarrests-example-visual---explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-usarrests-example-visual---explanation-left">Scaling: USArrests Example (Visual) - Explanation (Left)</h2>
+<p><em>Left</em>: PCA with scaled variables (this is the same as the biplot we saw earlier). Notice that all variables contribute reasonably to PC1.</p>
+</section>
+<section id="scaling-usarrests-example-visual---explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-usarrests-example-visual---explanation-right">Scaling: USArrests Example (Visual) - Explanation (Right)</h2>
+<p><em>Right</em>: PCA with unscaled variables. Notice how <code>Assault</code> dominates the first principal component in the unscaled version simply because it has the highest variance among the four variables. Scaling gives a more balanced representation, reflecting the relative importance of the variables.</p>
 </section>
 <section id="how-many-principal-components-to-use" class="level2">
 <h2 class="anchored" data-anchor-id="how-many-principal-components-to-use">How Many Principal Components to Use?</h2>
-<div style="font-size: 0.8em;">
-<p>There’s no single, definitive answer. It depends on the context and the data.</p>
-<ul>
-<li><strong>Scree Plot:</strong> Look for an “elbow” in the scree plot – a point where the PVE drops off significantly.</li>
-<li><strong>Interpretation:</strong> Keep enough components to capture the <em>interesting patterns</em> in the data.</li>
-<li><strong>Ad Hoc:</strong> This process is inherently subjective.</li>
-<li><strong>Supervised Learning:</strong> If PCA is used for pre-processing for supervised learning (e.g., Principal Components Regression), we can use cross-validation to select the number of components.</li>
-</ul>
-</div>
+<p>This is a common question, and unfortunately, there’s no single “magic number” that works for all datasets. The best approach depends on the specific context, the dataset, and the goals of the analysis.</p>
 </section>
-<section id="clustering-methods" class="level2">
-<h2 class="anchored" data-anchor-id="clustering-methods">Clustering Methods</h2>
-<div style="font-size: 0.8em;">
-<p>Clustering aims to find <em>subgroups</em> (clusters) within a dataset.</p>
+<section id="guidelines-for-choosing-the-number-of-components" class="level2">
+<h2 class="anchored" data-anchor-id="guidelines-for-choosing-the-number-of-components">Guidelines for Choosing the Number of Components</h2>
 <ul>
-<li><strong>Goal:</strong> Partition observations into groups so that observations <em>within</em> a group are similar, and observations in <em>different</em> groups are dissimilar.</li>
-<li><strong>Similarity:</strong> What does “similar” mean? This is a crucial, often domain-specific, consideration.</li>
-<li><strong>Unsupervised:</strong> We’re looking for structure without a predefined outcome.</li>
+<li><strong>Scree Plot:</strong> Look for an “elbow” in the scree plot – a point where the PVE drops off significantly. This suggests that adding more components beyond that point doesn’t provide much additional information.</li>
+<li><strong>Interpretation:</strong> Keep enough components to capture the <em>interesting patterns</em> in the data. If you can interpret the first few components in a meaningful way, that’s a good sign.</li>
+<li><strong>Ad Hoc:</strong> The process is inherently somewhat subjective and requires judgment.</li>
+<li><strong>Supervised Learning:</strong> If PCA is used for pre-processing in a supervised learning context (e.g., Principal Components Regression), we can use cross-validation to select the optimal number of components. This involves trying different numbers of components and seeing which number leads to the best predictive performance on unseen data.</li>
 </ul>
-<p>We’ll cover two main types:</p>
+</section>
+<section id="clustering-methods-finding-subgroups" class="level2">
+<h2 class="anchored" data-anchor-id="clustering-methods-finding-subgroups">Clustering Methods: Finding Subgroups</h2>
+<p>Now, let’s move on to the second major type of unsupervised learning: <strong>clustering</strong>. Clustering aims to find <em>subgroups</em> (clusters) within a dataset, grouping observations that are similar to each other.</p>
+</section>
+<section id="clustering-the-goal" class="level2">
+<h2 class="anchored" data-anchor-id="clustering-the-goal">Clustering: The Goal</h2>
+<ul>
+<li><strong>Goal:</strong> Partition observations into groups (clusters) so that observations <em>within</em> a group are similar, and observations in <em>different</em> groups are dissimilar. It’s like sorting a collection of objects into meaningful categories based on their shared characteristics.</li>
+<li><strong>Similarity:</strong> What does “similar” mean? This is a crucial, and often domain-specific, consideration. We need to define how we measure the similarity or dissimilarity between observations, and this choice can significantly affect the results.</li>
+<li><strong>Unsupervised:</strong> We’re looking for structure <em>without</em> a predefined outcome or “correct answer.” We don’t know the “true” clusters beforehand.</li>
+</ul>
+</section>
+<section id="two-main-types-of-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="two-main-types-of-clustering">Two Main Types of Clustering</h2>
+<p>We’ll cover two main types of clustering:</p>
 <ol type="1">
-<li><strong>K-Means Clustering:</strong> Partitions data into a <em>pre-specified</em> number (K) of clusters.</li>
-<li><strong>Hierarchical Clustering:</strong> Builds a <em>hierarchy</em> of clusters, represented by a dendrogram.</li>
+<li><strong>K-Means Clustering:</strong> Partitions data into a <em>pre-specified</em> number (K) of clusters. We have to tell the algorithm how many clusters we <em>expect</em> to find.</li>
+<li><strong>Hierarchical Clustering:</strong> Builds a <em>hierarchy</em> of clusters, represented by a dendrogram (a tree-like diagram). This approach doesn’t require us to pre-specify the number of clusters; we can decide <em>after</em> seeing the dendrogram.</li>
 </ol>
-</div>
 </section>
-<section id="k-means-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-clustering">K-Means Clustering</h2>
-<div style="font-size: 0.8em;">
-<p>K-means clustering is a simple and widely used clustering algorithm.</p>
+<section id="k-means-clustering-a-popular-choice" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering-a-popular-choice">K-Means Clustering: A Popular Choice</h2>
+<p>K-means clustering is a simple, widely used, and efficient clustering algorithm.</p>
 <ul>
 <li><strong>Input:</strong> A dataset and a desired number of clusters, <em>K</em>.</li>
 <li><strong>Output:</strong> Assigns each observation to <em>exactly one</em> of K clusters.</li>
-<li><strong>Goal:</strong> Minimize the <em>within-cluster variation</em>.</li>
+<li><strong>Goal:</strong> Minimize the <em>within-cluster variation</em>. This means we want the observations within each cluster to be as close to each other as possible, forming tight, compact groups.</li>
 </ul>
+</section>
+<section id="k-means-clustering-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering-visual---image">K-Means Clustering (Visual) - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_7.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_7.svg" class="img-fluid figure-img"></p>
 <figcaption>K-means clustering results on simulated data.</figcaption>
 </figure>
 </div>
+</section>
+<section id="k-means-clustering-visual---explanation-k2" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering-visual---explanation-k2">K-Means Clustering (Visual) - Explanation (K=2)</h2>
+<p>This figure shows the results of applying K-means clustering with K=2 (two clusters). The color of each observation indicates the cluster to which it was assigned. The algorithm has separated the data into two distinct groups.</p>
+</section>
+<section id="k-means-clustering-visual---explanation-k3" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering-visual---explanation-k3">K-Means Clustering (Visual) - Explanation (K=3)</h2>
+<p>Here, K=3. The algorithm has identified three clusters. Notice how the cluster assignments change as we change the value of K.</p>
+</section>
+<section id="k-means-clustering-visual---explanation-k4" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering-visual---explanation-k4">K-Means Clustering (Visual) - Explanation (K=4)</h2>
+<p>With K=4, the data is further divided. The choice of K significantly impacts the resulting clusters.</p>
+</section>
+<section id="the-k-means-algorithm-step-by-step" class="level2">
+<h2 class="anchored" data-anchor-id="the-k-means-algorithm-step-by-step">The K-Means Algorithm: Step-by-Step</h2>
+<ol type="1">
+<li><strong>Initialization:</strong> Randomly assign each observation to one of the K clusters. This is our initial “guess” at the cluster assignments. These are <em>random</em> starting points.</li>
+<li><strong>Iteration:</strong> Repeat the following steps until the cluster assignments stop changing (or until a maximum number of iterations is reached):
+<ol type="a">
+<li><strong>Compute Centroids:</strong> For each cluster, calculate the <em>centroid</em>. The centroid is the mean vector of all the observations in that cluster. It represents the “center” of the cluster in the feature space.</li>
+<li><strong>Reassign Observations:</strong> Assign each observation to the cluster whose centroid is <em>closest</em> (usually using Euclidean distance). This step refines the cluster assignments based on the current centroids, moving observations between clusters to minimize within-cluster distances.</li>
+</ol></li>
+</ol>
+</section>
+<section id="the-k-means-algorithm-local-optima" class="level2">
+<h2 class="anchored" data-anchor-id="the-k-means-algorithm-local-optima">The K-Means Algorithm (Local Optima)</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The results of applying K-means clustering with different values of K (the number of clusters) are presented. The color of each observation indicates the cluster to which it was assigned.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-k-means-algorithm" class="level2">
-<h2 class="anchored" data-anchor-id="the-k-means-algorithm">The K-Means Algorithm</h2>
-<div style="font-size: 0.8em;">
-<ol type="1">
-<li><strong>Initialization:</strong> Randomly assign each observation to one of the K clusters.</li>
-<li><strong>Iteration:</strong> Repeat until the cluster assignments stop changing:
-<ol type="a">
-<li><strong>Compute Centroids:</strong> For each cluster, calculate the <em>centroid</em> (the mean vector of the observations in that cluster).</li>
-<li><strong>Reassign Observations:</strong> Assign each observation to the cluster whose centroid is <em>closest</em> (usually using Euclidean distance).</li>
-</ol></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The algorithm is guaranteed to decrease the within-cluster variation at each step. It finds a <em>local</em> optimum, not necessarily the global optimum.</p>
+<p>The K-means algorithm is guaranteed to decrease the within-cluster variation at each step. However, it finds a <em>local</em> optimum, not necessarily the <em>global</em> optimum. This means the final cluster assignments can depend on the initial random assignments. Different starting points can lead to different final clusters.</p>
 </div>
 </div>
 </div>
@@ -576,132 +705,161 @@ Note
     C --&gt; D(Iteration 1, Step 2b: Reassign Observations);
     D --&gt; E(Iteration 2, Step 2a: Compute Centroids);
      E --&gt; F(Iteration 2, Step 2b: Reassign Observations);
-    F --&gt; G(Final Results);
+    F --&gt; G(Continue Iterating Until Convergence);
+    G --&gt; H(Final Cluster Assignments);
     style A fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#ccf,stroke:#333,stroke-width:4px
+    style H fill:#ccf,stroke:#333,stroke-width:4px
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+<p>This flowchart illustrates the iterative nature of the K-means algorithm. The process continues until the cluster assignments no longer change, indicating that a local optimum has been reached.</p>
+</section>
+<section id="k-means-algorithm-in-action---image" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-algorithm-in-action---image">K-Means Algorithm in Action - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_8.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_8.svg" class="img-fluid figure-img"></p>
 <figcaption>Progress of the K-means algorithm.</figcaption>
 </figure>
 </div>
 </section>
-<section id="k-means-local-optima" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-local-optima">K-Means: Local Optima</h2>
-<div style="font-size: 0.8em;">
-<p>Because K-means finds a local optimum, the results depend on the <em>initial random assignment</em> of observations to clusters.</p>
+<section id="k-means-algorithm-in-action---explanation-first-row" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-algorithm-in-action---explanation-first-row">K-Means Algorithm in Action - Explanation (First Row)</h2>
+<p>This figure shows the progress of the K-means algorithm over several iterations. The crosses represent the cluster centroids. The first row shows the random initialization of cluster assignments and the initial centroids.</p>
+</section>
+<section id="k-means-algorithm-in-action---explanation-second-row" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-algorithm-in-action---explanation-second-row">K-Means Algorithm in Action - Explanation (Second Row)</h2>
+<p>The second row shows the state after the first iteration. The centroids have moved, and some observations have been reassigned to different clusters.</p>
+</section>
+<section id="k-means-algorithm-in-action---explanation-third-and-fourth-rows" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-algorithm-in-action---explanation-third-and-fourth-rows">K-Means Algorithm in Action - Explanation (Third and Fourth Rows)</h2>
+<p>The third and fourth rows show further iterations. The algorithm continues to update the centroids and reassign observations until convergence.</p>
+</section>
+<section id="k-means-the-problem-of-local-optima" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-the-problem-of-local-optima">K-Means: The Problem of Local Optima</h2>
+<p>Because K-means finds a local optimum, the results can vary depending on the <em>initial random assignment</em> of observations to clusters. Different starting points can lead to different final cluster assignments, and some solutions may be better (lower within-cluster variation) than others.</p>
+</section>
+<section id="dealing-with-local-optima" class="level2">
+<h2 class="anchored" data-anchor-id="dealing-with-local-optima">Dealing with Local Optima</h2>
 <ul>
-<li><strong>Recommendation:</strong> Run K-means multiple times with different initializations and choose the solution with the <em>lowest</em> within-cluster variation.</li>
+<li><strong>Recommendation:</strong> Run K-means multiple times with different initializations and choose the solution with the <em>lowest</em> within-cluster variation. This helps to mitigate the problem of getting stuck in a poor local optimum. It increases the chances of finding a good solution, although it doesn’t guarantee finding the global optimum.</li>
 </ul>
+</section>
+<section id="k-means-local-optima-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-local-optima-visual---image">K-Means: Local Optima (Visual) - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_9.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_9.svg" class="img-fluid figure-img"></p>
 <figcaption>K-means clustering with different initializations.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>K-means clustering was performed six times on the data, each with a different random assignment of observations. Three different local optima were obtained, one of which resulted in better separation between the clusters.</p>
-</div>
-</div>
-</div>
 </section>
-<section id="hierarchical-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="hierarchical-clustering">Hierarchical Clustering</h2>
-<div style="font-size: 0.8em;">
-<p>Hierarchical clustering builds a <em>hierarchy</em> of clusters, represented by a <strong>dendrogram</strong>.</p>
+<section id="k-means-local-optima-visual---explanation-1" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-local-optima-visual---explanation-1">K-Means: Local Optima (Visual) - Explanation 1</h2>
+<p>This figure shows K-means clustering performed six times on the same data, each with a different random initialization.</p>
+</section>
+<section id="k-means-local-optima-visual---explanation-2" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-local-optima-visual---explanation-2">K-Means: Local Optima (Visual) - Explanation 2</h2>
+<p>Three different local optima were obtained. This highlights the variability in the results due to the random initialization.</p>
+</section>
+<section id="k-means-local-optima-visual---explanation-3" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-local-optima-visual---explanation-3">K-Means: Local Optima (Visual) - Explanation 3</h2>
+<p>One of these local optima (bottom right) resulted in a better separation between the clusters. This emphasizes the importance of running K-means multiple times and comparing the results.</p>
+</section>
+<section id="hierarchical-clustering-a-different-approach" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering-a-different-approach">Hierarchical Clustering: A Different Approach</h2>
+<p>Hierarchical clustering offers an alternative to K-means, building a <em>hierarchy</em> of clusters. It provides a more nuanced view of the relationships between observations.</p>
+</section>
+<section id="advantages-of-hierarchical-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="advantages-of-hierarchical-clustering">Advantages of Hierarchical Clustering</h2>
 <ul>
-<li><strong>Advantage:</strong> Doesn’t require pre-specifying the number of clusters (K). We can choose the number of clusters by “cutting” the dendrogram.</li>
-<li><strong>Dendrogram:</strong> A tree-like diagram that shows how clusters are merged.</li>
-<li><strong>Agglomerative (Bottom-Up):</strong> Start with each observation as its own cluster, and successively merge the most similar clusters.</li>
+<li><strong>No Need to Pre-specify K:</strong> Unlike K-means, we don’t need to pre-specify the number of clusters (K). We can choose the number of clusters <em>after</em> the algorithm has run by examining the resulting dendrogram. This provides more flexibility.</li>
+<li><strong>Dendrogram:</strong> The output of hierarchical clustering is a <strong>dendrogram</strong>, a tree-like diagram that visually represents the hierarchy of clusters and the relationships between observations. It provides a visual summary of the clustering process.</li>
 </ul>
+</section>
+<section id="agglomerative-clustering-bottom-up" class="level2">
+<h2 class="anchored" data-anchor-id="agglomerative-clustering-bottom-up">Agglomerative Clustering (Bottom-Up)</h2>
+<ul>
+<li><strong>Agglomerative (Bottom-Up):</strong> We’ll focus on agglomerative clustering, which is the most common type of hierarchical clustering. It starts with each observation as its own cluster and successively merges the most similar clusters until only one cluster remains, building the hierarchy from the bottom up.</li>
+</ul>
+</section>
+<section id="hierarchical-clustering-dendrogram---image" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering-dendrogram---image">Hierarchical Clustering: Dendrogram - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_11.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_11.svg" class="img-fluid figure-img"></p>
 <figcaption>Dendrogram of hierarchically clustering the data.</figcaption>
 </figure>
 </div>
-</div>
+</section>
+<section id="hierarchical-clustering-dendrogram---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering-dendrogram---explanation">Hierarchical Clustering: Dendrogram - Explanation</h2>
+<p>This dendrogram visually represents the hierarchy of clusters. Each leaf represents an observation, and the branches show how clusters are merged.</p>
 </section>
 <section id="interpreting-a-dendrogram" class="level2">
 <h2 class="anchored" data-anchor-id="interpreting-a-dendrogram">Interpreting a Dendrogram</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li><strong>Leaves:</strong> Represent individual observations.</li>
-<li><strong>Fusions:</strong> As you move up the tree, leaves and branches <em>fuse</em>, representing the merging of similar clusters.</li>
-<li><strong>Height of Fusion:</strong> Indicates the <em>dissimilarity</em> between the merged clusters. Lower fusions mean more similar clusters.</li>
-<li><strong>Cutting the Dendrogram:</strong> A horizontal cut across the dendrogram gives a specific number of clusters. The height of the cut determines the number of clusters.</li>
+<li><strong>Leaves:</strong> The leaves at the bottom of the dendrogram represent individual observations.</li>
+<li><strong>Fusions:</strong> As you move up the tree, leaves and branches <em>fuse</em> together. These fusions represent the merging of similar clusters. Earlier fusions indicate greater similarity.</li>
+<li><strong>Height of Fusion:</strong> The height at which two clusters fuse indicates their <em>dissimilarity</em>. Lower fusions mean the merged clusters are more similar. Higher fusions mean the clusters are more dissimilar. The height provides a measure of the distance between merged clusters.</li>
+<li><strong>Cutting the Dendrogram:</strong> A horizontal cut across the dendrogram gives a specific number of clusters. The height of the cut determines the number of clusters obtained. This is how we can choose the number of clusters <em>after</em> running the algorithm.</li>
 </ul>
+</section>
+<section id="interpreting-a-dendrogram-visual---image" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-dendrogram-visual---image">Interpreting a Dendrogram (Visual) - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_12.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_12.svg" class="img-fluid figure-img"></p>
 <figcaption>Interpreting a dendrogram.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The figure illustrates how to <em>properly</em> interpret a dendrogram. <em>Left</em>: A dendrogram generated using Euclidean distance and complete linkage. Observations 5 and 7 are quite similar. <em>Right</em>: The raw data used to generate the dendrogram.</p>
-</div>
-</div>
-</div>
 </section>
-<section id="the-hierarchical-clustering-algorithm" class="level2">
-<h2 class="anchored" data-anchor-id="the-hierarchical-clustering-algorithm">The Hierarchical Clustering Algorithm</h2>
-<div style="font-size: 0.8em;">
+<section id="interpreting-a-dendrogram-visual---explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-dendrogram-visual---explanation-left">Interpreting a Dendrogram (Visual) - Explanation (Left)</h2>
+<p><em>Left</em>: A dendrogram generated using Euclidean distance and complete linkage. Observations 5 and 7 are quite similar, as indicated by the low height of their fusion. Observations 1 and 6 are also quite similar.</p>
+</section>
+<section id="interpreting-a-dendrogram-visual---explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-dendrogram-visual---explanation-right">Interpreting a Dendrogram (Visual) - Explanation (Right)</h2>
+<p><em>Right</em>: The raw data that was used to generate the dendrogram. This allows us to see how the dendrogram reflects the relationships in the original data. The dendrogram accurately captures the similarity between observations 5 and 7, and between observations 1 and 6.</p>
+</section>
+<section id="the-hierarchical-clustering-algorithm-step-by-step" class="level2">
+<h2 class="anchored" data-anchor-id="the-hierarchical-clustering-algorithm-step-by-step">The Hierarchical Clustering Algorithm: Step-by-Step</h2>
 <ol type="1">
-<li><strong>Initialization:</strong> Start with each observation as its own cluster (n clusters). Calculate all pairwise dissimilarities (e.g., using Euclidean distance).</li>
+<li><strong>Initialization:</strong> Begin with each observation as its own cluster (n clusters). Calculate all pairwise dissimilarities between the observations (e.g., using Euclidean distance).</li>
 <li><strong>Iteration:</strong> For i = n, n-1, …, 2:
 <ol type="a">
-<li><strong>Find Most Similar Clusters:</strong> Identify the two <em>most similar</em> clusters (least dissimilar).</li>
-<li><strong>Merge Clusters:</strong> <em>Fuse</em> these two clusters into a single cluster. The dissimilarity between these clusters is the <em>height</em> in the dendrogram where they fuse.</li>
-<li><strong>Update Dissimilarities:</strong> Calculate the new pairwise inter-cluster dissimilarities between the remaining i-1 clusters.</li>
+<li><strong>Find Most Similar Clusters:</strong> Identify the two <em>most similar</em> clusters (the two clusters with the smallest dissimilarity).</li>
+<li><strong>Merge Clusters:</strong> <em>Fuse</em> these two clusters into a single cluster. The dissimilarity between these two clusters is represented by the <em>height</em> in the dendrogram where their branches fuse.</li>
+<li><strong>Update Dissimilarities:</strong> Calculate the new pairwise inter-cluster dissimilarities between the remaining i-1 clusters. This is where different <em>linkage</em> methods come into play. The choice of linkage affects how the distances between clusters are calculated.</li>
 </ol></li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="the-key-question-linkage" class="level2">
+<h2 class="anchored" data-anchor-id="the-key-question-linkage">The Key Question: Linkage</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Key Question:</strong> How do we define the dissimilarity between <em>clusters</em> (groups of observations), not just individual observations? This is where <strong>linkage</strong> comes in.</p>
+<div class="callout-body-container">
+<p><strong>Key Question:</strong> How do we define the dissimilarity between <em>clusters</em> (groups of observations), not just between individual observations? We know how to calculate the distance between two <em>points</em>, but how do we calculate the distance between two <em>sets</em> of points? This is where <strong>linkage</strong> comes in.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="linkage" class="level2">
-<h2 class="anchored" data-anchor-id="linkage">Linkage</h2>
-<div style="font-size: 0.8em;">
-<p><strong>Linkage</strong> defines the dissimilarity between two <em>groups</em> of observations.</p>
+<section id="linkage-defining-inter-cluster-dissimilarity" class="level2">
+<h2 class="anchored" data-anchor-id="linkage-defining-inter-cluster-dissimilarity">Linkage: Defining Inter-Cluster Dissimilarity</h2>
+<p><strong>Linkage</strong> defines how we measure the dissimilarity between two <em>groups</em> of observations (clusters). It’s a crucial choice in hierarchical clustering. There are several different linkage methods:</p>
+</section>
+<section id="linkage-methods-a-table" class="level2">
+<h2 class="anchored" data-anchor-id="linkage-methods-a-table">Linkage Methods: A Table</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 91%">
+<col style="width: 6%">
+<col style="width: 93%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -712,92 +870,138 @@ Note
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Complete</td>
-<td style="text-align: left;"><em>Maximal</em> intercluster dissimilarity (dissimilarity between the <em>most dissimilar</em> points in the two clusters).</td>
+<td style="text-align: left;"><em>Maximal</em> intercluster dissimilarity. Calculates the dissimilarity between the <em>most dissimilar</em> points in the two clusters (the largest pairwise distance).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Single</td>
-<td style="text-align: left;"><em>Minimal</em> intercluster dissimilarity (dissimilarity between the <em>most similar</em> points in the two clusters).</td>
+<td style="text-align: left;"><em>Minimal</em> intercluster dissimilarity. Calculates the dissimilarity between the <em>most similar</em> points in the two clusters (the smallest pairwise distance).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Average</td>
-<td style="text-align: left;"><em>Mean</em> intercluster dissimilarity (average dissimilarity between all pairs of points in the two clusters).</td>
+<td style="text-align: left;"><em>Mean</em> intercluster dissimilarity. Calculates the average dissimilarity between all pairs of points in the two clusters.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Centroid</td>
-<td style="text-align: left;">Dissimilarity between the <em>centroids</em> of the two clusters.</td>
+<td style="text-align: left;">Dissimilarity between the <em>centroids</em> (means) of the two clusters.</td>
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="linkage-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="linkage-recommendations">Linkage: Recommendations</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Average and complete linkage are generally preferred. Centroid linkage can lead to undesirable <em>inversions</em>.</p>
+<div class="callout-body-container">
+<p>Average and complete linkage are generally preferred over single and centroid linkage. Single linkage can lead to “chaining,” where clusters become elongated and stringy. Centroid linkage can sometimes lead to undesirable <em>inversions</em> in the dendrogram, where clusters merge at a lower height than their individual members, making interpretation difficult.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="choice-of-dissimilarity-measure" class="level2">
 <h2 class="anchored" data-anchor-id="choice-of-dissimilarity-measure">Choice of Dissimilarity Measure</h2>
-<div style="font-size: 0.8em;">
-<p>Besides linkage, we also need to choose a <em>dissimilarity measure</em> between individual observations.</p>
+<p>In addition to choosing a linkage method, we also need to choose a <em>dissimilarity measure</em> between individual observations. This is the foundation upon which the clustering is built.</p>
+</section>
+<section id="common-dissimilarity-measures" class="level2">
+<h2 class="anchored" data-anchor-id="common-dissimilarity-measures">Common Dissimilarity Measures</h2>
 <ul>
-<li><strong>Euclidean Distance:</strong> The most common choice. Measures the straight-line distance between two points.</li>
-<li><strong>Correlation-Based Distance:</strong> Considers two observations similar if their features are <em>highly correlated</em>, even if their values are far apart in terms of Euclidean distance.</li>
+<li><strong>Euclidean Distance:</strong> The most common choice. Measures the straight-line distance between two points in the feature space: <span class="math display">\[\sqrt{\sum_{j=1}^{p}(x_{ij} - x_{i'j})^2}\]</span>. Suitable when features are continuous and on similar scales (or have been scaled).</li>
+<li><strong>Correlation-Based Distance:</strong> Considers two observations to be similar if their features are <em>highly correlated</em>, even if their absolute values are far apart in terms of Euclidean distance. Useful when we’re interested in the <em>shape</em> of the feature profiles, rather than their magnitude. It’s calculated as <code>1 - correlation</code>.</li>
 </ul>
-<p>The choice depends on the <em>type of data</em> and the <em>scientific question</em>.</p>
+</section>
+<section id="dissimilarity-measures-an-example---image" class="level2">
+<h2 class="anchored" data-anchor-id="dissimilarity-measures-an-example---image">Dissimilarity Measures: An Example - Image</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/12_15.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_15.svg" class="img-fluid figure-img"></p>
 <figcaption>Euclidean vs.&nbsp;correlation-based distance.</figcaption>
 </figure>
 </div>
-</div>
+</section>
+<section id="dissimilarity-measures-an-example---explanation-top" class="level2">
+<h2 class="anchored" data-anchor-id="dissimilarity-measures-an-example---explanation-top">Dissimilarity Measures: An Example - Explanation (Top)</h2>
+<p>The top panel shows three observations with two features. In terms of Euclidean distance, observations 1 and 3 are most similar, and observations 2 and 3 are most dissimilar.</p>
+</section>
+<section id="dissimilarity-measures-an-example---explanation-bottom" class="level2">
+<h2 class="anchored" data-anchor-id="dissimilarity-measures-an-example---explanation-bottom">Dissimilarity Measures: An Example - Explanation (Bottom)</h2>
+<p>The bottom panel shows the same observations, but now we consider correlation-based distance. Observations 1 and 2 have a perfect correlation of 1, so their correlation-based distance is 0. Observation 3 is negatively correlated with observations 1 and 2.</p>
+<p>The choice of dissimilarity measure depends on the <em>type of data</em> and the <em>scientific question</em> being addressed. Euclidean distance focuses on the magnitude of differences, while correlation-based distance focuses on the pattern of changes across features.</p>
 </section>
 <section id="practical-issues-in-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="practical-issues-in-clustering">Practical Issues in Clustering</h2>
-<div style="font-size: 0.8em;">
+<p>Clustering, while powerful, comes with some practical challenges that require careful consideration.</p>
 <ul>
-<li><strong>Scaling:</strong> Should we scale the variables before clustering? (Usually yes, to give equal weight to each variable.)</li>
-<li><strong>Small Decisions, Big Consequences:</strong> Choices of dissimilarity measure, linkage, and scaling can have a <em>large impact</em> on the results.</li>
-<li><strong>Validating Clusters:</strong> It’s hard to know if the clusters found are <em>real</em> or just an artifact of the clustering process.</li>
-<li><strong>Robustness:</strong> Clustering methods are often <em>not very robust</em> to small changes in the data.</li>
+<li><strong>Scaling:</strong> Should we scale the variables before clustering? (Usually yes, for the same reasons as in PCA: to give equal weight to each variable and prevent variables with large variances from dominating the results.)</li>
+<li><strong>Small Decisions, Big Consequences:</strong> Seemingly small choices, such as the dissimilarity measure, linkage method, and scaling, can have a <em>substantial impact</em> on the clustering results. There’s no single “correct” set of choices, and different choices can lead to very different clusters.</li>
+<li><strong>Validating Clusters:</strong> It’s difficult to definitively know if the clusters found are <em>real</em> and meaningful, or just an artifact of the clustering process. There’s no “ground truth” to compare against in most unsupervised learning scenarios.</li>
+<li><strong>Robustness:</strong> Clustering methods are often <em>not very robust</em>. Small changes in the data (e.g., adding or removing a few observations) can lead to significantly different cluster assignments.</li>
 </ul>
-<p><strong>Recommendation:</strong> Try different choices, look for consistent patterns, and be cautious about over-interpreting the results. Clustering should be a starting point for further investigation, not the final answer.</p>
+</section>
+<section id="clustering-recommendations-and-cautions" class="level2">
+<h2 class="anchored" data-anchor-id="clustering-recommendations-and-cautions">Clustering: Recommendations and Cautions</h2>
+<p><strong>Recommendations:</strong></p>
+<ul>
+<li><strong>Experiment:</strong> Try different choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling. Don’t rely on a single clustering result.</li>
+<li><strong>Consistency:</strong> Look for consistent patterns across different clustering results. If different methods produce similar clusters, this increases confidence in the findings.</li>
+<li><strong>Domain Knowledge:</strong> Use domain knowledge to assess the plausibility and interpretability of the clusters. Do the clusters make sense in the context of the problem?</li>
+</ul>
+<p><strong>Caution:</strong> Clustering should be viewed as a starting point for further investigation, not as the final answer. It’s an exploratory technique that can generate hypotheses, but these hypotheses should be validated using other methods or domain knowledge. Don’t over-interpret clustering results.</p>
+</section>
+<section id="data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning">Data Mining, Machine Learning and Statistical Learning</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Data Mining] --&gt; C(Common Ground)
+    B[Machine Learning] --&gt; C
+    D[Statistical Learning] --&gt; C
+    C --&gt; E[Insights &amp; Predictions]
+    style A fill:#ccf,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style D fill:#ccf,stroke:#333,stroke-width:2px
+     style C fill:#f9f,stroke:#333,stroke-width:4px
+      style E fill:#ccf,stroke:#333,stroke-width:4px
+</pre>
 </div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Data Mining:</strong> Focuses on discovering patterns, anomalies, and insights from large datasets, often using techniques from both machine learning and statistical learning.</li>
+<li><strong>Machine Learning:</strong> Emphasizes the development of algorithms that can learn from data and make predictions without explicit programming.</li>
+<li><strong>Statistical Learning:</strong> A subfield of statistics that focuses on developing and understanding models and methods for learning from data, with a strong emphasis on statistical inference and uncertainty quantification.</li>
+</ul>
+<p>All three fields share the common goal of extracting knowledge and making predictions from data, but they differ in their emphasis and approaches.</p>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li><strong>Unsupervised learning</strong> is about finding patterns and structure in data <em>without</em> a response variable.</li>
-<li><strong>PCA</strong> reduces dimensionality by finding linear combinations of features that capture the most variance. It’s useful for visualization and pre-processing.</li>
-<li><strong>Clustering</strong> aims to find subgroups within the data.
+<li><strong>Unsupervised learning</strong> is about finding patterns and structure in data <em>without</em> a response variable (no “teacher” to guide the learning). It’s about discovering hidden relationships.</li>
+<li><strong>PCA</strong> reduces dimensionality by finding linear combinations of features (principal components) that capture the most variance. It’s useful for visualization and pre-processing data for other analyses.</li>
+<li><strong>Clustering</strong> aims to find subgroups (clusters) within the data, grouping similar observations together.
 <ul>
-<li><strong>K-means</strong> requires pre-specifying the number of clusters (K).</li>
-<li><strong>Hierarchical clustering</strong> builds a hierarchy of clusters, represented by a dendrogram.</li>
+<li><strong>K-means</strong> requires pre-specifying the number of clusters (K). It’s an iterative algorithm that minimizes within-cluster variation. It’s sensitive to initialization.</li>
+<li><strong>Hierarchical clustering</strong> builds a hierarchy of clusters, represented by a dendrogram. It doesn’t require pre-specifying K, and it provides a visual representation of the relationships between observations.</li>
 </ul></li>
-<li>Choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling can significantly affect clustering results.</li>
-<li>Clustering is a powerful but often subjective and non-robust technique. It’s best used for exploration and hypothesis generation.</li>
+<li>Choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling can significantly affect clustering results. These choices should be made carefully and thoughtfully.</li>
+<li>Clustering is a powerful, but often subjective and non-robust, technique. It’s best used for exploration and hypothesis generation, not for definitive conclusions. Always consider the limitations.</li>
 </ul>
-</div>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li>Can you think of other real-world applications where unsupervised learning might be useful?</li>
-<li>What are the potential limitations of relying too heavily on clustering results without further validation?</li>
-<li>How might you combine supervised and unsupervised learning techniques in a single analysis?</li>
-<li>How do you understand the differences and connections between data mining, machine learning, and statistical learning?</li>
+<li>Can you think of other real-world applications where unsupervised learning might be useful? Consider areas like image analysis (grouping similar images), anomaly detection (identifying unusual transactions), or natural language processing (clustering documents by topic).</li>
+<li>What are the potential limitations of relying too heavily on clustering results without further validation? How could you try to validate the clusters you find? (e.g., using external data, domain expertise, or comparing results across different methods).</li>
+<li>How might you combine supervised and unsupervised learning techniques in a single analysis? For example, could you use clustering to identify subgroups and then build separate supervised models for each subgroup (this is called “cluster-then-predict”)? Or could you use PCA to reduce dimensionality before applying a supervised learning algorithm?</li>
+<li>How do you understand the differences and connections between data mining, machine learning, and statistical learning? Can you give examples of techniques used in each field?</li>
+<li>What is the biggest difference do you think supervised and unsupervised learning?</li>
 </ul>
-</div>
 
 
 </section>

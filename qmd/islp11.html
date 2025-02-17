@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp11</title>
+<title>Survival Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,46 +130,317 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Survival Analysis</h1>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div style="font-size: 0.8em;">
-<p>Welcome to the fascinating world of <strong>survival analysis</strong>! 🕰️ In this chapter, we delve into analyzing a unique type of data: the <em>time until an event occurs</em>. This is different from typical regression problems because of a crucial concept: <strong>censoring</strong>.</p>
-<p>Think of a medical study tracking patient survival after cancer treatment. Some patients might still be alive at the study’s end. We know they survived <em>at least</em> that long, but not their exact survival time. This is censored data.</p>
-<p><strong>Key Concepts:</strong> - <strong>Survival Analysis:</strong> Statistical methods for analyzing time-to-event data. - <strong>Censored Data:</strong> Observations where the event of interest has not occurred for all subjects by the end of the observation period. - <strong>Event:</strong> The outcome of interest (e.g., death, recovery, machine failure, customer churn). - <strong>Survival Time:</strong> The time until the event occurs.</p>
-<p>We will explore how to deal with censoring and effectively extract information using tools like survival analysis.</p>
+<div style="text-align: center;">
+<p>Welcome to the fascinating world of <strong>survival analysis</strong>! 🕰️</p>
 </div>
+</section>
+<section id="introduction-1" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-1">Introduction</h2>
+<p>In this chapter, we delve into analyzing a unique type of data: the <em>time until an event occurs</em>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is different from typical regression problems because we are not just predicting a value, but the <em>time</em> it takes for something to happen.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-the-challenge-of-censoring" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-the-challenge-of-censoring">Introduction: The Challenge of Censoring</h2>
+<p>The key challenge in survival analysis is <strong>censoring</strong>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Censoring means we don’t always know the <em>exact</em> time the event occurs.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-censoring-example" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-censoring-example">Introduction: Censoring Example</h2>
+<p>Think of a medical study tracking patient survival after cancer treatment. 🏥</p>
+<div class="fragment">
+<p>Some patients might still be alive at the study’s end. 🧑‍⚕️</p>
+</div>
+<div class="fragment">
+<p>We know they survived <em>at least</em> that long, but not their exact survival time. This is censored data. 🤔</p>
+</div>
+</section>
+<section id="introduction-censoring-example---visual" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-censoring-example---visual">Introduction: Censoring Example - Visual</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Censored_Data_Example.png/640px-Censored_Data_Example.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Censored Data Example</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This image illustrates different types of censoring. We’ll focus on <em>right-censoring</em>, where we only know the event happened <em>after</em> a certain time.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts">Key Concepts</h2>
+<p>Let’s define some essential terms.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p><strong>Survival Analysis:</strong> Statistical methods for analyzing time-to-event data.</p></li>
+<li><p><strong>Censored Data:</strong> Observations where the event of interest has not occurred for all subjects by the end of the observation period.</p></li>
+<li><p><strong>Event:</strong> The outcome of interest (e.g., death, recovery, machine failure, customer churn).</p></li>
+<li><p><strong>Survival Time:</strong> The time until the event occurs.</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/Time_to_Event.png" class="img-fluid figure-img"></p>
+<figcaption>Time to event concept.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="key-concepts-survival-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-survival-analysis">Key Concepts: Survival Analysis</h2>
+<p><strong>Survival Analysis:</strong> Statistical methods for analyzing time-to-event data.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Survival analysis focuses on the distribution of time until an event. It’s not just about <em>whether</em> an event happens, but <em>when</em>. It’s like being a detective, but instead of solving a crime, you’re solving for <em>time</em>! 🕵️‍♀️⏰</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-concepts-censored-data" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-censored-data">Key Concepts: Censored Data</h2>
+<p><strong>Censored Data:</strong> Observations where the event of interest has not occurred for all subjects by the end of the observation period.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Censoring means we have incomplete information about the event time. We only know a lower bound (right-censoring), upper bound (left-censoring), or an interval (interval-censoring). Think of it like reading a book with missing pages – you know <em>something</em> happened, but not the full story. 📖✂️</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-concepts-event" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-event">Key Concepts: Event</h2>
+<p><strong>Event:</strong> The outcome of interest (e.g., death, recovery, machine failure, customer churn).</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The “event” can be anything we’re interested in tracking the time to. It doesn’t have to be something negative! It could be a machine breaking down 🛠️, a customer leaving 🏃, or even a plant flowering! 🌸</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-concepts-survival-time" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-survival-time">Key Concepts: Survival Time</h2>
+<p><strong>Survival Time:</strong> The time until the event occurs.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is the variable we’re ultimately trying to understand and predict. We often denote it with the letter T. It’s the unknown we’re trying to uncover! 🔍</p>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-summary" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-summary">Introduction: Summary</h2>
+<p>We will explore how to deal with censoring and effectively extract information using tools like survival analysis. This is like learning a new language to decipher incomplete data! 🗣️</p>
 </section>
 <section id="why-survival-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="why-survival-analysis">Why Survival Analysis?</h2>
-<div style="font-size: 0.8em;">
-<p>Survival analysis isn’t limited to medical studies. It’s relevant in many fields:</p>
+<p>Survival analysis isn’t limited to medical studies. It’s a versatile tool with broad applications! 🌍</p>
+</section>
+<section id="why-survival-analysis---medicine" class="level2">
+<h2 class="anchored" data-anchor-id="why-survival-analysis---medicine">Why Survival Analysis? - Medicine</h2>
 <ul>
 <li><strong>Medicine:</strong> Predicting patient survival times, time to disease recurrence.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Survival analysis helps doctors estimate prognosis and evaluate treatment effectiveness. It allows them to make informed decisions and provide better care. It’s like giving doctors a crystal ball, but based on data! 🔮🩺</p>
+</div>
+</div>
+</div>
+</section>
+<section id="why-survival-analysis---business" class="level2">
+<h2 class="anchored" data-anchor-id="why-survival-analysis---business">Why Survival Analysis? - Business</h2>
+<ul>
 <li><strong>Business:</strong> Modeling customer churn (time until a customer cancels a subscription).</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Understanding churn allows businesses to take proactive steps to retain customers. Knowing <em>when</em> a customer might leave is as valuable as knowing <em>why</em>. It helps businesses keep their customers happy! 😊💼</p>
+</div>
+</div>
+</div>
+</section>
+<section id="why-survival-analysis---engineering" class="level2">
+<h2 class="anchored" data-anchor-id="why-survival-analysis---engineering">Why Survival Analysis? - Engineering</h2>
+<ul>
 <li><strong>Engineering:</strong> Assessing the reliability of components (time until failure).</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Reliability analysis helps engineers design more durable and dependable products. It’s about building things that last! Think of it as making sure your bridge doesn’t collapse! 🌉💪</p>
+</div>
+</div>
+</div>
+</section>
+<section id="why-survival-analysis---finance" class="level2">
+<h2 class="anchored" data-anchor-id="why-survival-analysis---finance">Why Survival Analysis? - Finance</h2>
+<ul>
 <li><strong>Finance:</strong> Evaluating credit risk (time until default).</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Survival models can predict the likelihood of loan defaults, informing lending decisions. This helps banks and lenders make smarter choices. It’s like having a financial advisor who can see into the future! 💰🔮</p>
+</div>
+</div>
+</div>
+</section>
+<section id="why-survival-analysis---beyond-time" class="level2">
+<h2 class="anchored" data-anchor-id="why-survival-analysis---beyond-time">Why Survival Analysis? - Beyond Time</h2>
+<ul>
 <li><strong>Even beyond time:</strong> Modeling weight when scales have upper limits. Any weight above that limit is censored.</li>
 </ul>
-<div class="incremental">
-<ul class="incremental">
-<li><strong>Key Insight:</strong> Survival analysis techniques allows us to work with <em>incomplete</em> information. We don’t need to observe the event for every individual to gain valuable insights.</li>
-</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>The concept of censoring extends to situations with measurement limitations. If your scale only goes up to 300 lbs, and someone weighs more, you only know their weight is <em>at least</em> 300 lbs. It’s like measuring with a ruler that’s too short! 📏🤔</p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-insight" class="level2">
+<h2 class="anchored" data-anchor-id="key-insight">Key Insight</h2>
+<p><strong>Key Insight:</strong> Survival analysis techniques allow us to work with <em>incomplete</em> information.</p>
+<div class="fragment">
+<p>We don’t need to observe the event for every individual to gain valuable insights. This is like solving a puzzle with missing pieces! 🧩</p>
 </div>
 </section>
 <section id="survival-and-censoring-times" class="level2">
 <h2 class="anchored" data-anchor-id="survival-and-censoring-times">Survival and Censoring Times</h2>
-<div style="font-size: 0.8em;">
-<p>Let’s define some core concepts:</p>
+<p>Let’s define some core concepts mathematically.</p>
+</section>
+<section id="survival-time-t" class="level2">
+<h2 class="anchored" data-anchor-id="survival-time-t">Survival Time (T)</h2>
 <ul>
 <li><strong>Survival Time (T):</strong> The true time until the event of interest occurs. Also called <em>failure time</em> or <em>event time</em>.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is the underlying quantity we’re interested in, even if we don’t always observe it directly. It’s the “true” time, even if we don’t know it yet.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="censoring-time-c" class="level2">
+<h2 class="anchored" data-anchor-id="censoring-time-c">Censoring Time (C)</h2>
+<ul>
 <li><strong>Censoring Time (C):</strong> The time at which observation ends, either because the study ends, the patient drops out, or the event occurs.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This represents the point at which we lose track of the individual. It’s like the end of a movie, but you don’t know what happens next! 🎬❓</p>
+</div>
+</div>
+</div>
+</section>
+<section id="observed-time-y" class="level2">
+<h2 class="anchored" data-anchor-id="observed-time-y">Observed Time (Y)</h2>
+<ul>
 <li><strong>Observed Time (Y):</strong> What we actually see: either the survival time or the censoring time. Mathematically, Y = min(T, C).</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is the data we have to work with – the minimum of the true survival time and the censoring time. It’s what we <em>actually</em> observe.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="status-indicator-δ" class="level2">
+<h2 class="anchored" data-anchor-id="status-indicator-δ">Status Indicator (δ)</h2>
+<ul>
 <li><strong>Status Indicator (δ):</strong> Tells us whether we observed the event (δ = 1) or the observation was censored (δ = 0).</li>
 </ul>
 <p><span class="math display">\[
@@ -179,191 +450,412 @@ window.Quarto = {
 0 &amp; \text{if } T &gt; C \text{ (censored)}
 \end{cases}
 \]</span></p>
-<p>These variables form the basis of survival analysis.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>This indicator variable tells us whether Y represents a true survival time or a censoring time. It’s like a flag that tells us if we have complete information or not. 🚩</p>
+</div>
+</div>
+</div>
+</section>
+<section id="survival-and-censoring-times---summary" class="level2">
+<h2 class="anchored" data-anchor-id="survival-and-censoring-times---summary">Survival and Censoring Times - Summary</h2>
+<p>These variables (T, C, Y, and δ) form the basis of survival analysis. They are the building blocks of our analysis! 🧱</p>
 </section>
 <section id="visualizing-censored-data" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-censored-data">Visualizing Censored Data</h2>
-<div style="font-size: 0.8em;">
-<p>Let’s consider a simple example:</p>
+<p>Let’s consider a simple example to illustrate these concepts.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_1.png" class="img-fluid figure-img"></p>
-<figcaption>alt text</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Visualizing Censored Data</figcaption>
 </figure>
 </div>
-<div class="fragment">
+</section>
+<section id="visualizing-censored-data-patients-1-3" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-censored-data-patients-1-3">Visualizing Censored Data: Patients 1 &amp; 3</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Visualizing Censored Data</figcaption>
+</figure>
+</div>
 <ul>
 <li><strong>Patients 1 &amp; 3:</strong> The event (e.g., death) was <em>observed</em>. We know their exact survival times.</li>
-<li><strong>Patient 2:</strong> Was <em>alive</em> at the end of the study. Their survival time is censored.</li>
-<li><strong>Patient 4:</strong> <em>Dropped out</em> of the study. Also censored.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
-<p><strong>Important:</strong> Censored observations still provide valuable information! They tell us the event <em>didn’t</em> happen before a certain time.</p>
+<div class="callout-body-container">
+<p>These are uncensored observations. The event happened <em>during</em> the observation period. We have complete information for these patients.</p>
+</div>
 </div>
 </div>
 </section>
+<section id="visualizing-censored-data-patient-2" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-censored-data-patient-2">Visualizing Censored Data: Patient 2</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Visualizing Censored Data</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Patient 2:</strong> Was <em>alive</em> at the end of the study. Their survival time is censored.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is a right-censored observation. We know the patient survived <em>at least</em> until the end of the study, but we don’t know their <em>exact</em> survival time.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-censored-data-patient-4" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-censored-data-patient-4">Visualizing Censored Data: Patient 4</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Visualizing Censored Data</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Patient 4:</strong> <em>Dropped out</em> of the study. Also censored.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is another example of right-censoring. We lost track of the patient before the event occurred, so we don’t know their exact survival time.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-censored-data-importance-of-censored-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-censored-data-importance-of-censored-data">Visualizing Censored Data: Importance of Censored Data</h2>
+<p><strong>Important:</strong> Censored observations still provide valuable information! They tell us the event <em>didn’t</em> happen before a certain time. This is crucial for accurate analysis!</p>
+</section>
 <section id="a-closer-look-at-censoring" class="level2">
 <h2 class="anchored" data-anchor-id="a-closer-look-at-censoring">A Closer Look at Censoring</h2>
-<div style="font-size: 0.8em;">
 <p>Censoring isn’t always straightforward. The <em>reason</em> for censoring matters.</p>
-<div class="nonincremental">
+</section>
+<section id="independent-censoring" class="level2">
+<h2 class="anchored" data-anchor-id="independent-censoring">Independent Censoring</h2>
 <ul>
 <li><strong>Independent Censoring:</strong> The censoring mechanism is unrelated to the survival time (conditional on features). This is a crucial assumption for many survival analysis methods.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This means that the reason someone is censored doesn’t provide extra information about their <em>likely</em> survival time, beyond what we already know from their features. Think of it like a coin flip – the reason you stop flipping (censoring) doesn’t affect the probability of heads or tails (survival). 🪙</p>
+</div>
+</div>
+</div>
+</section>
+<section id="independent-censoring-example-of-violation" class="level2">
+<h2 class="anchored" data-anchor-id="independent-censoring-example-of-violation">Independent Censoring: Example of Violation</h2>
+<ul>
 <li><strong>Example of violation:</strong> Patients dropping out because they are very sick. This biases the results, making survival times seem longer than they are.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div>
-
+<div class="callout-body-container">
+<p>This is <em>informative censoring</em>. The censoring is related to the survival time, which violates the independence assumption. It’s like stacking the deck in a card game – the outcome is no longer random! 🃏❌</p>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</div>
+</div>
+</section>
+<section id="types-of-censoring" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-censoring">Types of Censoring</h2>
 <p><strong>Types of Censoring</strong></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
 <li><strong>Right Censoring:</strong> Most common. We know the event time is <em>greater than</em> the observed time (T ≥ Y).</li>
 <li><strong>Left Censoring:</strong> We know the event time is <em>less than or equal</em> to the observed time.</li>
 <li><strong>Interval Censoring:</strong> We know the event time falls within a specific interval.</li>
 </ul>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="types-of-censoring---illustration" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-censoring---illustration">Types of Censoring - Illustration</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_1.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg" class="img-fluid figure-img"></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<div class="callout-body-container">
+<p>The image shows the example of <em>Right Censoring</em></p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>We will focus mainly on <strong>right censoring</strong>, the most prevalent type in practice.</p>
+</div>
+</section>
+<section id="focus-on-right-censoring" class="level2">
+<h2 class="anchored" data-anchor-id="focus-on-right-censoring">Focus on Right Censoring</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We will focus mainly on <strong>right censoring</strong>, the most prevalent type in practice. It’s the most common scenario we encounter.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="the-kaplan-meier-survival-curve" class="level2">
 <h2 class="anchored" data-anchor-id="the-kaplan-meier-survival-curve">The Kaplan-Meier Survival Curve</h2>
-<div style="font-size: 0.8em;">
 <p>The <strong>survival curve</strong>, denoted by S(t), is a fundamental concept. It gives the probability of surviving <em>past</em> time t:</p>
 <p><span class="math display">\[S(t) = Pr(T &gt; t)\]</span></p>
-<div class="fragment">
-<p>The larger the value of S(t), the more likely the event will occur at time greater than t.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
-<p>How do we estimate S(t) from data with censoring? The <strong>Kaplan-Meier estimator</strong> is a powerful tool.</p>
+<div class="callout-body-container">
+<p>This is the cornerstone of survival analysis! It tells us the probability of “surviving” (not experiencing the event) beyond a certain time.</p>
+</div>
 </div>
 </div>
 </section>
+<section id="survival-curve-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="survival-curve-interpretation">Survival Curve Interpretation</h2>
+<p>The larger the value of S(t), the more likely the event will occur at time greater than t.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A higher S(t) means a higher chance of <em>not</em> experiencing the event before time t. It’s like the probability of staying dry in the rain – the longer you stay inside, the higher the probability of staying dry! ☔</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-estimator">Kaplan-Meier Estimator</h2>
+<p>How do we estimate S(t) from data with censoring? The <strong>Kaplan-Meier estimator</strong> is a powerful tool. It’s like a statistical superhero for survival data! 🦸‍♀️</p>
+</section>
 <section id="estimating-the-survival-curve-challenges" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-survival-curve-challenges">Estimating the Survival Curve: Challenges</h2>
-<div style="font-size: 0.8em;">
 <p>Let’s consider the <code>BrainCancer</code> dataset. We want to estimate S(20): the probability of surviving at least 20 months. Naive approaches fail:</p>
+</section>
+<section id="naive-approach-1-using-y-20" class="level2">
+<h2 class="anchored" data-anchor-id="naive-approach-1-using-y-20">Naive Approach 1: Using Y &gt; 20</h2>
 <ol type="1">
 <li><strong>Simply using Y &gt; 20:</strong> This ignores that Y is not always the true survival time (due to censoring). It underestimates survival.</li>
+</ol>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Using Y directly treats censored observations as if the event occurred at the censoring time, leading to an underestimate. It’s like saying everyone who left the party early went home, even if they might have gone somewhere else! 🎉🏠❓</p>
+</div>
+</div>
+</div>
+</section>
+<section id="naive-approach-2-ignoring-censored-observations" class="level2">
+<h2 class="anchored" data-anchor-id="naive-approach-2-ignoring-censored-observations">Naive Approach 2: Ignoring Censored Observations</h2>
+<ol start="2" type="1">
 <li><strong>Ignoring censored observations:</strong> This throws away valuable information. A patient censored at 19.9 months almost certainly would have survived past 20.</li>
 </ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Tip
+<div class="callout-body-container">
+<p>Discarding censored data reduces the sample size and biases the results. It’s like throwing away puzzle pieces – you can’t see the full picture! 🧩🗑️</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>The Kaplan-Meier estimator elegantly handles censoring to provide a more accurate estimate.</p>
+</div>
+</section>
+<section id="kaplan-meier-the-solution" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-the-solution">Kaplan-Meier: The Solution</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The Kaplan-Meier estimator elegantly handles censoring to provide a more accurate estimate. It’s the clever way to deal with incomplete data!💡</p>
 </div>
 </div>
 </div>
 </section>
 <section id="the-kaplan-meier-estimator-intuition" class="level2">
 <h2 class="anchored" data-anchor-id="the-kaplan-meier-estimator-intuition">The Kaplan-Meier Estimator: Intuition</h2>
-<div style="font-size: 0.8em;">
-<p>The Kaplan-Meier estimator works <em>sequentially</em>, considering events as they unfold in time.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The Kaplan-Meier estimator works <em>sequentially</em>, considering events as they unfold in time. It’s like watching a movie frame by frame! 🎞️</p>
+</section>
+<section id="kaplan-meier-key-idea" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-key-idea">Kaplan-Meier: Key Idea</h2>
 <ul>
-<li><p><strong>Key Idea:</strong> At each death time, we calculate the <em>conditional</em> probability of surviving that time point, given survival up to that point.</p></li>
-<li><p>We then multiply these conditional probabilities together to get the overall survival probability.</p></li>
-<li><p>Let <span class="math inline">\(d_1 &lt; d_2 &lt; ... &lt; d_K\)</span> be the distinct death times.</p></li>
-<li><p><span class="math inline">\(q_k\)</span>: Number of deaths at time <span class="math inline">\(d_k\)</span>.</p></li>
-<li><p><span class="math inline">\(r_k\)</span>: Number of individuals <em>at risk</em> (alive and in the study) just before <span class="math inline">\(d_k\)</span>. This is the <em>risk set</em>.</p></li>
+<li><strong>Key Idea:</strong> At each death time, we calculate the <em>conditional</em> probability of surviving that time point, given survival up to that point.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We then multiply these conditional probabilities together to get the overall survival probability. It’s like calculating the probability of a chain of events! 🔗</li>
 </ul>
 </div>
+</section>
+<section id="kaplan-meier-notation" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-notation">Kaplan-Meier: Notation</h2>
+<ul>
+<li>Let <span class="math inline">\(d_1 &lt; d_2 &lt; ... &lt; d_K\)</span> be the distinct death times.</li>
+<li><span class="math inline">\(q_k\)</span>: Number of deaths at time <span class="math inline">\(d_k\)</span>.</li>
+<li><span class="math inline">\(r_k\)</span>: Number of individuals <em>at risk</em> (alive and in the study) just before <span class="math inline">\(d_k\)</span>. This is the <em>risk set</em>.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>These are the ingredients we need for our Kaplan-Meier recipe! 🍲</p>
 </div>
-<div class="fragment">
-<p>The Kaplan-Meier estimator formula is:</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-\hat{S}(d_k) = \prod_{j=1}^{k} \left( \frac{r_j - q_j}{r_j} \right)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>For times between death times, <span class="math inline">\(\hat{S}(t)\)</span> remains constant, creating a step-like curve.</p>
 </div>
 </div>
 </section>
+<section id="kaplan-meier-estimator-formula" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-estimator-formula">Kaplan-Meier Estimator Formula</h2>
+<p>The Kaplan-Meier estimator formula is:</p>
+<p><span class="math display">\[
+\hat{S}(d_k) = \prod_{j=1}^{k} \left( \frac{r_j - q_j}{r_j} \right)
+\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This looks complicated, but we’ll break it down step-by-step!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-estimator-step-function" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-estimator-step-function">Kaplan-Meier Estimator: Step Function</h2>
+<p>For times between death times, <span class="math inline">\(\hat{S}(t)\)</span> remains constant, creating a step-like curve. It’s like a staircase, not a smooth slope! 🪜</p>
+</section>
 <section id="the-kaplan-meier-estimator-explanation" class="level2">
 <h2 class="anchored" data-anchor-id="the-kaplan-meier-estimator-explanation">The Kaplan-Meier Estimator: Explanation</h2>
-<div style="font-size: 0.8em;">
 <p>The formula is derived from the law of total probability:</p>
 <p><span class="math display">\[
 Pr(T &gt; d_k) = Pr(T &gt; d_k | T &gt; d_{k-1})Pr(T &gt; d_{k-1}) + Pr(T&gt;d_k|T \leq d_{k-1})Pr(T\leq d_{k-1})
 \]</span></p>
-<div class="fragment">
-<p>Since <span class="math inline">\(d_{k-1} &lt; d_k\)</span>, <span class="math inline">\(Pr(T&gt;d_k|T \leq d_{k-1}) = 0\)</span>, then the above formula is: <span class="math display">\[
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is a fundamental probability rule, breaking down a complex probability into simpler parts.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-simplification" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-simplification">Kaplan-Meier: Simplification</h2>
+<p>Since <span class="math inline">\(d_{k-1} &lt; d_k\)</span>, <span class="math inline">\(Pr(T&gt;d_k|T \leq d_{k-1}) = 0\)</span>, then the above formula is:</p>
+<p><span class="math display">\[
 S(d_k) = Pr(T &gt; d_k) = Pr(T &gt; d_k | T &gt; d_{k-1})Pr(T &gt; d_{k-1})
 \]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
+<div class="callout-body-container">
+<p>Because if you’ve already survived past <span class="math inline">\(d_{k-1}\)</span>, you can’t possibly experience the event <em>before</em> <span class="math inline">\(d_{k-1}\)</span>!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-recursive-formula" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-recursive-formula">Kaplan-Meier: Recursive Formula</h2>
 <p>Plug in <span class="math inline">\(S(t)\)</span> and rearrange the above formula: <span class="math display">\[
 S(d_k) = Pr(T&gt;d_k|T&gt;d_{k-1}) \times ... \times Pr(T&gt;d_2|T&gt;d_1)Pr(T&gt;d_1)
 \]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
+<div class="callout-body-container">
+<p>We’re expressing the overall survival probability as a product of conditional probabilities.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-conditional-probability-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-conditional-probability-estimation">Kaplan-Meier: Conditional Probability Estimation</h2>
 <p>We estimate each term on the right-hand side using the fraction of the risk set at time <span class="math inline">\(d_j\)</span> who survived past time <span class="math inline">\(d_j\)</span>:</p>
 <p><span class="math display">\[\widehat{Pr}(T &gt; d_j | T &gt; d_{j-1}) = (r_j - q_j) / r_j\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
+<div class="callout-body-container">
+<p>This is the heart of the Kaplan-Meier estimator! We’re using the observed data to estimate these conditional probabilities.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kaplan-meier-final-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-final-estimator">Kaplan-Meier: Final Estimator</h2>
 <p>Finally, we arrive at the Kaplan-Meier estimator:</p>
-</div>
-<div class="fragment">
 <p><span class="math display">\[
 \hat{S}(d_k) = \prod_{j=1}^{k} \left( \frac{r_j - q_j}{r_j} \right)
 \]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is the formula we use to calculate the estimated survival probabilities!</p>
+</div>
 </div>
 </div>
 </section>
 <section id="kaplan-meier-curve-example" class="level2">
 <h2 class="anchored" data-anchor-id="kaplan-meier-curve-example">Kaplan-Meier Curve: Example</h2>
-<div style="font-size: 0.8em;">
 <p>Here’s the Kaplan-Meier curve for the <code>BrainCancer</code> data:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_2.png" class="img-fluid figure-img"></p>
-<figcaption>alt text</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Kaplan-Meier Curve for BrainCancer Data</figcaption>
+</figure>
+</div>
+</section>
+<section id="kaplan-meier-curve-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="kaplan-meier-curve-interpretation">Kaplan-Meier Curve: Interpretation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Kaplan-Meier Curve for BrainCancer Data</figcaption>
 </figure>
 </div>
 <ul>
@@ -371,155 +863,193 @@ S(d_k) = Pr(T&gt;d_k|T&gt;d_{k-1}) \times ... \times Pr(T&gt;d_2|T&gt;d_1)Pr(T&g
 <li>The height of the curve at any time point represents the estimated survival probability.</li>
 <li>The estimated probability of survival past 20 months is 71%.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We can read the estimated survival probabilities directly from the curve!</p>
+</div>
+</div>
 </div>
 </section>
 <section id="comparing-survival-curves-the-log-rank-test" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-survival-curves-the-log-rank-test">Comparing Survival Curves: The Log-Rank Test</h2>
-<div style="font-size: 0.8em;">
-<p>Often, we want to compare survival curves between groups (e.g., males vs.&nbsp;females).</p>
+<p>Often, we want to compare survival curves between groups (e.g., males vs.&nbsp;females). Is there a <em>significant</em> difference in survival between groups? 🤔</p>
+</section>
+<section id="log-rank-test" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test">Log-Rank Test</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_3.png" class="img-fluid figure-img"></p>
-<figcaption>alt text</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_3.svg" class="img-fluid figure-img"></p>
+<figcaption>Log-Rank Test Example</figcaption>
 </figure>
 </div>
-<div class="fragment">
-<p>The <strong>log-rank test</strong> is a statistical test for comparing survival curves. It accounts for censoring.</p>
-</div>
-</div>
+<p>The <strong>log-rank test</strong> is a statistical test for comparing survival curves. It accounts for censoring. It’s like a statistical judge deciding if there’s a real difference! ⚖️</p>
 </section>
 <section id="log-rank-test-details" class="level2">
 <h2 class="anchored" data-anchor-id="log-rank-test-details">Log-Rank Test: Details</h2>
-<div style="font-size: 0.7em;">
-<p>The log-rank test examines events sequentially, like the Kaplan-Meier estimator.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The log-rank test examines events sequentially, like the Kaplan-Meier estimator. It’s a step-by-step comparison!</p>
+</section>
+<section id="log-rank-test-2x2-table" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test-2x2-table">Log-Rank Test: 2x2 Table</h2>
 <ul>
 <li>At each death time <span class="math inline">\(d_k\)</span>, we construct a 2x2 table:</li>
 </ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">Group 1</th>
-<th style="text-align: left;">Group 2</th>
-<th style="text-align: left;">Total</th>
+<th></th>
+<th>Group 1</th>
+<th>Group 2</th>
+<th>Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Died</td>
-<td style="text-align: left;"><span class="math inline">\(q_{1k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(q_{2k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(q_k\)</span></td>
+<td>Died</td>
+<td><span class="math inline">\(q_{1k}\)</span></td>
+<td><span class="math inline">\(q_{2k}\)</span></td>
+<td><span class="math inline">\(q_k\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Survived</td>
-<td style="text-align: left;"><span class="math inline">\(r_{1k}-q_{1k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(r_{2k}-q_{2k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(r_k-q_k\)</span></td>
+<td>Survived</td>
+<td><span class="math inline">\(r_{1k}-q_{1k}\)</span></td>
+<td><span class="math inline">\(r_{2k}-q_{2k}\)</span></td>
+<td><span class="math inline">\(r_k-q_k\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Total</td>
-<td style="text-align: left;"><span class="math inline">\(r_{1k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(r_{2k}\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(r_k\)</span></td>
+<td>Total</td>
+<td><span class="math inline">\(r_{1k}\)</span></td>
+<td><span class="math inline">\(r_{2k}\)</span></td>
+<td><span class="math inline">\(r_k\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><p><span class="math inline">\(r_{1k}\)</span>, <span class="math inline">\(r_{2k}\)</span>: Number at risk in each group at time <span class="math inline">\(d_k\)</span>.</p></li>
-<li><p><span class="math inline">\(q_{1k}\)</span>, <span class="math inline">\(q_{2k}\)</span>: Number of deaths in each group at time <span class="math inline">\(d_k\)</span>.</p></li>
-<li><p><strong>Key Idea:</strong> If there’s no difference in survival, we’d expect the <em>proportion</em> of deaths in each group to be proportional to the number at risk.</p></li>
+<li><span class="math inline">\(r_{1k}\)</span>, <span class="math inline">\(r_{2k}\)</span>: Number at risk in each group at time <span class="math inline">\(d_k\)</span>.</li>
+<li><span class="math inline">\(q_{1k}\)</span>, <span class="math inline">\(q_{2k}\)</span>: Number of deaths in each group at time <span class="math inline">\(d_k\)</span>.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This table summarizes the observed events and the number of individuals at risk in each group at each death time.</p>
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="log-rank-test-key-idea" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test-key-idea">Log-Rank Test: Key Idea</h2>
+<ul>
+<li><strong>Key Idea:</strong> If there’s no difference in survival, we’d expect the <em>proportion</em> of deaths in each group to be proportional to the number at risk. It’s like expecting a fair coin to land heads and tails equally often! 🪙</li>
+</ul>
+</section>
+<section id="log-rank-test-statistic-w" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test-statistic-w">Log-Rank Test Statistic (W)</h2>
 <p>The log-rank test statistic (W) is calculated based on the <em>observed</em> and <em>expected</em> number of deaths in group 1:</p>
 <p><span class="math display">\[
 W = \frac{\sum_{k=1}^{K}(q_{1k} - \mu_k)}{\sqrt{\sum_{k=1}^{K}Var(q_{1k})}}
 \]</span> where $ _k = q_k $ and <span class="math inline">\(Var(q_{1k}) = \frac{q_k(r_{1k}/r_k)(1-r_{1k}/r_k)(r_k - q_k)}{r_k - 1}\)</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
-<p>Under the null hypothesis (no difference in survival), W approximately follows a standard normal distribution.</p>
+<div class="callout-body-container">
+<p>This formula measures the difference between what we <em>observed</em> and what we would <em>expect</em> if there were no difference between the groups.</p>
+</div>
 </div>
 </div>
 </section>
+<section id="log-rank-test-null-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test-null-distribution">Log-Rank Test: Null Distribution</h2>
+<p>Under the null hypothesis (no difference in survival), W approximately follows a standard normal distribution. This allows us to calculate a p-value!</p>
+</section>
 <section id="log-rank-test-brain-cancer-example" class="level2">
 <h2 class="anchored" data-anchor-id="log-rank-test-brain-cancer-example">Log-Rank Test: Brain Cancer Example</h2>
-<div style="font-size: 0.8em;">
 <p>Comparing survival times of males and females in the <code>BrainCancer</code> data:</p>
+</section>
+<section id="log-rank-test-results" class="level2">
+<h2 class="anchored" data-anchor-id="log-rank-test-results">Log-Rank Test: Results</h2>
 <ul>
 <li>Log-rank test statistic W = 1.2.</li>
 <li>Two-sided p-value = 0.2 (using the theoretical null distribution).</li>
 <li>We <em>cannot</em> reject the null hypothesis of no difference in survival curves between males and females.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In this case, the data doesn’t provide strong evidence of a difference in survival between males and females.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="regression-models-with-a-survival-response" class="level2">
 <h2 class="anchored" data-anchor-id="regression-models-with-a-survival-response">Regression Models with a Survival Response</h2>
-<div style="font-size: 0.8em;">
-<p>So far, we’ve looked at describing survival curves and comparing them between groups. Now, we want to <em>predict</em> survival time based on covariates (features).</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>So far, we’ve looked at describing survival curves and comparing them between groups. Now, we want to <em>predict</em> survival time based on covariates (features). It’s like predicting the future, but with data! 🔮📊</p>
+</section>
+<section id="regression-setup" class="level2">
+<h2 class="anchored" data-anchor-id="regression-setup">Regression Setup</h2>
 <ul>
-<li><p>We have observations of the form <span class="math inline">\((Y_i, \delta_i, X_i)\)</span>, where:</p>
+<li>We have observations of the form <span class="math inline">\((Y_i, \delta_i, X_i)\)</span>, where:
 <ul>
 <li><span class="math inline">\(Y_i\)</span> is the observed time (min(T, C)).</li>
 <li><span class="math inline">\(\delta_i\)</span> is the status indicator.</li>
 <li><span class="math inline">\(X_i\)</span> is a vector of features.</li>
 </ul></li>
-<li><p>A simple linear regression of log(Y) on X is problematic due to censoring.</p></li>
-<li><p><em>Why not regress on Y directly?</em>: We are interested in T not Y.</p></li>
+<li>A simple linear regression of log(Y) on X is problematic due to censoring.</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="fragment">
+</section>
+<section id="why-not-regress-on-y-directly" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-regress-on-y-directly">Why Not Regress on Y Directly?</h2>
 <ul>
-<li><strong>Solution:</strong> Use a sequential approach, similar to Kaplan-Meier and the log-rank test. We introduce the <strong>hazard function</strong>.</li>
+<li><em>Why not regress on Y directly?</em>: We are interested in T not Y. Y is just what we see, and the difference from T exists due to censoring.</li>
 </ul>
-</div>
-</div>
+</section>
+<section id="the-solution-hazard-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-solution-hazard-function">The Solution: Hazard Function</h2>
+<ul>
+<li><strong>Solution:</strong> Use a sequential approach, similar to Kaplan-Meier and the log-rank test. We introduce the <strong>hazard function</strong>. It’s like focusing on the <em>instantaneous</em> risk, rather than the overall survival time.</li>
+</ul>
 </section>
 <section id="the-hazard-function" class="level2">
 <h2 class="anchored" data-anchor-id="the-hazard-function">The Hazard Function</h2>
-<div style="font-size: 0.8em;">
 <p>The <strong>hazard function</strong>, h(t), is also known as the <em>hazard rate</em> or <em>force of mortality</em>. It represents the <em>instantaneous</em> risk of the event occurring at time t, given survival up to time t:</p>
 <p><span class="math display">\[h(t) = \lim_{\Delta t \to 0} \frac{Pr(t &lt; T \leq t + \Delta t | T &gt; t)}{\Delta t}\]</span></p>
-<div class="fragment">
-<ul>
-<li>Think of it as the “death rate” in a tiny interval after time t, given survival up to t.</li>
-<li>It’s closely related to the survival curve, S(t).</li>
-<li>It’s crucial for modeling survival data as a function of covariates.</li>
-</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is a key concept for modeling survival data!</p>
+</div>
 </div>
 </div>
 </section>
+<section id="hazard-function-intuition" class="level2">
+<h2 class="anchored" data-anchor-id="hazard-function-intuition">Hazard Function: Intuition</h2>
+<ul>
+<li>Think of it as the “death rate” in a tiny interval after time t, given survival up to t. It’s like the risk of slipping on a banana peel <em>right now</em>, given you haven’t slipped yet! 🍌</li>
+<li>It’s closely related to the survival curve, S(t).</li>
+<li>It’s crucial for modeling survival data as a function of covariates.</li>
+</ul>
+</section>
 <section id="hazard-function-more-details" class="level2">
 <h2 class="anchored" data-anchor-id="hazard-function-more-details">Hazard Function: More Details</h2>
-<div style="font-size: 0.8em;">
 <p><span class="math display">\[
 \begin{aligned}
 h(t) &amp;= \lim_{\Delta t \to 0} Pr((t&lt;T\le t+\Delta t)\cap (T&gt;t))/\Delta t \over Pr(T&gt;t) \\
@@ -527,13 +1057,37 @@ h(t) &amp;= \lim_{\Delta t \to 0} Pr((t&lt;T\le t+\Delta t)\cap (T&gt;t))/\Delta
 &amp;= {f(t) \over S(t)}
 \end{aligned}
 \]</span></p>
-<p>where <span class="math display">\[
+<p>where</p>
+<p><span class="math display">\[
 f(t) = \lim_{\Delta t\to 0} {Pr(t&lt;T\le t+\Delta t)\over \Delta t}
 \]</span></p>
-<div class="fragment">
-<p><span class="math inline">\(f(t)\)</span> is probability density function.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="fragment">
+<div class="callout-body-container">
+<p>We can derive the relationship between the hazard function, probability density function and survival function.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="hazard-function-probability-density-function" class="level2">
+<h2 class="anchored" data-anchor-id="hazard-function-probability-density-function">Hazard Function: Probability Density Function</h2>
+<p><span class="math inline">\(f(t)\)</span> is probability density function.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math inline">\(f(t)\)</span> is different from <span class="math inline">\(S(t)\)</span>, it measures the instantaneous probability.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="hazard-function-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="hazard-function-likelihood">Hazard Function: Likelihood</h2>
 <p>The likelihood associated with the i-th observation is:</p>
 <p><span class="math display">\[
 L_i = \begin{cases}
@@ -542,97 +1096,174 @@ S(y_i) \quad \text{if the i-th observation is censored}
 \end{cases} \\
 = f(y_i)^{\delta_i}S(y_i)^{1-\delta_i}
 \]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>This is how we quantify the contribution of each observation to the overall likelihood.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="likelihood-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-explanation">Likelihood: Explanation</h2>
+<p>If <span class="math inline">\(Y=y_i\)</span> and the i-th observation is not censored, then the likelihood is the probability of dying in a tiny interval around time <span class="math inline">\(y_i\)</span>.</p>
 <div class="fragment">
-<p>If <span class="math inline">\(Y=y_i\)</span> and the i-th observation is not censored, then the likelihood is the probability of dying in a tiny interval around time <span class="math inline">\(y_i\)</span>. If the i-th observation is censored, then the likelihood is the probability of surviving at least until time <span class="math inline">\(y_i\)</span></p>
-</div>
+<p>If the i-th observation is censored, then the likelihood is the probability of surviving at least until time <span class="math inline">\(y_i\)</span></p>
 </div>
 </section>
 <section id="cox-proportional-hazards-model" class="level2">
 <h2 class="anchored" data-anchor-id="cox-proportional-hazards-model">Cox Proportional Hazards Model</h2>
-<div style="font-size: 0.8em;">
-<p>The <strong>Cox proportional hazards model</strong> is a powerful and flexible approach to model the relationship between covariates and the hazard function.</p>
-<div class="fragment">
+<p>The <strong>Cox proportional hazards model</strong> is a powerful and flexible approach to model the relationship between covariates and the hazard function. It’s the workhorse of survival regression! 🐎</p>
+</section>
+<section id="proportional-hazards-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="proportional-hazards-assumption">Proportional Hazards Assumption</h2>
 <p><strong>The Proportional Hazards Assumption:</strong></p>
-</div>
 <p><span class="math display">\[h(t|x_i) = h_0(t) \exp(\sum_{j=1}^{p} x_{ij}\beta_j)\]</span></p>
-<div>
-
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li><p><span class="math inline">\(h(t|x_i)\)</span>: Hazard function for an individual with features <span class="math inline">\(x_i\)</span>.</p></li>
-<li><p><span class="math inline">\(h_0(t)\)</span>: <strong>Baseline hazard function</strong>. This is the hazard for an individual with all features equal to zero. It’s left <em>unspecified</em>.</p></li>
-<li><p><span class="math inline">\(\exp(\sum_{j=1}^{p} x_{ij}\beta_j)\)</span>: <strong>Relative risk</strong>. It’s a multiplicative factor that scales the baseline hazard based on the features.</p></li>
-<li><p>The key is that we don’t assume a specific form for <span class="math inline">\(h_0(t)\)</span>. This makes the model very flexible.</p></li>
-<li><p>A one-unit increase in <span class="math inline">\(x_{ij}\)</span> multiplies the hazard by a factor of <span class="math inline">\(\exp(\beta_j)\)</span>.</p></li>
-</ul>
-</div>
+<div class="callout-body-container">
+<p>This is the core assumption of the Cox model!</p>
 </div>
 </div>
 </div>
 </section>
+<section id="cox-model-components" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-components">Cox Model: Components</h2>
+<ul>
+<li><span class="math inline">\(h(t|x_i)\)</span>: Hazard function for an individual with features <span class="math inline">\(x_i\)</span>.</li>
+<li><span class="math inline">\(h_0(t)\)</span>: <strong>Baseline hazard function</strong>. This is the hazard for an individual with all features equal to zero. It’s left <em>unspecified</em>.</li>
+<li><span class="math inline">\(\exp(\sum_{j=1}^{p} x_{ij}\beta_j)\)</span>: <strong>Relative risk</strong>. It’s a multiplicative factor that scales the baseline hazard based on the features.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The model breaks down the hazard into a baseline part and a part that depends on the features.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cox-model-key-features" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-key-features">Cox Model: Key Features</h2>
+<ul>
+<li>The key is that we don’t assume a specific form for <span class="math inline">\(h_0(t)\)</span>. This makes the model very flexible. It can handle many different underlying hazard patterns!</li>
+<li>A one-unit increase in <span class="math inline">\(x_{ij}\)</span> multiplies the hazard by a factor of <span class="math inline">\(\exp(\beta_j)\)</span>. This is the <em>proportional hazards</em> assumption – the effect of a covariate is constant over time.</li>
+</ul>
+</section>
 <section id="proportional-hazards-illustration" class="level2">
 <h2 class="anchored" data-anchor-id="proportional-hazards-illustration">Proportional Hazards: Illustration</h2>
-<div style="font-size: 0.8em;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_4.png" class="img-fluid figure-img"></p>
-<figcaption>alt text</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Proportional Hazards Illustration</figcaption>
+</figure>
+</div>
+</section>
+<section id="proportional-hazards-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="proportional-hazards-interpretation">Proportional Hazards: Interpretation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Proportional Hazards Illustration</figcaption>
 </figure>
 </div>
 <ul>
-<li><strong>Top Row:</strong> Proportional hazards <em>holds</em>. Log hazard functions are parallel; survival curves don’t cross.</li>
-<li><strong>Bottom Row:</strong> Proportional hazards <em>doesn’t hold</em>. Log hazard and survival curves cross.</li>
+<li><strong>Top Row:</strong> Proportional hazards <em>holds</em>. Log hazard functions are parallel; survival curves don’t cross. The ratio of hazards between groups is constant over time.</li>
 </ul>
+</section>
+<section id="proportional-hazards-interpretation-1" class="level2">
+<h2 class="anchored" data-anchor-id="proportional-hazards-interpretation-1">Proportional Hazards: Interpretation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg" class="img-fluid figure-img"></p>
+<figcaption>Proportional Hazards Illustration</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Bottom Row:</strong> Proportional hazards <em>doesn’t hold</em>. Log hazard and survival curves cross. The ratio of hazards changes over time.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This visual check helps us assess whether the proportional hazards assumption is reasonable.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="cox-proportional-hazards-model-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="cox-proportional-hazards-model-estimation">Cox Proportional Hazards Model: Estimation</h2>
-<div style="font-size: 0.7em;">
-<p>How do we estimate the coefficients, <span class="math inline">\(\beta\)</span>, in the Cox model <em>without</em> knowing <span class="math inline">\(h_0(t)\)</span>? We use the <strong>partial likelihood</strong>.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>How do we estimate the coefficients, <span class="math inline">\(\beta\)</span>, in the Cox model <em>without</em> knowing <span class="math inline">\(h_0(t)\)</span>? We use the <strong>partial likelihood</strong>. It’s a clever trick to get around the unknown baseline hazard!</p>
+</section>
+<section id="partial-likelihood-intuition" class="level2">
+<h2 class="anchored" data-anchor-id="partial-likelihood-intuition">Partial Likelihood: Intuition</h2>
 <ul>
-<li><p>Assume no ties in failure times.</p></li>
-<li><p>Consider the <em>i</em>th observation, which <em>fails</em> at time <span class="math inline">\(y_i\)</span> (<span class="math inline">\(\delta_i = 1\)</span>).</p></li>
-<li><p>What’s the probability that <em>this</em> observation fails at <span class="math inline">\(y_i\)</span>, given the set of individuals at risk at that time?</p></li>
-<li><p>The probability that i-th observation is the one to fail at time <span class="math inline">\(y_i\)</span> is:</p></li>
+<li>Assume no ties in failure times.</li>
+<li>Consider the <em>i</em>th observation, which <em>fails</em> at time <span class="math inline">\(y_i\)</span> (<span class="math inline">\(\delta_i = 1\)</span>).</li>
+<li>What’s the probability that <em>this</em> observation fails at <span class="math inline">\(y_i\)</span>, given the set of individuals at risk at that time?</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p><span class="math display">\[
-\frac{h_0(y_i) \exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}h_0(y_i)\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)} = \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}
-\]</span></p>
+<div class="callout-body-container">
+<p>We’re focusing on the <em>relative</em> risk of failure, compared to others who are still at risk.</p>
 </div>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li>Crucially, <span class="math inline">\(h_0(y_i)\)</span> cancels out!</li>
-<li>The <strong>partial likelihood</strong> is the product of these probabilities over all <em>uncensored</em> observations:</li>
-</ul>
-</div>
-<div class="fragment">
-<p><span class="math display">\[PL(\beta) = \prod_{i:\delta_i = 1} \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}\]</span></p>
-</div>
-<div class="fragment">
-<ul>
-<li>We estimate <span class="math inline">\(\beta\)</span> by maximizing the partial likelihood.</li>
-<li>This is done numerically (no closed-form solution).</li>
-</ul>
 </div>
 </div>
 </section>
+<section id="partial-likelihood-probability-calculation" class="level2">
+<h2 class="anchored" data-anchor-id="partial-likelihood-probability-calculation">Partial Likelihood: Probability Calculation</h2>
+<ul>
+<li>The probability that i-th observation is the one to fail at time <span class="math inline">\(y_i\)</span> is:</li>
+</ul>
+<p><span class="math display">\[
+\frac{h_0(y_i) \exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}h_0(y_i)\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)} = \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}
+\]</span></p>
+</section>
+<section id="partial-likelihood-baseline-hazard-cancellation" class="level2">
+<h2 class="anchored" data-anchor-id="partial-likelihood-baseline-hazard-cancellation">Partial Likelihood: Baseline Hazard Cancellation</h2>
+<ul>
+<li>Crucially, <span class="math inline">\(h_0(y_i)\)</span> cancels out! This is the magic of the partial likelihood! ✨</li>
+</ul>
+</section>
+<section id="the-partial-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="the-partial-likelihood">The Partial Likelihood</h2>
+<ul>
+<li>The <strong>partial likelihood</strong> is the product of these probabilities over all <em>uncensored</em> observations:</li>
+</ul>
+<p><span class="math display">\[PL(\beta) = \prod_{i:\delta_i = 1} \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We multiply the probabilities together, assuming independence between observations.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="partial-likelihood-maximization" class="level2">
+<h2 class="anchored" data-anchor-id="partial-likelihood-maximization">Partial Likelihood: Maximization</h2>
+<ul>
+<li>We estimate <span class="math inline">\(\beta\)</span> by maximizing the partial likelihood.</li>
+<li>This is done numerically (no closed-form solution). Computers do the heavy lifting! 💻</li>
+</ul>
+</section>
 <section id="cox-model-example-brain-cancer-data" class="level2">
 <h2 class="anchored" data-anchor-id="cox-model-example-brain-cancer-data">Cox Model: Example (Brain Cancer Data)</h2>
-<div style="font-size: 0.8em;">
 <p>Let’s apply the Cox model to the <code>BrainCancer</code> data:</p>
 <table class="caption-top table">
 <colgroup>
@@ -710,55 +1341,387 @@ S(y_i) \quad \text{if the i-th observation is censored}
 </tr>
 </tbody>
 </table>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="cox-model-interpretation---sex" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-interpretation---sex">Cox Model: Interpretation - Sex</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient</th>
+<th>Std. error</th>
+<th>z-statistic</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sex[Male]</td>
+<td>0.18</td>
+<td>0.36</td>
+<td>0.51</td>
+<td>0.61</td>
+</tr>
+<tr class="even">
+<td>diagnosis[LG Glioma]</td>
+<td>0.92</td>
+<td>0.64</td>
+<td>1.43</td>
+<td>0.15</td>
+</tr>
+<tr class="odd">
+<td>diagnosis[HG Glioma]</td>
+<td>2.15</td>
+<td>0.45</td>
+<td>4.78</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>diagnosis[Other]</td>
+<td>0.89</td>
+<td>0.66</td>
+<td>1.35</td>
+<td>0.18</td>
+</tr>
+<tr class="odd">
+<td>loc[Supratentorial]</td>
+<td>0.44</td>
+<td>0.70</td>
+<td>0.63</td>
+<td>0.53</td>
+</tr>
+<tr class="even">
+<td>ki</td>
+<td>-0.05</td>
+<td>0.02</td>
+<td>-3.00</td>
+<td>&lt;0.01</td>
+</tr>
+<tr class="odd">
+<td>gtv</td>
+<td>0.03</td>
+<td>0.02</td>
+<td>1.54</td>
+<td>0.12</td>
+</tr>
+<tr class="even">
+<td>stereo[SRT]</td>
+<td>0.18</td>
+<td>0.60</td>
+<td>0.30</td>
+<td>0.77</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><strong>Interpretation:</strong>
 <ul>
 <li>Males have an estimated hazard 1.2 times greater than females (e<sup>0.18</sup>), but this is not statistically significant.</li>
+</ul></li>
+</ul>
+</section>
+<section id="cox-model-interpretation---karnofsky-index" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-interpretation---karnofsky-index">Cox Model: Interpretation - Karnofsky Index</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient</th>
+<th>Std. error</th>
+<th>z-statistic</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sex[Male]</td>
+<td>0.18</td>
+<td>0.36</td>
+<td>0.51</td>
+<td>0.61</td>
+</tr>
+<tr class="even">
+<td>diagnosis[LG Glioma]</td>
+<td>0.92</td>
+<td>0.64</td>
+<td>1.43</td>
+<td>0.15</td>
+</tr>
+<tr class="odd">
+<td>diagnosis[HG Glioma]</td>
+<td>2.15</td>
+<td>0.45</td>
+<td>4.78</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>diagnosis[Other]</td>
+<td>0.89</td>
+<td>0.66</td>
+<td>1.35</td>
+<td>0.18</td>
+</tr>
+<tr class="odd">
+<td>loc[Supratentorial]</td>
+<td>0.44</td>
+<td>0.70</td>
+<td>0.63</td>
+<td>0.53</td>
+</tr>
+<tr class="even">
+<td>ki</td>
+<td>-0.05</td>
+<td>0.02</td>
+<td>-3.00</td>
+<td>&lt;0.01</td>
+</tr>
+<tr class="odd">
+<td>gtv</td>
+<td>0.03</td>
+<td>0.02</td>
+<td>1.54</td>
+<td>0.12</td>
+</tr>
+<tr class="even">
+<td>stereo[SRT]</td>
+<td>0.18</td>
+<td>0.60</td>
+<td>0.30</td>
+<td>0.77</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Interpretation:</strong>
+<ul>
 <li>Higher Karnofsky index (ki) is associated with a <em>lower</em> hazard (e<sup>-0.05</sup> = 0.95), and this effect is significant.</li>
 </ul></li>
-<li>The p-value associated with a coefficient tests the null hypothesis that the coefficient is zero.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>Each coefficient tells us how the hazard changes with a one-unit increase in the corresponding feature, holding all other features constant.</p>
 </div>
 </div>
 </div>
 </section>
+<section id="cox-model-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-hypothesis-testing">Cox Model: Hypothesis Testing</h2>
+<ul>
+<li>The p-value associated with a coefficient tests the null hypothesis that the coefficient is zero. This tells us if the feature has a statistically significant effect on the hazard.</li>
+</ul>
+</section>
 <section id="cox-model-example-publication-data" class="level2">
 <h2 class="anchored" data-anchor-id="cox-model-example-publication-data">Cox Model: Example (Publication Data)</h2>
-<div style="font-size: 0.8em;">
-<p>Next, we will introduce the dataset <code>Publication</code>, involving the time to publication of journal papers reporting the results of clinical trials funded by the National Heart, Lung, and Blood Institue. For 244 trials, the time in months until publication is recorded.</p>
+<p>Next, we will introduce the dataset <code>Publication</code>, involving the time to publication of journal papers reporting the results of clinical trials funded by the National Heart, Lung, and Blood Institute.</p>
+<div class="fragment">
+<p>For 244 trials, the time in months until publication is recorded.</p>
 </div>
-<div style="font-size: 0.8em;">
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="cox-model-example-publication-data---log-rank-test" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-example-publication-data---log-rank-test">Cox Model: Example (Publication Data) - Log-Rank Test</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_5.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_5.svg" class="img-fluid figure-img"></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><p>Using the log-rank test, we can test whether the studies with positive results have significant difference in publication time.</p></li>
-<li><p>The figure shows slight evidence that time until publication is lower for studies with a positive result.</p></li>
-<li><p>However, the log-rank test yields a very unimpressive p-value of 0.36.</p></li>
+<li>Using the log-rank test, we can test whether the studies with positive results have significant difference in publication time.</li>
 </ul>
+</section>
+<section id="cox-model-example-publication-data---log-rank-test-result" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-example-publication-data---log-rank-test-result">Cox Model: Example (Publication Data) - Log-Rank Test Result</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_5.svg" class="img-fluid figure-img"></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<ul>
+<li>The figure shows slight evidence that time until publication is lower for studies with a positive result.</li>
+<li>However, the log-rank test yields a very unimpressive p-value of 0.36.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The log-rank test suggests a weak, non-significant difference.</p>
 </div>
 </div>
 </div>
-<div style="font-size: 0.8em;">
+</section>
+<section id="cox-model-example-publication-data---cox-model" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-example-publication-data---cox-model">Cox Model: Example (Publication Data) - Cox Model</h2>
 <p>Now, let’s fit Cox’s proportional hazards model using all available features:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient</th>
+<th>Std. error</th>
+<th>z-statistic</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>posres[Yes]</td>
+<td>0.55</td>
+<td>0.18</td>
+<td>3.02</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>multi[Yes]</td>
+<td>0.15</td>
+<td>0.31</td>
+<td>0.47</td>
+<td>0.64</td>
+</tr>
+<tr class="odd">
+<td>clinend[Yes]</td>
+<td>0.51</td>
+<td>0.27</td>
+<td>1.89</td>
+<td>0.06</td>
+</tr>
+<tr class="even">
+<td>mech[K01]</td>
+<td>1.05</td>
+<td>1.06</td>
+<td>1.00</td>
+<td>0.32</td>
+</tr>
+<tr class="odd">
+<td>mech[K23]</td>
+<td>-0.48</td>
+<td>1.05</td>
+<td>-0.45</td>
+<td>0.65</td>
+</tr>
+<tr class="even">
+<td>mech[P01]</td>
+<td>-0.31</td>
+<td>0.78</td>
+<td>-0.40</td>
+<td>0.69</td>
+</tr>
+<tr class="odd">
+<td>mech[P50]</td>
+<td>0.60</td>
+<td>1.06</td>
+<td>0.57</td>
+<td>0.57</td>
+</tr>
+<tr class="even">
+<td>mech[R01]</td>
+<td>0.10</td>
+<td>0.32</td>
+<td>0.30</td>
+<td>0.76</td>
+</tr>
+<tr class="odd">
+<td>mech[R18]</td>
+<td>1.05</td>
+<td>1.05</td>
+<td>0.99</td>
+<td>0.32</td>
+</tr>
+<tr class="even">
+<td>mech[R21]</td>
+<td>-0.05</td>
+<td>1.06</td>
+<td>-0.04</td>
+<td>0.97</td>
+</tr>
+<tr class="odd">
+<td>mech[R24, K24]</td>
+<td>0.81</td>
+<td>1.05</td>
+<td>0.77</td>
+<td>0.44</td>
+</tr>
+<tr class="even">
+<td>mech[R42]</td>
+<td>-14.78</td>
+<td>3414.38</td>
+<td>-0.00</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>mech[R44]</td>
+<td>-0.57</td>
+<td>0.77</td>
+<td>-0.73</td>
+<td>0.46</td>
+</tr>
+<tr class="even">
+<td>mech[RC2]</td>
+<td>-14.92</td>
+<td>2243.60</td>
+<td>-0.01</td>
+<td>0.99</td>
+</tr>
+<tr class="odd">
+<td>mech[U01]</td>
+<td>-0.22</td>
+<td>0.32</td>
+<td>-0.70</td>
+<td>0.48</td>
+</tr>
+<tr class="even">
+<td>mech[U54]</td>
+<td>0.47</td>
+<td>1.07</td>
+<td>0.44</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>sampsize</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.19</td>
+<td>0.85</td>
+</tr>
+<tr class="even">
+<td>budget</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>1.67</td>
+<td>0.09</td>
+</tr>
+<tr class="odd">
+<td>impact</td>
+<td>0.06</td>
+<td>0.01</td>
+<td>8.23</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cox-model-example-publication-data---interpretation---positive-result" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-example-publication-data---interpretation---positive-result">Cox Model: Example (Publication Data) - Interpretation - Positive Result</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -908,34 +1871,187 @@ S(y_i) \quad \text{if the i-th observation is censored}
 <ul>
 <li>We find that the chance of publication of a study with a positive result is <span class="math inline">\(e^{0.55} = 1.74\)</span> time higher than the chance of publication of a study with a negative result at any point in time, holding all other covariates fixed.</li>
 </ul>
-</div>
-</div>
+</section>
+<section id="cox-model-example-publication-data---interpretation---impact" class="level2">
+<h2 class="anchored" data-anchor-id="cox-model-example-publication-data---interpretation---impact">Cox Model: Example (Publication Data) - Interpretation - Impact</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient</th>
+<th>Std. error</th>
+<th>z-statistic</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>posres[Yes]</td>
+<td>0.55</td>
+<td>0.18</td>
+<td>3.02</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>multi[Yes]</td>
+<td>0.15</td>
+<td>0.31</td>
+<td>0.47</td>
+<td>0.64</td>
+</tr>
+<tr class="odd">
+<td>clinend[Yes]</td>
+<td>0.51</td>
+<td>0.27</td>
+<td>1.89</td>
+<td>0.06</td>
+</tr>
+<tr class="even">
+<td>mech[K01]</td>
+<td>1.05</td>
+<td>1.06</td>
+<td>1.00</td>
+<td>0.32</td>
+</tr>
+<tr class="odd">
+<td>mech[K23]</td>
+<td>-0.48</td>
+<td>1.05</td>
+<td>-0.45</td>
+<td>0.65</td>
+</tr>
+<tr class="even">
+<td>mech[P01]</td>
+<td>-0.31</td>
+<td>0.78</td>
+<td>-0.40</td>
+<td>0.69</td>
+</tr>
+<tr class="odd">
+<td>mech[P50]</td>
+<td>0.60</td>
+<td>1.06</td>
+<td>0.57</td>
+<td>0.57</td>
+</tr>
+<tr class="even">
+<td>mech[R01]</td>
+<td>0.10</td>
+<td>0.32</td>
+<td>0.30</td>
+<td>0.76</td>
+</tr>
+<tr class="odd">
+<td>mech[R18]</td>
+<td>1.05</td>
+<td>1.05</td>
+<td>0.99</td>
+<td>0.32</td>
+</tr>
+<tr class="even">
+<td>mech[R21]</td>
+<td>-0.05</td>
+<td>1.06</td>
+<td>-0.04</td>
+<td>0.97</td>
+</tr>
+<tr class="odd">
+<td>mech[R24, K24]</td>
+<td>0.81</td>
+<td>1.05</td>
+<td>0.77</td>
+<td>0.44</td>
+</tr>
+<tr class="even">
+<td>mech[R42]</td>
+<td>-14.78</td>
+<td>3414.38</td>
+<td>-0.00</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>mech[R44]</td>
+<td>-0.57</td>
+<td>0.77</td>
+<td>-0.73</td>
+<td>0.46</td>
+</tr>
+<tr class="even">
+<td>mech[RC2]</td>
+<td>-14.92</td>
+<td>2243.60</td>
+<td>-0.01</td>
+<td>0.99</td>
+</tr>
+<tr class="odd">
+<td>mech[U01]</td>
+<td>-0.22</td>
+<td>0.32</td>
+<td>-0.70</td>
+<td>0.48</td>
+</tr>
+<tr class="even">
+<td>mech[U54]</td>
+<td>0.47</td>
+<td>1.07</td>
+<td>0.44</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>sampsize</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.19</td>
+<td>0.85</td>
+</tr>
+<tr class="even">
+<td>budget</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>1.67</td>
+<td>0.09</td>
+</tr>
+<tr class="odd">
+<td>impact</td>
+<td>0.06</td>
+<td>0.01</td>
+<td>8.23</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>We also find the impact of a study has a very significant positive relationship to the chance of publication.</li>
+</ul>
 </section>
 <section id="cox-model-example-publication-data---adjusted-curves" class="level2">
 <h2 class="anchored" data-anchor-id="cox-model-example-publication-data---adjusted-curves">Cox Model: Example (Publication Data) - Adjusted Curves</h2>
-<div style="font-size: 0.8em;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_6.png" class="img-fluid figure-img"></p>
-<figcaption>alt text</figcaption>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_6.svg" class="img-fluid figure-img"></p>
+<figcaption>Adjusted Survival Curves for Publication Data</figcaption>
+</figure>
+</div>
+</section>
+<section id="adjusted-curves-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="adjusted-curves-interpretation">Adjusted Curves: Interpretation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_6.svg" class="img-fluid figure-img"></p>
+<figcaption>Adjusted Survival Curves for Publication Data</figcaption>
 </figure>
 </div>
 <ul>
 <li>After <em>adjusting</em> for other covariates (using representative values), we see a much clearer difference in survival curves between positive and negative results.</li>
-<li>This highlights the importance of considering multiple predictors.</li>
+<li>This highlights the importance of considering multiple predictors. Controlling for other factors reveals a stronger effect of the study’s results on publication time.</li>
 </ul>
-</div>
 </section>
 <section id="shrinkage-for-the-cox-model" class="level2">
 <h2 class="anchored" data-anchor-id="shrinkage-for-the-cox-model">Shrinkage for the Cox Model</h2>
-<div style="font-size: 0.8em;">
-<p>We can apply shrinkage methods (like ridge and lasso) to the Cox model.</p>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>We can apply shrinkage methods (like ridge and lasso) to the Cox model. This is useful for high-dimensional data (many features) and can improve prediction accuracy.</p>
+</section>
+<section id="shrinkage-idea" class="level2">
+<h2 class="anchored" data-anchor-id="shrinkage-idea">Shrinkage: Idea</h2>
 <ul>
 <li><p><strong>Idea:</strong> Minimize a penalized version of the negative log partial likelihood:</p>
 <p><span class="math display">\[-\log\left(\prod_{i:\delta_i=1} \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}\right) + \lambda P(\beta)\]</span></p>
@@ -943,75 +2059,109 @@ S(y_i) \quad \text{if the i-th observation is censored}
 <li><span class="math inline">\(\lambda\)</span>: Tuning parameter.</li>
 <li><span class="math inline">\(P(\beta)\)</span>: Penalty term (e.g., lasso: <span class="math inline">\(\sum_{j=1}^p |\beta_j|\)</span>).</li>
 </ul></li>
-<li><p>We now apply lasso-penalized Cox model to the <code>Publication</code> data.</p></li>
-<li><p>The figure on the right hand displays the cross-validation results.</p></li>
-<li><p>Note the “U-shape” of the partial likelihood deviance.</p></li>
-<li><p>Specifically, the cross-validation error is minimized when just two predictors, <code>budget</code> and <code>impact</code>, have non-zero estimated coefficients.</p></li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="callout-body-container">
+<p>This adds a penalty to the model’s complexity, encouraging simpler models with fewer features.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="shrinkage-publication-data-example" class="level2">
+<h2 class="anchored" data-anchor-id="shrinkage-publication-data-example">Shrinkage: Publication Data Example</h2>
+<ul>
+<li>We now apply lasso-penalized Cox model to the <code>Publication</code> data. This helps us select the most important features for predicting publication time.</li>
+</ul>
+</section>
+<section id="shrinkage-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="shrinkage-cross-validation">Shrinkage: Cross-Validation</h2>
+<ul>
+<li>The figure on the right hand displays the cross-validation results.</li>
+<li>Note the “U-shape” of the partial likelihood deviance.</li>
+<li>Specifically, the cross-validation error is minimized when just two predictors, <code>budget</code> and <code>impact</code>, have non-zero estimated coefficients.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_7.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_7.svg" class="img-fluid figure-img"></p>
 <figcaption>Partial likelihood deviance</figcaption>
 </figure>
 </div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
+<div class="callout-body-container">
+<p>Cross-validation helps us choose the optimal level of shrinkage (the value of λ).</p>
 </div>
 </div>
 </div>
 </section>
 <section id="assessing-model-fit-on-test-data" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-fit-on-test-data">Assessing Model Fit on Test Data</h2>
-<div style="font-size: 0.8em;">
-<p>We can use risk score to categorize the observations based on their “risk”. For example, we use the risk score: <span class="math display">\[
+<p>We can use risk score to categorize the observations based on their “risk”.</p>
+<div class="fragment">
+<p>For example, we use the risk score: <span class="math display">\[
 budget_i \cdot \hat{\beta}_{budget} + impact_i \cdot \hat{\beta}_{impact}
 \]</span> where <span class="math inline">\(\hat{\beta}_{budget}\)</span> and <span class="math inline">\(\hat{\beta}_{impact}\)</span> are the coefficients estimates for these two features from the training set.</p>
+</div>
+</section>
+<section id="assessing-model-fit---result" class="level2">
+<h2 class="anchored" data-anchor-id="assessing-model-fit---result">Assessing Model Fit - Result</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/11_8.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_8.svg" class="img-fluid figure-img"></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-<p>The figure shows that there is clear seperation between the three strata, and that the strata are correctly ordered in terms of low, medium, and high risk of publication.</p>
+<div class="fragment">
+<p>The figure shows that there is clear separation between the three strata, and that the strata are correctly ordered in terms of low, medium, and high risk of publication.</p>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We can evaluate how well the model separates observations into different risk groups on a test set.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="additional-topics" class="level2">
 <h2 class="anchored" data-anchor-id="additional-topics">Additional Topics</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li><strong>Area Under the Curve (AUC) for Survival Analysis:</strong> Harrell’s concordance index (C-index) generalizes AUC to survival data, accounting for censoring.</li>
-<li><strong>Choice of Time Scale:</strong> The definition of “time zero” can be crucial and depends on the context.</li>
-<li><strong>Time-Dependent Covariates:</strong> The Cox model can handle predictors that change over time.</li>
-<li><strong>Checking the Proportional Hazards Assumption:</strong> Visual checks (log hazard plots) and stratification can help assess the assumption.</li>
-<li><strong>Survival Trees:</strong> Tree-based methods can be adapted for survival analysis.</li>
+<li><strong>Area Under the Curve (AUC) for Survival Analysis:</strong> Harrell’s concordance index (C-index) generalizes AUC to survival data, accounting for censoring. This measures the model’s ability to discriminate between individuals with different event times.</li>
+<li><strong>Choice of Time Scale:</strong> The definition of “time zero” can be crucial and depends on the context. (e.g., time since diagnosis, time since start of treatment, age).</li>
+<li><strong>Time-Dependent Covariates:</strong> The Cox model can handle predictors that change over time. (e.g., a patient’s treatment status might change during the study).</li>
+<li><strong>Checking the Proportional Hazards Assumption:</strong> Visual checks (log hazard plots) and stratification can help assess the assumption. If the assumption is violated, we might need to use more complex models.</li>
+<li><strong>Survival Trees:</strong> Tree-based methods can be adapted for survival analysis. These are useful for finding non-linear relationships and interactions between features.</li>
 </ul>
-</div>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li>Survival analysis deals with <em>time-to-event</em> data, where <strong>censoring</strong> is a key challenge.</li>
-<li>The <strong>Kaplan-Meier estimator</strong> provides a non-parametric estimate of the survival curve.</li>
-<li>The <strong>log-rank test</strong> compares survival curves between groups.</li>
-<li>The <strong>Cox proportional hazards model</strong> allows us to model the relationship between covariates and the <em>hazard function</em>, making it a powerful tool for prediction.</li>
-<li>Shrinkage methods can be applied to the Cox model.</li>
+<li>Survival analysis deals with <em>time-to-event</em> data, where <strong>censoring</strong> is a key challenge. We’re not just predicting <em>if</em> something happens, but <em>when</em>.</li>
+<li>The <strong>Kaplan-Meier estimator</strong> provides a non-parametric estimate of the survival curve. It’s our first line of defense for understanding survival probabilities.</li>
+<li>The <strong>log-rank test</strong> compares survival curves between groups. It helps us determine if there are significant differences in survival.</li>
+<li>The <strong>Cox proportional hazards model</strong> allows us to model the relationship between covariates and the <em>hazard function</em>, making it a powerful tool for prediction. It’s the workhorse for understanding how features influence survival.</li>
+<li>Shrinkage methods can be applied to the Cox model. This helps us deal with high-dimensional data and improve prediction.</li>
 <li>Various extensions and considerations (AUC, time scale, time-dependent covariates, proportional hazards assumption, survival trees) broaden the applicability of survival analysis.</li>
 </ul>
-</div>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
-<div style="font-size: 0.8em;">
 <ul>
-<li>How might survival analysis be applied in <em>your</em> field of interest?</li>
-<li>What are the ethical considerations when dealing with survival data, especially in medical contexts?</li>
-<li>How could you explain the concept of censoring to someone without a statistical background?</li>
+<li>How might survival analysis be applied in <em>your</em> field of interest? Think beyond the examples we’ve discussed!</li>
+<li>What are the ethical considerations when dealing with survival data, especially in medical contexts? Think about privacy, informed consent, and the potential impact of predictions on individuals.</li>
+<li>How could you explain the concept of censoring to someone without a statistical background? Use a simple analogy or real-world example.</li>
 <li>Can you think of situations where the proportional hazards assumption might be violated? How could you address this?</li>
 <li>What are the limitations of survival analysis? What types of questions can it <em>not</em> answer?</li>
 </ul>
-</div>
 
 
 </section>

@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
 
 <title>Linear Model Selection and Regularization</title>
 <style>
@@ -54,6 +53,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -142,12 +144,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
-          </div>
-  </div>
     
   
     
@@ -160,65 +156,75 @@ window.Quarto = {
 
 <section id="introduction-beyond-simple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-beyond-simple-linear-regression">Introduction: Beyond Simple Linear Regression</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Last time, we explored the fundamentals of linear regression, a powerful tool for modeling relationships between variables.</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>However, the simple linear model, while interpretable and often effective, has limitations. In this chapter, we extend the linear model. We will discuss:</p>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>Last time, we explored the fundamentals of linear regression, a powerful tool for modeling relationships between variables. It allows us to understand how a dependent variable changes with one or more independent variables.</p>
+<p>However, the simple linear model, while interpretable and often effective, has limitations. In this chapter, we extend the linear model, enhancing its capabilities. We will discuss:</p>
 <ul>
 <li>Ways in which the simple linear model can be improved.</li>
 <li>Alternative fitting procedures instead of least squares.</li>
 </ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>The Goals:</p>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="introduction-goals" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-goals">Introduction: Goals</h2>
+<p>The primary goals of these extensions are twofold:</p>
 <ul>
-<li>Better <strong>Prediction Accuracy</strong> 💪</li>
-<li>Improved <strong>Model Interpretability</strong> 🧐</li>
+<li>Better <strong>Prediction Accuracy</strong> 💪: We aim to create models that make more accurate predictions on new, unseen data.</li>
+<li>Improved <strong>Model Interpretability</strong> 🧐: We want to develop models that are easier to understand, highlighting the most important factors influencing the outcome.</li>
 </ul>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Data mining and machine learning, in essence, are to find the most suitable model from a collection of potential models to best fit the data at hand (which includes training data and test data).</p>
 </div>
 </div>
 </div>
 </section>
+<section id="data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning">Data Mining, Machine Learning and Statistical Learning</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Data Mining] --&gt; C(Common Ground)
+    B[Machine Learning] --&gt; C
+    D[Statistical Learning] --&gt; C
+    C --&gt; E[Insights &amp; Predictions]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Data Mining</strong>: Discovering patterns and insights from large datasets. It often employs machine learning techniques.</li>
+<li><strong>Machine Learning</strong>: Algorithms that allow computers to learn from data without explicit programming.</li>
+<li><strong>Statistical Learning:</strong> A set of tools for modeling and understanding complex datasets. It’s a blend of statistics and machine learning, focusing on both inference and prediction.</li>
+<li>All three aim to extract meaningful information and make predictions from data.</li>
+</ul>
+</section>
 <section id="why-go-beyond-least-squares" class="level2">
 <h2 class="anchored" data-anchor-id="why-go-beyond-least-squares">Why Go Beyond Least Squares?</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <p>Let’s recall our standard linear model:</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <p><span class="math display">\[
-Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
-\]</span> (eq: 6.1)</p>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+Y = \beta_0 + \beta_1X_1 + \dots + \beta_pX_p + \epsilon
+\]</span></p>
+<p>Where:</p>
 <ul>
-<li><p>We usually use Least Squares to fit this model.</p></li>
-<li><p>Linear model has distinct advantages in terms of inference and competitive in relation to non-linear methods.</p></li>
+<li><p><span class="math inline">\(Y\)</span> is the response variable.</p></li>
+<li><p><span class="math inline">\(X_1, \dots, X_p\)</span> are the predictor variables.</p></li>
+<li><p><span class="math inline">\(\beta_0, \dots, \beta_p\)</span> are the coefficients (parameters) to be estimated.</p></li>
+<li><p><span class="math inline">\(\epsilon\)</span> is the error term.</p></li>
+<li><p>We usually use Least Squares to fit this model, finding the coefficients that minimize the sum of squared differences between the observed and predicted values.</p></li>
+<li><p>Linear model has distinct advantages in terms of inference (understanding the relationship between variables) and competitive in relation to non-linear methods.</p></li>
 <li><p>But, plain Least Squares has some limitations.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="why-go-beyond-least-squares-cont." class="level2">
+<h2 class="anchored" data-anchor-id="why-go-beyond-least-squares-cont.">Why Go Beyond Least Squares? (Cont.)</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -229,23 +235,32 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 </div>
+<p>We will discuss the limitations from two aspects, <em>prediction accuracy</em> and <em>model interpretability</em>.</p>
 </section>
 <section id="limitations-of-least-squares-prediction-accuracy" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-least-squares-prediction-accuracy">Limitations of Least Squares: Prediction Accuracy</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Low Bias, Low Variance (Ideal):</strong> When the true relationship is approximately linear <em>and</em> you have many more observations (n) than predictors (p) (<span class="math inline">\(n \gg p\)</span>), least squares works great! The estimates have low bias and low variance.</p></li>
-<li><p><strong>High Variance (Problem):</strong> If <em>n</em> is not much larger than <em>p</em>, the least squares fit can have high variability. This leads to <em>overfitting</em> 🤯 - the model fits the training data too closely and performs poorly on new data.</p></li>
-<li><p><strong>No Unique Solution (Big Problem):</strong> If <em>p &gt; n</em> (more predictors than observations), there’s no longer a unique least squares solution! Many possible coefficient values will fit perfectly, leading to huge variance and terrible predictions.</p></li>
+<li><strong>Low Bias, Low Variance (Ideal):</strong> When the true relationship between the predictors and the response is approximately linear <em>and</em> you have many more observations (n) than predictors (p) (<span class="math inline">\(n \gg p\)</span>), least squares works great! The estimates have low bias and low variance.
+<ul>
+<li><strong>Low Bias</strong>: The model captures the true underlying relationship well.</li>
+<li><strong>Low Variance</strong>: The model’s predictions are stable and don’t fluctuate much if you were to train it on different datasets.</li>
+</ul></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="limitations-of-least-squares-prediction-accuracy-cont." class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-prediction-accuracy-cont.">Limitations of Least Squares: Prediction Accuracy (Cont.)</h2>
+<ul>
+<li><strong>High Variance (Problem):</strong> If <em>n</em> is not much larger than <em>p</em>, the least squares fit can have high variability. The model becomes too sensitive to the specific training data. This leads to <em>overfitting</em> 🤯 - the model fits the training data too closely and performs poorly on new data.</li>
+</ul>
+</section>
+<section id="limitations-of-least-squares-prediction-accuracy-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-prediction-accuracy-cont.-1">Limitations of Least Squares: Prediction Accuracy (Cont.)</h2>
+<ul>
+<li><strong>No Unique Solution (Big Problem):</strong> If <em>p &gt; n</em> (more predictors than observations), there’s no longer a unique least squares solution! This is often called the “high-dimensional” case. Many possible coefficient values will fit the training data perfectly, leading to huge variance and terrible predictions on new data.</li>
+</ul>
+</section>
+<section id="limitations-of-least-squares-prediction-accuracy-cont.-2" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-prediction-accuracy-cont.-2">Limitations of Least Squares: Prediction Accuracy (Cont.)</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -256,23 +271,28 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 </div>
+<p>A good model should not only fit the training data well but also have good predictive performance on new data (test data). Therefore, when we say a model is good, we generally consider two aspects: its fit to the training data and its fit to the test data.</p>
 </section>
 <section id="limitations-of-least-squares-model-interpretability" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-least-squares-model-interpretability">Limitations of Least Squares: Model Interpretability</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Irrelevant Variables:</strong> Often, some predictors in your model aren’t actually related to the response. Including them adds unnecessary complexity. We’d like to <em>remove</em> these irrelevant variables.</p></li>
-<li><p><strong>Least Squares Doesn’t Zero Out:</strong> Least squares rarely sets coefficients <em>exactly</em> to zero. This makes it hard to identify the truly important variables.</p></li>
-<li><p><strong>Feature/Variable Selection:</strong> We want methods that automatically perform <em>feature selection</em> (or <em>variable selection</em>) – excluding irrelevant variables to create a simpler, more interpretable model.</p></li>
+<li><strong>Irrelevant Variables:</strong> Often, some predictors in your model aren’t actually related to the response. Including these irrelevant variables adds unnecessary complexity to the model, making it harder to understand the key drivers. We’d like to <em>remove</em> these irrelevant variables.</li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="limitations-of-least-squares-model-interpretability-cont." class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-model-interpretability-cont.">Limitations of Least Squares: Model Interpretability (Cont.)</h2>
+<ul>
+<li><strong>Least Squares Doesn’t Zero Out:</strong> Least squares rarely sets coefficients <em>exactly</em> to zero. Even if a variable is irrelevant, its coefficient will usually be a small, non-zero value. This makes it hard to identify the truly important variables.</li>
+</ul>
+</section>
+<section id="limitations-of-least-squares-model-interpretability-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-model-interpretability-cont.-1">Limitations of Least Squares: Model Interpretability (Cont.)</h2>
+<ul>
+<li><strong>Feature/Variable Selection:</strong> We want methods that automatically perform <em>feature selection</em> (or <em>variable selection</em>) – excluding irrelevant variables to create a simpler, more interpretable model. This helps us focus on the most important factors.</li>
+</ul>
+</section>
+<section id="limitations-of-least-squares-model-interpretability-cont.-2" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-least-squares-model-interpretability-cont.-2">Limitations of Least Squares: Model Interpretability (Cont.)</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -288,19 +308,23 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <h2 class="anchored" data-anchor-id="three-classes-of-methods">Three Classes of Methods</h2>
 <p>To address these limitations, we explore three main classes of methods that offer alternatives to least squares:</p>
 <ol type="1">
-<li><p><strong>Subset Selection:</strong> Identify a <em>subset</em> of the <em>p</em> predictors that are most related to the response. Fit a model using least squares on this reduced set of variables.</p></li>
-<li><p><strong>Shrinkage (Regularization):</strong> Fit a model with <em>all p</em> predictors, but <em>shrink</em> the estimated coefficients towards zero. This reduces variance. Some methods (like the lasso) can even set coefficients exactly to zero, performing variable selection.</p></li>
-<li><p><strong>Dimension Reduction:</strong> <em>Project</em> the <em>p</em> predictors into an <em>M</em>-dimensional subspace (<em>M &lt; p</em>). This means creating <em>M</em> linear combinations (projections) of the original variables. Use these projections as predictors in a least squares model.</p></li>
+<li><p><strong>Subset Selection:</strong> Identify a <em>subset</em> of the <em>p</em> predictors that are most related to the response. Fit a model using least squares on this reduced set of variables. This simplifies the model and improves interpretability.</p></li>
+<li><p><strong>Shrinkage (Regularization):</strong> Fit a model with <em>all p</em> predictors, but <em>shrink</em> the estimated coefficients towards zero. This reduces variance and can improve prediction accuracy. Some methods (like the lasso) can even set coefficients exactly to zero, performing variable selection.</p></li>
+<li><p><strong>Dimension Reduction:</strong> <em>Project</em> the <em>p</em> predictors into an <em>M</em>-dimensional subspace (<em>M &lt; p</em>). This means creating <em>M</em> linear combinations (projections) of the original variables. Use these projections as predictors in a least squares model. This reduces the complexity of the problem.</p></li>
 </ol>
 </section>
 <section id="subset-selection" class="level2">
 <h2 class="anchored" data-anchor-id="subset-selection">1. Subset Selection</h2>
-<p>We will introduce several methods to select subsets of predictors. Here we consider <em>best subset</em> and <em>stepwise model</em> selection procedures.</p>
+<p>We will introduce several methods to select subsets of predictors. Here we consider <em>best subset</em> and <em>stepwise model</em> selection procedures. The goal is to find a smaller group of predictors that still explain the response well.</p>
 <section id="best-subset-selection" class="level3">
 <h3 class="anchored" data-anchor-id="best-subset-selection">1.1 Best Subset Selection</h3>
 <ul>
-<li><p><strong>The Idea:</strong> Fit a separate least squares regression for <em>every possible combination</em> of the <em>p</em> predictors. Then, choose the “best” model from this set.</p></li>
-<li><p><strong>Exhaustive Search:</strong> If you have <em>p</em> predictors, you have 2<sup><em>p</em></sup> possible models! (e.g., 10 predictors = 1,024 models; 20 predictors = over 1 million models!)</p></li>
+<li><p><strong>The Idea:</strong> Fit a separate least squares regression for <em>every possible combination</em> of the <em>p</em> predictors. This is an exhaustive search through all possible models. Then, choose the “best” model from this set based on some criterion.</p></li>
+<li><p><strong>Exhaustive Search:</strong> If you have <em>p</em> predictors, you have 2<sup><em>p</em></sup> possible models!</p>
+<ul>
+<li>(e.g., 10 predictors = 1,024 models; 20 predictors = over 1 million models!)</li>
+<li>For each predictor, it can either be in the model or not, leading to 2 choices for each.</li>
+</ul></li>
 </ul>
 </section>
 </section>
@@ -317,44 +341,51 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 <ol type="1">
-<li><p><strong>Null Model (M<sub>0</sub>):</strong> A model with no predictors. It simply predicts the sample mean of the response for all observations.</p></li>
+<li><p><strong>Null Model (M<sub>0</sub>):</strong> A model with no predictors. It simply predicts the sample mean (<span class="math inline">\(\bar{y}\)</span>) of the response for all observations. This serves as a baseline.</p></li>
 <li><p><strong>For k = 1, 2, …, p:</strong> (where <em>k</em> is the number of predictors)</p>
 <ul>
-<li>Fit all <span class="math inline">\(\binom{p}{k}\)</span> models that contain exactly <em>k</em> predictors.</li>
-<li>Pick the “best” model among these <span class="math inline">\(\binom{p}{k}\)</span> models, and call it M<sub>k</sub>. “Best” is defined as having the smallest Residual Sum of Squares (RSS) or, equivalently, the largest R<sup>2</sup>.</li>
+<li>Fit all <span class="math inline">\(\binom{p}{k}\)</span> models that contain exactly <em>k</em> predictors. This is the number of ways to choose <em>k</em> predictors out of <em>p</em>.</li>
+<li>Pick the “best” model among these <span class="math inline">\(\binom{p}{k}\)</span> models, and call it M<sub>k</sub>. “Best” is defined as having the smallest Residual Sum of Squares (RSS) or, equivalently, the largest R<sup>2</sup>. RSS measures the error between the model’s predictions and the actual values.</li>
 </ul></li>
-<li><p><strong>Select the ultimate best model:</strong> From the models M<sub>0</sub>, M<sub>1</sub>, …, M<sub>p</sub>, choose the single best model using:</p>
+<li><p><strong>Select the ultimate best model:</strong> From the models M<sub>0</sub>, M<sub>1</sub>, …, M<sub>p</sub> (one best model for each size), choose the single best model using a method that estimates the <em>test error</em>, such as:</p>
 <ul>
 <li>Validation set error</li>
 <li>Cross-validation error</li>
 <li>C<sub>p</sub> (AIC)</li>
 <li>BIC</li>
-<li>Adjusted R<sup>2</sup> ## Best Subset Selection: Illustration</li>
+<li>Adjusted R<sup>2</sup></li>
 </ul></li>
 </ol>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="best-subset-selection-illustration" class="level2">
+<h2 class="anchored" data-anchor-id="best-subset-selection-illustration">Best Subset Selection: Illustration</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_1.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_1.svg" class="img-fluid figure-img"></p>
 <figcaption>Credit data: RSS and <span class="math inline">\(R^2\)</span> for all possible models. The red frontier tracks the best model for each number of predictors.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="best-subset-selection-illustration-cont." class="level2">
+<h2 class="anchored" data-anchor-id="best-subset-selection-illustration-cont.">Best Subset Selection: Illustration (Cont.)</h2>
 <ul>
-<li><p><strong>Figure 6.1</strong>: Shows RSS and R<sup>2</sup> for all possible models on the <em>Credit</em> dataset.</p></li>
+<li><p><strong>Figure 6.1</strong>: Shows RSS and R<sup>2</sup> for all possible models on the <em>Credit</em> dataset. This dataset contains information about credit card holders, and the goal is to predict their credit card balance.</p></li>
 <li><p>The data contains ten predictors, but the x-axis ranges to 11. The reason is that one of the predictors is <em>categorical</em>, taking three values. It is split up into <em>two</em> dummy variables.</p></li>
-<li><p>The red line connects the <em>best</em> models for each size (lowest RSS or highest R<sup>2</sup>).</p></li>
-<li><p>As expected, RSS decreases and R<sup>2</sup> increases as more variables are added. However, the improvements become very small after just a few variables.</p></li>
+<li><p>A categorical variable is also called a <em>qualitative</em> variable. Examples of categorical variables include gender (male, female), region (North, South, East, West), education level (high school, bachelor’s, master’s, doctorate), etc.</p></li>
 </ul>
+</section>
+<section id="best-subset-selection-illustration-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="best-subset-selection-illustration-cont.-1">Best Subset Selection: Illustration (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_1.svg" class="img-fluid figure-img"></p>
+<figcaption>Credit data: RSS and <span class="math inline">\(R^2\)</span> for all possible models. The red frontier tracks the best model for each number of predictors.</figcaption>
+</figure>
 </div>
-</div>
-</div>
+<ul>
+<li><p>The red line connects the <em>best</em> models for each size (lowest RSS or highest R<sup>2</sup>). For each number of predictors, the red line indicates the model that performs best on the <em>training data</em>.</p></li>
+<li><p>As expected, RSS decreases and R<sup>2</sup> increases as more variables are added. However, the improvements become very small after just a few variables. This suggests that adding more variables beyond a certain point doesn’t significantly improve the model’s fit to the training data.</p></li>
+</ul>
 </section>
 <section id="best-subset-selection-choosing-the-best-model" class="level2">
 <h2 class="anchored" data-anchor-id="best-subset-selection-choosing-the-best-model">Best Subset Selection: Choosing the Best Model</h2>
@@ -369,27 +400,27 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 <ul>
-<li><p><strong>Training Error vs.&nbsp;Test Error:</strong> Low RSS and high R<sup>2</sup> indicate a good fit to the <em>training</em> data. But we want a model that performs well on <em>new, unseen</em> data (low <em>test</em> error). Training error is often much smaller than test error!</p></li>
-<li><p><strong>Need a Different Criterion:</strong> We can’t use RSS or R<sup>2</sup> directly to select the best model. We need to estimate the <em>test error</em>.</p></li>
+<li><p><strong>Training Error vs.&nbsp;Test Error:</strong> Low RSS and high R<sup>2</sup> indicate a good fit to the <em>training</em> data. But we want a model that performs well on <em>new, unseen</em> data (low <em>test</em> error). Training error is often much smaller than test error! This is because the model is specifically optimized to fit the training data.</p></li>
+<li><p><strong>Need a Different Criterion:</strong> We can’t use RSS or R<sup>2</sup> directly to select the best model (from among M<sub>0</sub>, M<sub>1</sub>, …, M<sub>p</sub>) because they only reflect the fit on the training data. We need to estimate the <em>test error</em>.</p></li>
 </ul>
 </section>
 <section id="best-subset-selection-computational-limitations" class="level2">
 <h2 class="anchored" data-anchor-id="best-subset-selection-computational-limitations">Best Subset Selection: Computational Limitations</h2>
 <ul>
-<li><strong>Exponential Growth:</strong> The number of possible models (2<sup><em>p</em></sup>) grows <em>very</em> quickly as <em>p</em> increases.</li>
-<li><strong>Infeasible for Large p:</strong> Best subset selection becomes computationally infeasible for even moderately large values of <em>p</em> (e.g., <em>p</em> &gt; 40).</li>
-<li><strong>Statistical Problems (Large p):</strong> With a huge search space, there’s a higher chance of finding models that fit the training data well <em>by chance</em>, even if they have no real predictive power. This leads to overfitting and high variance in the coefficient estimates.</li>
+<li><strong>Exponential Growth:</strong> The number of possible models (2<sup><em>p</em></sup>) grows <em>very</em> quickly as <em>p</em> increases. This makes the search computationally expensive.</li>
+<li><strong>Infeasible for Large p:</strong> Best subset selection becomes computationally infeasible for even moderately large values of <em>p</em> (e.g., <em>p</em> &gt; 40). It simply takes too long to fit all possible models.</li>
+<li><strong>Statistical Problems (Large p):</strong> With a huge search space, there’s a higher chance of finding models that fit the training data well <em>by chance</em>, even if they have no real predictive power. This leads to overfitting and high variance in the coefficient estimates. The model becomes too “tuned” to the training data and doesn’t generalize well.</li>
 </ul>
 <section id="stepwise-selection" class="level3">
 <h3 class="anchored" data-anchor-id="stepwise-selection">1.2 Stepwise Selection</h3>
-<p>Best subset selection is often computationally infeasible for large <em>p</em>. Thus, <em>stepwise</em> methods are attractive alternatives.</p>
+<p>Best subset selection is often computationally infeasible for large <em>p</em>. Thus, <em>stepwise</em> methods are attractive alternatives. They offer a more efficient way to search for a good model.</p>
 <ul>
-<li><strong>Stepwise methods</strong> explore a far more restricted set of models.</li>
+<li><strong>Stepwise methods</strong> explore a far more restricted set of models. Instead of considering all possible models, they make sequential decisions to add or remove variables.</li>
 </ul>
 <section id="forward-stepwise-selection" class="level4">
 <h4 class="anchored" data-anchor-id="forward-stepwise-selection">1.2.1 Forward Stepwise Selection</h4>
 <ul>
-<li><strong>The Idea:</strong> Start with the null model (no predictors). Add predictors one-at-a-time, always choosing the variable that gives the <em>greatest additional improvement</em> to the fit.</li>
+<li><strong>The Idea:</strong> Start with the null model (no predictors). Add predictors one-at-a-time, always choosing the variable that gives the <em>greatest additional improvement</em> to the fit. It’s a “greedy” approach, making the best local decision at each step.</li>
 </ul>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -405,10 +436,10 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <li><p><strong>Null Model (M<sub>0</sub>):</strong> Start with the model containing no predictors.</p></li>
 <li><p><strong>For k = 0, 1, …, p-1:</strong></p>
 <ul>
-<li>Consider all <em>p - k</em> models that add <em>one</em> additional predictor to the current model (M<sub>k</sub>).</li>
-<li>Choose the “best” of these <em>p - k</em> models (smallest RSS or highest R<sup>2</sup>), and call it M<sub>k+1</sub>.</li>
+<li>Consider all <em>p - k</em> models that add <em>one</em> additional predictor to the current model (M<sub>k</sub>). This means adding each of the remaining variables, one at a time.</li>
+<li>Choose the “best” of these <em>p - k</em> models (smallest RSS or highest R<sup>2</sup>), and call it M<sub>k+1</sub>. “Best” is again based on the training data fit.</li>
 </ul></li>
-<li><p><strong>Select the ultimate best model:</strong> Choose the single best model from M<sub>0</sub>, M<sub>1</sub>, …, M<sub>p</sub> using validation set error, cross-validation, C<sub>p</sub>, BIC, or adjusted R<sup>2</sup>.</p></li>
+<li><p><strong>Select the ultimate best model:</strong> Choose the single best model from M<sub>0</sub>, M<sub>1</sub>, …, M<sub>p</sub> using validation set error, cross-validation, C<sub>p</sub>, BIC, or adjusted R<sup>2</sup>. This step uses a method that estimates the test error.</p></li>
 </ol>
 </section>
 </section>
@@ -419,7 +450,7 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <li><strong>Much Fewer Models:</strong> Forward stepwise selection considers many fewer models than best subset selection.
 <ul>
 <li>Best subset: 2<sup><em>p</em></sup> models.</li>
-<li>Forward stepwise: 1 + <em>p</em>(<em>p</em>+1)/2 models.</li>
+<li>Forward stepwise: 1 + <em>p</em>(<em>p</em>+1)/2 models. (This is the sum of the integers from 1 to <em>p</em>, plus 1 for the null model.)</li>
 <li>Example: If <em>p</em> = 20, best subset considers over 1 million models, while forward stepwise considers only 211.</li>
 </ul></li>
 <li><strong>Computational Efficiency:</strong> This makes forward stepwise selection computationally feasible for much larger values of <em>p</em>.</li>
@@ -428,29 +459,23 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <section id="forward-stepwise-selection-limitations" class="level2">
 <h2 class="anchored" data-anchor-id="forward-stepwise-selection-limitations">Forward Stepwise Selection: Limitations</h2>
 <ul>
-<li><p><strong>Not Guaranteed Optimal:</strong> Forward stepwise selection is <em>not</em> guaranteed to find the best possible model out of all 2<sup><em>p</em></sup> possibilities. It’s a <em>greedy</em> algorithm – it makes the locally optimal choice at each step, which may not lead to the globally optimal solution.</p></li>
+<li><p><strong>Not Guaranteed Optimal:</strong> Forward stepwise selection is <em>not</em> guaranteed to find the best possible model out of all 2<sup><em>p</em></sup> possibilities. It’s a <em>greedy</em> algorithm – it makes the locally optimal choice at each step, which may not lead to the globally optimal solution. It might miss the true best model.</p></li>
 <li><p><strong>Example:</strong></p>
 <ul>
 <li>Suppose the best 1-variable model contains X<sub>1</sub>.</li>
 <li>The best 2-variable model might contain X<sub>2</sub> and X<sub>3</sub>.</li>
-<li>Forward stepwise <em>won’t</em> find this, because it <em>must</em> keep X<sub>1</sub> in the 2-variable model.</li>
+<li>Forward stepwise <em>won’t</em> find this, because it <em>must</em> keep X<sub>1</sub> in the 2-variable model, having chosen it in the first step.</li>
 </ul></li>
 </ul>
 </section>
 <section id="forward-stepwise-selection-vs.-best-subset-selection-an-example" class="level2">
 <h2 class="anchored" data-anchor-id="forward-stepwise-selection-vs.-best-subset-selection-an-example">Forward Stepwise Selection vs.&nbsp;Best Subset Selection: An Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <table class="caption-top table">
 <caption>Comparison on the <em>Credit</em> dataset.</caption>
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 17%">
+<col style="width: 41%">
+<col style="width: 41%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -482,27 +507,28 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </tr>
 </tbody>
 </table>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li>The first three models selected are identical.</li>
-<li>The fourth models differ.</li>
-<li>But in this example, the four-variable models perform very similarly (see Figure 6.1), so the difference isn’t crucial.</li>
+<li>The table compares the models selected by best subset selection and forward stepwise selection on the <em>Credit</em> dataset.</li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="forward-stepwise-selection-vs.-best-subset-selection-an-example-cont." class="level2">
+<h2 class="anchored" data-anchor-id="forward-stepwise-selection-vs.-best-subset-selection-an-example-cont.">Forward Stepwise Selection vs.&nbsp;Best Subset Selection: An Example (Cont.)</h2>
+<ul>
+<li>The first three models selected are identical. Both methods choose the same variables in the same order for the first three steps.</li>
+<li>The fourth models differ. Best subset selection chooses “cards,” while forward stepwise keeps “rating.”</li>
+<li>But in this example, the four-variable models perform very similarly (see Figure 6.1), so the difference isn’t crucial. The performance difference between these two 4-variable models is likely small.</li>
+</ul>
 </section>
 <section id="forward-stepwise-in-high-dimensions" class="level2">
 <h2 class="anchored" data-anchor-id="forward-stepwise-in-high-dimensions">Forward Stepwise in High Dimensions</h2>
 <ul>
-<li><p><strong>n &lt; p Case:</strong> Forward stepwise selection can be used even when <em>n &lt; p</em> (more predictors than observations).</p></li>
-<li><p><strong>Limitation:</strong> In this case, you can only build models up to size M<sub>n-1</sub>, because least squares can’t fit a unique solution when <em>p</em> ≥ <em>n</em>.</p></li>
+<li><p><strong>n &lt; p Case:</strong> Forward stepwise selection can be used even when <em>n &lt; p</em> (more predictors than observations). This is a major advantage.</p></li>
+<li><p><strong>Limitation:</strong> In this case, you can only build models up to size M<sub>n-1</sub>, because least squares can’t fit a unique solution when <em>p</em> ≥ <em>n</em>. You can’t add more variables than you have observations.</p></li>
 </ul>
 <section id="backward-stepwise-selection" class="level4">
 <h4 class="anchored" data-anchor-id="backward-stepwise-selection">1.2.2 Backward Stepwise Selection</h4>
 <ul>
-<li><strong>The Idea:</strong> Start with the <em>full</em> model (all <em>p</em> predictors). Remove the <em>least useful</em> predictor one-at-a-time.</li>
+<li><strong>The Idea:</strong> Start with the <em>full</em> model (all <em>p</em> predictors). Remove the <em>least useful</em> predictor one-at-a-time. It’s the opposite of forward stepwise.</li>
 </ul>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -519,9 +545,9 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <li><p><strong>For k = p, p-1, …, 1:</strong></p>
 <ul>
 <li>Consider all <em>k</em> models that remove <em>one</em> predictor from the current model (M<sub>k</sub>).</li>
-<li>Choose the “best” of these <em>k</em> models (smallest RSS or highest R<sup>2</sup>), and call it M<sub>k-1</sub>.</li>
+<li>Choose the “best” of these <em>k</em> models (smallest RSS or highest R<sup>2</sup>), and call it M<sub>k-1</sub>. Again, “best” is based on training data fit.</li>
 </ul></li>
-<li><p><strong>Select the ultimate best model:</strong> Select the single best model from M<sub>0</sub>, …, M<sub>p</sub> using validation set error, cross-validation, C<sub>p</sub>, BIC, or adjusted R<sup>2</sup>.</p></li>
+<li><p><strong>Select the ultimate best model:</strong> Select the single best model from M<sub>0</sub>, …, M<sub>p</sub> using validation set error, cross-validation, C<sub>p</sub>, BIC, or adjusted R<sup>2</sup>. This uses a method that estimates test error.</p></li>
 </ol>
 </section>
 </section>
@@ -530,8 +556,11 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <ul>
 <li><p><strong>Computational Advantage:</strong> Like forward stepwise, backward stepwise considers only 1 + <em>p</em>(<em>p</em>+1)/2 models, making it computationally efficient.</p></li>
 <li><p><strong>Not Guaranteed Optimal:</strong> Like forward stepwise, it’s not guaranteed to find the best possible model.</p></li>
-<li><p><strong>Requirement: n &gt; p:</strong> Backward stepwise selection <em>requires</em> that <em>n &gt; p</em> (more observations than predictors) so that the full model can be fit.</p></li>
+<li><p><strong>Requirement: n &gt; p:</strong> Backward stepwise selection <em>requires</em> that <em>n &gt; p</em> (more observations than predictors) so that the full model (with all <em>p</em> predictors) can be fit. This is a significant limitation compared to forward stepwise.</p></li>
 </ul>
+</section>
+<section id="backward-stepwise-selection-when-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="backward-stepwise-selection-when-to-use">Backward Stepwise Selection: When to use</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -542,12 +571,15 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 </div>
+<ul>
+<li>Backward stepwise is not useful when p &gt; n.</li>
+</ul>
 <section id="hybrid-approaches" class="level4">
 <h4 class="anchored" data-anchor-id="hybrid-approaches">1.2.3 Hybrid Approaches</h4>
 <ul>
-<li><strong>Combine Forward and Backward:</strong> Hybrid methods combine aspects of forward and backward stepwise selection.</li>
-<li><strong>Add and Remove:</strong> Variables are added sequentially (like forward). But, after adding each new variable, the method may also <em>remove</em> any variables that no longer contribute significantly to the model fit.</li>
-<li><strong>Goal:</strong> Try to mimic best subset selection while retaining the computational advantages of stepwise methods.</li>
+<li><p><strong>Combine Forward and Backward:</strong> Hybrid methods combine aspects of forward and backward stepwise selection. They try to get the benefits of both.</p></li>
+<li><p><strong>Add and Remove:</strong> Variables are added sequentially (like forward). But, after adding each new variable, the method may also <em>remove</em> any variables that no longer contribute significantly to the model fit (based on some criterion). This allows the algorithm to “correct” earlier decisions.</p></li>
+<li><p><strong>Goal:</strong> Try to mimic best subset selection while retaining the computational advantages of stepwise methods. They aim for a better solution than pure forward or backward stepwise, while still being computationally efficient.</p></li>
 </ul>
 </section>
 <section id="choosing-the-optimal-model" class="level3">
@@ -563,12 +595,12 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 </div>
 </div>
 <ul>
-<li><p><strong>The Challenge:</strong> How do we choose the <em>best</em> model from among the set of models generated by subset selection or stepwise selection? We cannot simply use the model that has the <em>smallest</em> RSS and the <em>largest</em> R<sup>2</sup>!</p></li>
-<li><p><strong>Need to Estimate Test Error:</strong> We need to estimate the <em>test error</em> of each model.</p></li>
+<li><p><strong>The Challenge:</strong> How do we choose the <em>best</em> model from among the set of models (M<sub>0</sub>, …, M<sub>p</sub>) generated by subset selection or stepwise selection? We cannot simply use the model that has the <em>smallest</em> RSS and the <em>largest</em> R<sup>2</sup>! Those metrics are based on the training data and are likely to be overly optimistic.</p></li>
+<li><p><strong>Need to Estimate Test Error:</strong> We need to estimate the <em>test error</em> of each model – how well it will perform on <em>new</em> data.</p></li>
 <li><p><strong>Two Main Approaches:</strong></p>
 <ol type="1">
-<li><strong>Indirectly Estimate Test Error:</strong> Adjust the <em>training</em> error to account for the bias due to overfitting.</li>
-<li><strong>Directly Estimate Test Error:</strong> Use a validation set or cross-validation.</li>
+<li><strong>Indirectly Estimate Test Error:</strong> Adjust the <em>training</em> error (e.g., RSS) to account for the bias due to overfitting. These adjustments penalize model complexity.</li>
+<li><strong>Directly Estimate Test Error:</strong> Use a validation set or cross-validation. These methods directly assess performance on data not used for training.</li>
 </ol></li>
 </ul>
 </section>
@@ -576,13 +608,14 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <section id="indirectly-estimating-test-error-cp-aic-bic-adjusted-r2" class="level2">
 <h2 class="anchored" data-anchor-id="indirectly-estimating-test-error-cp-aic-bic-adjusted-r2">Indirectly Estimating Test Error: C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup></h2>
 <ul>
-<li><p><strong>Training Error is Deceptive:</strong> The training set MSE (RSS/n) generally <em>underestimates</em> the test MSE. This is because least squares specifically minimizes the <em>training</em> RSS.</p></li>
+<li><p><strong>Training Error is Deceptive:</strong> The training set MSE (RSS/n) generally <em>underestimates</em> the test MSE. This is because least squares specifically minimizes the <em>training</em> RSS. The model is optimized for the training data, so it will naturally perform better on that data than on unseen data.</p></li>
 <li><p><strong>Adjusting for Model Size:</strong> We need to <em>adjust</em> the training error to account for the fact that it tends to be too optimistic. Several techniques do this:</p>
 <ul>
 <li>C<sub>p</sub></li>
 <li>Akaike Information Criterion (AIC)</li>
 <li>Bayesian Information Criterion (BIC)</li>
 <li>Adjusted R<sup>2</sup></li>
+<li>All of these add a penalty to the training error that increases with the number of predictors.</li>
 </ul></li>
 </ul>
 </section>
@@ -592,49 +625,68 @@ Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon
 <ul>
 <li><strong>C<sub>p</sub>:</strong> <span class="math display">\[
 C_p = \frac{1}{n}(RSS + 2d\hat{\sigma}^2)
-\]</span> (eq: 6.2)
+\]</span>
 <ul>
-<li><span class="math inline">\(\hat{\sigma}^2\)</span> is an estimate of the error variance.</li>
-<li>Adds a penalty proportional to the number of predictors.</li>
+<li><span class="math inline">\(\hat{\sigma}^2\)</span> is an estimate of the error variance (the variance of the noise term, <span class="math inline">\(\epsilon\)</span>). This is usually estimated from the full model (using all <em>p</em> predictors).</li>
+<li>Adds a penalty of <span class="math inline">\(2d\hat{\sigma}^2\)</span> to the RSS. This penalty increases linearly with the number of predictors (<em>d</em>).</li>
 </ul></li>
+</ul>
+</section>
+<section id="cp-aic-bic-adjusted-r2-formulas-cont." class="level2">
+<h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-formulas-cont.">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Formulas (Cont.)</h2>
+<ul>
 <li><strong>AIC:</strong> <span class="math display">\[
 AIC = \frac{1}{n}(RSS + 2d\hat{\sigma}^2)
 \]</span>
 <ul>
-<li>For linear model with Gaussian errors, AIC is proportional to C<sub>p</sub>.</li>
+<li>For linear model with Gaussian (normally distributed) errors, AIC is proportional to C<sub>p</sub>. They are essentially equivalent in this context. AIC is more broadly applicable to other types of models.</li>
 </ul></li>
+</ul>
+</section>
+<section id="cp-aic-bic-adjusted-r2-formulas-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-formulas-cont.-1">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Formulas (Cont.)</h2>
+<ul>
 <li><strong>BIC:</strong> <span class="math display">\[
 BIC = \frac{1}{n}(RSS + log(n)d\hat{\sigma}^2)
-\]</span> (eq: 6.3)
+\]</span>
 <ul>
 <li>Similar to C<sub>p</sub>, but the penalty for the number of predictors is multiplied by log(<em>n</em>).</li>
-<li>Since log(<em>n</em>) &gt; 2 for <em>n</em> &gt; 7, BIC generally penalizes models with more variables more heavily than C<sub>p</sub>, leading to the selection of smaller models.</li>
+<li>Since log(<em>n</em>) &gt; 2 for <em>n</em> &gt; 7, BIC generally penalizes models with more variables more heavily than C<sub>p</sub>, leading to the selection of smaller models. The penalty for adding a predictor is larger with BIC than with C<sub>p</sub> (assuming <em>n</em> &gt; 7).</li>
 </ul></li>
+</ul>
+</section>
+<section id="cp-aic-bic-adjusted-r2-formulas-cont.-2" class="level2">
+<h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-formulas-cont.-2">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Formulas (Cont.)</h2>
+<ul>
 <li><strong>Adjusted R<sup>2</sup>:</strong> <span class="math display">\[
 Adjusted \ R^2 = 1 - \frac{RSS/(n - d - 1)}{TSS/(n-1)}
-\]</span> (eq: 6.4)</li>
-<li>Maximizing the adjusted R² is equivalent to minimizing <span class="math inline">\(\frac{RSS}{n-d-1}\)</span>.</li>
+\]</span></li>
+<li>Where TSS (Total Sum of Squares) = <span class="math inline">\(\sum(y_i - \bar{y})^2\)</span>, which represents total variance in the response.</li>
+<li>Maximizing the adjusted R² is equivalent to minimizing <span class="math inline">\(\frac{RSS}{n-d-1}\)</span>. Unlike RSS, adjusted R² accounts for the number of predictors.</li>
 </ul>
 </section>
 <section id="cp-aic-bic-adjusted-r2-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-interpretation">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Interpretation</h2>
 <ul>
-<li><p><strong>Low Values are Good (C<sub>p</sub>, AIC, BIC):</strong> For C<sub>p</sub>, AIC, and BIC, we choose the model with the <em>lowest</em> value.</p></li>
-<li><p><strong>High Values are Good (Adjusted R<sup>2</sup>):</strong> For adjusted R<sup>2</sup>, we choose the model with the <em>highest</em> value.</p></li>
-<li><p><strong>Theoretical Justification:</strong> C<sub>p</sub>, AIC, and BIC have theoretical justifications (though they rely on assumptions that may not always hold). Adjusted R<sup>2</sup> is more intuitive but less theoretically grounded.</p></li>
+<li><p><strong>Low Values are Good (C<sub>p</sub>, AIC, BIC):</strong> For C<sub>p</sub>, AIC, and BIC, we choose the model with the <em>lowest</em> value. Lower values indicate a better trade-off between model fit and complexity.</p></li>
+<li><p><strong>High Values are Good (Adjusted R<sup>2</sup>):</strong> For adjusted R<sup>2</sup>, we choose the model with the <em>highest</em> value. Higher values indicate a better fit, adjusted for the number of predictors.</p></li>
+<li><p><strong>Theoretical Justification:</strong> C<sub>p</sub>, AIC, and BIC have theoretical justifications (though they rely on assumptions that may not always hold). They are derived from principles of statistical information theory. Adjusted R<sup>2</sup> is more intuitive but less theoretically grounded.</p></li>
 </ul>
 </section>
 <section id="cp-aic-bic-adjusted-r2-example" class="level2">
 <h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-example">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_2.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_2.svg" class="img-fluid figure-img"></p>
 <figcaption>C<sub>p</sub>, BIC, and adjusted R<sup>2</sup> for the best models of each size on the <em>Credit</em> data.</figcaption>
 </figure>
 </div>
+</section>
+<section id="cp-aic-bic-adjusted-r2-example-cont." class="level2">
+<h2 class="anchored" data-anchor-id="cp-aic-bic-adjusted-r2-example-cont.">C<sub>p</sub>, AIC, BIC, Adjusted R<sup>2</sup>: Example (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.2:</strong> Shows these statistics for the <em>Credit</em> dataset.</p></li>
-<li><p>C<sub>p</sub> and BIC are estimates of test MSE.</p></li>
+<li><p>C<sub>p</sub> and BIC are estimates of test MSE. They aim to approximate how well the model would perform on new data.</p></li>
 <li><p>BIC selects a model with 4 variables (<em>income, limit, cards, student</em>).</p></li>
 <li><p>C<sub>p</sub> selects a 6-variable model.</p></li>
 <li><p>Adjusted R<sup>2</sup> selects a 7-variable model.</p></li>
@@ -650,9 +702,9 @@ Adjusted \ R^2 = 1 - \frac{RSS/(n - d - 1)}{TSS/(n-1)}
 </ul></li>
 <li><strong>Advantages:</strong>
 <ul>
-<li>Provide a direct estimate of the test error.</li>
-<li>Make fewer assumptions about the true underlying model.</li>
-<li>Can be used in a wider range of model selection tasks.</li>
+<li>Provide a direct estimate of the test error. This is more reliable than adjusting the training error.</li>
+<li>Make fewer assumptions about the true underlying model. They are more generally applicable.</li>
+<li>Can be used in a wider range of model selection tasks (not just linear models).</li>
 </ul></li>
 <li><strong>Computational Cost:</strong> Historically, cross-validation was computationally expensive. Now, with fast computers, this is less of a concern.</li>
 </ul>
@@ -661,19 +713,22 @@ Adjusted \ R^2 = 1 - \frac{RSS/(n - d - 1)}{TSS/(n-1)}
 <h2 class="anchored" data-anchor-id="validation-and-cross-validation-example">Validation and Cross-Validation: Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_3.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_3.svg" class="img-fluid figure-img"></p>
 <figcaption>BIC, validation set error, and cross-validation error for the best models of each size on the <em>Credit</em> data.</figcaption>
 </figure>
 </div>
+</section>
+<section id="validation-and-cross-validation-example-cont." class="level2">
+<h2 class="anchored" data-anchor-id="validation-and-cross-validation-example-cont.">Validation and Cross-Validation: Example (Cont.)</h2>
 <ul>
 <li><strong>Figure 6.3:</strong> Shows BIC, validation set error, and cross-validation error for the <em>Credit</em> data.</li>
 <li>Validation and cross-validation both select a 6-variable model.</li>
-<li>All three approaches suggest that models with 4, 5, or 6 variables are quite similar.</li>
+<li>All three approaches suggest that models with 4, 5, or 6 variables are quite similar. The estimated test error is relatively flat for these model sizes.</li>
 <li><strong>One-Standard-Error Rule:</strong> A practical rule for choosing among models with similar estimated test error.
 <ul>
-<li>Calculate the standard error of the estimated test MSE for each model size.</li>
+<li>Calculate the standard error of the estimated test MSE for each model size. This represents the uncertainty in the estimate.</li>
 <li>Select the <em>smallest</em> model for which the estimated test error is within <em>one standard error</em> of the lowest point on the curve.</li>
-<li>Rationale: Choose the simplest model among those that perform comparably.</li>
+<li>Rationale: Choose the simplest model among those that perform comparably. We prefer simpler models if they perform almost as well as more complex models.</li>
 </ul></li>
 <li>Apply to this example, we may choose the three-variable model.</li>
 </ul>
@@ -681,9 +736,9 @@ Adjusted \ R^2 = 1 - \frac{RSS/(n - d - 1)}{TSS/(n-1)}
 <section id="shrinkage-methods" class="level2">
 <h2 class="anchored" data-anchor-id="shrinkage-methods">2. Shrinkage Methods</h2>
 <ul>
-<li><p><strong>Alternative to Subset Selection:</strong> Instead of selecting a subset of variables, <em>shrinkage methods</em> (also called <em>regularization methods</em>) fit a model with <em>all p</em> predictors, but <em>constrain</em> or <em>regularize</em> the coefficient estimates.</p></li>
+<li><p><strong>Alternative to Subset Selection:</strong> Instead of selecting a subset of variables, <em>shrinkage methods</em> (also called <em>regularization methods</em>) fit a model with <em>all p</em> predictors, but <em>constrain</em> or <em>regularize</em> the coefficient estimates. They “shrink” the coefficients towards zero.</p></li>
 <li><p><strong>How it Works:</strong> Shrinkage methods shrink the coefficient estimates towards zero.</p></li>
-<li><p><strong>Why Shrink?:</strong> Shrinking the coefficients can significantly reduce their <em>variance</em>.</p></li>
+<li><p><strong>Why Shrink?:</strong> Shrinking the coefficients can significantly reduce their <em>variance</em>. This can improve prediction accuracy, especially when the least squares estimates have high variance.</p></li>
 <li><p><strong>Two Main Techniques:</strong></p>
 <ul>
 <li>Ridge regression</li>
@@ -699,15 +754,21 @@ Adjusted \ R^2 = 1 - \frac{RSS/(n - d - 1)}{TSS/(n-1)}
 RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 \]</span></p>
 <ul>
+<li>This finds the coefficients that minimize the sum of squared differences between the observed responses (<span class="math inline">\(y_i\)</span>) and the predicted responses (<span class="math inline">\(\hat{y}_i = \beta_0 + \sum_{j=1}^{p}\beta_jx_{ij}\)</span>).</li>
+</ul>
+</section>
+</section>
+<section id="ridge-regression-cont." class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-cont.">Ridge Regression (Cont.)</h2>
+<ul>
 <li><strong>Ridge Regression:</strong> Ridge regression minimizes a slightly different quantity:</li>
 </ul>
 <p><span class="math display">\[
 \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2 + \lambda\sum_{j=1}^{p}\beta_j^2 = RSS + \lambda\sum_{j=1}^{p}\beta_j^2
-\]</span> (eq: 6.5)</p>
+\]</span></p>
 <ul>
-<li><strong>λ (Tuning Parameter):</strong> λ ≥ 0 is a <em>tuning parameter</em> that controls the amount of shrinkage.</li>
+<li><strong>λ (Tuning Parameter):</strong> λ ≥ 0 is a <em>tuning parameter</em> that controls the amount of shrinkage. It determines the strength of the penalty.</li>
 </ul>
-</section>
 </section>
 <section id="ridge-regression-the-shrinkage-penalty" class="level2">
 <h2 class="anchored" data-anchor-id="ridge-regression-the-shrinkage-penalty">Ridge Regression: The Shrinkage Penalty</h2>
@@ -717,14 +778,19 @@ RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 <ul>
 <li><strong>Two Parts:</strong>
 <ul>
-<li><strong>RSS:</strong> Measures how well the model fits the data.</li>
-<li><strong>Shrinkage Penalty (λΣβ<sub>j</sub><sup>2</sup>):</strong> Penalizes large coefficients. This term is small when β<sub>1</sub>, …, β<sub>p</sub> are close to zero.</li>
+<li><strong>RSS:</strong> Measures how well the model fits the data. Smaller RSS means a better fit.</li>
+<li><strong>Shrinkage Penalty (λΣβ<sub>j</sub><sup>2</sup>):</strong> Penalizes large coefficients. This term is small when β<sub>1</sub>, …, β<sub>p</sub> are close to zero. The penalty is the sum of the <em>squared</em> coefficients (excluding the intercept).</li>
 </ul></li>
+</ul>
+</section>
+<section id="ridge-regression-the-shrinkage-penalty-cont." class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-the-shrinkage-penalty-cont.">Ridge Regression: The Shrinkage Penalty (Cont.)</h2>
+<ul>
 <li><strong>Tuning Parameter (λ):</strong>
 <ul>
 <li>λ = 0: No penalty. Ridge regression is the same as least squares.</li>
-<li>λ → ∞: Coefficients are shrunk all the way to zero (null model).</li>
-<li>0 &lt; λ &lt; ∞: Controls the <em>trade-off</em> between fitting the data well and shrinking the coefficients.</li>
+<li>λ → ∞: Coefficients are shrunk all the way to zero (this would result in the null model, predicting only the mean of the response).</li>
+<li>0 &lt; λ &lt; ∞: Controls the <em>trade-off</em> between fitting the data well (low RSS) and shrinking the coefficients (small penalty).</li>
 </ul></li>
 </ul>
 </section>
@@ -732,71 +798,85 @@ RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 <h2 class="anchored" data-anchor-id="ridge-regression-the-intercept">Ridge Regression: The Intercept</h2>
 <ul>
 <li><p><strong>No Shrinkage on Intercept:</strong> Notice that the shrinkage penalty is <em>not</em> applied to the intercept (β<sub>0</sub>).</p></li>
-<li><p><strong>Why?:</strong> We want to shrink the coefficients of the <em>predictors</em>, but not the intercept, which represents the average value of the response when all predictors are zero.</p></li>
-<li><p><strong>Centering Predictors:</strong> If the predictors are <em>centered</em> (mean of zero) before performing ridge regression, then the estimated intercept will be the sample mean of the response: <span class="math inline">\(\hat{\beta}_0 = \bar{y}\)</span>.</p></li>
+<li><p><strong>Why?:</strong> We want to shrink the coefficients of the <em>predictors</em>, but not the intercept, which represents the average value of the response when all predictors are zero (or at their mean values, if centered). Shrinking the intercept would bias the predictions.</p></li>
+<li><p><strong>Centering Predictors:</strong> If the predictors are <em>centered</em> (mean of zero) before performing ridge regression, then the estimated intercept will be the sample mean of the response: <span class="math inline">\(\hat{\beta}_0 = \bar{y}\)</span>. Centering simplifies the calculations and ensures the intercept has a meaningful interpretation.</p></li>
 </ul>
 </section>
 <section id="ridge-regression-example-on-credit-data" class="level2">
 <h2 class="anchored" data-anchor-id="ridge-regression-example-on-credit-data">Ridge Regression: Example on Credit Data</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_4.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_4.svg" class="img-fluid figure-img"></p>
 <figcaption>Standardized ridge regression coefficients for the <em>Credit</em> data, as a function of λ and ||β<sup>λ</sup><sub>R</sub>||<sub>2</sub> / ||β||<sub>2</sub>.</figcaption>
 </figure>
 </div>
+</section>
+<section id="ridge-regression-example-on-credit-data-cont." class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-example-on-credit-data-cont.">Ridge Regression: Example on Credit Data (Cont.)</h2>
 <ul>
-<li><strong>Figure 6.4:</strong> Shows ridge regression coefficient estimates for the <em>Credit</em> data.</li>
-<li><strong>Left Panel:</strong> Coefficients plotted against λ.
+<li><p><strong>Figure 6.4:</strong> Shows ridge regression coefficient estimates for the <em>Credit</em> data.</p></li>
+<li><p><strong>Left Panel:</strong> Coefficients plotted against λ.</p>
 <ul>
 <li>λ = 0: Coefficients are the same as least squares.</li>
 <li>As λ increases, coefficients shrink towards zero.</li>
 </ul></li>
-<li><strong>Right Panel:</strong> Coefficients plotted against ||β<sup>λ</sup><sub>R</sub>||<sub>2</sub> / ||β||<sub>2</sub></li>
-<li>The x-axis can be seen as how much the ridge regression coefficient estimates have been shrunken towards zero.</li>
+<li><p><strong>Right Panel:</strong> Coefficients plotted against ||β<sup>λ</sup><sub>R</sub>||<sub>2</sub> / ||β||<sub>2</sub>.</p></li>
+<li><p>||β<sup>λ</sup><sub>R</sub>||<sub>2</sub> represents the <em>l2 norm</em> of ridge regression coefficients.</p></li>
+<li><p>||β||<sub>2</sub> represents the <em>l2 norm</em> of least squares coefficients.</p></li>
+<li><p>The x-axis can be seen as how much the ridge regression coefficient estimates have been shrunken towards zero.</p></li>
 </ul>
 </section>
 <section id="ridge-regression-standardization" class="level2">
 <h2 class="anchored" data-anchor-id="ridge-regression-standardization">Ridge Regression: Standardization</h2>
 <ul>
-<li><p><strong>Scale Equivariance (Least Squares):</strong> Least squares coefficient estimates are <em>scale equivariant</em>. Multiplying a predictor by a constant <em>c</em> simply scales the corresponding coefficient by 1/<em>c</em>.</p></li>
-<li><p><strong>Scale Dependence (Ridge Regression):</strong> Ridge regression coefficients <em>can change substantially</em> when multiplying a predictor by a constant. This is because of the Σβ<sub>j</sub><sup>2</sup> term in the penalty.</p></li>
-<li><p><strong>Standardization:</strong> It’s best to apply ridge regression <em>after standardizing</em> the predictors:</p></li>
+<li><p><strong>Scale Equivariance (Least Squares):</strong> Least squares coefficient estimates are <em>scale equivariant</em>. Multiplying a predictor by a constant <em>c</em> simply scales the corresponding coefficient by 1/<em>c</em>. The overall prediction remains unchanged.</p></li>
+<li><p><strong>Scale Dependence (Ridge Regression):</strong> Ridge regression coefficients <em>can change substantially</em> when multiplying a predictor by a constant. This is because of the Σβ<sub>j</sub><sup>2</sup> term in the penalty. If a coefficient is large, squaring it makes it even larger, increasing the penalty. Scaling a predictor changes the scale of its coefficient, thus changing the penalty.</p></li>
+</ul>
+</section>
+<section id="ridge-regression-standardization-cont." class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-standardization-cont.">Ridge Regression: Standardization (Cont.)</h2>
+<ul>
+<li><strong>Standardization:</strong> It’s best to apply ridge regression <em>after standardizing</em> the predictors:</li>
 </ul>
 <p><span class="math display">\[
 \tilde{x}_{ij} = \frac{x_{ij}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)^2}}
-\]</span> (eq: 6.6)</p>
+\]</span></p>
 <ul>
-<li>This ensures that all predictors are on the same scale.</li>
+<li><p>This formula standardizes each predictor by subtracting its mean and dividing by its standard deviation. This ensures that all predictors are on the same scale (mean of 0, standard deviation of 1).</p></li>
+<li><p>This ensures that all predictors are on the same scale. Standardization makes the penalty apply equally to all predictors, regardless of their original units.</p></li>
 </ul>
 </section>
 <section id="why-does-ridge-regression-improve-over-least-squares" class="level2">
 <h2 class="anchored" data-anchor-id="why-does-ridge-regression-improve-over-least-squares">Why Does Ridge Regression Improve Over Least Squares?</h2>
 <ul>
-<li><p><strong>Bias-Variance Trade-Off:</strong> Ridge regression’s advantage comes from the <em>bias-variance trade-off</em>.</p>
+<li><p><strong>Bias-Variance Trade-Off:</strong> Ridge regression’s advantage comes from the <em>bias-variance trade-off</em>. This is a fundamental concept in statistical learning.</p>
 <ul>
 <li>As λ increases:
 <ul>
-<li>Flexibility of the model <em>decreases</em>.</li>
-<li>Variance <em>decreases</em>.</li>
-<li>Bias <em>increases</em>.</li>
+<li>Flexibility of the model <em>decreases</em>. The model becomes less able to fit the training data perfectly.</li>
+<li>Variance <em>decreases</em>. The model’s predictions become more stable.</li>
+<li>Bias <em>increases</em>. The model’s predictions, on average, deviate more from the true values.</li>
 </ul></li>
 </ul></li>
-<li><p><strong>Finding the Sweet Spot:</strong> The goal is to find a value of λ that reduces variance <em>more</em> than it increases bias, leading to a lower test MSE.</p></li>
+<li><p><strong>Finding the Sweet Spot:</strong> The goal is to find a value of λ that reduces variance <em>more</em> than it increases bias, leading to a lower test MSE (Mean Squared Error).</p></li>
 </ul>
 </section>
 <section id="ridge-regression-bias-variance-trade-off-illustrated" class="level2">
 <h2 class="anchored" data-anchor-id="ridge-regression-bias-variance-trade-off-illustrated">Ridge Regression: Bias-Variance Trade-Off Illustrated</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_5.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_5.svg" class="img-fluid figure-img"></p>
 <figcaption>Squared bias, variance, and test MSE for ridge regression on a simulated dataset.</figcaption>
 </figure>
 </div>
+</section>
+<section id="ridge-regression-bias-variance-trade-off-illustrated-cont." class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-bias-variance-trade-off-illustrated-cont.">Ridge Regression: Bias-Variance Trade-Off Illustrated (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.5:</strong> Shows bias, variance, and test MSE for ridge regression on a simulated dataset.</p></li>
 <li><p>As λ increases, variance decreases rapidly at first, with only a small increase in bias. This leads to a decrease in MSE.</p></li>
-<li><p>Eventually, the decrease in variance slows, and the increase in bias accelerates, causing the MSE to increase.</p></li>
-<li><p>The minimum MSE is achieved at a moderate value of λ.</p></li>
+<li><p>Eventually, the decrease in variance slows, and the increase in bias accelerates, causing the MSE to increase. The penalty becomes too strong, and the model underfits.</p></li>
+<li><p>The minimum MSE is achieved at a moderate value of λ. This is the optimal level of shrinkage.</p></li>
 </ul>
 </section>
 <section id="when-does-ridge-regression-work-well" class="level2">
@@ -804,203 +884,211 @@ RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 <ul>
 <li><strong>High Variance in Least Squares:</strong> Ridge regression works best in situations where the least squares estimates have <em>high variance</em>. This often happens when:
 <ul>
-<li><em>n</em> is not much larger than <em>p</em>.</li>
+<li><em>n</em> is not much larger than <em>p</em>. The number of observations is not significantly greater than the number of predictors.</li>
 <li><em>p</em> is close to <em>n</em>.</li>
-<li><em>p &gt; n</em> (though least squares doesn’t have a unique solution in this case).</li>
+<li><em>p &gt; n</em> (though least squares doesn’t have a unique solution in this case). Ridge regression can still provide a solution, even when <em>p &gt; n</em>.</li>
 </ul></li>
-<li><strong>Computational Advantage:</strong> Ridge regression is also computationally efficient, even for large <em>p</em>.</li>
+<li><strong>Computational Advantage:</strong> Ridge regression is also computationally efficient, even for large <em>p</em>. There’s a closed-form solution, making it relatively fast to compute.</li>
 </ul>
 <section id="the-lasso" class="level3">
 <h3 class="anchored" data-anchor-id="the-lasso">2.2 The Lasso</h3>
 <ul>
-<li><p><strong>Disadvantage of Ridge Regression:</strong> Ridge regression includes <em>all p</em> predictors in the final model. The penalty shrinks coefficients towards zero, but it doesn’t set any of them <em>exactly</em> to zero (unless λ = ∞). This can make interpretation difficult when <em>p</em> is large.</p></li>
-<li><p><strong>The Lasso: An Alternative:</strong> The <em>lasso</em> is a more recent alternative to ridge regression that overcomes this disadvantage.</p></li>
-<li><p><strong>Lasso Penalty:</strong> The lasso uses a different penalty term:</p></li>
+<li><p><strong>Disadvantage of Ridge Regression:</strong> Ridge regression includes <em>all p</em> predictors in the final model. The penalty shrinks coefficients towards zero, but it doesn’t set any of them <em>exactly</em> to zero (unless λ = ∞). This can make interpretation difficult when <em>p</em> is large. It doesn’t perform variable selection.</p></li>
+<li><p><strong>The Lasso: An Alternative:</strong> The <em>lasso</em> is a more recent alternative to ridge regression that overcomes this disadvantage. It can perform variable selection.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-lasso-penalty" class="level2">
+<h2 class="anchored" data-anchor-id="the-lasso-penalty">The Lasso: Penalty</h2>
+<ul>
+<li><strong>Lasso Penalty:</strong> The lasso uses a different penalty term:</li>
 </ul>
 <p><span class="math display">\[
 \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2 + \lambda\sum_{j=1}^{p}|\beta_j| = RSS + \lambda\sum_{j=1}^{p}|\beta_j|
-\]</span> (eq: 6.7)</p>
+\]</span></p>
 <ul>
-<li><strong>Absolute Value Penalty:</strong> The lasso uses an <em>l<sub>1</sub> penalty</em> (absolute value of coefficients) instead of an <em>l<sub>2</sub> penalty</em> (squared coefficients).</li>
+<li><strong>Absolute Value Penalty:</strong> The lasso uses an <em>l<sub>1</sub> penalty</em> (absolute value of coefficients) instead of an <em>l<sub>2</sub> penalty</em> (squared coefficients, used in ridge regression).</li>
 </ul>
-</section>
 </section>
 <section id="the-lasso-variable-selection" class="level2">
 <h2 class="anchored" data-anchor-id="the-lasso-variable-selection">The Lasso: Variable Selection</h2>
 <ul>
 <li><p><strong>Shrinkage and Selection:</strong> Like ridge regression, the lasso shrinks coefficients towards zero.</p></li>
-<li><p><strong>Key Difference:</strong> The l<sub>1</sub> penalty has the effect of forcing some coefficients to be <em>exactly zero</em> when λ is sufficiently large.</p></li>
-<li><p><strong>Variable Selection:</strong> This means the lasso performs <em>variable selection</em>!</p></li>
-<li><p><strong>Sparse Models:</strong> The lasso yields <em>sparse models</em> – models that involve only a subset of the variables.</p></li>
+<li><p><strong>Key Difference:</strong> The l<sub>1</sub> penalty has the effect of forcing some coefficients to be <em>exactly zero</em> when λ is sufficiently large. This is the crucial difference from ridge regression.</p></li>
+<li><p><strong>Variable Selection:</strong> This means the lasso performs <em>variable selection</em>! It automatically excludes some variables from the model.</p></li>
+<li><p><strong>Sparse Models:</strong> The lasso yields <em>sparse models</em> – models that involve only a subset of the variables. “Sparse” means that many of the coefficients are zero.</p></li>
 </ul>
 </section>
 <section id="the-lasso-example-on-credit-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-lasso-example-on-credit-data">The Lasso: Example on Credit Data</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_6.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_6.svg" class="img-fluid figure-img"></p>
 <figcaption>Standardized lasso coefficients for the <em>Credit</em> data, as a function of λ and ||β<sup>λ</sup><sub>L</sub>||<sub>1</sub> / ||β||<sub>1</sub>.</figcaption>
 </figure>
 </div>
+</section>
+<section id="the-lasso-example-on-credit-data-cont." class="level2">
+<h2 class="anchored" data-anchor-id="the-lasso-example-on-credit-data-cont.">The Lasso: Example on Credit Data (Cont.)</h2>
 <ul>
-<li><p><strong>Figure 6.6:</strong> Shows lasso coefficient estimates for the <em>Credit</em> data.</p></li>
-<li><p>As λ increases, coefficients shrink towards zero. But unlike ridge regression, some coefficients are set <em>exactly</em> to zero.</p></li>
-<li><p>This leads to a simpler, more interpretable model.</p></li>
+<li><strong>Figure 6.6:</strong> Shows lasso coefficient estimates for the <em>Credit</em> data.</li>
+<li>As λ increases, coefficients shrink towards zero. But unlike ridge regression, some coefficients are set <em>exactly</em> to zero.</li>
+<li>This leads to a simpler, more interpretable model. The lasso identifies the most important predictors and excludes the rest.</li>
 </ul>
 </section>
 <section id="another-formulation-for-ridge-regression-and-the-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="another-formulation-for-ridge-regression-and-the-lasso">Another Formulation for Ridge Regression and the Lasso</h2>
 <ul>
-<li>Both ridge regression and the lasso can be formulated as constrained optimization problems.
+<li>Both ridge regression and the lasso can be formulated as constrained optimization problems. This provides an alternative way to understand them.
 <ul>
 <li>Ridge Regression: <span class="math display">\[
   \underset{\beta}{minimize} \left\{ \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2 \right\} \quad subject \ to \ \sum_{j=1}^{p}\beta_j^2 \le s
-  \]</span> (eq: 6.9)</li>
+  \]</span></li>
+<li>Minimize the RSS, subject to a constraint on the sum of the squared coefficients. <em>s</em> is a tuning parameter that controls the amount of shrinkage.</li>
 <li>Lasso: <span class="math display">\[
   \underset{\beta}{minimize} \left\{ \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2 \right\} \quad subject \ to \ \sum_{j=1}^{p}|\beta_j| \le s
-  \]</span> (eq: 6.8)</li>
+  \]</span></li>
+<li>Minimize the RSS, subject to a constraint on the sum of the absolute values of the coefficients.</li>
 </ul></li>
 <li>The above formulations reveal a close connection between the lasso, ridge regression, and best subset selection.</li>
 </ul>
 </section>
 <section id="the-variable-selection-property-of-the-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="the-variable-selection-property-of-the-lasso">The Variable Selection Property of the Lasso</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li><strong>Why does the lasso set coefficients to zero, while ridge regression doesn’t?</strong>
-<ul>
-<li>Consider the constraint regions (where the solution must lie):
-<ul>
-<li>Ridge regression: A circle (l<sub>2</sub> constraint).</li>
-<li>Lasso: A diamond (l<sub>1</sub> constraint).</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_7.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_7.svg" class="img-fluid figure-img"></p>
 <figcaption>Contours of the error and constraint functions for the lasso (left) and ridge regression (right).</figcaption>
 </figure>
 </div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li>The solution is the first point where the “ellipse” (contour of constant RSS) touches the constraint region.</li>
-<li>Because the lasso constraint has <em>corners</em>, the ellipse often intersects at an axis, setting one coefficient to zero.</li>
-<li>Ridge regression’s circular constraint doesn’t have corners, so this rarely happens.</li>
+<li><strong>Figure 6.7</strong>: Contours of the error and constraint functions for the lasso (left) and ridge regression (right).</li>
+<li>The solid blue areas are the constraint regions.</li>
+<li>The red ellipses are the contours of the RSS.</li>
 </ul>
+</section>
+<section id="the-variable-selection-property-of-the-lasso-cont." class="level2">
+<h2 class="anchored" data-anchor-id="the-variable-selection-property-of-the-lasso-cont.">The Variable Selection Property of the Lasso (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_7.svg" class="img-fluid figure-img"></p>
+<figcaption>Contours of the error and constraint functions for the lasso (left) and ridge regression (right).</figcaption>
+</figure>
 </div>
-</div>
-</div>
+<ul>
+<li><p><strong>Why does the lasso set coefficients to zero, while ridge regression doesn’t?</strong></p>
+<ul>
+<li>Consider the constraint regions (where the solution must lie):
+<ul>
+<li>Ridge regression: A circle (l<sub>2</sub> constraint: <span class="math inline">\(\sum_{j=1}^{p}\beta_j^2 \le s\)</span>).</li>
+<li>Lasso: A diamond (l<sub>1</sub> constraint: <span class="math inline">\(\sum_{j=1}^{p}|\beta_j| \le s\)</span>).</li>
+</ul></li>
+</ul></li>
+<li><p>The solution is the first point where the “ellipse” (contour of constant RSS) touches the constraint region. The ellipses represent combinations of coefficients that have the same RSS.</p></li>
+<li><p>Because the lasso constraint has <em>corners</em>, the ellipse often intersects at an axis, setting one coefficient to zero. When the ellipse hits a corner of the diamond, one of the coefficients is zero.</p></li>
+<li><p>Ridge regression’s circular constraint doesn’t have corners, so this rarely happens. The ellipse is unlikely to intersect the circle exactly on an axis.</p></li>
+</ul>
 </section>
 <section id="comparing-the-lasso-and-ridge-regression" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-the-lasso-and-ridge-regression">Comparing the Lasso and Ridge Regression</h2>
 <ul>
-<li><p><strong>Interpretability:</strong> The lasso has a major advantage in terms of <em>interpretability</em>, producing simpler models with fewer variables.</p></li>
-<li><p><strong>Prediction Accuracy:</strong> Which method is better for prediction depends on the <em>true underlying relationship</em> between the predictors and the response.</p>
+<li><p><strong>Interpretability:</strong> The lasso has a major advantage in terms of <em>interpretability</em>, producing simpler models with fewer variables. This makes it easier to understand the key factors influencing the response.</p></li>
+<li><p><strong>Prediction Accuracy:</strong> Which method is better for prediction depends on the <em>true underlying relationship</em> between the predictors and the response. It’s data-dependent.</p>
 <ul>
-<li><strong>Few Important Predictors:</strong> If only a <em>few</em> predictors are truly important (with large coefficients), the lasso tends to perform better.</li>
-<li><strong>Many Important Predictors:</strong> If <em>many</em> predictors have small or moderate-sized coefficients, ridge regression tends to perform better.</li>
+<li><strong>Few Important Predictors:</strong> If only a <em>few</em> predictors are truly important (with large coefficients), the lasso tends to perform better. It will identify these key predictors and exclude the irrelevant ones.</li>
+<li><strong>Many Important Predictors:</strong> If <em>many</em> predictors have small or moderate-sized coefficients, ridge regression tends to perform better. Shrinking all coefficients towards zero, without setting any to zero, is more appropriate in this case.</li>
 </ul></li>
 <li><p><strong>Unknown Truth:</strong> In practice, we don’t know which scenario is true. Cross-validation can help us choose the best approach for a particular dataset.</p></li>
 </ul>
 </section>
 <section id="comparing-the-lasso-and-ridge-regression-simulated-examples" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-the-lasso-and-ridge-regression-simulated-examples">Comparing the Lasso and Ridge Regression: Simulated Examples</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_8.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_8.svg" class="img-fluid figure-img"></p>
 <figcaption>Lasso and ridge regression on a simulated dataset where <em>all</em> predictors are related to the response.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="comparing-the-lasso-and-ridge-regression-simulated-examples-cont." class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-lasso-and-ridge-regression-simulated-examples-cont.">Comparing the Lasso and Ridge Regression: Simulated Examples (Cont.)</h2>
 <ul>
 <li><strong>Figure 6.8:</strong> All 45 predictors are related to the response.</li>
-<li>Ridge regression slightly outperforms the lasso.</li>
+<li>Ridge regression slightly outperforms the lasso. Since all predictors contribute to the response, shrinking all coefficients (ridge regression) is better than setting some to zero (lasso).</li>
 <li>The minimum MSE of ridge regression is slightly smaller than that of the lasso.</li>
 </ul>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="comparing-the-lasso-and-ridge-regression-simulated-examples-1" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-lasso-and-ridge-regression-simulated-examples-1">Comparing the Lasso and Ridge Regression: Simulated Examples</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_9.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_9.svg" class="img-fluid figure-img"></p>
 <figcaption>Lasso and ridge regression on a simulated dataset where only <em>two</em> predictors are related to the response.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="comparing-the-lasso-and-ridge-regression-simulated-examples-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-lasso-and-ridge-regression-simulated-examples-cont.-1">Comparing the Lasso and Ridge Regression: Simulated Examples (Cont.)</h2>
 <ul>
-<li><strong>Figure 6.9:</strong> Only 2 of 45 predictors are related to the response.</li>
-<li>The lasso tends to outperform ridge regression.</li>
+<li><strong>Figure 6.9:</strong> Only 2 of 45 predictors are related to the response. This is a sparse setting.</li>
+<li>The lasso tends to outperform ridge regression. The lasso correctly identifies the two important predictors and sets the coefficients of the irrelevant predictors to zero.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="a-simple-special-case-for-ridge-regression-and-the-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="a-simple-special-case-for-ridge-regression-and-the-lasso">A Simple Special Case for Ridge Regression and the Lasso</h2>
-<p>We consider a simple situation: - <span class="math inline">\(n=p\)</span>. - <span class="math inline">\(\mathbf{X}\)</span> is a <em>diagonal matrix</em> with 1’s on the diagonal. - No intercept. Then, it can be shown: - Ridge regression <em>shrinks each least squares coefficient estimate by the same proportion</em>. <span class="math display">\[
-        \hat{\beta}_j^R = y_j / (1 + \lambda)
-        \]</span> (eq: 6.14) - Lasso <em>soft-threshold</em> the least squares coefficient estimates. <span class="math display">\[
-        \hat{\beta}_j^L =
-        \begin{cases}
-        y_j - \lambda/2 &amp; \text{if } y_j &gt; \lambda/2 \\
-        y_j + \lambda/2 &amp; \text{if } y_j &lt; -\lambda/2 \\
-        0 &amp; \text{if } |y_j| \le \lambda/2
-        \end{cases}
-        \]</span> (eq: 6.15)</p>
+<p>We consider a simple situation:</p>
+<ul>
+<li><span class="math inline">\(n=p\)</span>. The number of observations equals the number of predictors.</li>
+<li><span class="math inline">\(\mathbf{X}\)</span> is a <em>diagonal matrix</em> with 1’s on the diagonal. This means the predictors are uncorrelated and have unit variance.</li>
+<li>No intercept.</li>
+</ul>
+<p>Then, it can be shown:</p>
+<ul>
+<li>Ridge regression <em>shrinks each least squares coefficient estimate by the same proportion</em>. <span class="math display">\[
+\hat{\beta}_j^R = \frac{y_j}{1 + \lambda}
+\]</span></li>
+</ul>
+</section>
+<section id="a-simple-special-case-for-ridge-regression-and-the-lasso-cont." class="level2">
+<h2 class="anchored" data-anchor-id="a-simple-special-case-for-ridge-regression-and-the-lasso-cont.">A Simple Special Case for Ridge Regression and the Lasso (Cont.)</h2>
+<ul>
+<li>Lasso <em>soft-threshold</em> the least squares coefficient estimates. <span class="math display">\[
+\hat{\beta}_j^L =
+\begin{cases}
+y_j - \lambda/2 &amp; \text{if } y_j &gt; \lambda/2 \\
+y_j + \lambda/2,  &amp; \text{if } y_j &lt; -\lambda/2 \\
+0 &amp; \text{if } |y_j| \le \lambda/2
+\end{cases}
+\]</span></li>
+<li>If the least squares estimate (<span class="math inline">\(y_j\)</span>) is larger than <span class="math inline">\(\lambda/2\)</span> or smaller than <span class="math inline">\(-\lambda/2\)</span>, the lasso shrinks it towards zero.</li>
+<li>If it is between <span class="math inline">\(-\lambda/2\)</span> and <span class="math inline">\(\lambda/2\)</span>, the lasso sets it to zero. This is called “soft-thresholding.”</li>
+</ul>
 </section>
 <section id="a-simple-special-case-for-ridge-regression-and-the-lasso-1" class="level2">
 <h2 class="anchored" data-anchor-id="a-simple-special-case-for-ridge-regression-and-the-lasso-1">A Simple Special Case for Ridge Regression and the Lasso</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_10.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_10.svg" class="img-fluid figure-img"></p>
 <figcaption>Ridge and lasso coefficient estimates in the simple case.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="a-simple-special-case-for-ridge-regression-and-the-lasso-cont.-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-simple-special-case-for-ridge-regression-and-the-lasso-cont.-1">A Simple Special Case for Ridge Regression and the Lasso (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.10</strong>: It shows that:</p></li>
 <li><p>Ridge regression shrinks each coefficient by same proportion.</p></li>
 <li><p>Lasso shrinks all coefficients toward zero by a <em>similar amount</em>, and sufficiently small coefficients are shrunken all the way to zero.</p></li>
 </ul>
-</div>
-</div>
-</div>
 <section id="selecting-the-tuning-parameter" class="level3">
 <h3 class="anchored" data-anchor-id="selecting-the-tuning-parameter">2.3 Selecting the Tuning Parameter</h3>
 <ul>
-<li><strong>Crucial Choice:</strong> Just like with subset selection, we need to choose the tuning parameter (λ) for ridge regression and the lasso.</li>
+<li><strong>Crucial Choice:</strong> Just like with subset selection, we need to choose the tuning parameter (λ) for ridge regression and the lasso. The value of λ determines the amount of shrinkage.</li>
 <li><strong>Cross-Validation:</strong> Cross-validation is a powerful method for selecting λ.
 <ol type="1">
-<li>Choose a grid of λ values.</li>
-<li>Compute the cross-validation error for each value of λ.</li>
-<li>Select the λ that gives the <em>smallest</em> cross-validation error.</li>
+<li>Choose a grid of λ values. Try a range of values to see which works best.</li>
+<li>Compute the cross-validation error for each value of λ. This estimates the test error for each λ.</li>
+<li>Select the λ that gives the <em>smallest</em> cross-validation error. This is the value that is expected to perform best on new data.</li>
 <li>Re-fit the model using <em>all</em> of the data with the chosen λ.</li>
 </ol></li>
 </ul>
@@ -1010,7 +1098,7 @@ RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 <h2 class="anchored" data-anchor-id="selecting-λ-example-for-ridge-regression">Selecting λ: Example for Ridge Regression</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_12.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_12.svg" class="img-fluid figure-img"></p>
 <figcaption>Cross-validation error and coefficient estimates for ridge regression on the <em>Credit</em> data.</figcaption>
 </figure>
 </div>
@@ -1022,46 +1110,41 @@ RSS = \sum_{i=1}^{n}(y_i - \beta_0 - \sum_{j=1}^{p}\beta_jx_{ij})^2
 </section>
 <section id="selecting-λ-example-for-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="selecting-λ-example-for-lasso">Selecting λ: Example for Lasso</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_13.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_13.svg" class="img-fluid figure-img"></p>
 <figcaption>Cross-validation error and coefficient estimates for the lasso on the simulated data from Figure 6.9.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="selecting-λ-example-for-lasso-cont." class="level2">
+<h2 class="anchored" data-anchor-id="selecting-λ-example-for-lasso-cont.">Selecting λ: Example for Lasso (Cont.)</h2>
 <ul>
 <li><strong>Figure 6.13:</strong> Shows cross-validation for the lasso on the simulated data from Figure 6.9 (where only two predictors are truly related to the response).</li>
 <li>The lasso correctly identifies the <em>two signal variables</em> (colored lines) and sets the coefficients of the noise variables (gray lines) to near zero.</li>
 <li>The minimum cross-validation error occurs when only the signal variables have non-zero coefficients.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="dimension-reduction-methods" class="level2">
 <h2 class="anchored" data-anchor-id="dimension-reduction-methods">3. Dimension Reduction Methods</h2>
 <ul>
-<li><p><strong>Different Approach:</strong> Instead of working directly with the original predictors (X<sub>1</sub>, …, X<sub>p</sub>), dimension reduction methods <em>transform</em> the predictors and then fit a least squares model using the <em>transformed</em> variables.</p></li>
+<li><p><strong>Different Approach:</strong> Instead of working directly with the original predictors (X<sub>1</sub>, …, X<sub>p</sub>), dimension reduction methods <em>transform</em> the predictors and then fit a least squares model using the <em>transformed</em> variables. They create new, fewer variables that are combinations of the original ones.</p></li>
 <li><p><strong>Linear Combinations:</strong> Create <em>M</em> linear combinations (Z<sub>1</sub>, …, Z<sub>M</sub>) of the original <em>p</em> predictors, where <em>M &lt; p</em>.</p></li>
 </ul>
 <p><span class="math display">\[
 Z_m = \sum_{j=1}^{p}\phi_{jm}X_j
-\]</span> (eq: 6.16)</p>
-<pre><code>-   φ&lt;sub&gt;jm&lt;/sub&gt; are constants.</code></pre>
+\]</span></p>
+<pre><code>-   φ&lt;sub&gt;jm&lt;/sub&gt; are constants (weights) that define the linear combinations.  Each $Z_m$ is a weighted sum of all the original predictors.</code></pre>
+</section>
+<section id="dimension-reduction-methods-cont." class="level2">
+<h2 class="anchored" data-anchor-id="dimension-reduction-methods-cont.">Dimension Reduction Methods (Cont.)</h2>
 <ul>
 <li><strong>Reduced Dimension:</strong> Fit a linear regression model using Z<sub>1</sub>, …, Z<sub>M</sub> as predictors:</li>
 </ul>
 <p><span class="math display">\[
 y_i = \theta_0 + \sum_{m=1}^{M}\theta_mz_{im} + \epsilon_i
-\]</span> (eq: 6.17)</p>
-<pre><code>-   This reduces the problem from estimating *p*+1 coefficients to estimating *M*+1 coefficients.</code></pre>
+\]</span></p>
+<pre><code>-   This reduces the problem from estimating *p*+1 coefficients (in the original model) to estimating *M*+1 coefficients.  This can significantly simplify the model.</code></pre>
 </section>
 <section id="dimension-reduction-why-it-works" class="level2">
 <h2 class="anchored" data-anchor-id="dimension-reduction-why-it-works">Dimension Reduction: Why it Works</h2>
@@ -1070,29 +1153,36 @@ y_i = \theta_0 + \sum_{m=1}^{M}\theta_mz_{im} + \epsilon_i
 </ul>
 <p><span class="math display">\[
 \beta_j = \sum_{m=1}^{M}\theta_m\phi_{jm}
-\]</span> (eq: 6.18)</p>
+\]</span> - The original coefficients (<span class="math inline">\(\beta_j\)</span>) are now expressed in terms of the new coefficients (<span class="math inline">\(\theta_m\)</span>) and the weights (<span class="math inline">\(\phi_{jm}\)</span>).</p>
 <ul>
-<li><p><strong>Bias-Variance Trade-Off:</strong> This constraint can introduce bias, but if <em>p</em> is large relative to <em>n</em>, choosing <em>M &lt;&lt; p</em> can significantly reduce the variance of the fitted coefficients.</p></li>
-<li><p><strong>Two Steps:</strong></p>
+<li><strong>Bias-Variance Trade-Off:</strong> This constraint can introduce bias, but if <em>p</em> is large relative to <em>n</em>, choosing <em>M &lt;&lt; p</em> can significantly reduce the variance of the fitted coefficients. By reducing the number of parameters to estimate, we reduce the model’s flexibility and its tendency to overfit.</li>
+</ul>
+</section>
+<section id="dimension-reduction-two-steps" class="level2">
+<h2 class="anchored" data-anchor-id="dimension-reduction-two-steps">Dimension Reduction: Two Steps</h2>
+<ul>
+<li><strong>Two Steps:</strong>
 <ol type="1">
-<li>Obtain the transformed predictors (Z<sub>1</sub>, …, Z<sub>M</sub>).</li>
-<li>Fit a least squares model using these <em>M</em> predictors.</li>
+<li>Obtain the transformed predictors (Z<sub>1</sub>, …, Z<sub>M</sub>). This is where the different dimension reduction methods differ.</li>
+<li>Fit a least squares model using these <em>M</em> predictors. This is a standard linear regression.</li>
 </ol></li>
-<li><p><strong>Different Methods:</strong> Different dimension reduction methods differ in how they choose the Z<sub>m</sub> (or, equivalently, the φ<sub>jm</sub>).</p></li>
-<li><p>Principal components regression (PCR)</p></li>
-<li><p>Partial least squares (PLS)</p></li>
+<li><strong>Different Methods:</strong> Different dimension reduction methods differ in how they choose the Z<sub>m</sub> (or, equivalently, the φ<sub>jm</sub>). They have different ways of creating the linear combinations.
+<ul>
+<li>Principal components regression (PCR)</li>
+<li>Partial least squares (PLS)</li>
+</ul></li>
 </ul>
 <section id="principal-components-regression-pcr" class="level3">
 <h3 class="anchored" data-anchor-id="principal-components-regression-pcr">3.1 Principal Components Regression (PCR)</h3>
 <ul>
-<li><p><strong>Principal Components Analysis (PCA):</strong> PCA is a technique for deriving a low-dimensional set of features from a larger set of variables. (More detail in Chapter 12.)</p></li>
-<li><p><strong>Unsupervised:</strong> PCA is an <em>unsupervised</em> method – it identifies linear combinations that best represent the <em>predictors</em> (X), <em>without</em> considering the response (Y).</p></li>
+<li><p><strong>Principal Components Analysis (PCA):</strong> PCA is a technique for deriving a low-dimensional set of features from a larger set of variables. (More detail in Chapter 12.) It finds new variables (principal components) that capture the most variation in the original data.</p></li>
+<li><p><strong>Unsupervised:</strong> PCA is an <em>unsupervised</em> method – it identifies linear combinations that best represent the <em>predictors</em> (X), <em>without</em> considering the response (Y). It only looks at the relationships among the predictors.</p></li>
 </ul>
 <section id="an-overview-of-principal-components-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="an-overview-of-principal-components-analysis">An Overview of Principal Components Analysis</h4>
 <ul>
-<li><p>PCA seeks to find the directions in the data along which the observations <em>vary the most</em>.</p></li>
-<li><p><strong>First Principal Component:</strong> The first principal component is the direction in the data with the <em>greatest variance</em>.</p></li>
+<li><p>PCA seeks to find the directions in the data along with which the observations <em>vary the most</em>. These directions are the principal components.</p></li>
+<li><p><strong>First Principal Component:</strong> The first principal component is the direction in the data with the <em>greatest variance</em>. It’s the line that best captures the spread of the data.</p></li>
 </ul>
 </section>
 </section>
@@ -1101,14 +1191,25 @@ y_i = \theta_0 + \sum_{m=1}^{M}\theta_mz_{im} + \epsilon_i
 <h2 class="anchored" data-anchor-id="pca-example-on-advertising-data">PCA: Example on Advertising Data</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_14.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_14.svg" class="img-fluid figure-img"></p>
 <figcaption>Population size and ad spending for 100 cities. The first principal component is shown in green, and the second in blue.</figcaption>
 </figure>
 </div>
 <ul>
-<li><strong>Figure 6.14:</strong> Shows population size (pop) and ad spending (ad) for 100 cities.</li>
+<li><strong>Figure 6.14</strong>: Shows population size (pop) and advertising spending (ad) for 100 cities.</li>
 <li>The green line is the first principal component direction.</li>
-<li>Projecting the observations onto this line would maximize the variance of the projected points.</li>
+</ul>
+</section>
+<section id="pca-example-on-advertising-data-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pca-example-on-advertising-data-cont.">PCA: Example on Advertising Data (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_14.svg" class="img-fluid figure-img"></p>
+<figcaption>Population size and ad spending for 100 cities. The first principal component is shown in green, and the second in blue.</figcaption>
+</figure>
+</div>
+<ul>
+<li>Projecting the observations (data points) onto this line would maximize the variance of the projected points. The first principal component captures the direction of greatest variability in the data.</li>
 </ul>
 </section>
 <section id="pca-finding-the-first-principal-component" class="level2">
@@ -1118,63 +1219,73 @@ y_i = \theta_0 + \sum_{m=1}^{M}\theta_mz_{im} + \epsilon_i
 </ul>
 <p><span class="math display">\[
 Z_1 = 0.839 \times (pop - \overline{pop}) + 0.544 \times (ad - \overline{ad})
-\]</span> (eq: 6.19)</p>
-<pre><code>-   0.839 and 0.544 are the *principal component loadings*.
--   $\overline{pop}$ and $\overline{ad}$ are the means of pop and ad, respectively.</code></pre>
+\]</span></p>
+<pre><code>-   0.839 and 0.544 are the *principal component loadings* (the φ&lt;sub&gt;jm&lt;/sub&gt; values).  They define the direction of the first principal component.
+-   $\overline{pop}$ and $\overline{ad}$ are the means of pop and ad, respectively.  The variables are centered (mean-subtracted).</code></pre>
 <ul>
-<li><strong>Interpretation:</strong> Z<sub>1</sub> is almost an average of the two variables (since the loadings are positive and similar in size).</li>
+<li><strong>Interpretation:</strong> Z<sub>1</sub> is almost an average of the two variables (since the loadings are positive and similar in size). It represents a direction that captures a combination of population size and ad spending.</li>
 </ul>
 </section>
 <section id="pca-principal-component-scores" class="level2">
 <h2 class="anchored" data-anchor-id="pca-principal-component-scores">PCA: Principal Component Scores</h2>
 <p><span class="math display">\[
 Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{ad})
-\]</span> (eq: 6.20)</p>
+\]</span></p>
 <ul>
-<li><strong>Scores:</strong> The values z<sub>i1</sub>, …, z<sub>n1</sub> are called the <em>principal component scores</em>. They represent the “coordinates” of the data points along the first principal component direction.</li>
+<li><strong>Scores:</strong> The values z<sub>i1</sub>, …, z<sub>n1</sub> are called the <em>principal component scores</em>. They represent the “coordinates” of the data points along the first principal component direction. They are the values of the new variable, Z<sub>1</sub>, for each observation.</li>
 </ul>
 </section>
 <section id="pca-another-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="pca-another-interpretation">PCA: Another Interpretation</h2>
 <ul>
-<li><strong>Closest Line:</strong> The first principal component vector defines the line that is <em>as close as possible</em> to the data (minimizing the sum of squared perpendicular distances).</li>
+<li><strong>Closest Line:</strong> The first principal component vector defines the line that is <em>as close as possible</em> to the data (minimizing the sum of squared perpendicular distances). It’s the line that best fits the data in a least-squares sense.</li>
 </ul>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_15.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_15.svg" class="img-fluid figure-img"></p>
 <figcaption>The first principal component direction, with distances to the observations shown as dashed lines.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><strong>Figure 6.15:</strong>
-<ul>
+<li><strong>Figure 6.15</strong>: The first principal component direction, with distances to the observations shown as dashed lines.</li>
 <li><strong>Left:</strong> Shows the perpendicular distances from each point to the first principal component line.</li>
-<li><strong>Right:</strong> Rotates the plot so that the first principal component is horizontal. The <em>x</em>-coordinate of each point in this rotated plot is its principal component score.</li>
-</ul></li>
+<li><strong>Right:</strong> Rotates the plot so that the first principal component is horizontal.</li>
 </ul>
+</section>
+<section id="pca-another-interpretation-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pca-another-interpretation-cont.">PCA: Another Interpretation (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_15.svg" class="img-fluid figure-img"></p>
+<figcaption>The first principal component direction, with distances to the observations shown as dashed lines.</figcaption>
+</figure>
 </div>
-</div>
-</div>
+<ul>
+<li>The <em>x</em>-coordinate of each point in this rotated plot is its principal component score.</li>
+</ul>
 </section>
 <section id="pca-capturing-information" class="level2">
 <h2 class="anchored" data-anchor-id="pca-capturing-information">PCA: Capturing Information</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_16.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_16.svg" class="img-fluid figure-img"></p>
 <figcaption>Plots of the first principal component scores versus pop and ad.</figcaption>
 </figure>
 </div>
 <ul>
 <li><strong>Figure 6.16:</strong> Shows the first principal component scores (z<sub>i1</sub>) plotted against pop and ad.</li>
-<li><strong>Strong Relationship:</strong> There’s a strong relationship, indicating that the first principal component captures much of the information in the original two variables.</li>
+</ul>
+</section>
+<section id="pca-capturing-information-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pca-capturing-information-cont.">PCA: Capturing Information (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_16.svg" class="img-fluid figure-img"></p>
+<figcaption>Plots of the first principal component scores versus pop and ad.</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Strong Relationship:</strong> There’s a strong relationship, indicating that the first principal component captures much of the information in the original two variables. The first principal component score is highly correlated with both population size and ad spending.</li>
 </ul>
 </section>
 <section id="pca-multiple-principal-components" class="level2">
@@ -1184,30 +1295,41 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <li><p><strong>Second Principal Component:</strong> The second principal component (Z<sub>2</sub>) is:</p>
 <ul>
 <li>A linear combination of the variables.</li>
-<li><em>Uncorrelated</em> with Z<sub>1</sub>.</li>
+<li><em>Uncorrelated</em> with Z<sub>1</sub>. It captures variation in a direction independent of Z<sub>1</sub>.</li>
 <li>Has the largest variance among all linear combinations uncorrelated with Z<sub>1</sub>.</li>
 <li><em>Orthogonal</em> (perpendicular) to the first principal component.</li>
 </ul></li>
-<li><p><strong>Successive Components:</strong> Each subsequent principal component captures the maximum remaining variance, subject to being uncorrelated with the previous components.</p></li>
+<li><p><strong>Successive Components:</strong> Each subsequent principal component captures the maximum remaining variance, subject to being uncorrelated with the previous components. Each component captures a different “direction” of variation in the data.</p></li>
 </ul>
 </section>
 <section id="pca-second-principal-component" class="level2">
 <h2 class="anchored" data-anchor-id="pca-second-principal-component">PCA: Second Principal Component</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_17.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_17.svg" class="img-fluid figure-img"></p>
 <figcaption>Plots of the <em>second</em> principal component scores versus pop and ad.</figcaption>
 </figure>
 </div>
 <ul>
 <li><strong>Figure 6.17:</strong> Shows the <em>second</em> principal component scores (z<sub>i2</sub>) plotted against pop and ad.</li>
+</ul>
+</section>
+<section id="pca-second-principal-component-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pca-second-principal-component-cont.">PCA: Second Principal Component (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_17.svg" class="img-fluid figure-img"></p>
+<figcaption>Plots of the <em>second</em> principal component scores versus pop and ad.</figcaption>
+</figure>
+</div>
+<ul>
 <li><strong>Weak Relationship:</strong> There’s very little relationship, indicating that the second principal component captures much less information than the first.</li>
 </ul>
 <section id="the-principal-components-regression-approach" class="level4">
 <h4 class="anchored" data-anchor-id="the-principal-components-regression-approach">The Principal Components Regression Approach</h4>
 <ul>
-<li><p><strong>The Idea:</strong> Use the first <em>M</em> principal components (Z<sub>1</sub>, …, Z<sub>M</sub>) as predictors in a linear regression model.</p></li>
-<li><p><strong>Assumption:</strong> We assume that the directions in which X<sub>1</sub>, …, X<sub>p</sub> show the most variation are the directions that are associated with Y.</p></li>
+<li><p><strong>The Idea:</strong> Use the first <em>M</em> principal components (Z<sub>1</sub>, …, Z<sub>M</sub>) as predictors in a linear regression model. This is PCR.</p></li>
+<li><p><strong>Assumption:</strong> We assume that the directions in which X<sub>1</sub>, …, X<sub>p</sub> show the most variation are the directions that are associated with Y. This is the key assumption of PCR. If it holds, PCR can be effective.</p></li>
 <li><p><strong>Potential for Improvement:</strong> If this assumption holds, PCR can outperform least squares, especially when <em>M &lt;&lt; p</em>, by reducing variance.</p></li>
 </ul>
 </section>
@@ -1216,10 +1338,13 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <h2 class="anchored" data-anchor-id="pcr-example">PCR: Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_18.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_18.svg" class="img-fluid figure-img"></p>
 <figcaption>PCR applied to two simulated datasets.</figcaption>
 </figure>
 </div>
+</section>
+<section id="pcr-example-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pcr-example-cont.">PCR: Example (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.18:</strong> Shows PCR applied to the simulated datasets from Figures 6.8 and 6.9.</p></li>
 <li><p>PCR with an appropriate choice of <em>M</em> can improve substantially over least squares.</p></li>
@@ -1229,14 +1354,11 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <section id="pcr-when-it-works-well" class="level2">
 <h2 class="anchored" data-anchor-id="pcr-when-it-works-well">PCR: When it Works Well</h2>
 <ul>
-<li><strong>First Few Components are Key:</strong> PCR tends to work well when the first few principal components capture most of the variation in the predictors <em>and</em> the relationship with the response.</li>
+<li><strong>First Few Components are Key:</strong> PCR tends to work well when the first few principal components capture most of the variation in the predictors <em>and</em> that variation is related to the response.</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/6_19.png" class="img-fluid figure-img"></p>
-<figcaption>PCR, ridge regression, and the lasso on a simulated dataset where the first five principal components of X contain all the information about the response Y.</figcaption>
-</figure>
-</div>
+</section>
+<section id="pcr-when-it-works-well-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pcr-when-it-works-well-cont.">PCR: When it Works Well (Cont.)</h2>
 <ul>
 <li><strong>Figure 6.19:</strong> Shows an example where the response depends only on the first five principal components.</li>
 <li>PCR performs very well, achieving a low MSE with <em>M</em> = 5.</li>
@@ -1246,9 +1368,9 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <section id="pcr-not-feature-selection" class="level2">
 <h2 class="anchored" data-anchor-id="pcr-not-feature-selection">PCR: Not Feature Selection</h2>
 <ul>
-<li><p><strong>Linear Combinations:</strong> PCR is <em>not</em> a feature selection method. Each principal component is a linear combination of <em>all p</em> original features.</p></li>
+<li><p><strong>Linear Combinations:</strong> PCR is <em>not</em> a feature selection method. Each principal component is a linear combination of <em>all p</em> original features. It doesn’t exclude any of the original variables.</p></li>
 <li><p><strong>Example:</strong> In the advertising data, Z<sub>1</sub> was a combination of <em>both</em> pop and ad.</p></li>
-<li><p><strong>Relationship to Ridge Regression:</strong> PCR is more closely related to ridge regression than to the lasso.</p></li>
+<li><p><strong>Relationship to Ridge Regression:</strong> PCR is more closely related to ridge regression than to the lasso. Both involve using all the original predictors, albeit in a transformed way.</p></li>
 </ul>
 </section>
 <section id="pcr-choosing-m-and-standardization" class="level2">
@@ -1258,42 +1380,56 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_20.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_20.svg" class="img-fluid figure-img"></p>
 <figcaption>PCR standardized coefficient estimates and cross-validation MSE on the <em>Credit</em> data.</figcaption>
 </figure>
 </div>
+</section>
+<section id="pcr-choosing-m-and-standardization-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pcr-choosing-m-and-standardization-cont.">PCR: Choosing M and Standardization (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.20:</strong> Shows cross-validation for PCR on the <em>Credit</em> data.</p></li>
 <li><p>The lowest cross-validation error occurs with <em>M</em> = 10, which is almost no dimension reduction.</p></li>
-<li><p><strong>Standardization:</strong> It’s generally recommended to <em>standardize</em> each predictor before performing PCA. This ensures that all variables are on the same scale.</p></li>
+<li><p><strong>Standardization:</strong> It’s generally recommended to <em>standardize</em> each predictor before performing PCA (and thus PCR). This ensures that all variables are on the same scale. Otherwise, variables with larger variances will dominate the principal components.</p></li>
 </ul>
 <section id="partial-least-squares-pls" class="level3">
 <h3 class="anchored" data-anchor-id="partial-least-squares-pls">3.2 Partial Least Squares (PLS)</h3>
 <ul>
-<li><p><strong>Supervised Dimension Reduction:</strong> PLS is a <em>supervised</em> dimension reduction technique. Unlike PCR (which is unsupervised), PLS uses the <em>response</em> (Y) to help identify the new features (Z<sub>1</sub>, …, Z<sub>M</sub>).</p></li>
-<li><p><strong>Goal:</strong> Find directions that explain <em>both</em> the response <em>and</em> the predictors.</p></li>
+<li><p><strong>Supervised Dimension Reduction:</strong> PLS is a <em>supervised</em> dimension reduction technique. Unlike PCR (which is unsupervised), PLS uses the <em>response</em> (Y) to help identify the new features (Z<sub>1</sub>, …, Z<sub>M</sub>). It takes the response into account when creating the linear combinations.</p></li>
+<li><p><strong>Goal:</strong> Find directions that explain <em>both</em> the response <em>and</em> the predictors. It tries to find components that are relevant to predicting the response.</p></li>
 </ul>
 </section>
 </section>
 <section id="pls-computing-the-first-direction" class="level2">
 <h2 class="anchored" data-anchor-id="pls-computing-the-first-direction">PLS: Computing the First Direction</h2>
 <ol type="1">
-<li><p><strong>Standardize Predictors:</strong> Standardize the <em>p</em> predictors.</p></li>
-<li><p><strong>Simple Linear Regressions:</strong> Compute the coefficient from the simple linear regression of Y onto each X<sub>j</sub>.</p></li>
-<li><p><strong>First PLS Direction:</strong> Set each φ<sub>j1</sub> in the equation for Z<sub>1</sub> (Equation 6.16) equal to this coefficient. This means PLS places the highest weight on variables that are most strongly related to the response.</p></li>
+<li><p><strong>Standardize Predictors:</strong> Standardize the <em>p</em> predictors (subtract the mean and divide by the standard deviation).</p></li>
+<li><p><strong>Simple Linear Regressions:</strong> Compute the coefficient from the simple linear regression of Y onto each X<sub>j</sub> (separately for each predictor). This measures the individual relationship between each predictor and the response.</p></li>
+<li><p><strong>First PLS Direction:</strong> Set each φ<sub>j1</sub> in the equation for Z<sub>1</sub> (Equation 6.16) equal to this coefficient. This means PLS places the highest weight on variables that are most strongly related to the response (based on the simple linear regressions).</p></li>
 </ol>
 </section>
 <section id="pls-example" class="level2">
 <h2 class="anchored" data-anchor-id="pls-example">PLS: Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_21.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_21.svg" class="img-fluid figure-img"></p>
 <figcaption>First PLS direction (solid line) and first PCR direction (dotted line) for the advertising data.</figcaption>
 </figure>
 </div>
 <ul>
-<li><strong>Figure 6.21:</strong> Shows the first PLS and PCR directions for a synthetic dataset with Sales as the response and Population Size and Advertising Spending as predictors.</li>
-<li>PLS chooses a direction that emphasizes Population Size more than Advertising Spending, because Population Size is more correlated with Sales.</li>
+<li><strong>Figure 6.21:</strong> Shows the first PLS direction (solid line) and first PCR direction (dotted line) for the advertising data, with Sales as the response and Population Size and Advertising Spending as predictors.</li>
+</ul>
+</section>
+<section id="pls-example-cont." class="level2">
+<h2 class="anchored" data-anchor-id="pls-example-cont.">PLS: Example (Cont.)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_21.svg" class="img-fluid figure-img"></p>
+<figcaption>First PLS direction (solid line) and first PCR direction (dotted line) for the advertising data.</figcaption>
+</figure>
+</div>
+<ul>
+<li>PLS chooses a direction that emphasizes Population Size more than Advertising Spending, because Population Size is more correlated with Sales (based on the simple linear regressions).</li>
 </ul>
 </section>
 <section id="pls-subsequent-directions" class="level2">
@@ -1301,8 +1437,8 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <ul>
 <li><strong>Iterative Process:</strong>
 <ol type="1">
-<li><strong>Adjust for Z<sub>1</sub>:</strong> Regress each variable on Z<sub>1</sub> and take the residuals. This removes the information already explained by Z<sub>1</sub>.</li>
-<li><strong>Compute Z<sub>2</sub>:</strong> Compute Z<sub>2</sub> using these orthogonalized data, in the same way as Z<sub>1</sub> was computed.</li>
+<li><strong>Adjust for Z<sub>1</sub>:</strong> Regress each variable (both the predictors and the response) on Z<sub>1</sub> and take the residuals. This removes the information already explained by Z<sub>1</sub>. We “orthogonalize” the data with respect to Z<sub>1</sub>.</li>
+<li><strong>Compute Z<sub>2</sub>:</strong> Compute Z<sub>2</sub> using these orthogonalized data, in the same way as Z<sub>1</sub> was computed (using simple linear regressions of the residual response on the residual predictors).</li>
 <li><strong>Repeat:</strong> Repeat this process <em>M</em> times to identify multiple PLS components (Z<sub>1</sub>, …, Z<sub>M</sub>).</li>
 </ol></li>
 <li><strong>Final Model:</strong> Fit a linear model using Z<sub>1</sub>, …, Z<sub>M</sub> as predictors, just like in PCR.</li>
@@ -1322,20 +1458,26 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <h3 class="anchored" data-anchor-id="high-dimensional-data">4.1 High-Dimensional Data</h3>
 <ul>
 <li><p><strong>Low-Dimensional Setting:</strong> Most traditional statistical techniques are designed for the <em>low-dimensional</em> setting, where <em>n</em> (number of observations) is much greater than <em>p</em> (number of features).</p></li>
-<li><p><strong>High-Dimensional Setting:</strong> In recent years, new technologies have led to a dramatic increase in the number of features that can be measured. We often encounter datasets where <em>p</em> is large, possibly even larger than <em>n</em>.</p></li>
-<li><p><strong>Examples:</strong></p>
-<ul>
-<li><strong>Genomics:</strong> Measuring hundreds of thousands of single nucleotide polymorphisms (SNPs) to predict a trait.</li>
-<li><strong>Marketing:</strong> Using all search terms entered by users of a search engine to understand online shopping patterns.</li>
-</ul></li>
+<li><p><strong>High-Dimensional Setting:</strong> In recent years, new technologies have led to a dramatic increase in the number of features that can be measured. We often encounter datasets where <em>p</em> is large, possibly even larger than <em>n</em>. This is the “high-dimensional” setting.</p></li>
 </ul>
 </section>
+</section>
+<section id="high-dimensional-data-examples" class="level2">
+<h2 class="anchored" data-anchor-id="high-dimensional-data-examples">High-Dimensional Data: Examples</h2>
+<ul>
+<li><strong>Examples:</strong>
+<ul>
+<li><strong>Genomics:</strong> Measuring hundreds of thousands of single nucleotide polymorphisms (SNPs) to predict a trait (e.g., disease risk).</li>
+<li><strong>Marketing:</strong> Using all search terms entered by users of a search engine to understand online shopping patterns.</li>
+<li><strong>Image Analysis</strong>: Analyzing thousands of pixels in an image to classify objects.</li>
+</ul></li>
+</ul>
 <section id="what-goes-wrong-in-high-dimensions" class="level3">
 <h3 class="anchored" data-anchor-id="what-goes-wrong-in-high-dimensions">4.2 What Goes Wrong in High Dimensions?</h3>
 <ul>
-<li><strong>Least Squares Fails:</strong> When <em>p</em> is as large as or larger than <em>n</em>, least squares <em>cannot</em> be used (or <em>should not</em> be used).</li>
-<li><strong>Perfect Fit, But Useless:</strong> Least squares will always find a set of coefficients that perfectly fit the training data (zero residuals), <em>regardless</em> of whether there’s a true relationship between the features and the response.</li>
-<li><strong>Overfitting:</strong> This perfect fit is a result of <em>overfitting</em>. The model is too flexible and captures noise in the data, leading to terrible performance on new data.</li>
+<li><strong>Least Squares Fails:</strong> When <em>p</em> is as large as or larger than <em>n</em>, least squares <em>cannot</em> be used (or <em>should not</em> be used). It breaks down.</li>
+<li><strong>Perfect Fit, But Useless:</strong> Least squares will always find a set of coefficients that perfectly fit the training data (zero residuals), <em>regardless</em> of whether there’s a true relationship between the features and the response. This is because there are more parameters than observations, allowing the model to perfectly interpolate the data.</li>
+<li><strong>Overfitting:</strong> This perfect fit is a result of <em>overfitting</em>. The model is too flexible and captures noise in the data, leading to terrible performance on new data. It doesn’t generalize.</li>
 <li><strong>Curse of Dimensionality:</strong> Adding more features, even if unrelated to response, can easily lead to the model overfitting the training data.</li>
 </ul>
 </section>
@@ -1344,63 +1486,92 @@ Z_{i1} = 0.839 \times (pop_i - \overline{pop}) + 0.544 \times (ad_i - \overline{
 <h2 class="anchored" data-anchor-id="regression-in-high-dimensions">4.3 Regression in High Dimensions</h2>
 <ul>
 <li><strong>Less Flexible Methods:</strong> Many of the methods we’ve discussed in this chapter – forward stepwise selection, ridge regression, the lasso, and PCR – are particularly useful in the high-dimensional setting.</li>
-<li><strong>Avoiding Overfitting:</strong> These methods avoid overfitting by being <em>less flexible</em> than least squares.</li>
+<li><strong>Avoiding Overfitting:</strong> These methods avoid overfitting by being <em>less flexible</em> than least squares. They constrain the model in some way, preventing it from capturing noise.</li>
 </ul>
 </section>
 <section id="regression-in-high-dimensions-example-with-the-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="regression-in-high-dimensions-example-with-the-lasso">Regression in High Dimensions: Example with the Lasso</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/6_24.png" class="img-fluid figure-img"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_24.svg" class="img-fluid figure-img"></p>
 <figcaption>The lasso performed with varying numbers of features (p) and a fixed sample size (n).</figcaption>
 </figure>
 </div>
+</section>
+<section id="regression-in-high-dimensions-example-with-the-lasso-cont." class="level2">
+<h2 class="anchored" data-anchor-id="regression-in-high-dimensions-example-with-the-lasso-cont.">Regression in High Dimensions: Example with the Lasso (Cont.)</h2>
 <ul>
 <li><p><strong>Figure 6.24</strong>: Lasso with n=100, p can be 20, 50 and 2000.</p></li>
 <li><p>As the number of features increases, the test set error increases, highlights the curse of dimensionality.</p></li>
 <li><p><strong>Three Key Points:</strong></p>
 <ol type="1">
-<li><strong>Regularization is Crucial:</strong> Regularization (or shrinkage) is essential in high-dimensional problems.</li>
-<li><strong>Tuning Parameter Selection:</strong> Choosing the right tuning parameter (e.g., λ for the lasso) is critical for good performance.</li>
-<li><strong>Curse of Dimensionality:</strong> The test error tends to increase as the dimensionality of the problem increases, <em>unless</em> the additional features are truly associated with the response.</li>
+<li><strong>Regularization is Crucial:</strong> Regularization (or shrinkage) is essential in high-dimensional problems. It’s necessary to constrain the model.</li>
+<li><strong>Tuning Parameter Selection:</strong> Choosing the right tuning parameter (e.g., λ for the lasso) is critical for good performance. Cross-validation is essential for this.</li>
+<li><strong>Curse of Dimensionality:</strong> The test error tends to increase as the dimensionality of the problem increases, <em>unless</em> the additional features are truly associated with the response. Adding irrelevant variables makes the problem harder.</li>
 </ol></li>
 </ul>
 <section id="interpreting-results-in-high-dimensions" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-results-in-high-dimensions">4.4 Interpreting Results in High Dimensions</h3>
 <ul>
-<li><p><strong>Multicollinearity is Extreme:</strong> In the high-dimensional setting, multicollinearity is <em>extreme</em>. Any variable can be written as a linear combination of all the other variables.</p></li>
+<li><p><strong>Multicollinearity is Extreme:</strong> In the high-dimensional setting, multicollinearity is <em>extreme</em>. Any variable can be written as a linear combination of all the other variables. This makes it impossible to isolate the effect of individual predictors.</p></li>
 <li><p><strong>Cannot Identify True Predictors:</strong> This means we can <em>never</em> know exactly which variables (if any) are truly predictive of the outcome. We can only identify variables that are <em>correlated</em> with the true predictors.</p></li>
-<li><p><strong>Caution in Reporting:</strong> Be very cautious when reporting results. Don’t overstate conclusions.</p></li>
-<li><p><strong>Never Use Training Data for Evaluation:</strong> <em>Never</em> use training data measures (sum of squared errors, p-values, R<sup>2</sup>) as evidence of a good model fit in the high-dimensional setting. These measures will be misleadingly optimistic.</p></li>
-<li><p><strong>Use Test Data or Cross-Validation:</strong> Always report results on an <em>independent test set</em> or using <em>cross-validation</em>.</p></li>
 </ul>
 </section>
+</section>
+<section id="interpreting-results-in-high-dimensions-cont." class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-results-in-high-dimensions-cont.">Interpreting Results in High Dimensions (Cont.)</h2>
+<ul>
+<li><p><strong>Caution in Reporting:</strong> Be very cautious when reporting results. Don’t overstate conclusions. Avoid claiming to have found the “true” predictors.</p></li>
+<li><p><strong>Never Use Training Data for Evaluation:</strong> <em>Never</em> use training data measures (sum of squared errors, p-values, R<sup>2</sup>) as evidence of a good model fit in the high-dimensional setting. These measures will be misleadingly optimistic. They will always look good, even if the model is terrible.</p></li>
+<li><p><strong>Use Test Data or Cross-Validation:</strong> Always report results on an <em>independent test set</em> or using cross-validation. These are the only reliable ways to assess model performance in high dimensions.</p></li>
+</ul>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li><p><strong>Beyond Least Squares:</strong> We’ve explored several alternatives to least squares for linear regression:</p>
+<li><strong>Beyond Least Squares:</strong> We’ve explored several alternatives to least squares for linear regression:
 <ul>
-<li>Subset selection (best subset, forward stepwise, backward stepwise)</li>
-<li>Shrinkage methods (ridge regression, the lasso)</li>
-<li>Dimension reduction methods (PCR, PLS)</li>
+<li>Subset selection (best subset, forward stepwise, backward stepwise) - Choose a subset of the predictors.</li>
+<li>Shrinkage methods (ridge regression, the lasso) - Shrink the coefficients towards zero.</li>
+<li>Dimension reduction methods (PCR, PLS) - Transform the predictors into a smaller set of linear combinations.</li>
 </ul></li>
+</ul>
+</section>
+<section id="summary-cont." class="level2">
+<h2 class="anchored" data-anchor-id="summary-cont.">Summary (Cont.)</h2>
+<ul>
 <li><p><strong>Goals:</strong> These methods aim to improve:</p>
 <ul>
-<li>Prediction accuracy (by reducing variance, often at the cost of a small increase in bias)</li>
-<li>Model interpretability (by selecting a subset of variables or shrinking coefficients)</li>
+<li>Prediction accuracy (by reducing variance, often at the cost of a small increase in bias).</li>
+<li>Model interpretability (by selecting a subset of variables or shrinking coefficients).</li>
 </ul></li>
-<li><p><strong>High-Dimensional Data:</strong> These methods are particularly important in the high-dimensional setting (<em>p</em> ≥ <em>n</em>), where least squares fails.</p></li>
-<li><p><strong>Cross-Validation:</strong> Cross-validation is a powerful tool for selecting tuning parameters and estimating the test error of different models.</p></li>
+<li><p><strong>High-Dimensional Data:</strong> These methods are particularly important in the high-dimensional setting (<em>p</em> ≥ <em>n</em>), where least squares fails. They provide ways to fit models even when the number of predictors is large.</p></li>
+<li><p><strong>Cross-Validation:</strong> Cross-validation is a powerful tool for selecting tuning parameters and estimating the test error of different models. It’s essential for reliable model selection.</p></li>
 <li><p>The choice of modeling method, the choice of tuning parameter, and the choice of assessment metrics all become especially important in high dimensions.</p></li>
 </ul>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
 <ul>
-<li><p>Think about situations where you might encounter high-dimensional data. What are the challenges and opportunities?</p></li>
-<li><p>How would you choose between the different methods we’ve discussed (subset selection, ridge regression, the lasso, PCR, PLS)? What factors would you consider?</p></li>
-<li><p>What are the ethical implications of using high-dimensional data for prediction, especially in sensitive areas like healthcare or finance? How can we mitigate potential biases and ensure fairness?</p></li>
+<li>Think about situations where you might encounter high-dimensional data. What are the challenges and opportunities?
+<ul>
+<li><strong>Challenges:</strong> Overfitting, difficulty in interpretation, computational cost.</li>
+<li><strong>Opportunities:</strong> Ability to model complex relationships, potential for improved prediction accuracy if the true signal is strong.</li>
+<li><strong>Examples</strong>: Genomics, text analysis, image processing, financial modeling.</li>
+</ul></li>
+<li>How would you choose between the different methods we’ve discussed (subset selection, ridge regression, the lasso, PCR, PLS)? What factors would you consider?
+<ul>
+<li><strong>Interpretability:</strong> If interpretability is crucial, the lasso (or subset selection) is preferred.</li>
+<li><strong>Prediction Accuracy:</strong> If prediction accuracy is the primary goal, try all methods and use cross-validation to compare.</li>
+<li><strong>Computational Cost:</strong> For very large <em>p</em>, stepwise selection, ridge regression, or the lasso may be more computationally feasible than best subset selection.</li>
+<li><strong>Underlying Relationship:</strong> Consider whether you expect only a few predictors to be important (lasso) or many (ridge regression).</li>
+</ul></li>
+<li>What are the ethical implications of using high-dimensional data for prediction, especially in sensitive areas like healthcare or finance? How can we mitigate potential biases and ensure fairness?
+<ul>
+<li>High dimensional data may contain sensitive attributes or proxies for them.</li>
+<li>Models trained on biased data can perpetuate or amplify existing biases.</li>
+<li><strong>Mitigation Strategies:</strong> Careful data collection, bias detection and mitigation techniques, transparency in modeling, and ongoing monitoring of model performance.</li>
+</ul></li>
 </ul>
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp7</title>
+<title>Statistical Learning - Beyond Linearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +53,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -132,136 +135,253 @@ window.Quarto = {
         
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Learning - Beyond Linearity</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-data-mining-machine-learning-and-statistical-learning">Introduction to Data Mining, Machine Learning, and Statistical Learning</h2>
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-panel" data-layout="[80, 20]">
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Linear models are relatively simple and interpretable, but they might not be powerful enough for prediction, because the linearity assumption is often an oversimplification.</p>
+<div class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: flex-start;">
+<p>Let’s start with the basics! What are data mining, machine learning, and statistical learning?</p>
+<p><strong>Data Mining:</strong> The process of discovering patterns, anomalies, and knowledge from <em>large</em> datasets. Think of it as “mining” for valuable insights in a mountain of data. ⛏️ We’re looking for hidden treasures!</p>
+<p><strong>Machine Learning:</strong> A subset of artificial intelligence (AI). It’s about enabling systems to <em>learn from data</em> without being explicitly programmed. Algorithms learn patterns and make predictions, like teaching a computer to learn by example. 🤖</p>
+<p><strong>Statistical Learning:</strong> A framework of tools for <em>understanding data</em>. It’s closely related to both data mining and machine learning, but with a stronger emphasis on statistical models and inference. 🤔</p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/7_12.png" class="img-fluid"></p>
+<div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li>Linear Regression</li>
-<li>Ridge Regression</li>
-<li>Lasso</li>
-<li>PCR</li>
-</ul>
+<div class="callout-body-container callout-body">
+<p>These fields are highly interdisciplinary!</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section id="introduction-cont." class="level2">
-<h2 class="anchored" data-anchor-id="introduction-cont.">Introduction (Cont.)</h2>
-<p>This chapter will focus on relaxing the linearity assumption while trying to maintain interpretability. We will explore several non-linear approaches:</p>
+<section id="relationship-data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-data-mining-machine-learning-and-statistical-learning">Relationship: Data Mining, Machine Learning, and Statistical Learning</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Data Mining] --&gt; C(Common Ground)
+    B[Machine Learning] --&gt; C
+    D[Statistical Learning] --&gt; C
+    C --&gt; E[Insights &amp; Predictions]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <ul>
-<li><p><strong>Polynomial Regression</strong>: Introduces non-linearity by adding polynomial terms of the predictors.</p></li>
-<li><p><strong>Step Functions</strong>: Divides the range of a variable into distinct regions, fitting a constant within each.</p></li>
-<li><p><strong>Regression Splines</strong>: A more flexible approach, dividing the predictor’s range into regions and fitting polynomials within each, but with constraints for smoothness.</p></li>
-<li><p><strong>Smoothing Splines</strong>: Minimizes a combination of the residual sum of squares and a penalty for function roughness.</p></li>
-<li><p><strong>Local Regression</strong>: Fits a model locally, using only nearby data points.</p></li>
-<li><p><strong>Generalized Additive Models (GAMs)</strong>: Extends the above methods to multiple predictors.</p></li>
+<li><strong>Common Goal:</strong> All three aim to extract insights and make predictions from data. They’re different paths to the same destination! 🗺️</li>
+<li><strong>Data Mining:</strong> Often emphasizes discovering <em>previously unknown</em> patterns. It’s like exploratory detective work. 🕵️‍♀️</li>
+<li><strong>Machine Learning:</strong> Focuses on <em>prediction accuracy</em>. It’s like building a super-powered prediction machine. ⚙️</li>
+<li><strong>Statistical Learning:</strong> Emphasizes <em>model interpretability</em> and <em>quantifying uncertainty</em>. It’s like building a model <em>and</em> understanding how confident we are in its predictions. 📊</li>
+</ul>
+</section>
+<section id="why-go-beyond-linearity" class="level2">
+<h2 class="anchored" data-anchor-id="why-go-beyond-linearity">Why Go Beyond Linearity?</h2>
+<p>Linear models (like linear regression) are great! They’re simple, interpretable, and a good starting point. But… they have limitations.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[7,3]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 70.0%;justify-content: flex-start;">
+<p><strong>Limitations of Linear Models:</strong></p>
+<ul>
+<li><strong>Linearity Assumption:</strong> They assume a <em>straight-line</em> relationship between predictors and the response. This is often <em>too simplistic</em> for the real world.</li>
+<li><strong>Limited Predictive Power:</strong> If the true relationship is <em>not</em> linear, linear models will give poor predictions.</li>
+<li><strong>Independence Assumption</strong>: The effect of the change on one predictor is irrelavant to other predictors.</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 30.0%;justify-content: flex-start;">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Analogy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine trying to fit a straight line through a curved set of points. You’ll <em>miss</em> the real pattern!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-models-vs.-reality-example" class="level2">
+<h2 class="anchored" data-anchor-id="linear-models-vs.-reality-example">Linear Models vs.&nbsp;Reality (Example)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[6,4]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: flex-start;">
+<p>The figure shows simulated data. - The <em>red line</em> represents the <em>true</em> (but unknown) relationship between the predictor and the response. - The <em>blue line</em> is the linear model we fitted to the data.</p>
+<p><strong>Key Takeaway:</strong> Linear models might not capture the full complexity of the relationship.</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Ff6_22.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="examples-of-linear-models" class="level2">
+<h2 class="anchored" data-anchor-id="examples-of-linear-models">Examples of Linear Models</h2>
+<p>Here are some familiar examples of linear models:</p>
+<ul>
+<li><strong>Linear Regression:</strong> The foundation! Predicts a <em>continuous</em> response.</li>
+<li><strong>Ridge Regression:</strong> Adds a penalty to reduce model complexity and prevent overfitting. It shrinks the coefficients towards zero.</li>
+<li><strong>Lasso:</strong> Similar to ridge, but uses a different penalty that can perform <em>feature selection</em> (setting some coefficients to zero).</li>
+<li><strong>PCR (Principal Components Regression):</strong> Reduces dimensionality using PCA <em>before</em> applying linear regression.</li>
+</ul>
+</section>
+<section id="introduction-to-non-linear-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-non-linear-approaches">Introduction to Non-Linear Approaches</h2>
+<p>This chapter is all about <em>relaxing the linearity assumption</em>! We’ll explore techniques that can capture <em>curved</em> relationships.</p>
+<p><strong>Goal:</strong> Find models that are both <em>flexible</em> (can fit complex patterns) and <em>interpretable</em> (we can understand <em>how</em> they work).</p>
+</section>
+<section id="non-linear-approaches-overview" class="level2">
+<h2 class="anchored" data-anchor-id="non-linear-approaches-overview">Non-Linear Approaches: Overview</h2>
+<p>Here’s a roadmap of what we’ll cover:</p>
+<ul>
+<li><strong>Polynomial Regression:</strong> Add polynomial terms (e.g., <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^3\)</span>) to capture curves.</li>
+<li><strong>Step Functions:</strong> Divide the predictor’s range into bins and fit a constant in each. Like creating categories.</li>
+<li><strong>Regression Splines:</strong> More flexible! Piecewise polynomials with smoothness constraints.</li>
+<li><strong>Smoothing Splines:</strong> Minimize RSS <em>plus</em> a penalty for roughness. Balance fit and smoothness.</li>
+<li><strong>Local Regression:</strong> Fit a model <em>locally</em> using only nearby data.</li>
+<li><strong>Generalized Additive Models (GAMs):</strong> Extend these ideas to <em>multiple predictors</em>.</li>
 </ul>
 </section>
 <section id="polynomial-regression" class="level2">
 <h2 class="anchored" data-anchor-id="polynomial-regression">Polynomial Regression</h2>
-<p>Instead of a linear model:</p>
+<p>Instead of a straight line:</p>
 <p><span class="math display">\[
 y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 \]</span></p>
-<p>We use a polynomial function:</p>
+<p>We use a <em>polynomial</em>:</p>
 <p><span class="math display">\[
 y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + ... + \beta_d x_i^d + \epsilon_i
 \]</span></p>
+<p>This allows us to model curves! 📈</p>
+</section>
+<section id="polynomial-regression-important-points" class="level2">
+<h2 class="anchored" data-anchor-id="polynomial-regression-important-points">Polynomial Regression: Important Points</h2>
 <ul>
-<li>This is still a linear model in terms of the <em>coefficients</em>, so we can use least squares!<br>
-</li>
-<li>The coefficients themselves aren’t usually of direct interest, but we examine the <em>entire fitted function</em>.</li>
-<li>It is unusual to use <span class="math inline">\(d &gt; 3\)</span> or <span class="math inline">\(4\)</span> as higher degrees can lead to overly flexible and strange shapes.</li>
+<li><strong>Linear in Coefficients:</strong> The equation is <em>linear in the coefficients</em> (<span class="math inline">\(\beta_0, \beta_1, ...\)</span>). This means we can still use least squares! 👍</li>
+<li><strong>Focus on the Fitted Function:</strong> We usually don’t care about the individual coefficients. We look at the <em>overall shape</em> of the fitted function.</li>
+<li><strong>Degree (d):</strong> The highest power (<span class="math inline">\(d\)</span>) is the <em>degree</em>. We rarely use <span class="math inline">\(d &gt; 3\)</span> or <span class="math inline">\(4\)</span> because high degrees can lead to <em>overly flexible</em> and <em>strange</em> curves.</li>
 </ul>
 </section>
-<section id="polynomial-regression-example" class="level2">
-<h2 class="anchored" data-anchor-id="polynomial-regression-example">Polynomial Regression: Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>We fit a degree-4 polynomial to the <code>Wage</code> data. The solid blue curve shows the polynomial fit, and the dashed curves represent a 95% confidence interval.</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>The confidence interval is calculated by:</p>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="polynomial-regression-example-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="polynomial-regression-example-wage-data">Polynomial Regression: Example (Wage Data)</h2>
+<p>We’ll use the <code>Wage</code> dataset (from the ISLR book) to predict <code>wage</code> based on <code>age</code>. Let’s see how a degree-4 polynomial fits the data.</p>
+</section>
+<section id="visualizing-the-polynomial-fit-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-polynomial-fit-wage-data">Visualizing the Polynomial Fit (Wage Data)</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_1.svg" class="img-fluid" style="width:80.0%"></p>
 <ul>
-<li>Computing the fitted value at a specific age: <span class="math inline">\(\hat{f}(x_0)\)</span>.</li>
-<li>Estimating the variance of the fit: <span class="math inline">\(\text{Var}[\hat{f}(x_0)]\)</span>.</li>
-<li>Calculating the pointwise standard error: <span class="math inline">\(\sqrt{\text{Var}[\hat{f}(x_0)]}\)</span>.</li>
-<li>Forming an approximate 95% confidence interval: <span class="math inline">\(\hat{f}(x_0) \pm 2 \cdot \text{SE}[\hat{f}(x_0)]\)</span>.</li>
+<li><strong>Blue Curve:</strong> The degree-4 polynomial fit. It captures the non-linear trend!</li>
+<li><strong>Dashed Curves:</strong> 95% confidence interval. This shows the <em>uncertainty</em> in our fit.</li>
 </ul>
+</section>
+<section id="understanding-the-confidence-interval" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-confidence-interval">Understanding the Confidence Interval</h2>
+<p>The confidence interval (dashed lines) tells us how much our fitted curve might vary. It’s calculated like this:</p>
+<ol type="1">
+<li><strong>Fitted Value:</strong> For a specific age (<span class="math inline">\(x_0\)</span>), we get the fitted value: <span class="math inline">\(\hat{f}(x_0)\)</span>.</li>
+<li><strong>Variance:</strong> We estimate the <em>variance</em> of the fit at that point: <span class="math inline">\(\text{Var}[\hat{f}(x_0)]\)</span>.</li>
+<li><strong>Standard Error:</strong> The pointwise standard error is: <span class="math inline">\(\sqrt{\text{Var}[\hat{f}(x_0)]}\)</span>.</li>
+<li><strong>Confidence Interval:</strong> The 95% confidence interval is: <span class="math inline">\(\hat{f}(x_0) \pm 2 \cdot \text{SE}[\hat{f}(x_0)]\)</span>.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretation
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>We’re 95% confident that the <em>true</em> relationship lies within the dashed curves.</p>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Wage data with a degree-4 polynomial fit.</figcaption>
-</figure>
 </div>
 </section>
-<section id="polynomial-logistic-regression" class="level2 page-columns page-full">
+<section id="polynomial-logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="polynomial-logistic-regression">Polynomial Logistic Regression</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>We can also use polynomial terms within logistic regression to model a binary outcome. Here, we model the probability that <code>wage</code> &gt; 250 given <code>age</code>.</p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>We can also use polynomial terms in <em>logistic regression</em> to model a <em>binary</em> outcome (e.g., yes/no, 0/1).</p>
+<p><strong>Example:</strong> Model the probability that <code>wage</code> &gt; 250, given <code>age</code>.</p>
+</section>
+<section id="polynomial-logistic-regression-equation" class="level2">
+<h2 class="anchored" data-anchor-id="polynomial-logistic-regression-equation">Polynomial Logistic Regression: Equation</h2>
+<p>The equation looks like this:</p>
 <p><span class="math display">\[
 \text{Pr}(y_i &gt; 250 | x_i) = \frac{\exp(\beta_0 + \beta_1 x_i + \beta_2 x_i^2 + ... + \beta_d x_i^d)}{1 + \exp(\beta_0 + \beta_1 x_i + \beta_2 x_i^2 + ... + \beta_d x_i^d)}
 \]</span></p>
-</div>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Logistic regression with a degree-4 polynomial.</figcaption>
-</figure>
-</div>
+<p>This models the <em>probability</em> as a non-linear function of the predictor.</p>
+</section>
+<section id="visualizing-polynomial-logistic-regression-wage-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualizing-polynomial-logistic-regression-wage-data">Visualizing Polynomial Logistic Regression (Wage Data)</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_1.svg" class="img-fluid" style="width:80.0%"></p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>Note the wide confidence intervals, especially for older ages, due to fewer high earners in the dataset.</p>
-</div></div></section>
+<p>Notice the wider confidence intervals for older ages. This is because there are fewer high earners in the dataset.</p>
+</div></div><ul>
+<li><strong>Key Point:</strong> The confidence intervals are wider for older ages. This means we’re <em>less certain</em> about our predictions in that range, because we have less data.</li>
+</ul>
+</section>
 <section id="step-functions" class="level2">
 <h2 class="anchored" data-anchor-id="step-functions">Step Functions</h2>
 <ul>
-<li><p>Polynomial regression imposes a <em>global</em> structure.</p></li>
-<li><p>Step functions impose a <em>local</em> structure by:</p>
-<ul>
-<li>Breaking the range of <span class="math inline">\(X\)</span> into bins (defined by cutpoints <span class="math inline">\(c_1, c_2, ..., c_K\)</span>).</li>
-<li>Fitting a <em>different constant</em> in each bin.</li>
-<li>Creating <span class="math inline">\(K+1\)</span> new variables:</li>
-</ul></li>
+<li><p><strong>Global vs.&nbsp;Local:</strong> Polynomial regression imposes a <em>global</em> structure (the same polynomial applies everywhere). Step functions are <em>local</em>.</p></li>
+<li><p><strong>How They Work:</strong></p>
+<ol type="1">
+<li><strong>Bins:</strong> Divide the range of the predictor (<span class="math inline">\(X\)</span>) into <em>bins</em> using <em>cutpoints</em> (<span class="math inline">\(c_1, c_2, ..., c_K\)</span>).</li>
+<li><strong>Constant Fit:</strong> Fit a <em>constant</em> within each bin. The predicted value is the same for all values of <span class="math inline">\(X\)</span> within a bin.</li>
+</ol></li>
 </ul>
+</section>
+<section id="step-functions-creating-indicator-variables" class="level2">
+<h2 class="anchored" data-anchor-id="step-functions-creating-indicator-variables">Step Functions: Creating Indicator Variables</h2>
+<p>To do this, we create <em>indicator variables</em>:</p>
 <span class="math display">\[\begin{aligned}
 C_0(X) &amp;= I(X &lt; c_1), \\
 C_1(X) &amp;= I(c_1 \le X &lt; c_2), \\
@@ -270,413 +390,434 @@ C_2(X) &amp;= I(c_2 \le X &lt; c_3), \\
 C_{K-1}(X) &amp;= I(c_{K-1} \le X &lt; c_K), \\
 C_K(X) &amp;= I(c_K \le X),
 \end{aligned}\]</span>
-<p>where <span class="math inline">\(I(\cdot)\)</span> is an <em>indicator function</em>.</p>
+<p>where <span class="math inline">\(I(\cdot)\)</span> is an <em>indicator function</em>. It’s 1 if the condition is true, and 0 otherwise.</p>
 </section>
-<section id="step-functions-cont." class="level2">
-<h2 class="anchored" data-anchor-id="step-functions-cont.">Step Functions (Cont.)</h2>
-<div class="nonincremental">
+<section id="step-functions-regression-equation" class="level2">
+<h2 class="anchored" data-anchor-id="step-functions-regression-equation">Step Functions: Regression Equation</h2>
+<p>We then use least squares with <span class="math inline">\(C_1(X), C_2(X), ..., C_K(X)\)</span> as predictors:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 C_1(x_i) + \beta_2 C_2(x_i) + \dots + \beta_K C_K(x_i) + \epsilon_i\]</span></p>
 <ul>
-<li><p>We then use least squares with <span class="math inline">\(C_1(X), C_2(X), ..., C_K(X)\)</span> as predictors:</p>
-<p><span class="math display">\[y_i = \beta_0 + \beta_1C_1(x_i) + \beta_2C_2(x_i) + \dots + \beta_KC_K(x_i) + \epsilon_i\]</span></p></li>
-<li><p>Note that <span class="math inline">\(C_0(X)\)</span> is excluded to avoid multicollinearity (since <span class="math inline">\(\sum_{k=0}^{K} C_k(X) = 1\)</span>). <span class="math inline">\(\beta_0\)</span> is the mean value of <span class="math inline">\(Y\)</span> for <span class="math inline">\(X &lt; c_1\)</span>.</p></li>
-<li><p><span class="math inline">\(\beta_j\)</span> represents the <em>average increase</em> in the response for <span class="math inline">\(X\)</span> in the range <span class="math inline">\(c_j \le X &lt; c_{j+1}\)</span> <em>relative to</em> <span class="math inline">\(X &lt; c_1\)</span>.</p></li>
-<li><p>We essentially converted a continuous variable into an <em>ordered categorical</em> variable.</p></li>
+<li><strong>Multicollinearity:</strong> We <em>exclude</em> <span class="math inline">\(C_0(X)\)</span> to avoid perfect multicollinearity (the indicator functions sum to 1).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span>: Mean value of <span class="math inline">\(Y\)</span> for <span class="math inline">\(X &lt; c_1\)</span> (the baseline group).</li>
+<li><span class="math inline">\(\beta_j\)</span>: <em>Average increase</em> in the response for <span class="math inline">\(X\)</span> in bin <span class="math inline">\(j\)</span>, <em>relative to</em> the baseline.</li>
+</ul></li>
 </ul>
-</div>
 </section>
-<section id="step-functions-example" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="step-functions-example">Step Functions: Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Here’s an example of fitting step functions to the <code>Wage</code> data. The left panel shows a piecewise constant fit to <code>wage</code>, and the right panel shows the fitted probabilities from a logistic regression model for <code>wage</code> &gt; 250.</p>
-</div>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_2.png" class="img-fluid figure-img"></p>
-<figcaption>Piecewise constant fit and logistic regression with step functions.</figcaption>
-</figure>
-</div>
+<section id="step-functions-converting-continuous-to-categorical" class="level2">
+<h2 class="anchored" data-anchor-id="step-functions-converting-continuous-to-categorical">Step Functions: Converting Continuous to Categorical</h2>
+<ul>
+<li><strong>Ordered Categorical Variable:</strong> We’ve turned a <em>continuous</em> variable into an <em>ordered categorical</em> variable. The order of the categories matters!</li>
+</ul>
+</section>
+<section id="step-functions-example-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-functions-example-wage-data">Step Functions: Example (Wage Data)</h2>
+<p>Let’s fit step functions to the <code>Wage</code> data.</p>
+<ul>
+<li><strong>Left Panel:</strong> Piecewise constant fit to <code>wage</code>.</li>
+<li><strong>Right Panel:</strong> Fitted probabilities from logistic regression for <code>wage</code> &gt; 250 (also using step functions).</li>
+</ul>
+</section>
+<section id="visualizing-step-functions-wage-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualizing-step-functions-wage-data">Visualizing Step Functions (Wage Data)</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_2.svg" class="img-fluid"></p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>Step functions can miss trends, like the initial increase of wage with age. They are popular in biostatistics and epidemiology (e.g., using 5-year age groups).</p>
-</div></div></section>
-<section id="basis-functions" class="level2">
-<h2 class="anchored" data-anchor-id="basis-functions">Basis Functions</h2>
+<p>Step functions can miss trends. They’re popular in biostatistics (e.g., using 5-year age groups).</p>
+</div></div><ul>
+<li><strong>Limitation:</strong> Step functions can miss overall trends (like the initial increase of wage with age).</li>
+<li><strong>Use Cases:</strong> Common in biostatistics and epidemiology (e.g., grouping ages into 5-year intervals).</li>
+</ul>
+</section>
+<section id="basis-functions-a-general-framework" class="level2">
+<h2 class="anchored" data-anchor-id="basis-functions-a-general-framework">Basis Functions: A General Framework</h2>
 <ul>
-<li><p>Polynomial and piecewise-constant regression are special cases of a <em>basis function</em> approach.</p></li>
-<li><p>We have a family of functions/transformations to apply to a variable <span class="math inline">\(X\)</span>: <span class="math inline">\(b_1(X), b_2(X), ..., b_K(X)\)</span>.</p></li>
-<li><p>Instead of fitting a linear model in <span class="math inline">\(X\)</span>, we fit:</p>
+<li><p><strong>Generalization:</strong> Polynomial and piecewise-constant regression are special cases of the <em>basis function</em> approach.</p></li>
+<li><p><strong>How it Works:</strong></p>
+<ol type="1">
+<li><p><strong>Choose Basis Functions:</strong> Select transformations to apply to <span class="math inline">\(X\)</span>: <span class="math inline">\(b_1(X), b_2(X), ..., b_K(X)\)</span>.</p></li>
+<li><p><strong>Linear Model:</strong> Fit a linear model using these basis functions:</p>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_K b_K(x_i) + \epsilon_i\]</span></p></li>
-<li><p>Basis functions are <em>fixed and known</em>. We choose them.</p></li>
-<li><p>This is <em>still a linear model</em>! We can use least squares.</p></li>
-<li><p>All inference tools from linear models (Chapter 3) are still available!</p></li>
+</ol></li>
 </ul>
 </section>
-<section id="regression-splines" class="level2">
-<h2 class="anchored" data-anchor-id="regression-splines">Regression Splines</h2>
+<section id="basis-functions-important-points" class="level2">
+<h2 class="anchored" data-anchor-id="basis-functions-important-points">Basis Functions: Important Points</h2>
 <ul>
-<li>Regression splines extend upon polynomial and piecewise-constant regression.</li>
-<li>They provide more flexibility by combining the strengths of these two approaches.</li>
+<li><strong>Fixed and Known:</strong> The basis functions are <em>fixed</em> (we choose them).</li>
+<li><strong>Still a Linear Model!:</strong> This is <em>still</em> a linear model in the coefficients! We can use least squares.</li>
+<li><strong>Inference Tools:</strong> All the usual inference tools (hypothesis tests, confidence intervals) still apply! This is a <em>huge</em> advantage.</li>
 </ul>
-<section id="piecewise-polynomials" class="level3">
-<h3 class="anchored" data-anchor-id="piecewise-polynomials">Piecewise Polynomials</h3>
+</section>
+<section id="regression-splines-combining-polynomials-and-piecewise-constants" class="level2">
+<h2 class="anchored" data-anchor-id="regression-splines-combining-polynomials-and-piecewise-constants">Regression Splines: Combining Polynomials and Piecewise-Constants</h2>
 <ul>
-<li><p>Instead of a high-degree polynomial over the <em>entire</em> range of <span class="math inline">\(X\)</span>, we fit <em>separate low-degree</em> polynomials over <em>different regions</em> of <span class="math inline">\(X\)</span>.</p></li>
-<li><p>Example: Piecewise cubic polynomial:</p>
+<li><p><strong>Motivation:</strong> Regression splines combine the best of both worlds! They’re more flexible than either approach alone.</p></li>
+<li><p><strong>Piecewise Polynomials:</strong> Fit <em>separate low-degree</em> polynomials in <em>different regions</em> of <span class="math inline">\(X\)</span>, instead of one high-degree polynomial everywhere.</p></li>
+</ul>
+</section>
+<section id="regression-splines-piecewise-polynomials-details" class="level2">
+<h2 class="anchored" data-anchor-id="regression-splines-piecewise-polynomials-details">Regression Splines: Piecewise Polynomials (Details)</h2>
+<ul>
+<li><p><strong>Example: Piecewise Cubic:</strong></p>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \epsilon_i\]</span></p>
-<p>where the coefficients <span class="math inline">\(\beta_0, \beta_1, \beta_2, \beta_3\)</span> <em>differ</em> in different parts of the range of <span class="math inline">\(X\)</span>.</p></li>
-<li><p><em>Knots</em>: Points where the coefficients change.</p></li>
+<p>but the coefficients (<span class="math inline">\(\beta_0, \beta_1, \beta_2, \beta_3\)</span>) <em>change</em> in different regions.</p></li>
+<li><p><strong>Knots:</strong> The points where the coefficients change are called <em>knots</em>.</p></li>
 </ul>
 </section>
-</section>
-<section id="piecewise-polynomials-example" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="piecewise-polynomials-example">Piecewise Polynomials (Example)</h2>
-<p>Piecewise Cubic:</p>
+<section id="piecewise-polynomials-example-one-knot" class="level2">
+<h2 class="anchored" data-anchor-id="piecewise-polynomials-example-one-knot">Piecewise Polynomials: Example (One Knot)</h2>
+<p>Consider a piecewise cubic with <em>one</em> knot at <span class="math inline">\(c\)</span>:</p>
 <p><span class="math display">\[y_i = \begin{cases}
 \beta_{01} + \beta_{11}x_i + \beta_{21}x_i^2 + \beta_{31}x_i^3 + \epsilon_i &amp; \text{if } x_i &lt; c \\
 \beta_{02} + \beta_{12}x_i + \beta_{22}x_i^2 + \beta_{32}x_i^3 + \epsilon_i &amp; \text{if } x_i \ge c
 \end{cases}\]</span></p>
-<div>
-
-</div>
-<div class="quarto-layout-panel page-columns page-full" data-layout-ncol="2">
-<div class="quarto-layout-row page-full">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_3.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Unconstrained piecewise cubic polynomial</figcaption>
-</figure>
-</div>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>This fit has a problem: It’s discontinuous! It looks ridiculous! We have 8 degrees of freedom (2 sets of 4 parameters)</p>
-</div></div></div>
-</div>
+<p>Two different cubic polynomials!</p>
 </section>
-<section id="constraints-and-splines" class="level2">
-<h2 class="anchored" data-anchor-id="constraints-and-splines">Constraints and Splines</h2>
-<p>To make the piecewise cubic more reasonable, we introduce constraints:</p>
+<section id="unconstrained-piecewise-cubic-polynomial" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="unconstrained-piecewise-cubic-polynomial">Unconstrained Piecewise Cubic Polynomial</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3.svg" class="img-fluid" style="width:80.0%"></p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Problem: It’s <em>discontinuous</em>! It looks terrible! (8 degrees of freedom)</p>
+</div></div><ul>
+<li><strong>Problem:</strong> This fit is <em>discontinuous</em> at the knot. This is usually undesirable.</li>
+<li><strong>Degrees of Freedom:</strong> 8 (2 sets of 4 parameters).</li>
+</ul>
+</section>
+<section id="constraints-and-splines-making-it-smooth" class="level2">
+<h2 class="anchored" data-anchor-id="constraints-and-splines-making-it-smooth">Constraints and Splines: Making it Smooth</h2>
+<p>To make it better, we add <em>constraints</em>:</p>
 <div class="nonincremental">
 <ul>
-<li><strong>Continuity</strong>: Make the function continuous at the knot.</li>
-<li><strong>Continuous 1st Derivative</strong>: Make the function <em>smooth</em> (no sharp turns) at the knot.</li>
-<li><strong>Continuous 2nd Derivative</strong>: Make the function even smoother.</li>
+<li><strong>Continuity:</strong> The function must be <em>continuous</em> at the knot (the pieces must meet).</li>
+<li><strong>Continuous 1st Derivative:</strong> The <em>first derivative</em> must be continuous (no sharp turns).</li>
+<li><strong>Continuous 2nd Derivative:</strong> The <em>second derivative</em> can also be continuous (even smoother).</li>
 </ul>
-</div>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="3">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_3.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Unconstrained piecewise cubic polynomial</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_3.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Continuous Piecewise Cubic</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_3.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Cubic Spline. Continuous, first and second contiuous derivatives</figcaption>
-</figure>
-</div>
-</div>
-</div>
 </div>
 </section>
-<section id="constraints-and-splines-cont." class="level2">
-<h2 class="anchored" data-anchor-id="constraints-and-splines-cont.">Constraints and Splines (Cont.)</h2>
+<section id="visualizing-constraints-unconstrained" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-constraints-unconstrained">Visualizing Constraints: Unconstrained</h2>
+<p>Let’s see the effect of adding constraints. First, the <em>unconstrained</em> version:</p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3.svg" class="img-fluid" style="width:80.0%"></p>
+</section>
+<section id="visualizing-constraints-continuous" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-constraints-continuous">Visualizing Constraints: Continuous</h2>
+<p>Now, with the <em>continuity</em> constraint:</p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_2.svg" class="img-fluid" style="width:80.0%"></p>
+</section>
+<section id="visualizing-constraints-cubic-spline" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-constraints-cubic-spline">Visualizing Constraints: Cubic Spline</h2>
+<p>Finally, the <em>cubic spline</em> (continuity, continuous 1st and 2nd derivatives):</p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_3.svg" class="img-fluid" style="width:80.0%"></p>
+</section>
+<section id="constraints-and-degrees-of-freedom" class="level2">
+<h2 class="anchored" data-anchor-id="constraints-and-degrees-of-freedom">Constraints and Degrees of Freedom</h2>
 <ul>
-<li><p>Each constraint <em>reduces</em> the degrees of freedom.</p></li>
-<li><p>A <em>cubic spline</em> with <em>K</em> knots uses 4 + <em>K</em> degrees of freedom.</p>
+<li><strong>Reducing Degrees of Freedom:</strong> Each constraint <em>reduces</em> the degrees of freedom. We have fewer parameters to estimate.</li>
+<li><strong>Cubic Spline:</strong> A cubic spline with <em>K</em> knots has 4 + <em>K</em> degrees of freedom.
 <ul>
-<li>4: base cubic polynomial</li>
-<li>K: number of knots</li>
+<li>4: From the base cubic polynomial.</li>
+<li><em>K</em>: One for each knot.</li>
 </ul></li>
-<li><p>A <em>linear spline</em> is continuous, fitting a line in each region, with continuity at each knot.</p></li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_3.png" class="img-fluid figure-img"></p>
-<figcaption>Linear Spline</figcaption>
-</figure>
-</div>
+</section>
+<section id="linear-spline" class="level2">
+<h2 class="anchored" data-anchor-id="linear-spline">Linear Spline</h2>
+<p>A <em>linear spline</em> is continuous, fitting straight lines that meet at the knots:</p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_4.svg" class="img-fluid"></p>
 </section>
 <section id="the-spline-basis-representation" class="level2">
 <h2 class="anchored" data-anchor-id="the-spline-basis-representation">The Spline Basis Representation</h2>
 <ul>
-<li><p>A cubic spline with K knots can be represented using a basis function model:</p>
+<li><p><strong>Basis Function Model:</strong> A cubic spline with K knots can be written as:</p>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i\]</span></p></li>
-<li><p>A simple basis is: <span class="math inline">\(x, x^2, x^3\)</span>, and then one <em>truncated power basis function</em> per knot:</p>
+<li><p><strong>Simple Basis:</strong> A common basis is: <span class="math inline">\(x, x^2, x^3\)</span>, and <em>truncated power basis functions</em>:</p>
 <p><span class="math display">\[h(x, \xi) = (x - \xi)^3_+ = \begin{cases} (x-\xi)^3 &amp; \text{if } x &gt; \xi \\ 0 &amp; \text{otherwise} \end{cases}\]</span></p>
-<p>where <span class="math inline">\(\xi\)</span> is the knot.</p></li>
-<li><p>We can fit this model using least squares.</p></li>
+<p>where <span class="math inline">\(\xi\)</span> is a knot.</p></li>
 </ul>
 </section>
-<section id="the-spline-basis-representation-cont." class="level2">
-<h2 class="anchored" data-anchor-id="the-spline-basis-representation-cont.">The Spline Basis Representation (Cont.)</h2>
+<section id="the-spline-basis-representation-truncated-power-basis" class="level2">
+<h2 class="anchored" data-anchor-id="the-spline-basis-representation-truncated-power-basis">The Spline Basis Representation: Truncated Power Basis</h2>
 <ul>
-<li><p>To fit a cubic spline with K knots, use least squares with an intercept and 3 + K predictors: <span class="math inline">\(X, X^2, X^3, h(X, \xi_1), h(X, \xi_2), ..., h(X, \xi_K)\)</span>.</p></li>
-<li><p>Splines can have high variance at the boundaries.</p></li>
-<li><p>A <em>natural spline</em> adds boundary constraints: the function is <em>linear</em> outside the boundary knots.</p></li>
+<li><strong>Truncated Power Basis Function:</strong> <span class="math inline">\(h(x, \xi)\)</span> is zero until it reaches the knot (<span class="math inline">\(\xi\)</span>), then it becomes a cubic. This adds flexibility <em>locally</em>.</li>
+<li><strong>Fitting:</strong> We fit this model using least squares.</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_4.png" class="img-fluid figure-img"></p>
-<figcaption>Cubic Spline and Natural Cubic Spline.</figcaption>
-</figure>
-</div>
+</section>
+<section id="the-spline-basis-representation-summary" class="level2">
+<h2 class="anchored" data-anchor-id="the-spline-basis-representation-summary">The Spline Basis Representation: Summary</h2>
+<ul>
+<li><p><strong>Cubic Spline with K Knots:</strong> Use least squares with an intercept and 3 + K predictors: <span class="math inline">\(X, X^2, X^3, h(X, \xi_1), ..., h(X, \xi_K)\)</span>.</p></li>
+<li><p><strong>Boundary Variance:</strong> Splines can have high variance at the <em>boundaries</em> (extreme values of X).</p></li>
+</ul>
+</section>
+<section id="natural-splines" class="level2">
+<h2 class="anchored" data-anchor-id="natural-splines">Natural Splines</h2>
+<ul>
+<li><strong>Boundary Constraints:</strong> A <em>natural spline</em> adds boundary constraints: the function is <em>linear</em> outside the boundary knots. This stabilizes the fit.</li>
+</ul>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_4.svg" class="img-fluid"></p>
+<p>The figure shows a cubic spline and a natural cubic spline. The natural spline is linear beyond the boundary knots.</p>
 </section>
 <section id="choosing-the-number-and-locations-of-the-knots" class="level2">
 <h2 class="anchored" data-anchor-id="choosing-the-number-and-locations-of-the-knots">Choosing the Number and Locations of the Knots</h2>
 <ul>
-<li><p>Place more knots where the function might vary rapidly, fewer where it’s stable.</p></li>
-<li><p>Common practice: Place knots uniformly (e.g., at quantiles of the data).</p>
+<li><p><strong>Knot Placement:</strong> Where do we put the knots?</p>
 <ul>
-<li>Specify degrees of freedom.</li>
-<li>Software places knots automatically.</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_5.png" class="img-fluid figure-img"></p>
-<figcaption>Natural cubic spline with four degrees of freedom.</figcaption>
-</figure>
-</div>
-</section>
-<section id="choosing-the-number-and-locations-of-the-knotscont." class="level2">
-<h2 class="anchored" data-anchor-id="choosing-the-number-and-locations-of-the-knotscont.">Choosing the Number and Locations of the Knots(Cont.)</h2>
-<ul>
-<li><p>How many knots (or degrees of freedom)?</p></li>
-<li><p>Cross-validation is a more objective approach.</p>
-<ul>
-<li>Fit splines with varying numbers of knots.</li>
-<li>Compute cross-validated RSS.</li>
-<li>Choose the number of knots that minimizes the cross-validated RSS.</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_6.png" class="img-fluid figure-img"></p>
-<figcaption>Ten-fold cross-validated mean squared errors</figcaption>
-</figure>
-</div>
-</section>
-<section id="comparison-to-polynomial-regression" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="comparison-to-polynomial-regression">Comparison to Polynomial Regression</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li>Regression splines often give better results than polynomial regression.</li>
-<li>Splines introduce flexibility by increasing knots, <em>keeping degree fixed</em>.</li>
-<li>Polynomials need high degrees for flexibility.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_7.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Natural cubic spline versus high-degree polynomial.</figcaption>
-</figure>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>High-degree polynomials can show wild behavior, especially near boundaries.</p>
-</div></div></section>
-<section id="smoothing-splines" class="level2">
-<h2 class="anchored" data-anchor-id="smoothing-splines">Smoothing Splines</h2>
-<ul>
-<li>An alternative approach that also produces a spline.</li>
-</ul>
-<section id="an-overview-of-smoothing-splines" class="level3">
-<h3 class="anchored" data-anchor-id="an-overview-of-smoothing-splines">An Overview of Smoothing Splines</h3>
-<ul>
-<li><p>We want to find a function <span class="math inline">\(g(x)\)</span> that fits the data well (small RSS) <em>and</em> is <em>smooth</em>.</p></li>
-<li><p>We minimize:</p>
-<p><span class="math display">\[\sum_{i=1}^{n}(y_i - g(x_i))^2 + \lambda \int g''(t)^2 dt\]</span></p>
-<ul>
-<li>Loss + Penalty</li>
-<li><span class="math inline">\(\lambda\)</span>: Non-negative tuning parameter.</li>
-<li><span class="math inline">\(\int g''(t)^2 dt\)</span>: Measures the roughness of the function. (Integral of the squared second derivative).</li>
+<li><strong>More Knots Where Function Varies:</strong> More knots where the function changes rapidly, fewer where it’s stable.</li>
+<li><strong>Uniform Placement:</strong> Often, place knots <em>uniformly</em> (e.g., at quantiles of the data).</li>
+<li><strong>Software Automation:</strong> Specify the <em>degrees of freedom</em>, and the software places the knots.</li>
 </ul></li>
 </ul>
 </section>
+<section id="choosing-the-number-and-locations-of-the-knots-example" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-number-and-locations-of-the-knots-example">Choosing the Number and Locations of the Knots: Example</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_5.svg" class="img-fluid"></p>
+<p>This natural cubic spline (4 degrees of freedom) likely has one knot near the middle, where the curve changes most.</p>
 </section>
-<section id="smoothing-splines-cont." class="level2">
-<h2 class="anchored" data-anchor-id="smoothing-splines-cont.">Smoothing Splines (Cont.)</h2>
+<section id="choosing-the-number-of-knots-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-number-of-knots-cross-validation">Choosing the Number of Knots: Cross-Validation</h2>
 <ul>
-<li><span class="math inline">\(\lambda \int g''(t)^2 dt\)</span> encourages <span class="math inline">\(g\)</span> to be smooth.
-<ul>
-<li>Larger <span class="math inline">\(\lambda\)</span> <span class="math inline">\(\Rightarrow\)</span> smoother <span class="math inline">\(g\)</span>.</li>
-<li><span class="math inline">\(\lambda = 0\)</span>: <span class="math inline">\(g\)</span> interpolates the data (overfits).</li>
-<li><span class="math inline">\(\lambda \to \infty\)</span>: <span class="math inline">\(g\)</span> becomes a linear least squares line.</li>
-</ul></li>
-<li><span class="math inline">\(\lambda\)</span> controls the <em>bias-variance trade-off</em>.</li>
-<li>The function <span class="math inline">\(g(x)\)</span> that minimizes the above equation is a <em>natural cubic spline</em> with knots at <em>every unique value</em> of <span class="math inline">\(x_i\)</span>.</li>
-</ul>
-</section>
-<section id="choosing-the-smoothing-parameter-lambda" class="level2">
-<h2 class="anchored" data-anchor-id="choosing-the-smoothing-parameter-lambda">Choosing the Smoothing Parameter <span class="math inline">\(\lambda\)</span></h2>
-<ul>
-<li><p>A smoothing spline has knots at every data point.</p></li>
-<li><p>But, the tuning parameter <span class="math inline">\(\lambda\)</span> controls the <em>effective degrees of freedom</em>.</p></li>
-<li><p>As <span class="math inline">\(\lambda\)</span> increases from 0 to <span class="math inline">\(\infty\)</span>, the effective degrees of freedom (<span class="math inline">\(df_{\lambda}\)</span>) decrease from <span class="math inline">\(n\)</span> to 2.</p></li>
-<li><p>LOOCV (Leave-One-Out Cross-Validation) can be used efficiently:</p>
-<p><span class="math display">\[\text{RSS}_{cv}(\lambda) = \sum_{i=1}^{n} \left( \frac{y_i - \hat{g}_{\lambda}^{(-i)}(x_i)}{1 - \{\mathbf{S}_{\lambda}\}_{ii}} \right)^2\]</span></p></li>
-<li><p><span class="math inline">\(\hat{g}_{\lambda}^{(-i)}(x_i)\)</span>: Fit with observation <span class="math inline">\(i\)</span> left out.</p></li>
-<li><p><span class="math inline">\(\mathbf{S}_{\lambda}\)</span>: A matrix depending on <span class="math inline">\(\lambda\)</span>.</p></li>
-<li><p>LOOCV lets us choose <span class="math inline">\(\lambda\)</span> efficiently.</p></li>
-</ul>
-</section>
-<section id="smoothing-splines-example" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="smoothing-splines-example">Smoothing Splines: Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>Smoothing spline fits to the Wage data. Red curve: 16 effective degrees of freedom. Blue curve: <span class="math inline">\(\lambda\)</span> chosen by LOOCV, resulting in 6.8 effective degrees of freedom.</p>
-</div>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_8.png" class="img-fluid figure-img"></p>
-<figcaption>Smoothing spline fits with different effective degrees of freedom.</figcaption>
-</figure>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>Simpler models are preferred, unless there is strong evidence for a more complex model.</p>
-</div></div></section>
-<section id="local-regression" class="level2">
-<h2 class="anchored" data-anchor-id="local-regression">Local Regression</h2>
-<ul>
-<li>Fits a model locally, using only <em>nearby</em> training observations.</li>
-<li><strong>Algorithm:</strong>
+<li><p><strong>How Many Knots?</strong> Use <em>cross-validation</em>!</p>
 <ol type="1">
-<li>Gather the fraction <em>s</em> = <em>k/n</em> of training points closest to <span class="math inline">\(x_0\)</span>.</li>
-<li>Assign a weight <span class="math inline">\(K_{i0} = K(x_i, x_0)\)</span> to each point in this neighborhood.
-<ul>
-<li>Points farthest from <span class="math inline">\(x_0\)</span> get weight zero.</li>
-<li>Closest points get the highest weight.</li>
-</ul></li>
-<li>Fit a <em>weighted least squares regression</em>: <span class="math display">\[\text{minimize } \sum_{i=1}^{n} K_{i0} (y_i - \beta_0 - \beta_1 x_i)^2\]</span></li>
-<li>The fitted value at <span class="math inline">\(x_0\)</span> is: <span class="math inline">\(\hat{f}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0\)</span>.</li>
+<li><strong>Fit Splines:</strong> Fit splines with different numbers of knots.</li>
+<li><strong>Cross-Validated RSS:</strong> Compute the cross-validated RSS for each.</li>
+<li><strong>Minimize:</strong> Choose the number of knots that <em>minimizes</em> the cross-validated RSS. This gives the best generalization.</li>
 </ol></li>
 </ul>
 </section>
-<section id="local-regression-cont." class="level2">
-<h2 class="anchored" data-anchor-id="local-regression-cont.">Local Regression (Cont.)</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_9.png" class="img-fluid figure-img"></p>
-<figcaption>Illustration of local regression.</figcaption>
-</figure>
-</div>
+<section id="cross-validation-example" class="level2">
+<h2 class="anchored" data-anchor-id="cross-validation-example">Cross-Validation Example</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_6.svg" class="img-fluid"></p>
+<p>The plot shows ten-fold cross-validated MSE. Lower is better! The optimal degrees of freedom are where the curve is lowest.</p>
+</section>
+<section id="comparison-to-polynomial-regression" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-to-polynomial-regression">Comparison to Polynomial Regression</h2>
 <ul>
-<li><strong>Key Choice</strong>: The <em>span</em>, <em>s</em>.
+<li><p><strong>Splines vs.&nbsp;Polynomials:</strong> Splines often give <em>better</em> results (lower test error).</p></li>
+<li><p><strong>Flexibility:</strong></p>
 <ul>
-<li>Smaller <em>s</em>: More local and wiggly fit.</li>
-<li>Larger <em>s</em>: Smoother, more global fit.</li>
-</ul></li>
-<li>We can use cross-validation to choose <em>s</em>.</li>
-<li>Local regression can be generalized.
-<ul>
-<li>Varying coefficient model.</li>
-<li>Multi-dimension.</li>
+<li><strong>Splines:</strong> Increase flexibility by adding <em>knots</em>, keeping the degree fixed (usually cubic).</li>
+<li><strong>Polynomials:</strong> Need <em>high degrees</em> for flexibility, which can lead to problems.</li>
 </ul></li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_10.png" class="img-fluid figure-img"></p>
-<figcaption>Local linear fits to the Wage data.</figcaption>
-</figure>
-</div>
+</section>
+<section id="splines-vs.-polynomials-visual-comparison" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="splines-vs.-polynomials-visual-comparison">Splines vs.&nbsp;Polynomials: Visual Comparison</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_7.svg" class="img-fluid" style="width:80.0%"></p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>High-degree polynomials can be <em>wild</em>, especially near boundaries.</p>
+</div></div><ul>
+<li><strong>Key Point:</strong> High-degree polynomials can oscillate wildly. Splines are more stable.</li>
+</ul>
+</section>
+<section id="smoothing-splines-a-different-approach" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-a-different-approach">Smoothing Splines: A Different Approach</h2>
+<ul>
+<li><p><strong>Alternative:</strong> Smoothing splines are another way to get a spline, but they take a different path.</p></li>
+<li><p><strong>Goal:</strong> Find a function <span class="math inline">\(g(x)\)</span> that fits the data well (small RSS) <em>and</em> is <em>smooth</em>.</p></li>
+</ul>
+</section>
+<section id="smoothing-splines-the-optimization-problem" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-the-optimization-problem">Smoothing Splines: The Optimization Problem</h2>
+<ul>
+<li><p><strong>Minimization:</strong> Find <span class="math inline">\(g(x)\)</span> that minimizes:</p>
+<p><span class="math display">\[\sum_{i=1}^{n}(y_i - g(x_i))^2 + \lambda \int g''(t)^2 dt\]</span></p></li>
+<li><p><strong>Loss + Penalty:</strong> This is a <em>loss + penalty</em> formulation.</p>
+<ul>
+<li><strong>Loss:</strong> <span class="math inline">\(\sum_{i=1}^{n}(y_i - g(x_i))^2\)</span> (RSS). Measures fit.</li>
+<li><strong>Penalty:</strong> <span class="math inline">\(\lambda \int g''(t)^2 dt\)</span>. Penalizes roughness.</li>
+</ul></li>
+</ul>
+</section>
+<section id="smoothing-splines-understanding-the-penalty" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-understanding-the-penalty">Smoothing Splines: Understanding the Penalty</h2>
+<ul>
+<li><p><strong>Roughness Penalty:</strong> <span class="math inline">\(\lambda \int g''(t)^2 dt\)</span> measures the total change in the function’s slope.</p>
+<ul>
+<li><span class="math inline">\(g''(t)\)</span>: Second derivative. Measures the rate of change of the slope.</li>
+<li><span class="math inline">\(\int g''(t)^2 dt\)</span>: Integrates the squared second derivative. Large value = wiggly. Small value = smooth.</li>
+<li><span class="math inline">\(\lambda\)</span>: Tuning parameter. Controls the trade-off between fit and smoothness.</li>
+</ul></li>
+</ul>
+</section>
+<section id="smoothing-splines-the-role-of-λ" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-the-role-of-λ">Smoothing Splines: The Role of λ</h2>
+<ul>
+<li><strong>Effect of λ:</strong>
+<ul>
+<li>Larger <span class="math inline">\(\lambda\)</span> <span class="math inline">\(\Rightarrow\)</span> smoother <span class="math inline">\(g\)</span>.</li>
+<li><span class="math inline">\(\lambda = 0\)</span>: <span class="math inline">\(g\)</span> <em>interpolates</em> the data (perfect fit, but probably overfit).</li>
+<li><span class="math inline">\(\lambda \to \infty\)</span>: <span class="math inline">\(g\)</span> becomes a straight line (least squares line).</li>
+</ul></li>
+<li><strong>Bias-Variance Trade-Off:</strong> <span class="math inline">\(\lambda\)</span> controls the <em>bias-variance trade-off</em>.</li>
+</ul>
+</section>
+<section id="smoothing-splines-the-solution" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-the-solution">Smoothing Splines: The Solution</h2>
+<ul>
+<li><strong>Natural Cubic Spline:</strong> The solution is a <em>natural cubic spline</em>!</li>
+<li><strong>Knots at Data Points:</strong> This spline has knots at <em>every unique</em> <span class="math inline">\(x_i\)</span> (every data point)! The penalty (<span class="math inline">\(\lambda\)</span>) controls the complexity.</li>
+</ul>
+</section>
+<section id="choosing-the-smoothing-parameter-λ" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-smoothing-parameter-λ">Choosing the Smoothing Parameter (λ)</h2>
+<ul>
+<li><strong>Effective Degrees of Freedom:</strong> <span class="math inline">\(\lambda\)</span> controls the <em>effective degrees of freedom</em> (<span class="math inline">\(df_{\lambda}\)</span>).
+<ul>
+<li>As <span class="math inline">\(\lambda\)</span> increases, <span class="math inline">\(df_{\lambda}\)</span> decreases from <span class="math inline">\(n\)</span> to 2.</li>
+</ul></li>
+<li><strong>LOOCV:</strong> Use <em>leave-one-out cross-validation</em> (LOOCV) to choose <span class="math inline">\(\lambda\)</span>.</li>
+</ul>
+</section>
+<section id="loocv-for-smoothing-splines" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-for-smoothing-splines">LOOCV for Smoothing Splines</h2>
+<p>The LOOCV formula is:</p>
+<p><span class="math display">\[\text{RSS}_{cv}(\lambda) = \sum_{i=1}^{n} \left( \frac{y_i - \hat{g}_{\lambda}^{(-i)}(x_i)}{1 - \{\mathbf{S}_{\lambda}\}_{ii}} \right)^2\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{g}_{\lambda}^{(-i)}(x_i)\)</span>: Fitted value leaving out observation <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(\mathbf{S}_{\lambda}\)</span>: A matrix depending on <span class="math inline">\(\lambda\)</span>.</li>
+<li><strong>Efficiency:</strong> We <em>don’t</em> need to refit <span class="math inline">\(n\)</span> times! LOOCV can be computed efficiently.</li>
+</ul>
+</section>
+<section id="smoothing-splines-example-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="smoothing-splines-example-wage-data">Smoothing Splines: Example (Wage Data)</h2>
+<p>Let’s see smoothing splines on the <code>Wage</code> data.</p>
+<ul>
+<li><strong>Red Curve:</strong> 16 effective degrees of freedom.</li>
+<li><strong>Blue Curve:</strong> <span class="math inline">\(\lambda\)</span> chosen by LOOCV (6.8 effective degrees of freedom).</li>
+</ul>
+</section>
+<section id="visualizing-smoothing-splines-wage-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualizing-smoothing-splines-wage-data">Visualizing Smoothing Splines (Wage Data)</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_8.svg" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Simpler models are usually preferred.</p>
+</div></div><ul>
+<li><strong>Key Point:</strong> We often prefer the simpler model (blue curve) unless there’s strong evidence for the more complex one.</li>
+</ul>
+</section>
+<section id="local-regression-fitting-locally" class="level2">
+<h2 class="anchored" data-anchor-id="local-regression-fitting-locally">Local Regression: Fitting Locally</h2>
+<ul>
+<li><p><strong>Local Fits:</strong> Fit a model <em>locally</em>, using only <em>nearby</em> training points.</p></li>
+<li><p><strong>Algorithm:</strong></p>
+<ol type="1">
+<li><p><strong>Gather Neighbors:</strong> For a target point <span class="math inline">\(x_0\)</span>, gather the fraction <span class="math inline">\(s = k/n\)</span> of <em>closest</em> points (<span class="math inline">\(k\)</span> neighbors, <span class="math inline">\(n\)</span> total points).</p></li>
+<li><p><strong>Assign Weights:</strong> Weight each neighbor: <span class="math inline">\(K_{i0} = K(x_i, x_0)\)</span>.</p>
+<ul>
+<li>Farthest points: Weight = 0.</li>
+<li>Closest points: Highest weight.</li>
+</ul></li>
+<li><p><strong>Weighted Least Squares:</strong> Fit <em>weighted</em> least squares:</p>
+<p><span class="math display">\[\text{minimize } \sum_{i=1}^{n} K_{i0} (y_i - \beta_0 - \beta_1 x_i)^2\]</span></p></li>
+<li><p><strong>Fitted Value:</strong> <span class="math inline">\(\hat{f}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0\)</span>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section id="local-regression-illustration" class="level2">
+<h2 class="anchored" data-anchor-id="local-regression-illustration">Local Regression: Illustration</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_9.svg" class="img-fluid"></p>
+<p>The shaded region shows the <code>s = 1/3</code> closest neighbors to x0.</p>
+</section>
+<section id="local-regression-the-span-s" class="level2">
+<h2 class="anchored" data-anchor-id="local-regression-the-span-s">Local Regression: The Span (s)</h2>
+<ul>
+<li><p><strong>Key Choice: The Span (s):</strong> Determines the neighborhood size.</p>
+<ul>
+<li>Smaller <span class="math inline">\(s\)</span>: More <em>local</em>, <em>wigglier</em> fit.</li>
+<li>Larger <span class="math inline">\(s\)</span>: <em>Smoother</em>, more <em>global</em> fit.</li>
+</ul></li>
+<li><p><strong>Cross-Validation:</strong> Use cross-validation to choose <span class="math inline">\(s\)</span>.</p></li>
+</ul>
+</section>
+<section id="local-regression-example-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="local-regression-example-wage-data">Local Regression: Example (Wage Data)</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_10.svg" class="img-fluid"></p>
+<p>The figure shows two local linear fits. A smaller span (s) gives a wigglier curve, and a larger span gives a smoother curve.</p>
+</section>
+<section id="local-regression-generalizations" class="level2">
+<h2 class="anchored" data-anchor-id="local-regression-generalizations">Local Regression: Generalizations</h2>
+<ul>
+<li><strong>Varying Coefficient Model:</strong> Local regression is a type of <em>varying coefficient model</em> (coefficients vary locally).</li>
+<li><strong>Multi-dimensional:</strong> Can be generalized to multiple predictors.</li>
+</ul>
 </section>
 <section id="generalized-additive-models-gams" class="level2">
 <h2 class="anchored" data-anchor-id="generalized-additive-models-gams">Generalized Additive Models (GAMs)</h2>
 <ul>
-<li>Extends multiple linear regression to allow non-linear functions of predictors, while maintaining <em>additivity</em>.</li>
-</ul>
+<li><p><strong>Extending Linear Regression:</strong> GAMs allow <em>non-linear functions</em> of predictors, while maintaining <em>additivity</em>.</p></li>
+<li><p><strong>The GAM Equation:</strong></p>
 <p><span class="math display">\[y_i = \beta_0 + f_1(x_{i1}) + f_2(x_{i2}) + ... + f_p(x_{ip}) + \epsilon_i\]</span></p>
 <ul>
-<li><p>GAMs allow non-linear functions <span class="math inline">\(f_j\)</span> for each <span class="math inline">\(X_j\)</span>.</p></li>
-<li><p>We can use various building blocks: splines, local regression, polynomial regression, step functions.</p></li>
-<li><p>We can fit GAM by “backfitting”</p></li>
+<li><span class="math inline">\(f_j\)</span>: A (potentially) non-linear function for predictor <span class="math inline">\(j\)</span>.</li>
+</ul></li>
 </ul>
 </section>
-<section id="gams-example" class="level2">
-<h2 class="anchored" data-anchor-id="gams-example">GAMs: Example</h2>
+<section id="gams-key-features" class="level2">
+<h2 class="anchored" data-anchor-id="gams-key-features">GAMs: Key Features</h2>
 <ul>
-<li><p>For the <code>Wage</code> data:</p>
+<li><strong>Non-Linear Functions:</strong> Allow non-linear <span class="math inline">\(f_j\)</span> for <em>each</em> predictor.</li>
+<li><strong>Additivity:</strong> The model is <em>additive</em>. Effects of predictors are added together. This helps with interpretability.</li>
+<li><strong>Building Blocks:</strong> Use various functions for <span class="math inline">\(f_j\)</span>:
+<ul>
+<li>Splines (natural, smoothing)</li>
+<li>Local regression</li>
+<li>Polynomials</li>
+<li>Step functions</li>
+<li>Other basis functions</li>
+</ul></li>
+<li><strong>Fitting:</strong> Use <em>backfitting</em>.</li>
+</ul>
+</section>
+<section id="gams-example-wage-data" class="level2">
+<h2 class="anchored" data-anchor-id="gams-example-wage-data">GAMs: Example (Wage Data)</h2>
 <pre><code>wage = β0 + f1(year) + f2(age) + f3(education) + ε</code></pre>
 <ul>
-<li><code>year</code>, <code>age</code>: quantitative.</li>
-<li><code>education</code>: qualitative (5 levels).</li>
-</ul></li>
-<li><p>Fit using natural splines (for <code>year</code>, <code>age</code>) and dummy variables (for <code>education</code>).</p></li>
-<li><p>The entire model is a large regression on spline basis variables and dummy variables.</p></li>
+<li><code>year</code>, <code>age</code>: Quantitative.</li>
+<li><code>education</code>: Qualitative (5 levels).</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_11.png" class="img-fluid figure-img"></p>
-<figcaption>GAM fit with natural splines.</figcaption>
-</figure>
-</div>
 </section>
-<section id="gams-example-smoothing-splines" class="level2">
-<h2 class="anchored" data-anchor-id="gams-example-smoothing-splines">GAMs: Example (Smoothing Splines)</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_12.png" class="img-fluid figure-img"></p>
-<figcaption>GAM fit with smoothing splines.</figcaption>
-</figure>
-</div>
+<section id="gams-example-wage-data---implementation" class="level2">
+<h2 class="anchored" data-anchor-id="gams-example-wage-data---implementation">GAMs: Example (Wage Data) - Implementation</h2>
 <ul>
-<li>We can also fit using <em>smoothing splines</em>.</li>
-<li>In most cases, results are similar between natural and smoothing splines.</li>
+<li><strong>Natural Splines:</strong> Use natural splines for <code>year</code> and <code>age</code>.</li>
+<li><strong>Dummy Variables:</strong> Use dummy variables for <code>education</code>.</li>
+<li><strong>Large Regression:</strong> The GAM is a large regression on spline basis variables and dummy variables.</li>
+</ul>
+</section>
+<section id="gams-example-wage-data---natural-splines" class="level2">
+<h2 class="anchored" data-anchor-id="gams-example-wage-data---natural-splines">GAMs: Example (Wage Data) - Natural Splines</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_11.svg" class="img-fluid"></p>
+<p>Each panel shows the effect of a predictor, holding others constant. Year and age are non-linear. Education’s effect is shown by level shifts.</p>
+</section>
+<section id="gams-example-wage-data---smoothing-splines" class="level2">
+<h2 class="anchored" data-anchor-id="gams-example-wage-data---smoothing-splines">GAMs: Example (Wage Data) - Smoothing Splines</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_12.svg" class="img-fluid"></p>
+<ul>
+<li><strong>Smoothing Splines:</strong> Can also use smoothing splines.</li>
+<li><strong>Similar Results:</strong> Natural and smoothing splines usually give similar results.</li>
 </ul>
 </section>
 <section id="gams-for-classification-problems" class="level2">
 <h2 class="anchored" data-anchor-id="gams-for-classification-problems">GAMs for Classification Problems</h2>
 <ul>
-<li><p>Can be used when Y is qualitative (e.g., binary).</p></li>
-<li><p>Logistic regression GAM:</p>
-<p><span class="math display">\[\log\left( \frac{p(X)}{1 - p(X)} \right) = \beta_0 + f_1(X_1) + f_2(X_2) + ... + f_p(X_p)\]</span></p></li>
-<li><p>Example: Predict <code>wage</code> &gt; 250 using a GAM.</p></li>
+<li><p><strong>Qualitative Response:</strong> GAMs can be used when <span class="math inline">\(Y\)</span> is qualitative.</p></li>
+<li><p><strong>Logistic Regression GAM:</strong> For a binary response:</p>
+<p><span class="math display">\[\log\left( \frac{p(X)}{1 - p(X)} \right) = \beta_0 + f_1(X_1) + f_2(X_2) + ... + f_p(X_p)\]</span></p>
+<p>where <span class="math inline">\(p(X) = \text{Pr}(Y = 1 | X)\)</span>.</p></li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/7_13.png" class="img-fluid figure-img"></p>
-<figcaption>Logistic regression GAM.</figcaption>
-</figure>
-</div>
+</section>
+<section id="gams-for-classification-example" class="level2">
+<h2 class="anchored" data-anchor-id="gams-for-classification-example">GAMs for Classification: Example</h2>
+<ul>
+<li><strong>Example:</strong> Predict <code>wage</code> &gt; 250 using a GAM.</li>
+</ul>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_13.svg" class="img-fluid"></p>
+<p>This shows a logistic regression GAM. Year and age have non-linear effects. The plot for education shows the effect of each level on the log-odds of high earnings.</p>
 </section>
 <section id="pros-and-cons-of-gams" class="level2">
 <h2 class="anchored" data-anchor-id="pros-and-cons-of-gams">Pros and Cons of GAMs</h2>
@@ -684,15 +825,20 @@ C_K(X) &amp;= I(c_K \le X),
 <ul>
 <li><strong>Pros:</strong>
 <ul>
-<li>Automatic modeling of non-linear relationships.</li>
-<li>Potentially more accurate predictions.</li>
-<li>Additivity helps interpret individual effects.</li>
-<li>Smoothness can be summarized via degrees of freedom.</li>
+<li><strong>Automatic Non-Linearity:</strong> Model non-linearity automatically.</li>
+<li><strong>Potentially More Accurate:</strong> Better predictions when relationships are non-linear.</li>
+<li><strong>Interpretability:</strong> Additivity helps with interpretation.</li>
+<li><strong>Smoothness Summarization:</strong> Smoothness is summarized by effective degrees of freedom.</li>
 </ul></li>
 <li><strong>Cons:</strong>
 <ul>
-<li>Restricted to be additive (can miss interactions).</li>
-<li>Interactions can be manually added.</li>
+<li><strong>Additivity Restriction:</strong> GAMs are <em>additive</em>. They can miss <em>interactions</em> (unless explicitly added).</li>
+<li><strong>Interaction Handling</strong>
+<ul>
+<li>The effect of the change of one predictor on the response variable may also depend on other predictors. This is so-called <em>interaction</em>.</li>
+<li>By default, GAM assumes no interaction between predictors.</li>
+<li>We can manually add interaction terms: <code>y ~ x1 + x2 + f(x3, x4)</code>.</li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -700,29 +846,29 @@ C_K(X) &amp;= I(c_K \le X),
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li>This chapter explored techniques for <em>moving beyond linearity</em> in regression models.</li>
-<li>We saw how to incorporate non-linear relationships using:
+<li><strong>Beyond Linearity:</strong> We explored techniques for going <em>beyond</em> linear models.</li>
+<li><strong>Non-Linear Techniques:</strong> Learned about:
 <ul>
 <li>Polynomial regression</li>
 <li>Step functions</li>
 <li>Regression splines</li>
 <li>Smoothing splines</li>
 <li>Local regression</li>
-<li>Generalized Additive Models (GAMs)</li>
+<li>GAMs</li>
 </ul></li>
-<li>These methods allow for more flexibility while maintaining interpretability.</li>
-<li>Cross-validation is crucial for choosing tuning parameters.</li>
-<li>GAMs extend these ideas to multiple predictors.</li>
+<li><strong>Flexibility and Interpretability:</strong> These methods offer more flexibility while maintaining interpretability.</li>
+<li><strong>Cross-Validation:</strong> Crucial for choosing tuning parameters to avoid overfitting.</li>
+<li><strong>GAMs:</strong> Extend non-linear ideas to multiple predictors.</li>
 </ul>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
 <ul>
-<li><p>When would you choose a linear model over a non-linear model, and vice-versa?</p></li>
-<li><p>How do the different non-linear techniques compare in terms of flexibility and interpretability?</p></li>
-<li><p>Can you think of situations where a GAM might not be sufficient, and a more complex model (e.g., tree-based methods) would be needed?</p></li>
-<li><p>How can you incorporate interactions into GAMs?</p></li>
-<li><p>Discuss the trade-off between using smoothing splines and regression splines. When might one be preferred over the other?</p></li>
+<li><strong>Linear vs.&nbsp;Non-Linear:</strong> When choose linear vs.&nbsp;non-linear? Consider simplicity vs.&nbsp;accuracy.</li>
+<li><strong>Comparing Techniques:</strong> How do the techniques compare in flexibility and interpretability?</li>
+<li><strong>Beyond GAMs:</strong> When might a GAM <em>not</em> be enough? (Complex interactions, highly non-linear relationships).</li>
+<li><strong>Interactions in GAMs:</strong> How can you add interactions? Trade-offs?</li>
+<li><strong>Smoothing Splines vs.&nbsp;Regression Splines:</strong> Discuss the trade-offs between smoothing and regression splines. Consider computation, implementation, and knot placement.</li>
 </ul>
 
 

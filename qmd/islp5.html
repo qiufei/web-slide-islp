@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp5</title>
+<title>Resampling Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,119 +130,170 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Resampling Methods</h1>
+<p class="subtitle lead">Statistical Learning - Chapter 5</p>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div>
-
+<div data-layout-valign="center">
+<p>Welcome to Chapter 5: Resampling Methods! 🎉</p>
+<p>This chapter introduces powerful statistical techniques that help us better understand and utilize our models. We will learn two key resampling methods: Cross-Validation and Bootstrap. These methods are essential tools in the data scientist’s toolkit!</p>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</section>
+<section id="introduction-what-will-be-covered" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-what-will-be-covered">Introduction: What Will be Covered?</h2>
+<div data-layout-valign="center">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Fchapter_5.png" class="img-fluid"></p>
+</div>
+</section>
+<section id="introduction-roadmap" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-roadmap">Introduction: Roadmap</h2>
+<p>This image provides an overview of what will be covered in this chapter about resampling methods. It shows the conceptual flow and various techniques:</p>
 <ul>
-<li><p>Welcome to Chapter 5: Resampling Methods!</p></li>
-<li><p>This chapter introduces powerful statistical techniques that help us better understand and utilize our models.</p></li>
+<li><strong>Cross-Validation:</strong> Used for model assessment and selection. Techniques include the validation set approach, leave-one-out cross-validation (LOOCV), and k-fold cross-validation.</li>
+<li><strong>Bootstrap:</strong> A method for quantifying uncertainty in our estimates.</li>
 </ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_1.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
 </section>
 <section id="what-are-resampling-methods" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-resampling-methods">What are Resampling Methods?</h2>
+<div data-layout-valign="center">
 <ul>
-<li><p><strong>Resampling methods</strong> are indispensable tools in modern statistics.</p></li>
-<li><p>They involve repeatedly drawing samples from a training set and refitting a model of interest on each sample.</p>
+<li><strong>Resampling methods</strong> are indispensable tools in modern statistics. 💯</li>
+<li>They involve repeatedly drawing samples from a training set and refitting a model of interest on each sample.</li>
+<li>Imagine you are baking a cake; you can modify the amount of each ingredient to get many versions of the cake. Resampling methods is like that, you are making many “cakes” (model) by ingredients(data).</li>
+</ul>
+</div>
+</section>
+<section id="resampling-methods-detailed-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="resampling-methods-detailed-explanation">Resampling Methods: Detailed Explanation</h2>
 <ul>
-<li>This allows us to obtain additional information about the fitted model, such as the variability of a linear regression fit.</li>
-<li>This kind of information might be difficult to get from the original training sample alone.</li>
+<li>This allows us to obtain additional information about the fitted model.
+<ul>
+<li><strong>Example:</strong> Consider linear regression. Resampling lets us examine the <em>variability</em> of the coefficient estimates. How much do the slope and intercept change with different samples?</li>
+<li>This information is usually difficult to get with a single model fit on the original training sample <em>alone</em>. We only have <em>one</em> set of estimates!</li>
 </ul></li>
-<li><p>Resampling approaches can be computationally expensive but are usually not prohibitive because they involve fitting the same statistical method multiple times using different data subsets.</p></li>
+<li>Resampling can be computationally expensive.
+<ul>
+<li>We refit the same statistical method <em>multiple times</em> with different data subsets.</li>
+<li>However, with modern computing power, this is usually not a major obstacle. 💪</li>
+</ul></li>
 </ul>
 </section>
 <section id="key-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="key-concepts">Key Concepts</h2>
 <ul>
-<li><strong>Model Assessment:</strong> Evaluating a model’s performance (e.g., estimating test error).</li>
-<li><strong>Model Selection:</strong> Choosing the appropriate level of flexibility for a model.</li>
-<li><strong>Bootstrap:</strong> A method to measure the accuracy of a parameter estimate or a statistical learning method.</li>
+<li><strong>Model Assessment:</strong> Evaluating a model’s performance.
+<ul>
+<li>Crucially, we want to estimate the <em>test error</em>. This tells us how well the model will generalize to <em>unseen</em> data.</li>
+</ul></li>
+<li><strong>Model Selection:</strong> Choosing the best level of flexibility for a model.
+<ul>
+<li><strong>Example:</strong> For polynomial regression, what degree of polynomial should we use? For k-NN, how many neighbors?</li>
+</ul></li>
+<li><strong>Bootstrap:</strong> A method to measure the accuracy (or uncertainty) of a parameter estimate or a statistical learning method.
+<ul>
+<li>The Bootstrap helps us quantify how much our estimates might vary if we had different samples.</li>
+</ul></li>
 </ul>
 </section>
 <section id="why-resampling" class="level2">
 <h2 class="anchored" data-anchor-id="why-resampling">Why Resampling?</h2>
 <ul>
-<li><p>Imagine you fit a linear regression model. How confident are you in the coefficient estimates?</p></li>
-<li><p>Resampling lets us answer this by:</p>
+<li><p>Suppose you fit a linear regression model. How confident are you in the coefficient estimates (slope and intercept)?</p></li>
+<li><p>Are the estimates <em>reliable</em>, or would they change significantly with a slightly different sample?</p></li>
+<li><p>Resampling helps us answer this:</p>
 <ol type="1">
-<li>Repeatedly drawing different samples from the training data.</li>
-<li>Fitting the model to each new sample.</li>
-<li>Examining how much the resulting fits differ.</li>
+<li>Repeatedly draw <em>different</em> samples from the training data.</li>
+<li>Fit the model to each <em>new</em> sample.</li>
+<li>Examine how much the fitted models <em>differ</em> from each other.</li>
 </ol></li>
-<li><p>This provides insights beyond a single model fit.</p></li>
+<li><p>This gives us a sense of the <em>variability</em> (or uncertainty) of our estimates, which goes beyond a single model fit.</p></li>
 </ul>
 </section>
 <section id="two-main-resampling-methods" class="level2">
 <h2 class="anchored" data-anchor-id="two-main-resampling-methods">Two Main Resampling Methods</h2>
-<p>We will cover the two most commonly used resampling methods:</p>
+<p>We’ll cover two commonly used resampling methods:</p>
 <ol type="1">
 <li><strong>Cross-Validation:</strong>
 <ul>
-<li>Estimating test error for model assessment.</li>
-<li>Selecting model complexity.</li>
+<li>Primarily for estimating <em>test error</em>. Essential for both <em>model assessment</em> (how good is a model?) and <em>model selection</em> (which model is best?).</li>
+<li>It gives us an idea of how well our model will perform on <em>new</em>, unseen data.</li>
 </ul></li>
 <li><strong>Bootstrap:</strong>
 <ul>
-<li>Quantifying uncertainty (e.g., standard errors) of estimates.</li>
-<li>Useful when standard statistical software doesn’t provide the uncertainty information you need.</li>
+<li>Primarily for quantifying <em>uncertainty</em>. Example: calculating standard errors of coefficient estimates.</li>
+<li>Useful when standard software doesn’t give us the uncertainty, or when assumptions of standard methods aren’t valid.</li>
 </ul></li>
 </ol>
 </section>
 <section id="cross-validation-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="cross-validation-introduction">Cross-Validation: Introduction</h2>
 <ul>
-<li><p>Remember the distinction between <strong>test error</strong> and <strong>training error</strong> (from Chapter 2)?</p>
+<li><p>Remember the critical distinction between <strong>test error</strong> and <strong>training error</strong> (from Chapter 2)?</p>
 <ul>
-<li><strong>Training Error:</strong> Calculated on the data used to train the model. It often underestimates the test error.</li>
-<li><strong>Test Error:</strong> The average error on <em>new</em>, unseen data. This is what we really care about!</li>
-<li>We want statistical learning methods that yield low test error.</li>
+<li><strong>Training Error:</strong> Calculated on the data <em>used to train</em> the model. It often <em>underestimates</em> the test error. (The model is <em>optimized</em> for this specific data.)</li>
+<li><strong>Test Error:</strong> The average error on <em>new</em>, <em>unseen</em> data. This is what we truly care about! It shows how well the model <em>generalizes</em>.</li>
+<li>Our goal: statistical learning methods with <em>low</em> test error.</li>
 </ul></li>
-<li><p>Ideally, we’d have a large, separate test set to estimate test error directly. Often, we don’t!</p></li>
-<li><p>Cross-validation helps us estimate test error using <em>only</em> the available training data.</p></li>
+<li><p>Ideally, we’d have a large, separate test set. But, we often <em>don’t</em>!</p></li>
+<li><p>Cross-validation cleverly estimates test error using <em>only</em> the available training data. 😉</p></li>
 </ul>
 </section>
 <section id="the-core-idea-of-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="the-core-idea-of-cross-validation">The Core Idea of Cross-Validation</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li><strong>Hold Out Data:</strong> We <em>hold out</em> a subset of the training data.</li>
-<li><strong>Train and Predict</strong>: We train the model on the remaining data and then predict the held-out observations.</li>
-<li><strong>Estimate Test Error:</strong> Because the held-out data wasn’t used for training, the prediction error on this subset gives us an estimate of the test error.</li>
-<li>There are a few different ways to do this hold-out, leading to different cross-validation techniques.</li>
-</ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<li><p><strong>Hold Out Data:</strong> We <em>hold out</em> a portion of the training data. This held-out subset acts as a miniature “test set”.</p></li>
+<li><p><strong>Train and Predict:</strong></p>
 <ul>
-<li>A schematic display of the validation set approach. A set of n observations are randomly split into a training set (shown in blue) and a validation set (shown in beige).</li>
+<li>Train the model on the <em>remaining</em> data (the data <em>not</em> held out).</li>
+<li><em>Predict</em> the responses for the held-out observations.</li>
+</ul></li>
+<li><p><strong>Estimate Test Error:</strong></p>
+<ul>
+<li>The held-out data <em>wasn’t</em> used for training.</li>
+<li>So, the prediction error on this subset provides a more realistic estimate of the test error.</li>
+</ul></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="different-cross-validation-techniques" class="level2">
+<h2 class="anchored" data-anchor-id="different-cross-validation-techniques">Different Cross-Validation Techniques</h2>
+<ul>
+<li>Several different cross-validation techniques exist, based on how we hold out the data. We’ll discuss these next.</li>
+</ul>
+</section>
+<section id="the-core-idea-of-cross-validation-visualized" class="level2">
+<h2 class="anchored" data-anchor-id="the-core-idea-of-cross-validation-visualized">The Core Idea of Cross-Validation: Visualized</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_1.svg" class="img-fluid"></p>
+</section>
+<section id="the-core-idea-of-cross-validation-visualized-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-core-idea-of-cross-validation-visualized-1">The Core Idea of Cross-Validation: Visualized</h2>
+<ul>
+<li>This figure illustrates the validation set approach, a basic form of cross-validation.</li>
+<li>A set of <em>n</em> observations is randomly split into two parts:
+<ul>
+<li><strong>Training set</strong> (shown in blue).</li>
+<li><strong>Validation set</strong> (shown in beige).</li>
+</ul></li>
+</ul>
 </section>
 <section id="the-validation-set-approach" class="level2">
 <h2 class="anchored" data-anchor-id="the-validation-set-approach">5.1.1 The Validation Set Approach</h2>
@@ -250,185 +301,240 @@ window.Quarto = {
 <li><p><strong>Simplest form of cross-validation.</strong></p></li>
 <li><p><strong>Procedure:</strong></p>
 <ol type="1">
-<li>Randomly divide the data into two parts:
+<li>Randomly split the data into two parts:
 <ul>
-<li><strong>Training set:</strong> Used to fit the model.</li>
-<li><strong>Validation set</strong> (or hold-out set): Used to estimate test error.</li>
+<li><strong>Training set:</strong> Used to <em>fit</em> the model.</li>
+<li><strong>Validation set</strong> (or hold-out set): Used to <em>estimate</em> the test error.</li>
 </ul></li>
-<li>Fit the model on the training set.</li>
-<li>Predict the responses for the observations in the validation set.</li>
-<li>Calculate the validation set error (e.g., MSE for regression). This is our estimate of the test error.</li>
+<li>Fit the model to the training set.</li>
 </ol></li>
 </ul>
+</section>
+<section id="validation-set-approach-procedure-continued" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-procedure-continued">Validation Set Approach: Procedure (Continued)</h2>
+<pre><code>3. Use the fitted model to *predict* the responses for the observations in the *validation set*.
+4. Calculate the validation set error.
+    -   **Example:** For regression, use Mean Squared Error (MSE).
+    -   This error is our estimate of the *test error*.</code></pre>
 </section>
 <section id="validation-set-approach-example-auto-data" class="level2">
 <h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data">Validation Set Approach: Example (Auto Data)</h2>
 <ul>
-<li><p>Recall the <code>Auto</code> data set (Chapter 3). We saw a non-linear relationship between <code>mpg</code> and <code>horsepower</code>.</p></li>
-<li><p>We can use the validation set approach to see if a quadratic or cubic model predicts <code>mpg</code> better than a linear model.</p></li>
-</ul>
-</section>
-<section id="validation-set-approach-example-auto-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data-1">Validation Set Approach: Example (Auto Data)</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<li><p>Recall the <code>Auto</code> dataset (Chapter 3). We saw a non-linear relationship between <code>mpg</code> and <code>horsepower</code>.</p></li>
+<li><p>Let’s use the validation set approach to compare models:</p>
 <ul>
-<li><strong>Left Panel:</strong> Shows the validation set MSE for a <em>single</em> random split of the data. The quadratic model has lower MSE than the linear model.</li>
-<li><strong>Right Panel:</strong> Shows validation set MSE for <em>ten</em> different random splits. Notice the variability!</li>
+<li>Linear model: <code>mpg ~ horsepower</code></li>
+<li>Quadratic model: <code>mpg ~ horsepower + horsepower²</code></li>
+<li>Cubic model: <code>mpg ~ horsepower + horsepower² + horsepower³</code></li>
+</ul></li>
+<li><p>Which model predicts <code>mpg</code> <em>best</em>? Cross-validation helps us decide!</p></li>
 </ul>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_2.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
 </section>
-<section id="validation-set-approach-drawbacks" class="level2">
-<h2 class="anchored" data-anchor-id="validation-set-approach-drawbacks">Validation Set Approach: Drawbacks</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="validation-set-approach-example-auto-data---left-panel" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data---left-panel">Validation Set Approach: Example (Auto Data) - Left Panel</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg" class="img-fluid"></p>
+</section>
+<section id="validation-set-approach-example-auto-data---left-panel---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data---left-panel---explanation">Validation Set Approach: Example (Auto Data) - Left Panel - Explanation</h2>
+<ul>
+<li><strong>Left Panel:</strong> Shows the validation set MSE for a <em>single</em> random split of the data.</li>
+<li><strong>Blue:</strong> Linear model.</li>
+<li><strong>Orange:</strong> Quadratic model.</li>
+<li><strong>Green:</strong> Cubic model.</li>
+<li>The quadratic model (orange) has <em>lower</em> MSE than the linear model (blue), suggesting a better fit.</li>
+<li>The cubic model (green) has slightly <em>higher</em> MSE than the quadratic, suggesting overfitting.</li>
+</ul>
+</section>
+<section id="validation-set-approach-example-auto-data---right-panel" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data---right-panel">Validation Set Approach: Example (Auto Data) - Right Panel</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg" class="img-fluid"></p>
+</section>
+<section id="validation-set-approach-example-auto-data---right-panel---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-example-auto-data---right-panel---explanation">Validation Set Approach: Example (Auto Data) - Right Panel - Explanation</h2>
+<ul>
+<li><strong>Right Panel:</strong> Shows validation set MSE for <em>ten</em> different random splits.</li>
+<li>Notice the <em>variability</em>! The MSE changes depending on <em>which</em> observations are in the training and validation sets.</li>
+<li>This illustrates a key drawback: The validation set approach can be highly variable.</li>
+</ul>
+</section>
+<section id="validation-set-approach-drawbacks---variability" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-drawbacks---variability">Validation Set Approach: Drawbacks - Variability</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg" class="img-fluid"></p>
 <ol type="1">
-<li><p><strong>High Variability:</strong> The test error estimate can vary significantly depending on <em>which</em> observations end up in the training and validation sets (as seen in the previous slide).</p></li>
-<li><p><strong>Overestimation of Test Error:</strong> Only a <em>subset</em> of the data is used for training. Models tend to perform worse with less data, so the validation set error may overestimate the test error of a model trained on the <em>entire</em> dataset.</p></li>
+<li><strong>High Variability:</strong> The test error estimate can change significantly depending on <em>which</em> observations are assigned to the training and validation sets (as seen in the right panel). This makes the estimate less reliable.</li>
 </ol>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_2.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
+</section>
+<section id="validation-set-approach-drawbacks---overestimation" class="level2">
+<h2 class="anchored" data-anchor-id="validation-set-approach-drawbacks---overestimation">Validation Set Approach: Drawbacks - Overestimation</h2>
+<ol start="2" type="1">
+<li><p><strong>Overestimation of Test Error:</strong> Only a <em>subset</em> of the data is used to train the model. Models typically perform <em>worse</em> with less data.</p>
+<ul>
+<li>Therefore, the validation set error tends to <em>overestimate</em> the test error of a model trained on the <em>entire</em> dataset.</li>
+<li>We’re evaluating a model trained on <em>less</em> data than we actually have.</li>
+</ul></li>
+</ol>
 </section>
 <section id="leave-one-out-cross-validation-loocv" class="level2">
 <h2 class="anchored" data-anchor-id="leave-one-out-cross-validation-loocv">5.1.2 Leave-One-Out Cross-Validation (LOOCV)</h2>
 <ul>
-<li><p><strong>Addresses the drawbacks of the validation set approach.</strong></p></li>
+<li><p><strong>Addresses the drawbacks of the validation set approach.</strong> A more refined approach.</p></li>
 <li><p><strong>Procedure:</strong></p>
 <ol type="1">
-<li>For each observation <em>i</em> in the dataset (from 1 to <em>n</em>):
+<li>For each observation <em>i</em> (from 1 to <em>n</em>):
 <ul>
-<li>Hold out observation <em>i</em> as the validation set.</li>
-<li>Train the model on the remaining <em>n-1</em> observations.</li>
-<li>Predict the response for observation <em>i</em> (using its predictor values).</li>
-<li>Calculate the error for observation <em>i</em> (e.g., <code>(yi - ŷi)²</code> for regression).</li>
+<li>Hold out observation <em>i</em> as the validation set. The validation set has only <em>one</em> observation!</li>
 </ul></li>
-<li>Calculate the LOOCV estimate of the test MSE as the average of these <em>n</em> individual errors:</li>
-</ol>
-<p><span class="math display">\[
-CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}MSE_i
-\]</span></p></li>
+</ol></li>
 </ul>
+</section>
+<section id="loocv-procedure-continued" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-procedure-continued">LOOCV: Procedure (Continued)</h2>
+<pre><code>    -   Train the model on the remaining *n-1* observations.
+    -   *Predict* the response for the held-out observation *i*.
+    -   Calculate the error for observation *i*.
+        -  **Example (Regression):**  `(yi - ŷi)²`  (squared error).
+        -  $y_i$: Actual value for observation *i*.
+        -  $\hat{y}_i$: Predicted value for observation *i*.</code></pre>
+</section>
+<section id="loocv-procedure-continued-1" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-procedure-continued-1">LOOCV: Procedure (Continued)</h2>
+<pre><code>2.  Calculate the LOOCV estimate of the test MSE by averaging the *n* individual errors:
+
+$$
+CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}MSE_i
+$$
+Where $MSE_i = (y_i - \hat{y}_i)^2$.</code></pre>
 </section>
 <section id="loocv-visualized" class="level2">
 <h2 class="anchored" data-anchor-id="loocv-visualized">LOOCV: Visualized</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_3.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<ul>
-<li>A schematic display of LOOCV. A set of n data points is repeatedly split into a training set (shown in blue) containing all but one observation, and a validation set that contains only that observation (shown in beige). The test error is then estimated by averaging the n resulting MSEs.</li>
-</ul>
-</div>
-</div>
-</div>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_3.svg" class="img-fluid"></p>
 </section>
-<section id="loocv-advantages" class="level2">
-<h2 class="anchored" data-anchor-id="loocv-advantages">LOOCV: Advantages</h2>
+<section id="loocv-visualized-1" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-visualized-1">LOOCV: Visualized</h2>
+<ul>
+<li>Schematic of LOOCV.</li>
+<li><em>n</em> data points are repeatedly split:
+<ul>
+<li><strong>Training set</strong> (blue): Contains <em>all but one</em> observation (<em>n-1</em> observations).</li>
+<li><strong>Validation set</strong> (beige): Contains <em>only that one</em> observation.</li>
+</ul></li>
+<li>The test error is estimated by averaging the <em>n</em> resulting MSEs.</li>
+</ul>
+</section>
+<section id="loocv-advantages---less-bias" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-advantages---less-bias">LOOCV: Advantages - Less Bias</h2>
 <ol type="1">
-<li><strong>Less Bias:</strong> LOOCV uses almost all the data (n-1 observations) for training in each iteration. This leads to a less biased estimate of the test error compared to the validation set approach.</li>
-<li><strong>No Randomness:</strong> Unlike the validation set approach, LOOCV always produces the same result because there’s no random splitting.</li>
+<li><p><strong>Less Bias:</strong> LOOCV uses almost all the data (<em>n-1</em> observations) for training in <em>each</em> iteration.</p>
+<ul>
+<li>This results in a <em>less biased</em> estimate of the test error compared to the validation set approach.</li>
+<li>The model trained in each iteration is very similar to the model we’d train on the <em>full</em> dataset.</li>
+</ul></li>
 </ol>
 </section>
-<section id="loocv-auto-data-example" class="level2">
-<h2 class="anchored" data-anchor-id="loocv-auto-data-example">LOOCV: Auto Data Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_4.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="loocv-advantages---no-randomness" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-advantages---no-randomness">LOOCV: Advantages - No Randomness</h2>
+<ol start="2" type="1">
+<li><p><strong>No Randomness:</strong> Unlike the validation set approach, LOOCV always produces the <em>same</em> result. There’s no random splitting.</p>
+<ul>
+<li>Every observation gets to be the validation data <em>exactly once</em>.</li>
+</ul></li>
+</ol>
+</section>
+<section id="loocv-auto-data-example---left-panel" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-auto-data-example---left-panel">LOOCV: Auto Data Example - Left Panel</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_4.svg" class="img-fluid"></p>
+</section>
+<section id="loocv-auto-data-example---left-panel---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-auto-data-example---left-panel---explanation">LOOCV: Auto Data Example - Left Panel - Explanation</h2>
 <ul>
 <li><strong>Left Panel:</strong> The LOOCV error curve for different polynomial models predicting <code>mpg</code> from <code>horsepower</code>.</li>
-<li><strong>Right Panel:</strong> Shows multiple 10-fold CV curves.</li>
+<li>The curve shows how the LOOCV error changes as the model complexity (degree of the polynomial) increases.</li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="loocv-auto-data-example---right-panel" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-auto-data-example---right-panel">LOOCV: Auto Data Example - Right Panel</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_4.svg" class="img-fluid"></p>
+</section>
+<section id="loocv-auto-data-example---right-panel---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-auto-data-example---right-panel---explanation">LOOCV: Auto Data Example - Right Panel - Explanation</h2>
+<ul>
+<li><strong>Right Panel:</strong> Shows multiple 10-fold CV curves (we’ll discuss k-fold CV shortly).</li>
+<li>This demonstrates that 10-fold CV can produce <em>different</em> results depending on the random splits, while LOOCV is <em>deterministic</em> (always gives the same result).</li>
+</ul>
 </section>
 <section id="loocv-a-computational-shortcut" class="level2">
 <h2 class="anchored" data-anchor-id="loocv-a-computational-shortcut">LOOCV: A Computational Shortcut</h2>
 <ul>
-<li>LOOCV can be computationally expensive, requiring <em>n</em> model fits.</li>
-<li><strong>Shortcut for Least Squares Linear/Polynomial Regression:</strong> There’s a magic formula!</li>
+<li><p>LOOCV can be computationally expensive: It requires <em>n</em> model fits. Imagine <em>n</em> = 1 million!</p></li>
+<li><p><strong>Shortcut for Least Squares Linear/Polynomial Regression:</strong> A remarkable formula exists! ✨</p></li>
 </ul>
 <p><span class="math display">\[
 CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}\left( \frac{y_i - \hat{y}_i}{1 - h_i} \right)^2
 \]</span></p>
+</section>
+<section id="loocv-shortcut-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-shortcut-explanation">LOOCV Shortcut: Explanation</h2>
 <ul>
-<li><span class="math inline">\(\hat{y}_i\)</span> is the <em>i</em>th fitted value from the original least squares fit.</li>
-<li><span class="math inline">\(h_i\)</span> is the <em>leverage</em> (a measure of how much an observation influences its own fit).</li>
-<li><strong>Key Point:</strong> This formula lets us calculate LOOCV with the cost of just <em>one</em> model fit!</li>
-<li>This shortcut does <em>not</em> generally apply to other models (like logistic regression).</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> is the <em>i</em>th fitted value from the <em>original</em> least squares fit (using the <em>entire</em> dataset).</li>
+<li><span class="math inline">\(h_i\)</span> is the <em>leverage</em> statistic.
+<ul>
+<li>Leverage measures how much an observation influences its own fitted value. Observations with high leverage have a larger influence on the fitted model.</li>
+</ul></li>
+<li><strong>Key Point:</strong> This formula allows us to calculate LOOCV with the cost of just <em>one</em> model fit! This is a <em>huge</em> computational saving.</li>
+</ul>
+</section>
+<section id="loocv-shortcut-important-note" class="level2">
+<h2 class="anchored" data-anchor-id="loocv-shortcut-important-note">LOOCV Shortcut: Important Note</h2>
+<ul>
+<li><p>This shortcut <em>does not</em> generally apply to other models (like logistic regression or more complex models).</p></li>
+<li><p>It’s specific to <em>least squares linear and polynomial regression</em>.</p></li>
+<li><p>For other models, you typically need to perform the full LOOCV procedure (fitting the model <em>n</em> times).</p></li>
 </ul>
 </section>
 <section id="k-fold-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="k-fold-cross-validation">5.1.3 k-Fold Cross-Validation</h2>
 <ul>
-<li><p><strong>A compromise between the validation set approach and LOOCV.</strong></p></li>
+<li><p><strong>A compromise between the validation set approach and LOOCV.</strong> Balances computational cost and accuracy.</p></li>
 <li><p><strong>Procedure:</strong></p>
 <ol type="1">
 <li>Randomly divide the data into <em>k</em> groups (or “folds”) of approximately equal size.</li>
-<li>For each fold <em>j</em> (from 1 to <em>k</em>):
-<ul>
-<li>Treat fold <em>j</em> as the validation set.</li>
-<li>Train the model on the remaining <em>k-1</em> folds.</li>
-<li>Compute the error (e.g., MSE) on the held-out fold <em>j</em>.</li>
-</ul></li>
-<li>Calculate the k-fold CV estimate as the average of the <em>k</em> errors:</li>
-</ol>
-<p><span class="math display">\[
-CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}MSE_i
-\]</span></p></li>
+</ol></li>
 </ul>
+</section>
+<section id="k-fold-cv-procedure-continued" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-procedure-continued">k-Fold CV: Procedure (Continued)</h2>
+<pre><code>2.  For each fold *j* (from 1 to *k*):
+    -   Treat fold *j* as the validation set.
+    -   Train the model on the remaining *k-1* folds.
+    -   Compute the error (e.g., MSE) on the held-out fold *j*.</code></pre>
+</section>
+<section id="k-fold-cv-procedure-continued-1" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-procedure-continued-1">k-Fold CV: Procedure (Continued)</h2>
+<pre><code>3. Calculate the k-fold CV estimate by averaging the *k* errors:
+
+$$
+CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}MSE_i
+$$
+Where $MSE_i$ is the mean squared error calculated on fold *i*.</code></pre>
 </section>
 <section id="k-fold-cv-visualized" class="level2">
 <h2 class="anchored" data-anchor-id="k-fold-cv-visualized">k-Fold CV: Visualized</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_5.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_5.svg" class="img-fluid"></p>
+</section>
+<section id="k-fold-cv-visualized---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-visualized---explanation">k-Fold CV: Visualized - Explanation</h2>
 <ul>
-<li>A schematic display of 5-fold CV. A set of n observations is randomly split into five non-overlapping groups. Each of these fifths acts as a validation set (shown in beige), and the remainder as a training set (shown in blue). The test error is estimated by averaging the five resulting MSE estimates.</li>
+<li>Schematic of 5-fold CV.</li>
+<li><em>n</em> observations are randomly split into <em>five</em> non-overlapping groups.</li>
+<li>Each “fifth” acts as a validation set (beige), and the remainder as the training set (blue).</li>
+<li>The test error is estimated by averaging the five resulting MSE estimates.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="k-fold-cv-choosing-k" class="level2">
 <h2 class="anchored" data-anchor-id="k-fold-cv-choosing-k">k-Fold CV: Choosing k</h2>
 <ul>
-<li>Common choices for <em>k</em> are 5 or 10.</li>
-<li><strong>Computational Advantage:</strong> k-fold CV (with k &lt; n) is less computationally expensive than LOOCV. It only requires <em>k</em> model fits, not <em>n</em>.</li>
+<li><p>Common choices for <em>k</em> are 5 or 10. These values have been empirically shown to provide good estimates of the test error.</p></li>
+<li><p><strong>Computational Advantage:</strong> k-fold CV (with k &lt; n) is <em>less</em> computationally expensive than LOOCV. It requires only <em>k</em> model fits, not <em>n</em>. This is significant for large datasets.</p></li>
 </ul>
 </section>
 <section id="bias-variance-trade-off-for-k-fold-cv" class="level2">
@@ -436,240 +542,255 @@ CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}MSE_i
 <ul>
 <li><strong>Bias:</strong>
 <ul>
-<li>LOOCV is nearly unbiased (uses almost all data for training).</li>
-<li>k-fold CV has slightly more bias (uses (k-1)n/k observations for training).</li>
-<li>Validation set approach has the most bias (uses roughly half the data).</li>
+<li>LOOCV: Nearly unbiased (uses almost all data for training).</li>
+<li>k-fold CV: Slightly more bias (uses (k-1)n/k observations for training).</li>
+<li>Validation set approach: Most bias (uses roughly half the data, leading to overestimation of test error).</li>
 </ul></li>
+</ul>
+</section>
+<section id="bias-variance-trade-off-for-k-fold-cv-continued" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-for-k-fold-cv-continued">Bias-Variance Trade-Off for k-Fold CV (Continued)</h2>
+<ul>
 <li><strong>Variance:</strong>
 <ul>
-<li>LOOCV has <em>higher</em> variance than k-fold CV. Why? The <em>n</em> fitted models in LOOCV are highly correlated (they share almost all their training data). Averaging highly correlated quantities has higher variance.</li>
-<li>k-fold CV averages <em>k</em> models with less overlap in training data, leading to lower variance.</li>
+<li>LOOCV: <em>Higher</em> variance than k-fold CV. The <em>n</em> fitted models in LOOCV are highly correlated (they share almost all their training data). Averaging highly correlated quantities has higher variance.</li>
+<li>k-fold CV: Averages <em>k</em> models with <em>less</em> overlap in training data, leading to lower variance.</li>
 </ul></li>
-<li><strong>Conclusion:</strong> 5-fold or 10-fold CV often achieves a good balance between bias and variance.</li>
+<li><strong>Conclusion:</strong> 5-fold or 10-fold CV often achieve a good balance between bias and variance. They offer a reasonable compromise between accuracy and computational cost.</li>
 </ul>
 </section>
 <section id="cross-validation-on-simulated-data" class="level2">
 <h2 class="anchored" data-anchor-id="cross-validation-on-simulated-data">Cross-Validation on Simulated Data</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_6.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_6.svg" class="img-fluid"></p>
+</section>
+<section id="cross-validation-on-simulated-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="cross-validation-on-simulated-data-1">Cross-Validation on Simulated Data</h2>
 <ul>
-<li><strong>Blue:</strong> True test MSE.</li>
+<li><strong>Blue:</strong> True test MSE (known because it’s simulated data).</li>
 <li><strong>Black Dashed:</strong> LOOCV estimate.</li>
 <li><strong>Orange Solid:</strong> 10-fold CV estimate.</li>
 <li>Crosses: Minimum points of each curve.</li>
-<li>The plots show that CV curves can sometimes underestimate the true test MSE, but they generally identify the correct level of flexibility.</li>
+<li>The plots show that CV curves can sometimes <em>underestimate</em> the true test MSE.</li>
+<li>However, they generally identify the <em>correct level of flexibility</em> (the model with the lowest test error).</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="cross-validation-for-classification" class="level2">
 <h2 class="anchored" data-anchor-id="cross-validation-for-classification">5.1.5 Cross-Validation for Classification</h2>
 <ul>
-<li>So far, we’ve focused on regression (quantitative response).</li>
-<li>Cross-validation works similarly for classification (qualitative response).</li>
-<li>Instead of MSE, we use the <strong>number of misclassified observations</strong> to quantify error.</li>
-<li>For example, the LOOCV error rate is:</li>
+<li><p>So far, we’ve focused on regression (quantitative response).</p></li>
+<li><p>Cross-validation works similarly for classification (qualitative response).</p></li>
+<li><p>Instead of MSE, we use the <strong>number of misclassified observations</strong> to quantify error.</p></li>
+</ul>
+</section>
+<section id="cross-validation-for-classification-continued" class="level2">
+<h2 class="anchored" data-anchor-id="cross-validation-for-classification-continued">Cross-Validation for Classification (Continued)</h2>
+<ul>
+<li><strong>Example: LOOCV error rate:</strong></li>
 </ul>
 <p><span class="math display">\[
 CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}Err_i
 \]</span></p>
-<p>where <span class="math inline">\(Err_i = I(y_i \neq \hat{y}_i)\)</span> (1 if misclassified, 0 otherwise).</p>
-</section>
-<section id="cv-for-classification-example" class="level2">
-<h2 class="anchored" data-anchor-id="cv-for-classification-example">CV for Classification: Example</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_7.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
+<p>where <span class="math inline">\(Err_i = I(y_i \neq \hat{y}_i)\)</span>. - <span class="math inline">\(I(y_i \neq \hat{y}_i)\)</span> is an <em>indicator function</em>: - 1 if misclassified (predicted class <span class="math inline">\(\hat{y}_i\)</span> is different from the true class <span class="math inline">\(y_i\)</span>). - 0 otherwise.</p>
 <ul>
-<li><strong>Purple Dashed Line</strong>: Bayes decision boundary.</li>
-<li><strong>Black Lines</strong>: Decision boundaries from logistic regression with different polynomial degrees.</li>
+<li>The k-fold CV error rate is calculated similarly, averaging the misclassification rates across the <em>k</em> folds.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
-<section id="cv-for-classification-example-cont." class="level2">
-<h2 class="anchored" data-anchor-id="cv-for-classification-example-cont.">CV for Classification: Example (cont.)</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_8.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
+<section id="cv-for-classification-example---decision-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="cv-for-classification-example---decision-boundaries">CV for Classification: Example - Decision Boundaries</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_7.svg" class="img-fluid"></p>
+</section>
+<section id="cv-for-classification-example---decision-boundaries-1" class="level2">
+<h2 class="anchored" data-anchor-id="cv-for-classification-example---decision-boundaries-1">CV for Classification: Example - Decision Boundaries</h2>
+<ul>
+<li><strong>Purple Dashed Line:</strong> Bayes decision boundary (the optimal decision boundary, usually unknown in practice).</li>
+<li><strong>Black Lines:</strong> Decision boundaries from logistic regression with different polynomial degrees. Observe how the decision boundary changes with model complexity.</li>
+</ul>
+</section>
+<section id="cv-for-classification-example---error-curves" class="level2">
+<h2 class="anchored" data-anchor-id="cv-for-classification-example---error-curves">CV for Classification: Example - Error Curves</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_8.svg" class="img-fluid"></p>
+</section>
+<section id="cv-for-classification-example---error-curves-1" class="level2">
+<h2 class="anchored" data-anchor-id="cv-for-classification-example---error-curves-1">CV for Classification: Example - Error Curves</h2>
 <ul>
 <li><strong>Left:</strong> Logistic regression with polynomial terms.</li>
-<li><strong>Right:</strong> KNN classifier with different values of K.</li>
+<li><strong>Right:</strong> KNN classifier with different values of K (number of neighbors).</li>
 <li><strong>Brown:</strong> True test error.</li>
-<li><strong>Blue:</strong> Training error.</li>
+<li><strong>Blue:</strong> Training error (typically overly optimistic).</li>
 <li><strong>Black:</strong> 10-fold CV error.</li>
-<li>Cross-validation curves often underestimate the true test error but identify the minimum.</li>
+<li>CV curves often <em>underestimate</em> the true test error.</li>
+<li>Crucially, they tend to identify the <em>minimum</em>, corresponding to the best model complexity.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="the-bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="the-bootstrap">5.2 The Bootstrap</h2>
 <ul>
-<li>A powerful and widely applicable tool to quantify the uncertainty of an estimator or statistical learning method.</li>
-<li><strong>Example:</strong> Estimating the standard errors of regression coefficients. (Standard software <em>does</em> this for linear regression, but the bootstrap is useful in more general cases).</li>
+<li><p>A powerful and widely applicable tool for quantifying the <em>uncertainty</em> associated with an estimator or statistical learning method.</p></li>
+<li><p>It helps us understand how much our estimates might vary if we had different samples from the population.</p></li>
+<li><p><strong>Example:</strong> Estimating standard errors of regression coefficients. (Standard software <em>does</em> this for linear regression, but the bootstrap is useful in more general cases.)</p></li>
 </ul>
 </section>
 <section id="bootstrap-the-core-idea" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-the-core-idea">Bootstrap: The Core Idea</h2>
 <ul>
-<li><strong>Problem:</strong> We usually can’t generate new samples from the <em>population</em>.</li>
-<li><strong>Bootstrap Solution:</strong> We repeatedly sample observations <em>with replacement</em> from the <em>original data set</em> to create <em>bootstrap data sets</em>.
+<li><p><strong>Problem:</strong> We usually <em>cannot</em> generate new samples from the <em>population</em>. We only have our <em>one</em> observed dataset.</p></li>
+<li><p><strong>Bootstrap Solution:</strong> Repeatedly sample observations <em>with replacement</em> from the <em>original dataset</em> to create <em>bootstrap datasets</em>.</p>
 <ul>
-<li><strong>With Replacement:</strong> The same observation can appear multiple times in a bootstrap data set.</li>
+<li><strong>With Replacement:</strong> The <em>same</em> observation can appear <em>multiple times</em> in a bootstrap dataset. This is the <em>key</em> to the bootstrap!</li>
 </ul></li>
-<li>We treat the original data set as if it <em>were</em> the population.</li>
+</ul>
+</section>
+<section id="bootstrap-the-core-idea-continued" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-the-core-idea-continued">Bootstrap: The Core Idea (Continued)</h2>
+<ul>
+<li>We treat the original dataset <em>as if</em> it <em>were</em> the population. This allows us to simulate the process of drawing multiple samples.</li>
 </ul>
 </section>
 <section id="bootstrap-visualized" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-visualized">Bootstrap: Visualized</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_11.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_11.svg" class="img-fluid"></p>
+</section>
+<section id="bootstrap-visualized-1" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-visualized-1">Bootstrap: Visualized</h2>
 <ul>
-<li>A graphical illustration of the bootstrap approach on a small sample containing n = 3 observations. Each bootstrap data set contains n observations, sampled with replacement from the original data set.</li>
+<li>Graphical illustration of the bootstrap with a small sample (n = 3).</li>
+<li>Each bootstrap dataset contains <em>n</em> observations, sampled <em>with replacement</em> from the original data.</li>
+<li>Note that the same observation can appear multiple times in a single bootstrap sample.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="bootstrap-procedure" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-procedure">Bootstrap: Procedure</h2>
 <ol type="1">
-<li>Create <em>B</em> bootstrap data sets (each of size <em>n</em>) by sampling with replacement from the original data.</li>
-<li>For each bootstrap data set, calculate the statistic of interest (e.g., a regression coefficient). This gives you <em>B</em> bootstrap estimates.</li>
-<li>Estimate the standard error of the statistic using the standard deviation of the <em>B</em> bootstrap estimates. <span class="math display">\[SE_B(\hat{\alpha}) = \sqrt{\frac{1}{B-1} \sum_{r=1}^B \left( \hat{\alpha}^{*r} - \frac{1}{B}\sum_{r'=1}^B \hat{\alpha}^{*r'} \right)^2}\]</span></li>
+<li>Create <em>B</em> bootstrap datasets (each of size <em>n</em>).
+<ul>
+<li>Sample <em>with replacement</em> from the original data.</li>
+<li><em>B</em> is typically a large number (e.g., 100 or 1000).</li>
+</ul></li>
 </ol>
+</section>
+<section id="bootstrap-procedure-continued" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-procedure-continued">Bootstrap: Procedure (Continued)</h2>
+<ol start="2" type="1">
+<li>For <em>each</em> bootstrap dataset:
+<ul>
+<li>Calculate the statistic of interest (e.g., regression coefficient, mean, median, etc.).</li>
+<li>This yields <em>B</em> bootstrap estimates.</li>
+</ul></li>
+</ol>
+</section>
+<section id="bootstrap-procedure-continued-1" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-procedure-continued-1">Bootstrap: Procedure (Continued)</h2>
+<ol start="3" type="1">
+<li>Estimate the standard error of the statistic using the standard deviation of the <em>B</em> bootstrap estimates:</li>
+</ol>
+<p><span class="math display">\[SE_B(\hat{\alpha}) = \sqrt{\frac{1}{B-1} \sum_{r=1}^B \left( \hat{\alpha}^{*r} - \frac{1}{B}\sum_{r'=1}^B \hat{\alpha}^{*r'} \right)^2}\]</span> - <span class="math inline">\(\hat{\alpha}^{*r}\)</span>: Estimate of the statistic from the <em>r</em>-th bootstrap dataset.</p>
 </section>
 <section id="bootstrap-investment-example" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-investment-example">Bootstrap: Investment Example</h2>
 <ul>
-<li>We want to invest in two assets, X and Y, and minimize the risk (variance) of our investment.</li>
-<li>The optimal fraction (α) to invest in X is given by a formula involving the variances and covariance of X and Y returns.</li>
+<li>We want to invest in two assets, X and Y.</li>
+<li>Our goal: Minimize the <em>risk</em> (variance) of our investment.</li>
+<li>The optimal fraction (α) to invest in X is:</li>
 </ul>
 <p><span class="math display">\[
 \alpha = \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 - 2\sigma_{XY}}
 \]</span></p>
+</section>
+<section id="investment-example-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="investment-example-explanation">Investment Example: Explanation</h2>
 <ul>
-<li>In practice, the population variances and covariance are unknown.</li>
+<li><span class="math inline">\(\sigma_X^2\)</span>: Variance of returns for asset X.</li>
+<li><span class="math inline">\(\sigma_Y^2\)</span>: Variance of returns for asset Y.</li>
+<li><span class="math inline">\(\sigma_{XY}\)</span>: Covariance between returns of assets X and Y.</li>
+<li>In practice, these population variances and covariance are <em>unknown</em>. We only have <em>estimates</em> from our observed data.</li>
 </ul>
 </section>
-<section id="bootstrap-example-continued" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-example-continued">Bootstrap Example Continued</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_9.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="bootstrap-example---simulated-data" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-example---simulated-data">Bootstrap Example - Simulated Data</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_9.svg" class="img-fluid"></p>
+</section>
+<section id="bootstrap-example---simulated-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-example---simulated-data-1">Bootstrap Example - Simulated Data</h2>
 <ul>
 <li>Each panel shows 100 simulated returns for investments X and Y.</li>
+<li>This simulates different possible scenarios for asset returns.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
-<section id="bootstrap-example-cont." class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-example-cont.">Bootstrap: Example (cont.)</h2>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/5_10.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<section id="bootstrap-example---histograms" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-example---histograms">Bootstrap: Example - Histograms</h2>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_10.svg" class="img-fluid"></p>
+</section>
+<section id="bootstrap-example---histograms---explanation" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-example---histograms---explanation">Bootstrap: Example - Histograms - Explanation</h2>
 <ul>
-<li><strong>Left:</strong> Histogram of α estimates from 1,000 <em>simulated</em> data sets.</li>
-<li><strong>Center:</strong> Histogram of α estimates from 1,000 <em>bootstrap</em> samples from a <em>single</em> data set.</li>
-<li><strong>Right:</strong> Boxplots comparing the two.</li>
-<li>The bootstrap accurately estimates the variability of α!</li>
+<li><strong>Left:</strong> Histogram of α estimates from 1,000 <em>simulated</em> datasets (if we <em>could</em> repeatedly sample from the true population).</li>
+<li><strong>Center:</strong> Histogram of α estimates from 1,000 <em>bootstrap</em> samples from a <em>single</em> dataset (what we <em>can</em> do in practice).</li>
+<li><strong>Right:</strong> Boxplots comparing the two distributions.</li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+<section id="bootstrap-example-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-example-conclusion">Bootstrap Example: Conclusion</h2>
+<ul>
+<li>The bootstrap <em>accurately</em> estimates the variability of α!</li>
+<li>The distribution of bootstrap estimates (center) closely resembles the distribution of estimates from repeated sampling (left).</li>
+<li>This demonstrates how the bootstrap can provide a good estimate of uncertainty even with only <em>one</em> dataset.</li>
+</ul>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li><strong>Resampling methods</strong> are crucial for:
+<li><strong>Resampling methods</strong> are essential for:
 <ul>
 <li>Assessing model performance (cross-validation).</li>
 <li>Quantifying uncertainty (bootstrap).</li>
 </ul></li>
+</ul>
+</section>
+<section id="summary-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="summary-cross-validation">Summary: Cross-Validation</h2>
+<ul>
 <li><strong>Cross-validation:</strong>
 <ul>
-<li>Estimates test error by holding out data.</li>
-<li>Validation set, LOOCV, and k-fold CV are common techniques.</li>
-<li>k-fold CV often provides a good bias-variance trade-off.</li>
+<li>Estimates test error by holding out data (creating a “fake” test set).</li>
+<li>Common techniques: Validation set, LOOCV, and k-fold CV.</li>
+<li>k-fold CV (k=5 or k=10) often provides a good bias-variance trade-off, balancing accuracy and computation.</li>
 </ul></li>
+</ul>
+</section>
+<section id="summary-bootstrap" class="level2">
+<h2 class="anchored" data-anchor-id="summary-bootstrap">Summary: Bootstrap</h2>
+<ul>
 <li><strong>Bootstrap:</strong>
 <ul>
 <li>Estimates uncertainty by resampling <em>with replacement</em> from the original data.</li>
-<li>Widely applicable, especially when standard error formulas are unavailable.</li>
+<li>Widely applicable, especially when standard error formulas are unavailable or assumptions are violated.</li>
 </ul></li>
 </ul>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion 🤔</h2>
 <ul>
-<li>When might you prefer LOOCV over k-fold CV, despite the higher computational cost?</li>
-<li>Can you think of situations where the bootstrap would be particularly useful?</li>
-<li>How do these resampling methods relate to the concepts of bias and variance we discussed in earlier chapters?</li>
-<li>What are the limitations of these methods? When might they not be appropriate?</li>
+<li>When might you prefer LOOCV over k-fold CV, despite the higher computational cost?
+<ul>
+<li><em>Answer:</em> With very small datasets, the bias reduction of LOOCV might be crucial. Also, when computational cost isn’t a major concern (simple models).</li>
+</ul></li>
+<li>Can you think of situations where the bootstrap would be particularly useful?
+<ul>
+<li><em>Answer:</em> When working with a statistic without a simple standard error formula (e.g., median, custom metric), or when assumptions of standard methods (like normality) are violated.</li>
+</ul></li>
+</ul>
+</section>
+<section id="thoughts-and-discussion-continued" class="level2">
+<h2 class="anchored" data-anchor-id="thoughts-and-discussion-continued">Thoughts and Discussion 🤔 (Continued)</h2>
+<ul>
+<li>How do these resampling methods relate to the concepts of bias and variance we discussed in earlier chapters?
+<ul>
+<li><em>Answer:</em> Cross-validation helps us choose models with a good balance of bias and variance (by estimating test error). The bootstrap helps us estimate the variance of parameter estimates.</li>
+</ul></li>
+<li>What are the limitations of these methods? When might they not be appropriate?
+<ul>
+<li><em>Answer:</em> Resampling can be computationally intensive. Cross-validation assumes independent and identically distributed (i.i.d.) data. The bootstrap relies on the original sample being representative of the population. Severe violations of these assumptions can lead to misleading results.</li>
+</ul></li>
 </ul>
 
 

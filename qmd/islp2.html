@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp2</title>
+<title>Introduction to Statistical Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,7 +90,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -131,44 +131,139 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Statistical Learning</h1>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="introduction-to-statistical-learning" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-to-statistical-learning">Introduction to Statistical Learning</h2>
-<div style="font-size: 0.8em;">
-<p>Statistical learning is a vast set of tools for <strong>understanding data</strong>. These tools can be classified as <strong>supervised</strong> or <strong>unsupervised</strong>.</p>
+<p>Statistical learning is a vast set of tools for <strong>understanding data</strong>. These tools can be classified as <strong>supervised</strong> or <strong>unsupervised</strong>. 📊 It’s like having a toolbox filled with different instruments to analyze and interpret the information hidden within datasets.</p>
+</section>
+<section id="supervised-vs.-unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning">Supervised vs.&nbsp;Unsupervised Learning</h2>
 <ul>
-<li><strong>Supervised statistical learning</strong> involves building a statistical model for predicting, or estimating, an <em>output</em> based on one or more <em>inputs</em>.</li>
-<li>With <strong>unsupervised statistical learning</strong>, there are inputs but no supervising output; nevertheless, we can learn relationships and structure from such data.</li>
+<li><p><strong>Supervised statistical learning</strong> involves building a statistical model for predicting, or estimating, an <em>output</em> based on one or more <em>inputs</em>. We have a target variable we want to predict, like a teacher guiding the learning process. 🎯 Think of predicting house prices based on features like size, location, and number of bedrooms.</p></li>
+<li><p>With <strong>unsupervised statistical learning</strong>, there are inputs but no supervising output; nevertheless, we can learn relationships and structure from such data. We’re exploring the data to find patterns, like a detective searching for clues without knowing exactly what they’re looking for. 🔍 An example is grouping customers into different segments based on their purchasing behavior.</p></li>
 </ul>
-<p>This chapter introduces many of the key concepts of statistical learning, focusing on the fundamental ideas, which include <em>data mining</em>, <em>machine learning</em> and statistical learning relationship, <em>estimating f</em>, the <em>trade-off between prediction accuracy and model interpretability</em>, <em>supervised versus unsupervised learning</em>, and assessing model accuracy using <em>mean square error</em>, <em>the bias-variance</em>, <em>Bayes error rate</em>.</p>
-</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts">Key Concepts</h2>
+<p>This chapter introduces many of the key concepts of statistical learning, focusing on the fundamental ideas, which include:</p>
+<ul>
+<li><em>Data mining</em>, <em>machine learning</em> and <em>statistical learning</em> relationship. ⛏️🤖📈</li>
+<li><em>Estimating f</em>: How do we find the best function to describe the relationship between our variables?</li>
+<li>The <em>trade-off between prediction accuracy and model interpretability</em>: Can we have both a highly accurate and easily understandable model? 🤔</li>
+<li><em>Supervised versus unsupervised learning</em>: The difference between having a target variable and exploring the data without one.</li>
+<li>Assessing model accuracy: How do we know if our model is good? We’ll look at metrics like <em>mean square error</em>, <em>the bias-variance</em>, and <em>Bayes error rate</em>.</li>
+</ul>
 </section>
 <section id="data-mining-machine-learning-and-statistical-learning" class="level2">
 <h2 class="anchored" data-anchor-id="data-mining-machine-learning-and-statistical-learning">Data Mining, Machine Learning, and Statistical Learning</h2>
-<div style="font-size: 0.8em;">
-<p>Let’s clarify the relationship between these often-used terms:</p>
+<p>Let’s clarify the relationship between these often-used terms. These are all related, but have slightly different focuses. 🧐 It’s like comparing different members of a family - they share common traits but also have unique characteristics.</p>
+</section>
+<section id="data-mining" class="level2">
+<h2 class="anchored" data-anchor-id="data-mining">Data Mining</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Data Mining:</strong> The process of discovering patterns and insights from large datasets, often using computational techniques. It emphasizes finding <em>any</em> interesting pattern, even if it’s not directly related to a specific prediction task.</p></li>
-<li><p><strong>Machine Learning:</strong> A field of computer science focused on algorithms that can learn from data. It’s heavily focused on <em>prediction</em> – enabling computers to make accurate predictions on new, unseen data.</p></li>
-<li><p><strong>Statistical Learning:</strong> A subfield of statistics that focuses on developing and applying statistical models and methods for prediction and inference. It emphasizes understanding the <em>relationships</em> between variables and making <em>inferences</em> about the underlying data-generating process.</p></li>
-<li><p>All the concepts are focusing on <em>extracting information from data.</em></p></li>
+<li><p><strong>Data Mining:</strong> The process of discovering patterns, anomalies, and insights from large datasets, often using computational techniques. It emphasizes finding <em>any</em> interesting pattern, even if it’s not directly related to a specific prediction task. Think of it as exploring a vast dataset to find hidden treasures. ⛏️💎 Imagine you’re sifting through a mountain of sand to find gold nuggets.</p>
+<div style="color: blue;">
+<ul>
+<li><strong>Example:</strong> A supermarket analyzing purchase data to discover that people who buy diapers often also buy beer. This is a <em>pattern</em>, but not necessarily useful for <em>prediction</em>. This unexpected correlation could lead to strategic product placement in the store.</li>
+</ul>
+</div></li>
 </ul>
 </div>
+</div>
+</div>
+</section>
+<section id="machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="machine-learning">Machine Learning</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p><strong>Machine Learning:</strong> A field of computer science focused on algorithms that can learn from data without explicit programming. It’s heavily focused on <em>prediction</em> – enabling computers to make accurate predictions on new, unseen data. Think of it as teaching a computer to learn from examples. 🤖📚 Imagine a robot learning to play a game by observing human players and trying different strategies.</p>
+<div style="color: blue;">
+<ul>
+<li><strong>Example:</strong> A spam filter learning to identify spam emails based on the words used in the email body and subject line. The filter improves its accuracy over time as it “learns” from more examples of spam and non-spam emails.</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-learning">Statistical Learning</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p><strong>Statistical Learning:</strong> A subfield of statistics that focuses on developing and applying statistical models and methods for prediction and inference. It emphasizes understanding the <em>relationships</em> between variables and making <em>inferences</em> about the underlying data-generating process. It combines the goals of understanding and prediction. 📈🔍 Think of a scientist using data to build a model of a physical phenomenon, both to predict its behavior and to understand the underlying mechanisms.</p>
+<div style="color: blue;">
+<ul>
+<li><strong>Example:</strong> Building a model to predict a patient’s risk of heart disease based on their age, blood pressure, cholesterol levels, and other risk factors, <em>and</em> understanding how each of those factors contributes to the risk. This understanding can help doctors develop better prevention and treatment strategies.</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="common-ground" class="level2">
+<h2 class="anchored" data-anchor-id="common-ground">Common Ground</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>All the concepts are focusing on <em>extracting information from data.</em> They all aim to gain insights and/or make predictions based on data. It’s like different paths leading to the same destination – understanding and utilizing data.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="relationships-visualized" class="level2">
+<h2 class="anchored" data-anchor-id="relationships-visualized">Relationships Visualized</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A[Data Mining] --&gt; C(Common Ground)
+    A[Data Mining] --&gt; C(Common Ground: Extracting Information from Data)
     B[Machine Learning] --&gt; C
     D[Statistical Learning] --&gt; C
     C --&gt; E[Insights &amp; Predictions]
@@ -178,32 +273,44 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>This diagram shows how data mining, machine learning, and statistical learning all share the common goal of extracting information from data, which leads to insights and predictions. It’s like a Venn diagram showing the overlap and distinct areas of each field.</p>
 </section>
 <section id="the-advertising-example" class="level2">
 <h2 class="anchored" data-anchor-id="the-advertising-example">The Advertising Example</h2>
-<div style="font-size: 0.8em;">
-<p>To motivate our study, let’s consider a simple example. A company wants to understand how advertising spending affects product sales.</p>
+<p>To motivate our study, let’s consider a simple example. A company wants to understand how advertising spending affects product sales. 📈🛍️ Imagine you’re running a business and want to know how best to allocate your advertising budget.</p>
+</section>
+<section id="advertising-example-data-and-goal" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-example-data-and-goal">Advertising Example: Data and Goal</h2>
 <ul>
-<li><p><strong>Data:</strong> <code>Sales</code> of a product in 200 different markets, along with advertising budgets for <code>TV</code>, <code>radio</code>, and <code>newspaper</code>.</p></li>
-<li><p><strong>Goal:</strong> Build a model to predict <code>sales</code> based on the advertising budgets in the three media.</p></li>
-<li><p><strong>Why?</strong> The company can’t directly control sales, but <em>can</em> control advertising spending. A good model helps them optimize their advertising budget.</p></li>
+<li><p><strong>Data:</strong> <code>Sales</code> of a product in 200 different markets, along with advertising budgets for <code>TV</code>, <code>radio</code>, and <code>newspaper</code>. This is like having a spreadsheet with sales figures and advertising spending for different regions.</p></li>
+<li><p><strong>Goal:</strong> Build a model to predict <code>sales</code> based on the advertising budgets in the three media. The company wants to find a formula that connects advertising spending to sales.</p></li>
 </ul>
-</div>
+</section>
+<section id="advertising-example-why" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-example-why">Advertising Example: Why?</h2>
+<ul>
+<li><strong>Why?</strong> The company can’t directly control sales, but <em>can</em> control advertising spending. A good model helps them optimize their advertising budget to maximize sales. They want to know where to spend their money! 💰➡️📈 This is about getting the biggest bang for your buck – maximizing return on investment.</li>
+</ul>
 </section>
 <section id="input-and-output-variables" class="level2">
 <h2 class="anchored" data-anchor-id="input-and-output-variables">Input and Output Variables</h2>
-<div style="font-size: 0.75em;">
+<p>Let’s define the key components in our statistical learning framework.</p>
+</section>
+<section id="input-and-output-variables-definitions" class="level2">
+<h2 class="anchored" data-anchor-id="input-and-output-variables-definitions">Input and Output Variables: Definitions</h2>
 <p>In the advertising example:</p>
 <ul>
-<li><p><strong>Input variables (X):</strong> Advertising budgets (TV, radio, newspaper). These are also called <em>predictors</em>, <em>independent variables</em>, or <em>features</em>. We often denote them as X₁, X₂, X₃, …, Xₚ.</p></li>
-<li><p><strong>Output variable (Y):</strong> Sales. This is also called the <em>response</em> or <em>dependent variable</em>. We’re trying to predict or understand <em>Y</em>.</p></li>
+<li><p><strong>Input variables (X):</strong> Advertising budgets (TV, radio, newspaper). These are also called <em>predictors</em>, <em>independent variables</em>, or <em>features</em>. We often denote them as X₁, X₂, X₃, …, Xₚ. These are the things we can control or observe. 🛠️ These are like the ingredients in a recipe.</p></li>
+<li><p><strong>Output variable (Y):</strong> Sales. This is also called the <em>response</em> or <em>dependent variable</em>. We’re trying to predict or understand <em>Y</em>. This is the outcome we’re interested in. 🎯 This is like the final dish in a recipe.</p></li>
 <li><p>Statistical learning will use all these terms interchangeably.</p></li>
 </ul>
+</section>
+<section id="input-and-output-variables-example" class="level2">
+<h2 class="anchored" data-anchor-id="input-and-output-variables-example">Input and Output Variables: Example</h2>
 <div style="color: blue;">
-<div class="incremental">
-<ul class="incremental">
+<ul>
 <li><strong>Example</strong>:
-<ul class="incremental">
+<ul>
 <li>X₁ = TV budget</li>
 <li>X₂ = Radio budget</li>
 <li>X₃ = Newspaper budget</li>
@@ -211,54 +318,149 @@ window.Quarto = {
 </ul></li>
 </ul>
 </div>
-</div>
-</div>
+<p>Here, we have three input variables (p=3) representing the advertising budgets for different media, and one output variable (sales). It’s like having three dials (advertising budgets) that we can adjust to try to control the outcome (sales).</p>
 </section>
 <section id="visualizing-the-advertising-data" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-advertising-data">Visualizing the Advertising Data</h2>
-<div style="font-size: 0.75em;">
+<p>Let’s look at the relationship between advertising spending and sales.</p>
+</section>
+<section id="advertising-data-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-data-visualization">Advertising Data: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption>Advertising Data: Sales vs.&nbsp;Advertising Budgets</figcaption>
 </figure>
 </div>
-<div class="nonincremental">
-<ul>
-<li>Each plot shows sales versus one advertising medium.</li>
-<li>The blue line represents a simple linear model (least squares fit) to predict sales using each medium individually. Least squares is an algorithm to fit data. We’ll learn more about this in Chapter 3.</li>
-<li><strong>Observations</strong>: There’s a positive relationship between advertising spending and sales for TV and radio. The relationship with newspaper spending is less clear.</li>
-</ul>
+</div>
 </div>
 </div>
 </section>
-<section id="the-general-model" class="level2 page-columns page-full">
+<section id="advertising-data-interpretation-tv" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-data-interpretation-tv">Advertising Data: Interpretation (TV)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Advertising Data: Sales vs.&nbsp;Advertising Budgets</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>The leftmost plot shows sales versus TV advertising budget.</li>
+<li>The blue line represents a simple linear model (least squares fit) to predict sales using TV advertising budget.</li>
+<li><strong>Observation:</strong> There’s a clear positive relationship. As TV advertising spending increases, sales tend to increase as well. This suggests that TV advertising is effective.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="advertising-data-interpretation-radio" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-data-interpretation-radio">Advertising Data: Interpretation (Radio)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Advertising Data: Sales vs.&nbsp;Advertising Budgets</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>The center plot shows sales versus Radio advertising budget.</li>
+<li>The blue line represents a simple linear model (least squares fit) to predict sales using Radio advertising budget.</li>
+<li><strong>Observation:</strong> There’s also a positive relationship, although perhaps slightly less strong than with TV advertising. Radio advertising also seems to be effective.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="advertising-data-interpretation-newspaper" class="level2">
+<h2 class="anchored" data-anchor-id="advertising-data-interpretation-newspaper">Advertising Data: Interpretation (Newspaper)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Advertising Data: Sales vs.&nbsp;Advertising Budgets</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>The rightmost plot shows sales versus Newspaper advertising budget.</li>
+<li>The blue line represents a simple linear model (least squares fit) to predict sales using Newspaper advertising budget.</li>
+<li><strong>Observation:</strong> The relationship is less clear. It’s not obvious whether newspaper advertising has a strong positive or negative effect on sales. This might suggest that newspaper advertising is less effective, or that the relationship is more complex.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="the-general-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-general-model">The General Model</h2>
-<div style="font-size: 0.8em;" class="page-columns page-full">
-<p>More generally, we assume a relationship between the response <em>Y</em> and predictors <em>X</em>:</p>
+<p>More generally, we assume a relationship between the response <em>Y</em> and predictors <em>X</em>. This is the foundation of statistical learning.</p>
+</section>
+<section id="the-general-model-equation" class="level2">
+<h2 class="anchored" data-anchor-id="the-general-model-equation">The General Model: Equation</h2>
 <p><span class="math display">\[
 Y = f(X) + \epsilon
 \]</span></p>
 <ul>
-<li><strong>Y:</strong> The quantitative response variable we want to predict.</li>
-<li><strong>X:</strong> (X₁, X₂, …, Xₚ), a vector of <em>p</em> predictors.</li>
-<li><strong>f(X):</strong> An <em>unknown</em> function representing the <em>systematic</em> relationship between <em>X</em> and <em>Y</em>. This is what we want to estimate!</li>
-<li><strong>ε:</strong> A random <em>error term</em>, independent of <em>X</em>, with a mean of zero. It represents the variation in <em>Y</em> that <em>cannot</em> be explained by <em>f(X)</em>.</li>
+<li><strong>Y:</strong> The quantitative response variable we want to predict. This is the outcome we’re interested in.</li>
+<li><strong>X:</strong> (X₁, X₂, …, Xₚ), a vector of <em>p</em> predictors. These are the factors we believe influence the outcome.</li>
+<li><strong>f(X):</strong> An <em>unknown</em> function representing the <em>systematic</em> relationship between <em>X</em> and <em>Y</em>. This is what we want to estimate! This is the underlying pattern we’re trying to uncover. It’s like the secret formula that connects our inputs to the output.</li>
+<li><strong>ε:</strong> A random <em>error term</em>, independent of <em>X</em>, with a mean of zero. It represents the variation in <em>Y</em> that <em>cannot</em> be explained by <em>f(X)</em>. This acknowledges that our model won’t be perfect. It’s like the “noise” or randomness in the system.</li>
 </ul>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
+</section>
+<section id="the-general-model-goal" class="level2">
+<h2 class="anchored" data-anchor-id="the-general-model-goal">The General Model: Goal</h2>
+<div style="color: blue;">
 <p><strong>Goal of Statistical Learning:</strong> Estimate the unknown function <em>f</em>.</p>
-</div></div></div>
+</div>
+<p>Our primary goal is to find the best possible estimate of the function <em>f</em>, which describes the relationship between our predictors and the response. It’s like trying to find the best possible approximation of the secret formula.</p>
 </section>
 <section id="understanding-the-error-term-ε" class="level2">
 <h2 class="anchored" data-anchor-id="understanding-the-error-term-ε">Understanding the Error Term (ε)</h2>
-<div style="font-size: 0.8em;">
+<p>The error term, ε, is crucial. It represents the “noise” in our data.</p>
+</section>
+<section id="the-error-term-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="the-error-term-explanation">The Error Term: Explanation</h2>
 <p>The error term, ε, captures all the factors that affect <em>Y</em> but are not included in our predictors <em>X</em>. This could include:</p>
 <ul>
-<li><strong>Unmeasured variables:</strong> Factors influencing <em>Y</em> that we didn’t or couldn’t measure.</li>
-<li><strong>Measurement error:</strong> Inaccuracies in how we measured <em>X</em> or <em>Y</em>.</li>
-<li><strong>Randomness:</strong> Inherent variability in <em>Y</em> that can’t be perfectly predicted.</li>
+<li><strong>Unmeasured variables:</strong> Factors influencing <em>Y</em> that we didn’t or couldn’t measure. (e.g., competitor activity, overall economic conditions, customer mood).</li>
+<li><strong>Measurement error:</strong> Inaccuracies in how we measured <em>X</em> or <em>Y</em>. (e.g., a survey respondent misremembering their income, a faulty sensor recording temperature).</li>
+<li><strong>Randomness:</strong> Inherent variability in <em>Y</em> that can’t be perfectly predicted. (e.g., even with the same advertising spend, sales might fluctuate due to random chance, like a coin flip).</li>
 </ul>
+</section>
+<section id="the-error-term-importance" class="level2">
+<h2 class="anchored" data-anchor-id="the-error-term-importance">The Error Term: Importance</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -269,57 +471,204 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The error term is crucial. It acknowledges that our models are <em>approximations</em> of reality. Even the “best” model won’t be perfect.</p>
-</div>
+<p>The error term is crucial. It acknowledges that our models are <em>approximations</em> of reality. Even the “best” model won’t be perfect. It’s a reminder that there’s always some uncertainty. It’s like acknowledging that our map of the world is not the world itself.</p>
 </div>
 </div>
 </section>
 <section id="example-income-vs.-education" class="level2">
 <h2 class="anchored" data-anchor-id="example-income-vs.-education">Example: Income vs.&nbsp;Education</h2>
-<div style="font-size: 0.8em;">
+<p>Let’s look at another example: predicting income based on education and seniority.</p>
+</section>
+<section id="income-vs.-education-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-visualization">Income vs.&nbsp;Education: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_2.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_3.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Income vs.&nbsp;Years of Education and Seniority</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-interpretation-left" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-interpretation-left">Income vs.&nbsp;Education: Interpretation (Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_3.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Income vs.&nbsp;Years of Education and Seniority</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Left:</strong> A 3D scatterplot of <code>income</code> (in thousands of dollars) versus <code>years of education</code> and <code>years of seniority</code> for 30 individuals. Each red point represents a person. This allows us to visualize the relationship between income and two predictors simultaneously.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-interpretation-right" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-interpretation-right">Income vs.&nbsp;Education: Interpretation (Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_3.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Income vs.&nbsp;Years of Education and Seniority</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Right:</strong> The <em>true</em> underlying relationship (blue surface), which is usually <em>unknown</em> (but known here because the data were simulated). The surface represents the average income for any given combination of education and seniority. This is like knowing the “true” formula for income.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-seniority-visualization-2d-projection" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-seniority-visualization-2d-projection">Income vs.&nbsp;Education, Seniority: Visualization (2D Projection)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_2.svg" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption>Income vs.&nbsp;Years of Education</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-interpretation-2d-left" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-interpretation-2d-left">Income vs.&nbsp;Education: Interpretation (2D, Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_2.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Income vs.&nbsp;Years of Education</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Left:</strong> Observed <code>income</code> (in thousands of dollars) versus <code>years of education</code> for 30 individuals.</p></li>
-<li><p><strong>Right:</strong> The <em>true</em> underlying relationship (blue curve), which is usually <em>unknown</em> (but known here because the data were simulated). The black line segments represent errors associated with each data.</p></li>
-<li><p><strong>Observation:</strong> More years of education generally lead to higher income, but there’s variation (the error).</p></li>
+<li><strong>Left:</strong> Observed <code>income</code> (in thousands of dollars) versus <code>years of education</code> for 30 individuals. Each red point represents a person. This is a 2D projection of the 3D data, showing only the relationship between income and education.</li>
 </ul>
 </div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-interpretation-2d-right" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-interpretation-2d-right">Income vs.&nbsp;Education: Interpretation (2D, Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_2.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Income vs.&nbsp;Years of Education</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Right:</strong> The <em>true</em> underlying relationship (blue curve), which is usually <em>unknown</em> (but known here because the data were simulated). The black line segments represent errors associated with each data, showing the difference between the observed income and the true underlying relationship. This shows how individual incomes deviate from the average trend.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="income-vs.-education-overall-observation" class="level2">
+<h2 class="anchored" data-anchor-id="income-vs.-education-overall-observation">Income vs.&nbsp;Education: Overall Observation</h2>
+<ul>
+<li><strong>Observation:</strong> More years of education and seniority generally lead to higher income, but there’s variation (the error). Not everyone with the same education and seniority level has the same income. This highlights the role of other factors and randomness in determining income.</li>
+</ul>
 </section>
 <section id="why-estimate-f" class="level2">
 <h2 class="anchored" data-anchor-id="why-estimate-f">Why Estimate <em>f</em>?</h2>
-<div style="font-size: 0.8em;">
-<p>There are two main reasons to estimate <em>f</em>:</p>
+<p>There are two main reasons to estimate <em>f</em>: <strong>Prediction</strong> and <strong>Inference</strong>. It’s like having two different goals when exploring a new city – you might want to find the fastest route to a specific destination (prediction), or you might want to understand the layout of the city and how different neighborhoods are connected (inference).</p>
+</section>
+<section id="why-estimate-f-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="why-estimate-f-prediction">Why Estimate <em>f</em>: Prediction</h2>
 <ol type="1">
-<li><p><strong>Prediction:</strong> We want to predict <em>Y</em> given a set of <em>X</em> values. We don’t necessarily care about the <em>exact</em> form of <em>f</em>, just that it gives accurate predictions (treat <em>f</em> as a “black box”).</p>
+<li><p><strong>Prediction:</strong> We want to predict <em>Y</em> given a set of <em>X</em> values. We don’t necessarily care about the <em>exact</em> form of <em>f</em>, just that it gives accurate predictions (treat <em>f</em> as a “black box”). We want the best possible guess for <em>Y</em>. 🔮 This is like using a GPS to find the best route – you don’t need to know how the GPS works internally, just that it gives you accurate directions.</p>
 <p><span class="math display">\[
 \hat{Y} = \hat{f}(X)
 \]</span></p>
 <ul>
-<li><strong>Ŷ:</strong> The <em>prediction</em> of <em>Y</em>.</li>
-<li><strong>f̂:</strong> Our <em>estimate</em> of <em>f</em>.</li>
-</ul></li>
-<li><p><strong>Inference:</strong> We want to <em>understand</em> the relationship between <em>Y</em> and <em>X</em>. We <em>do</em> care about the form of <em>f</em>. We want to answer questions like:</p>
-<ul>
-<li>Which predictors are associated with the response?</li>
-<li>Is the relationship positive or negative?</li>
-<li>Is the relationship linear or more complex?</li>
+<li><strong>Ŷ:</strong> The <em>prediction</em> of <em>Y</em>. Our best guess for the value of Y.</li>
+<li><strong>f̂:</strong> Our <em>estimate</em> of <em>f</em>. The function we’ve learned from the data.</li>
 </ul></li>
 </ol>
-</div>
+</section>
+<section id="why-estimate-f-inference" class="level2">
+<h2 class="anchored" data-anchor-id="why-estimate-f-inference">Why Estimate <em>f</em>: Inference</h2>
+<ol start="2" type="1">
+<li><p><strong>Inference:</strong> We want to <em>understand</em> the relationship between <em>Y</em> and <em>X</em>. We <em>do</em> care about the form of <em>f</em>. We want to answer questions about how the predictors influence the response. 🕵️‍♀️ This is like studying a map to understand how different roads are connected and how traffic flows in a city.</p>
+<ul>
+<li>Which predictors are associated with the response? Which factors are most important?</li>
+<li>Is the relationship positive or negative? Does increasing a predictor increase or decrease the response?</li>
+<li>Is the relationship linear or more complex? Is the relationship a straight line or a curve?</li>
+</ul></li>
+</ol>
 </section>
 <section id="prediction-reducible-and-irreducible-error" class="level2">
 <h2 class="anchored" data-anchor-id="prediction-reducible-and-irreducible-error">Prediction: Reducible and Irreducible Error</h2>
-<div style="font-size: 0.8em;">
+<p>The accuracy of our prediction, Ŷ, depends on two types of error.</p>
+</section>
+<section id="prediction-error-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-error-decomposition">Prediction Error: Decomposition</h2>
 <p>The accuracy of our prediction, Ŷ, depends on two types of error:</p>
 <ol type="1">
-<li><p><strong>Reducible Error:</strong> Error due to our estimate of <em>f</em> (f̂) not being perfect. We <em>can</em> reduce this error by choosing better statistical learning techniques.</p></li>
-<li><p><strong>Irreducible Error:</strong> Error due to the random error term, ε. Even if we knew the <em>true</em> f, we <em>cannot</em> predict ε. This sets a limit on how accurate our predictions can be. <span class="math display">\[E(Y - \hat{Y})^2 = \underbrace{[f(X) - \hat{f}(X)]^2}_{\text{Reducible}} + \underbrace{Var(\epsilon)}_{\text{Irreducible}}\]</span></p></li>
+<li><p><strong>Reducible Error:</strong> Error due to our estimate of <em>f</em> (f̂) not being perfect. We <em>can</em> reduce this error by choosing better statistical learning techniques, improving our model. 💪 This is like improving your driving skills to get to your destination faster.</p></li>
+<li><p><strong>Irreducible Error:</strong> Error due to the random error term, ε. Even if we knew the <em>true</em> f, we <em>cannot</em> predict ε. This sets a limit on how accurate our predictions can be. This is the inherent randomness we can’t eliminate. 🤷 This is like encountering unexpected traffic – you can’t eliminate it, no matter how good a driver you are.</p>
+<p><span class="math display">\[E(Y - \hat{Y})^2 = \underbrace{[f(X) - \hat{f}(X)]^2}_{\text{Reducible}} + \underbrace{Var(\epsilon)}_{\text{Irreducible}}\]</span></p>
+<ul>
+<li><strong>E(Y - Ŷ)²:</strong> The expected squared difference between the true value of Y and our prediction. This measures the average squared error.</li>
+<li><strong>[f(X) - f̂(X)]²:</strong> The squared difference between the true function and our estimated function. This is the reducible error.</li>
+<li><strong>Var(ε):</strong> The variance of the error term. This is the irreducible error.</li>
+</ul></li>
 </ol>
+</section>
+<section id="prediction-error-goal" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-error-goal">Prediction Error: Goal</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -333,29 +682,37 @@ Note
 <p>Our goal is to minimize the <em>reducible</em> error.</p>
 </div>
 </div>
-</div>
+<p>We focus on reducing the reducible error because that’s the part we can control through better modeling. It’s like focusing on improving our driving skills, rather than worrying about unpredictable traffic.</p>
 </section>
 <section id="inference-understanding-the-relationship" class="level2">
 <h2 class="anchored" data-anchor-id="inference-understanding-the-relationship">Inference: Understanding the Relationship</h2>
-<div style="font-size: 0.8em;">
-<p>When our goal is inference, we want to understand <em>how</em> Y changes as a function of X₁, …, Xₚ. We’re interested in questions like:</p>
+<p>When our goal is inference, we want to understand <em>how</em> Y changes as a function of X₁, …, Xₚ.</p>
+</section>
+<section id="inference-key-questions" class="level2">
+<h2 class="anchored" data-anchor-id="inference-key-questions">Inference: Key Questions</h2>
+<p>We’re interested in questions like:</p>
 <ul>
-<li><strong>Which predictors matter?</strong> Are all the Xᵢ related to Y, or only a subset?</li>
-<li><strong>What’s the nature of the relationship?</strong> Is it positive, negative, linear, non-linear?</li>
-<li><strong>Can we simplify the model?</strong> Can we get a good understanding with a simpler model (e.g., a linear model)?</li>
+<li><strong>Which predictors matter?</strong> Are all the Xᵢ related to Y, or only a subset? (e.g., Does newspaper advertising actually impact sales?) This is like figuring out which ingredients are essential for a recipe.</li>
+<li><strong>What’s the nature of the relationship?</strong> Is it positive, negative, linear, non-linear? (e.g., Does income increase linearly with education, or is there a diminishing return?) This is like understanding how the amount of each ingredient affects the taste of the dish.</li>
+<li><strong>Can we simplify the model?</strong> Can we get a good understanding with a simpler model (e.g., a linear model)? (e.g., Can we ignore some predictors without losing much accuracy?) This is like simplifying a recipe without sacrificing the flavor.</li>
 </ul>
 <p>We care about interpretability, the form of <em>f</em>, and statistical significance.</p>
-</div>
 </section>
 <section id="example-modeling-for-prediction" class="level2">
 <h2 class="anchored" data-anchor-id="example-modeling-for-prediction">Example: Modeling for Prediction</h2>
-<div style="font-size: 0.8em;">
-<p><strong>Scenario:</strong> A company wants to target a direct-marketing campaign to individuals likely to respond positively.</p>
+<p>Let’s see an example where prediction is the primary goal.</p>
+</section>
+<section id="prediction-example-direct-marketing" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-example-direct-marketing">Prediction Example: Direct Marketing</h2>
+<p><strong>Scenario:</strong> A company wants to target a direct-marketing campaign to individuals likely to respond positively. They want to send their advertisements to the people most likely to buy their product.</p>
 <ul>
-<li><strong>Predictors (X):</strong> Demographic variables (age, income, location, etc.).</li>
-<li><strong>Response (Y):</strong> Response to the campaign (positive or negative).</li>
-<li><strong>Goal:</strong> Accurately predict <em>Y</em> using <em>X</em>. The company <em>doesn’t</em> need to deeply understand <em>why</em> each predictor is related to the response, only that the prediction is accurate.</li>
+<li><strong>Predictors (X):</strong> Demographic variables (age, income, location, etc.). These are like characteristics of potential customers.</li>
+<li><strong>Response (Y):</strong> Response to the campaign (positive or negative). Did the customer buy the product or not?</li>
+<li><strong>Goal:</strong> Accurately predict <em>Y</em> using <em>X</em>. The company <em>doesn’t</em> need to deeply understand <em>why</em> each predictor is related to the response, only that the prediction is accurate. They want to maximize the response rate to their campaign.</li>
 </ul>
+</section>
+<section id="prediction-example-black-box" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-example-black-box">Prediction Example: Black Box</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -369,22 +726,33 @@ Note
 <p>This is a classic <em>prediction</em> problem. The model is a “black box”.</p>
 </div>
 </div>
-</div>
+<p>We don’t necessarily care <em>why</em> certain people respond, just <em>that</em> they respond. It’s like knowing that a certain machine produces good results, without knowing exactly how it works internally.</p>
 </section>
 <section id="example-modeling-for-inference" class="level2">
 <h2 class="anchored" data-anchor-id="example-modeling-for-inference">Example: Modeling for Inference</h2>
-<div style="font-size: 0.8em;">
-<p><strong>Scenario:</strong> Analyze the <code>Advertising</code> data (Figure 2.1).</p>
+<p>Now, let’s see an example where inference is the primary goal.</p>
+</section>
+<section id="inference-example-advertising-data" class="level2">
+<h2 class="anchored" data-anchor-id="inference-example-advertising-data">Inference Example: Advertising Data</h2>
+<p><strong>Scenario:</strong> Analyze the <code>Advertising</code> data (Figure 2.1). We want to understand how different types of advertising affect sales.</p>
 <ul>
-<li><strong>Predictors (X):</strong> TV, radio, and newspaper advertising budgets.</li>
-<li><strong>Response (Y):</strong> Sales.</li>
-<li><strong>Goal:</strong> Understand <em>how</em> each advertising medium affects sales. Questions to answer:
-<ul>
-<li>Which media are associated with sales?</li>
-<li>Which media generate the biggest boost in sales?</li>
-<li>How large is the effect of TV advertising on sales?</li>
-</ul></li>
+<li><strong>Predictors (X):</strong> TV, radio, and newspaper advertising budgets. These are the different ways the company spends money on advertising.</li>
+<li><strong>Response (Y):</strong> Sales. The outcome the company wants to improve.</li>
+<li><strong>Goal:</strong> Understand <em>how</em> each advertising medium affects sales.</li>
 </ul>
+</section>
+<section id="inference-example-questions" class="level2">
+<h2 class="anchored" data-anchor-id="inference-example-questions">Inference Example: Questions</h2>
+<p>Questions to answer:</p>
+<ul>
+<li>Which media are associated with sales? Which types of advertising are most effective?</li>
+<li>Which media generate the biggest boost in sales? Where should the company invest most of its advertising budget?</li>
+<li>How large is the effect of TV advertising on sales? How much more can we expect to sell for every dollar spent on TV advertising?</li>
+</ul>
+<p>We want to understand the <em>causal</em> relationships between advertising and sales.</p>
+</section>
+<section id="inference-example-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="inference-example-understanding">Inference Example: Understanding</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -398,35 +766,45 @@ Note
 <p>This is an <em>inference</em> problem. We want to understand the <em>relationships</em>.</p>
 </div>
 </div>
-</div>
+<p>We care about the <em>why</em>, not just the prediction. It’s like trying to understand <em>why</em> a certain medicine works, not just that it works.</p>
 </section>
 <section id="how-do-we-estimate-f" class="level2">
 <h2 class="anchored" data-anchor-id="how-do-we-estimate-f">How Do We Estimate <em>f</em>?</h2>
-<div style="font-size: 0.8em;">
-<p>We use <strong>training data</strong> to “teach” our statistical learning method how to estimate <em>f</em>.</p>
+<p>We use <strong>training data</strong> to “teach” our statistical learning method how to estimate <em>f</em>. It’s like learning from examples.</p>
+</section>
+<section id="estimating-f-training-data" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-f-training-data">Estimating <em>f</em>: Training Data</h2>
 <ul>
 <li><p><strong>Training data:</strong> A set of observed data points: {(x₁, y₁), (x₂, y₂), …, (xₙ, yₙ)}, where:</p>
 <ul>
-<li>xᵢ = (xᵢ₁, xᵢ₂, …, xᵢₚ)ᵀ is the vector of predictor values for the <em>i</em>th observation.</li>
-<li>yᵢ is the response value for the <em>i</em>th observation.</li>
+<li>xᵢ = (xᵢ₁, xᵢ₂, …, xᵢₚ)ᵀ is the vector of predictor values for the <em>i</em>th observation. This is like a set of measurements for each individual or item in our dataset.</li>
+<li>yᵢ is the response value for the <em>i</em>th observation. This is the outcome we observe for each individual or item.</li>
 </ul></li>
-<li><p><strong>Goal:</strong> Find a function, f̂, such that Y ≈ f̂(X) for <em>any</em> observation (X, Y).</p></li>
-<li><p><strong>Two broad approaches:</strong> Parametric and non-parametric methods.</p></li>
+<li><p><strong>Goal:</strong> Find a function, f̂, such that Y ≈ f̂(X) for <em>any</em> observation (X, Y). We want our estimated function to be close to the true function for all possible data points. We want our model to generalize well to new data.</p></li>
+<li><p><strong>Two broad approaches:</strong> Parametric and non-parametric methods. These are like two different strategies for learning – one involves making assumptions, the other doesn’t.</p></li>
 </ul>
-</div>
 </section>
 <section id="parametric-methods" class="level2">
 <h2 class="anchored" data-anchor-id="parametric-methods">Parametric Methods</h2>
-<div style="font-size: 0.8em;">
-<p>A two-step, model-based approach:</p>
+<p>A two-step, model-based approach. We make an assumption about the shape of <em>f</em>. It’s like assuming a specific recipe for a dish.</p>
+</section>
+<section id="parametric-methods-steps" class="level2">
+<h2 class="anchored" data-anchor-id="parametric-methods-steps">Parametric Methods: Steps</h2>
 <ol type="1">
 <li><p><strong>Assume a functional form for <em>f</em>.</strong> For example, assume <em>f</em> is <em>linear</em>:</p>
 <p><span class="math display">\[
 f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p
 \]</span></p>
-<p>This reduces the problem to estimating the <em>p</em> + 1 coefficients (β₀, β₁, …, βₚ).</p></li>
-<li><p><strong>Use training data to <em>fit</em> or <em>train</em> the model.</strong> Find the values of the parameters (β₀, β₁, …, βₚ) that best fit the data. A common method is (ordinary) least squares.</p></li>
+<p>This reduces the problem to estimating the <em>p</em> + 1 coefficients (β₀, β₁, …, βₚ). We’ve simplified the problem to estimating a fixed number of parameters. It’s like assuming the dish can be made with a specific set of ingredients and specific proportions.</p>
+<ul>
+<li>β₀ is the intercept (the value of Y when all X’s are zero).</li>
+<li>β₁, β₂, …, βₚ are the slopes (the change in Y for a one-unit increase in each X).</li>
+</ul></li>
+<li><p><strong>Use training data to <em>fit</em> or <em>train</em> the model.</strong> Find the values of the parameters (β₀, β₁, …, βₚ) that best fit the data. A common method is (ordinary) least squares. We use the data to find the best values for these parameters. It’s like adjusting the proportions of the ingredients to get the best taste, based on tasting (the training data).</p></li>
 </ol>
+</section>
+<section id="parametric-methods-simplification" class="level2">
+<h2 class="anchored" data-anchor-id="parametric-methods-simplification">Parametric Methods: Simplification</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -440,125 +818,353 @@ Note
 <p>Parametric methods <em>simplify</em> the problem by assuming a specific form for <em>f</em>.</p>
 </div>
 </div>
-</div>
+<p>This simplification makes the problem much easier to solve. It’s like having a recipe – it makes cooking easier, but it limits the possible variations of the dish.</p>
 </section>
 <section id="example-linear-model-fit-to-income-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-linear-model-fit-to-income-data">Example: Linear Model Fit to Income Data</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s see how a linear model fits the income data.</p>
+</section>
+<section id="linear-model-fit-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="linear-model-fit-visualization">Linear Model Fit: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_4.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_4.svg" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Linear Model Fit</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-model-fit-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="linear-model-fit-explanation">Linear Model Fit: Explanation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_4.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Linear Model Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p>A linear model (yellow plane) fit to the <code>Income</code> data (Figure 2.3).</p></li>
-<li><p>Red dots are the observed data points.</p></li>
-<li><p>The model assumes: <code>income ≈ β₀ + β₁ × education + β₂ × seniority</code>.</p></li>
-<li><p>Linear model is relatively inflexible because it can generate linear functions</p></li>
+<li>A linear model (yellow plane) fit to the <code>Income</code> data (Figure 2.3).</li>
+<li>Red dots are the observed data points.</li>
+<li>The model assumes: <code>income ≈ β₀ + β₁ × education + β₂ × seniority</code>.</li>
+<li>The yellow plane represents the prediction from the linear model. It’s the best-fitting plane we can find within the constraint of a linear relationship.</li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-model-fit-explanation-contd" class="level2">
+<h2 class="anchored" data-anchor-id="linear-model-fit-explanation-contd">Linear Model Fit: Explanation (Cont’d)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_4.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Linear Model Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li>Linear model is relatively inflexible because it can generate linear functions only. It can only capture relationships that are approximately linear. It can’t capture curves or more complex patterns.</li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="parametric-methods-advantages-and-disadvantages" class="level2">
 <h2 class="anchored" data-anchor-id="parametric-methods-advantages-and-disadvantages">Parametric Methods: Advantages and Disadvantages</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s weigh the pros and cons of parametric methods.</p>
+</section>
+<section id="parametric-methods-pros-and-cons" class="level2">
+<h2 class="anchored" data-anchor-id="parametric-methods-pros-and-cons">Parametric Methods: Pros and Cons</h2>
 <ul>
-<li><p><strong>Advantage:</strong> Simplifies the problem of estimating <em>f</em>. It’s easier to estimate a few parameters than an entirely arbitrary function.</p></li>
-<li><p><strong>Disadvantage:</strong> The assumed form of <em>f</em> might be <em>wrong</em>. If the true <em>f</em> is very different from our assumed form, our estimate will be poor.</p></li>
-<li><p><strong>Overfitting:</strong> If we use a very complex (flexible) model, we might <em>overfit</em> the data. This means the model follows the <em>noise</em> (random error) too closely, resulting in poor predictions on new data.</p></li>
+<li><p><strong>Advantage:</strong> Simplifies the problem of estimating <em>f</em>. It’s easier to estimate a few parameters than an entirely arbitrary function. Computationally efficient. It’s like having a recipe – it’s easier to follow than to invent a dish from scratch.</p></li>
+<li><p><strong>Disadvantage:</strong> The assumed form of <em>f</em> might be <em>wrong</em>. If the true <em>f</em> is very different from our assumed form, our estimate will be poor. The model might be too simple to capture the true relationship. It’s like trying to make a cake using a cookie recipe – it won’t work very well.</p></li>
+<li><p><strong>Overfitting:</strong> If we use a very complex (flexible) model, we might <em>overfit</em> the data. This means the model follows the <em>noise</em> (random error) too closely, resulting in poor predictions on new data. The model might be too complex and capture noise instead of the true signal. It’s like memorizing the training data instead of learning the underlying pattern.</p></li>
 </ul>
-</div>
 </section>
 <section id="non-parametric-methods" class="level2">
 <h2 class="anchored" data-anchor-id="non-parametric-methods">Non-parametric Methods</h2>
-<div style="font-size: 0.7em;">
+<p>Don’t make assumptions about the shape of <em>f</em>. Let the data speak for itself! It’s like cooking without a recipe – you rely on your senses and experience.</p>
+</section>
+<section id="non-parametric-methods-definition" class="level2">
+<h2 class="anchored" data-anchor-id="non-parametric-methods-definition">Non-parametric Methods: Definition</h2>
 <ul>
-<li><strong>Do <em>not</em> make explicit assumptions about the functional form of <em>f</em>.</strong></li>
-<li>Seek an estimate of <em>f</em> that gets as close to the data points as possible, without being too rough or wiggly.</li>
-<li><strong>Advantage:</strong> Can accurately fit a wider range of possible shapes for <em>f</em>. Avoids the risk of making a wrong assumption about the form of <em>f</em>.</li>
-<li><strong>Disadvantage:</strong> Requires a <em>very large</em> number of observations to get an accurate estimate of <em>f</em>.</li>
+<li><strong>Do <em>not</em> make explicit assumptions about the functional form of <em>f</em>.</strong> We don’t assume a specific equation for the relationship.</li>
+<li>Seek an estimate of <em>f</em> that gets as close to the data points as possible, without being too rough or wiggly. Try to find a smooth curve that fits the data well. It’s like trying to draw a smooth curve through a set of points.</li>
+<li><strong>Advantage:</strong> Can accurately fit a wider range of possible shapes for <em>f</em>. Avoids the risk of making a wrong assumption about the form of <em>f</em>. More flexible and can capture more complex relationships. It’s like being able to cook any dish, not just those with a recipe.</li>
+<li><strong>Disadvantage:</strong> Requires a <em>very large</em> number of observations to get an accurate estimate of <em>f</em>. Can be computationally expensive. It’s like needing a lot of experience to cook without a recipe.</li>
 </ul>
-</div>
 </section>
 <section id="example-thin-plate-spline-fit-to-income-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-thin-plate-spline-fit-to-income-data">Example: Thin-Plate Spline Fit to Income Data</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s see a non-parametric method in action.</p>
+</section>
+<section id="thin-plate-spline-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="thin-plate-spline-visualization">Thin-Plate Spline: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_5.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_5.svg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Thin-Plate Spline Fit</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="thin-plate-spline-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="thin-plate-spline-explanation">Thin-Plate Spline: Explanation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_5.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Thin-Plate Spline Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>A <em>thin-plate spline</em> (yellow surface) fit to the <code>Income</code> data.</li>
-<li>This is a non-parametric method. No pre-specified model is assumed.</li>
-<li>The fit is much closer to the true <em>f</em> (Figure 2.3) than the linear fit.</li>
-<li>This is a <em>smooth</em> fit.</li>
+<li><p>A <em>thin-plate spline</em> (yellow surface) fit to the <code>Income</code> data. A thin-plate spline is a flexible method that can fit a wide variety of shapes.</p></li>
+<li><p>This is a non-parametric method. No pre-specified model is assumed. The shape of the surface is determined entirely by the data.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="thin-plate-spline-explanationcontd" class="level2">
+<h2 class="anchored" data-anchor-id="thin-plate-spline-explanationcontd">Thin-Plate Spline: Explanation(Cont’d)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_5.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Thin-Plate Spline Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p>The fit is much closer to the true <em>f</em> (Figure 2.3) than the linear fit. It captures the non-linear relationship between income, education, and seniority more accurately.</p></li>
+<li><p>This is a <em>smooth</em> fit. It captures the general trend without being too wiggly. It’s not overly sensitive to individual data points.</p></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="example-overfitting-with-a-rough-spline" class="level2">
 <h2 class="anchored" data-anchor-id="example-overfitting-with-a-rough-spline">Example: Overfitting with a Rough Spline</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s see what happens when we make the non-parametric model <em>too</em> flexible.</p>
+</section>
+<section id="rough-spline-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="rough-spline-visualization">Rough Spline: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_6.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_6.svg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Rough Spline Fit</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="rough-spline-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="rough-spline-explanation">Rough Spline: Explanation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_6.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Rough Spline Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>Same data, but a <em>rougher</em> thin-plate spline fit.</li>
-<li>This fit perfectly matches the <em>training data</em> (zero error on training data!).</li>
-<li><strong>BUT:</strong> This is an example of <em>overfitting</em>. The fit is too wiggly and will likely perform <em>poorly</em> on new data. It has captured the noise, not just the underlying pattern.</li>
+<li><p>Same data, but a <em>rougher</em> thin-plate spline fit. This spline is more flexible than the previous one.</p></li>
+<li><p>This fit perfectly matches the <em>training data</em> (zero error on training data!). It goes through every single data point.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="rough-spline-explanation-contd" class="level2">
+<h2 class="anchored" data-anchor-id="rough-spline-explanation-contd">Rough Spline: Explanation (Cont’d)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_6.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Rough Spline Fit</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>BUT:</strong> This is an example of <em>overfitting</em>. The fit is too wiggly and will likely perform <em>poorly</em> on new data. It has captured the noise, not just the underlying pattern. It’s learned the training data <em>too</em> well. It’s like memorizing the answers to a specific set of questions, rather than understanding the concepts.</li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="the-trade-off-between-prediction-accuracy-and-model-interpretability" class="level2">
 <h2 class="anchored" data-anchor-id="the-trade-off-between-prediction-accuracy-and-model-interpretability">The Trade-Off Between Prediction Accuracy and Model Interpretability</h2>
-<div style="font-size: 0.7em;">
+<p>There’s a fundamental trade-off in statistical learning: accuracy vs.&nbsp;interpretability. It’s like choosing between a powerful but complex tool and a simple but easy-to-use tool.</p>
+</section>
+<section id="flexibility-and-interpretability" class="level2">
+<h2 class="anchored" data-anchor-id="flexibility-and-interpretability">Flexibility and Interpretability</h2>
 <ul>
-<li><p><strong>Flexibility:</strong> How many different shapes of functions can the method fit?</p>
+<li><strong>Flexibility:</strong> How many different shapes of functions can the method fit?
 <ul>
-<li><em>Less flexible</em> (restrictive): Linear regression (only linear functions).</li>
-<li><em>More flexible</em>: Thin-plate splines, neural networks.</li>
+<li><em>Less flexible</em> (restrictive): Linear regression (only linear functions). Simpler models. Like a simple tool that can only do one thing.</li>
+<li><em>More flexible</em>: Thin-plate splines, neural networks. More complex models. Like a multi-purpose tool that can do many things.</li>
 </ul></li>
-<li><p><strong>Interpretability:</strong> How easy is it to understand the fitted model?</p>
+<li><strong>Interpretability:</strong> How easy is it to understand the fitted model?
 <ul>
-<li><em>More interpretable</em>: Linear regression (easy to understand coefficients).</li>
-<li><em>Less interpretable</em>: Complex, non-linear models (hard to see how each predictor affects the response).</li>
+<li><em>More interpretable</em>: Linear regression (easy to understand coefficients). We can easily see how each predictor affects the response. Like a simple tool with clear instructions.</li>
+<li><em>Less interpretable</em>: Complex, non-linear models (hard to see how each predictor affects the response). “Black box” models. Like a complex machine with no explanation of how it works.</li>
 </ul></li>
-<li><p><strong>General rule:</strong> As flexibility <em>increases</em>, interpretability <em>decreases</em>.</p></li>
-<li><p><strong>Important Trade-off:</strong> We often have to choose between more accurate, but less interpretable models, and simpler, more interpretable models.</p></li>
+<li><strong>General rule:</strong> As flexibility <em>increases</em>, interpretability <em>decreases</em>.</li>
 </ul>
+</section>
+<section id="the-trade-off-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="the-trade-off-visualization">The Trade-Off: Visualization</h2>
+<div>
+
 </div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Flexibility</th>
+<th style="text-align: left;">Interpretability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Low (e.g., Linear Regression)</td>
+<td style="text-align: left;">High</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">High (e.g., Neural Networks)</td>
+<td style="text-align: left;">Low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Important Trade-off:</strong> We often have to choose between more accurate, but less interpretable models, and simpler, more interpretable models. We can’t always have both! It’s like choosing between a detailed but confusing map and a simplified but easy-to-read map.</li>
+</ul>
 </section>
 <section id="why-choose-a-more-restrictive-method" class="level2">
 <h2 class="anchored" data-anchor-id="why-choose-a-more-restrictive-method">Why Choose a More Restrictive Method?</h2>
-<div style="font-size: 0.7em;">
+<p>Why might we choose a simpler model, even if it’s less flexible?</p>
+</section>
+<section id="restrictive-methods-advantages" class="level2">
+<h2 class="anchored" data-anchor-id="restrictive-methods-advantages">Restrictive Methods: Advantages</h2>
 <p>Even if we only care about prediction, a more restrictive model (like linear regression) can sometimes <em>outperform</em> a more flexible model!</p>
 <p>Reasons:</p>
 <ul>
-<li><strong>Inference:</strong> If we’re interested in <em>understanding</em> the relationship, restrictive models are more interpretable.</li>
-<li><strong>Overfitting:</strong> Flexible models can overfit the training data, leading to <em>poor</em> predictions on new data. A simpler model might generalize better.</li>
-<li><strong>Curse of Dimensionality:</strong> With many predictors, flexible models can be hard to fit well and require huge amounts of data.</li>
+<li><strong>Inference:</strong> If we’re interested in <em>understanding</em> the relationship, restrictive models are more interpretable. Easier to explain to stakeholders. It’s like using a simple model that everyone can understand.</li>
+<li><strong>Overfitting:</strong> Flexible models can overfit the training data, leading to <em>poor</em> predictions on new data. A simpler model might generalize better. Less likely to be fooled by noise. It’s like using a more robust model that’s less sensitive to quirks in the data.</li>
+<li><strong>Curse of Dimensionality:</strong> With many predictors, flexible models can be hard to fit well and require huge amounts of data. Simpler models are more robust when data is limited. It’s like using a simpler model when you don’t have a lot of information.</li>
 </ul>
-</div>
 </section>
-<section id="supervised-vs.-unsupervised-learning" class="level2">
-<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning">Supervised vs.&nbsp;Unsupervised Learning</h2>
-<div style="font-size: 0.8em;">
+<section id="supervised-vs.-unsupervised-learning-1" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning-1">Supervised vs.&nbsp;Unsupervised Learning</h2>
+<p>Let’s revisit the distinction between supervised and unsupervised learning.</p>
+</section>
+<section id="supervised-learning-definition" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-learning-definition">Supervised Learning: Definition</h2>
 <ul>
-<li><strong>Supervised Learning:</strong> We have both predictors (X) and a response (Y) for each observation. We want to learn the relationship between X and Y.
+<li><strong>Supervised Learning:</strong> We have both predictors (X) and a response (Y) for each observation. We want to learn the relationship between X and Y. We have a “teacher” (the response variable) guiding the learning process. It’s like learning with a teacher who provides feedback.
 <ul>
-<li>Examples: Regression, classification.</li>
+<li>Examples: Regression, classification. Predicting a numerical value or a category.</li>
 <li>Most of the methods in this book are supervised.</li>
 </ul></li>
-<li><strong>Unsupervised Learning:</strong> We only have predictors (X), <em>no</em> response (Y). We want to find patterns and structure in the data.
-<ul>
-<li>Example: <em>Cluster analysis</em> (grouping observations into clusters).</li>
-</ul></li>
-<li><strong>Semi-supervised Learning:</strong> A mix. We have (X, Y) for some observations, but only X for others.</li>
 </ul>
+</section>
+<section id="unsupervised-learning-definition" class="level2">
+<h2 class="anchored" data-anchor-id="unsupervised-learning-definition">Unsupervised Learning: Definition</h2>
+<ul>
+<li><strong>Unsupervised Learning:</strong> We only have predictors (X), <em>no</em> response (Y). We want to find patterns and structure in the data. We’re exploring the data without a specific target in mind. It’s like exploring a new city without a map or a destination.
+<ul>
+<li>Example: <em>Cluster analysis</em> (grouping observations into clusters). Finding groups of similar observations.</li>
+</ul></li>
+</ul>
+</section>
+<section id="semi-supervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="semi-supervised-learning">Semi-supervised Learning</h2>
+<ul>
+<li><strong>Semi-supervised Learning:</strong> A mix. We have (X, Y) for <em>some</em> observations, but only X for others. We have some labeled data and some unlabeled data. It’s like learning with a teacher who provides some feedback, but also encourages independent exploration.</li>
+</ul>
+</section>
+<section id="supervised-vs.-unsupervised-clear-distinction" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-clear-distinction">Supervised vs.&nbsp;Unsupervised: Clear Distinction?</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -572,39 +1178,121 @@ Note
 <p>The distinction between supervised and unsupervised learning isn’t always clear-cut.</p>
 </div>
 </div>
-</div>
+<p>Some methods can be used in both supervised and unsupervised settings. It’s like having a tool that can be used for different purposes.</p>
 </section>
 <section id="example-cluster-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="example-cluster-analysis">Example: Cluster Analysis</h2>
-<div style="font-size: 0.8em;">
+<p>Let’s look at an example of unsupervised learning: cluster analysis.</p>
+</section>
+<section id="cluster-analysis-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-analysis-visualization">Cluster Analysis: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_8.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_8.svg" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Cluster Analysis Example</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="cluster-analysis-explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-analysis-explanation-left">Cluster Analysis: Explanation (Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_8.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Cluster Analysis Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p>150 observations, two variables (X₁, X₂).</p></li>
-<li><p><strong>Left:</strong> Three well-separated groups (clusters). Clustering should easily identify these.</p></li>
-<li><p><strong>Right:</strong> Overlapping groups. Clustering is <em>much</em> harder.</p></li>
-<li><p><strong>Goal:</strong> Identify distinct groups <em>without</em> knowing the group labels beforehand.</p></li>
-<li><p>In the examples shown, there are only two variables, and we can check the scatterplots to identify clusters. But in practice, we cannot do that, and we need to use clustering and other unsupervised learning approaches.</p></li>
+<li><p><strong>Left:</strong> 150 observations, two variables (X₁, X₂).</p></li>
+<li><p>Three well-separated groups (clusters). Clustering should easily identify these. The groups are distinct and easy to separate. It’s like having three clearly separated piles of different objects.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="cluster-analysis-explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-analysis-explanation-right">Cluster Analysis: Explanation (Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_8.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Cluster Analysis Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Right:</strong> Overlapping groups. Clustering is <em>much</em> harder. The groups are mixed together, making it difficult to find clear boundaries. It’s like having piles of objects that are mixed together.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="cluster-analysis-explanation-goal" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-analysis-explanation-goal">Cluster Analysis: Explanation (Goal)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p><strong>Goal:</strong> Identify distinct groups <em>without</em> knowing the group labels beforehand. We’re trying to find hidden structure in the data. It’s like trying to sort objects into groups without knowing what the groups should be.</p></li>
+<li><p>In the examples shown, there are only two variables, and we can check the scatterplots to identify clusters. But in practice, we often have many more variables, making visual inspection impossible. We need to use clustering and other unsupervised learning approaches.</p></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="regression-vs.-classification-problems" class="level2">
 <h2 class="anchored" data-anchor-id="regression-vs.-classification-problems">Regression vs.&nbsp;Classification Problems</h2>
-<div style="font-size: 0.7em;">
+<p>Within supervised learning, we have two main types of problems: regression and classification. It’s like having two different types of questions – one asking “how much?” and the other asking “which one?”.</p>
+</section>
+<section id="regression-definition" class="level2">
+<h2 class="anchored" data-anchor-id="regression-definition">Regression: Definition</h2>
 <ul>
 <li><strong>Regression:</strong> The response variable (Y) is <em>quantitative</em> (numerical).
 <ul>
-<li>Example: Predicting income, house price, stock return.</li>
-</ul></li>
-<li><strong>Classification:</strong> The response variable (Y) is <em>qualitative</em> (categorical).
-<ul>
-<li>Example: Predicting whether someone will default on a loan (yes/no), which brand of product they’ll buy (A/B/C), or a medical diagnosis (disease 1/disease 2/no disease).</li>
+<li>Example: Predicting income, house price, stock return, temperature, age. The response can take on a continuous range of values. It’s like asking “how much?” or “how many?”.</li>
 </ul></li>
 </ul>
+</section>
+<section id="classification-definition" class="level2">
+<h2 class="anchored" data-anchor-id="classification-definition">Classification: Definition</h2>
+<ul>
+<li><strong>Classification:</strong> The response variable (Y) is <em>qualitative</em> (categorical).
+<ul>
+<li>Example: Predicting whether someone will default on a loan (yes/no), which brand of product they’ll buy (A/B/C), or a medical diagnosis (disease 1/disease 2/no disease), email spam or not spam. The response belongs to one of a set of categories. It’s like asking “which one?” or “what type?”.</li>
+</ul></li>
+</ul>
+</section>
+<section id="regression-vs.-classification-overlap" class="level2">
+<h2 class="anchored" data-anchor-id="regression-vs.-classification-overlap">Regression vs.&nbsp;Classification: Overlap</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -621,217 +1309,590 @@ Note
 </ul>
 </div>
 </div>
-</div>
+<p>The type of response variable (quantitative or qualitative) is the key distinction. It’s like the type of answer you’re looking for determines the type of question you ask.</p>
 </section>
 <section id="assessing-model-accuracy-regression" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-accuracy-regression">Assessing Model Accuracy: Regression</h2>
-<div style="font-size: 0.7em;">
+<p>How do we measure how well our model performs in a regression setting? How do we know if our predictions are good?</p>
+</section>
+<section id="model-accuracy-regression---mse" class="level2">
+<h2 class="anchored" data-anchor-id="model-accuracy-regression---mse">Model Accuracy: Regression - MSE</h2>
 <ul>
-<li><p><strong>Goal:</strong> Quantify how well our predictions match the observed data.</p></li>
+<li><p><strong>Goal:</strong> Quantify how well our predictions match the observed data. We want our predictions to be close to the true values. It’s like measuring how close our darts are to the bullseye.</p></li>
 <li><p><strong>Mean Squared Error (MSE):</strong> A common measure in regression:</p>
 <p><span class="math display">\[
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{f}(x_i))^2
 \]</span></p>
 <ul>
-<li>yᵢ: The <em>true</em> response value for the <em>i</em>th observation.</li>
-<li>f̂(xᵢ): The <em>predicted</em> response value for the <em>i</em>th observation.</li>
-<li>Lower MSE is better (closer predictions).</li>
+<li>yᵢ: The <em>true</em> response value for the <em>i</em>th observation. The actual value.</li>
+<li>f̂(xᵢ): The <em>predicted</em> response value for the <em>i</em>th observation. Our model’s prediction.</li>
+<li>Lower MSE is better (closer predictions). We want the average squared difference between our predictions and the true values to be small. It’s like wanting the average distance of our darts from the bullseye to be small.</li>
 </ul></li>
-<li><p><strong>Training MSE:</strong> Calculated using the <em>training data</em>.</p></li>
-<li><p><strong>Test MSE:</strong> Calculated using <em>new, unseen</em> data (test data). This is what we <em>really</em> care about!</p></li>
 </ul>
-</div>
 </section>
 <section id="training-mse-vs.-test-mse" class="level2">
 <h2 class="anchored" data-anchor-id="training-mse-vs.-test-mse">Training MSE vs.&nbsp;Test MSE</h2>
-<div style="font-size: 0.8em;">
+<p>We need to distinguish between how well our model fits the data it was trained on and how well it generalizes to new data.</p>
+</section>
+<section id="training-vs.-test-mse" class="level2">
+<h2 class="anchored" data-anchor-id="training-vs.-test-mse">Training vs.&nbsp;Test MSE</h2>
 <ul>
-<li><p>We usually don’t care how well the model fits the <em>training</em> data. We care about how well it predicts <em>new</em> data (the <em>test</em> data).</p></li>
-<li><p>A model with low <em>training</em> MSE might have <em>high</em> test MSE (overfitting!).</p></li>
+<li><p>We usually don’t care how well the model fits the <em>training</em> data. We care about how well it predicts <em>new</em> data (the <em>test</em> data). It’s like caring about how well a student performs on a real exam, not just on practice questions.</p></li>
+<li><p>A model with low <em>training</em> MSE might have <em>high</em> test MSE (overfitting!). It might be memorizing the training data instead of learning the underlying pattern. It’s like a student who memorizes the answers to practice questions but doesn’t understand the concepts.</p></li>
+<li><p><strong>Training MSE:</strong> Calculated using the <em>training data</em>. How well the model fits the data it was trained on.</p></li>
+<li><p><strong>Test MSE:</strong> Calculated using <em>new, unseen</em> data (test data). This is what we <em>really</em> care about! This measures how well our model will perform in the real world. It’s like evaluating the model on data it has never seen before.</p></li>
+</ul>
+</section>
+<section id="training-vs.-test-mse-ideal-scenario" class="level2">
+<h2 class="anchored" data-anchor-id="training-vs.-test-mse-ideal-scenario">Training vs.&nbsp;Test MSE: Ideal Scenario</h2>
+<ul>
 <li><p><strong>Ideally:</strong> We’d choose the model with the <em>lowest</em> test MSE.</p></li>
 <li><p><strong>Problem:</strong> We often <em>don’t have</em> test data when building the model.</p></li>
-<li><p><strong>Solution:</strong> Techniques like <em>cross-validation</em> (Chapter 5) can help us estimate the test MSE using the <em>training</em> data.</p></li>
+<li><p><strong>Solution:</strong> Techniques like <em>cross-validation</em> (Chapter 5) can help us estimate the test MSE using the <em>training</em> data. It’s like simulating a real exam using the practice questions.</p></li>
 </ul>
-</div>
 </section>
 <section id="example-training-and-test-mse-vs.-flexibility" class="level2">
 <h2 class="anchored" data-anchor-id="example-training-and-test-mse-vs.-flexibility">Example: Training and Test MSE vs.&nbsp;Flexibility</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s see how training and test MSE change as we vary model flexibility.</p>
+</section>
+<section id="mse-vs.-flexibility-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="mse-vs.-flexibility-visualization">MSE vs.&nbsp;Flexibility: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_9.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_9.svg" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>MSE vs.&nbsp;Flexibility</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-vs.-flexibility-explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="mse-vs.-flexibility-explanation-left">MSE vs.&nbsp;Flexibility: Explanation (Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_9.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>MSE vs.&nbsp;Flexibility</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Left:</strong> Data simulated from a non-linear <em>f</em> (black curve). Three fits: linear (orange), smooth spline (blue), wiggly spline (green).</p></li>
-<li><p><strong>Right:</strong></p>
+<li><strong>Left:</strong> Data simulated from a non-linear <em>f</em> (black curve). The true relationship is a curve.
 <ul>
-<li>Training MSE (grey curve): Decreases as flexibility <em>increases</em>.</li>
-<li>Test MSE (red curve): U-shaped. Decreases, then <em>increases</em> (overfitting).</li>
-<li>Dashed line: Minimum possible test MSE (irreducible error).</li>
+<li>Three fits:
+<ul>
+<li>linear (orange, a straight line, less flexible),</li>
+<li>smooth spline (blue, a moderately flexible curve),</li>
+<li>wiggly spline (green, a very flexible curve).</li>
 </ul></li>
-<li><p><strong>Observation:</strong> The blue curve (moderate flexibility) has the lowest test MSE.</p></li>
+</ul></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-vs.-flexibility-explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="mse-vs.-flexibility-explanation-right">MSE vs.&nbsp;Flexibility: Explanation (Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_9.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>MSE vs.&nbsp;Flexibility</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Right:</strong>
+<ul>
+<li>Training MSE (grey curve): Decreases as flexibility <em>increases</em>. More flexible models fit the training data better. The green curve has the lowest training MSE.</li>
+<li>Test MSE (red curve): U-shaped. Decreases, then <em>increases</em> (overfitting). Too much flexibility leads to poor generalization. The blue curve has the lowest test MSE.</li>
+<li>Dashed line: Minimum possible test MSE (irreducible error). Even the best possible model can’t achieve zero test MSE.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-vs.-flexibility-explanation-observation" class="level2">
+<h2 class="anchored" data-anchor-id="mse-vs.-flexibility-explanation-observation">MSE vs.&nbsp;Flexibility: Explanation (Observation)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_9.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>MSE vs.&nbsp;Flexibility</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Observation:</strong> The blue curve (moderate flexibility) has the lowest test MSE. This is the “sweet spot”. It’s like Goldilocks finding the porridge that’s “just right”.</li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="the-bias-variance-trade-off" class="level2">
 <h2 class="anchored" data-anchor-id="the-bias-variance-trade-off">The Bias-Variance Trade-Off</h2>
-<div style="font-size: 0.7em;">
+<p>The U-shape in the test MSE curve is due to two competing properties: bias and variance. It’s like a seesaw – as one goes up, the other goes down.</p>
+</section>
+<section id="bias-and-variance-definitions" class="level2">
+<h2 class="anchored" data-anchor-id="bias-and-variance-definitions">Bias and Variance: Definitions</h2>
 <p>The U-shape in the test MSE curve is due to two competing properties:</p>
 <ul>
 <li><strong>Variance:</strong> How much would our estimate of <em>f</em> (f̂) change if we used a <em>different</em> training set?
 <ul>
-<li><em>High</em> variance: f̂ changes a lot with different training sets (typical of flexible models).</li>
-<li><em>Low</em> variance: f̂ is relatively stable (typical of less flexible models).</li>
+<li><em>High</em> variance: f̂ changes a lot with different training sets (typical of flexible models). The model is sensitive to the specific training data. It’s like a dart player who is inconsistent – their throws vary a lot.</li>
+<li><em>Low</em> variance: f̂ is relatively stable (typical of less flexible models). The model is less sensitive to the specific training data. It’s like a dart player who is consistent – their throws are always close together.</li>
 </ul></li>
 <li><strong>Bias:</strong> The error introduced by approximating a complex real-world problem with a simpler model.
 <ul>
-<li><em>High</em> bias: The model makes strong (and possibly wrong) assumptions about <em>f</em> (typical of less flexible models).</li>
-<li><em>Low</em> bias: The model makes fewer assumptions (typical of flexible models).</li>
+<li><em>High</em> bias: The model makes strong (and possibly wrong) assumptions about <em>f</em> (typical of less flexible models). The model is too simple to capture the true relationship. It’s like trying to fit a square peg in a round hole.</li>
+<li><em>Low</em> bias: The model makes fewer assumptions (typical of flexible models). The model is flexible enough to capture the true relationship. It’s like using a moldable material that can fit any shape.</li>
 </ul></li>
-<li>Expected test MSE at <em>x</em>0 can be decomposed to: <span class="math display">\[E(y_0 - \hat{f}(x_0))^2 = Var(\hat{f}(x_0)) + [Bias(\hat{f}(x_0))]^2 + Var(\epsilon)\]</span></li>
 </ul>
-</div>
+</section>
+<section id="bias-variance-tradeoff-decomposition-of-test-mse" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-tradeoff-decomposition-of-test-mse">Bias-Variance Tradeoff: Decomposition of Test MSE</h2>
+<ul>
+<li><p>Expected test MSE at <em>x</em>0 can be decomposed to: <span class="math display">\[E(y_0 - \hat{f}(x_0))^2 = Var(\hat{f}(x_0)) + [Bias(\hat{f}(x_0))]^2 + Var(\epsilon)\]</span></p></li>
+<li><p>This equation shows that the expected test MSE is the sum of the variance of our estimate, the squared bias of our estimate, and the variance of the error term. It’s like saying the total error is the sum of errors due to inconsistency, errors due to oversimplification, and errors due to randomness.</p></li>
+<li><p>To minimize the expected test error, we need to select a statistical learning method that simultaneously achieves <em>low variance</em> and <em>low bias</em>.</p></li>
+</ul>
 </section>
 <section id="bias-variance-trade-off-illustration" class="level2">
 <h2 class="anchored" data-anchor-id="bias-variance-trade-off-illustration">Bias-Variance Trade-Off: Illustration</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s visualize the bias-variance trade-off.</p>
+</section>
+<section id="bias-variance-trade-off-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-visualization">Bias-Variance Trade-Off: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_12.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_12.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 <figcaption>Bias-Variance Trade-Off</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-variance-trade-off-explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-explanation-left">Bias-Variance Trade-Off: Explanation (Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_12.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Bias-Variance Trade-Off</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>Squared bias (blue), variance (orange), irreducible error (dashed), and test MSE (red) for the three examples.</li>
-<li><strong>Left (non-linear <em>f</em>):</strong> Bias decreases rapidly, variance increases slowly.</li>
-<li><strong>Center (nearly linear <em>f</em>):</strong> Bias is low, variance increases quickly.</li>
-<li><strong>Right (very non-linear <em>f</em>):</strong> Bias decreases dramatically, variance is low.</li>
+<li><p>Squared bias (blue), variance (orange), irreducible error (dashed), and test MSE (red) for the three examples in Figure 2.9.</p></li>
+<li><p><strong>Left (non-linear <em>f</em>):</strong> Bias decreases rapidly, variance increases slowly. As flexibility increases, bias decreases quickly, but variance increases gradually.</p></li>
 </ul>
-<p><strong>Key takeaway:</strong> Good models need <em>both</em> low variance <em>and</em> low bias. This is a trade-off!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-variance-trade-off-explanation-center" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-explanation-center">Bias-Variance Trade-Off: Explanation (Center)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_12.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Bias-Variance Trade-Off</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Center (nearly linear <em>f</em>):</strong> Bias is low, variance increases quickly. When the true relationship is close to linear, even simple models have low bias, but variance increases rapidly with flexibility.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-variance-trade-off-explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-explanation-right">Bias-Variance Trade-Off: Explanation (Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_12.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Bias-Variance Trade-Off</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Right (very non-linear <em>f</em>):</strong> Bias decreases dramatically, variance is low. When the true relationship is highly complex, flexible models are needed to reduce bias, and the increase in variance is less of a concern.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-variance-trade-off-key-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off-key-takeaway">Bias-Variance Trade-Off: Key Takeaway</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p><strong>Key takeaway:</strong> Good models need <em>both</em> low variance <em>and</em> low bias. This is a trade-off! We need to find the right balance between bias and variance. It’s like finding the sweet spot on a seesaw.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="assessing-model-accuracy-classification" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-accuracy-classification">Assessing Model Accuracy: Classification</h2>
-<div style="font-size: 0.7em;">
+<p>How do we measure model performance in a classification setting? How do we know if our classifier is making good predictions?</p>
+</section>
+<section id="model-accuracy-classification---error-rate" class="level2">
+<h2 class="anchored" data-anchor-id="model-accuracy-classification---error-rate">Model Accuracy: Classification - Error Rate</h2>
 <ul>
-<li><strong>Error Rate:</strong> The proportion of mistakes made by the classifier.
+<li><p><strong>Error Rate:</strong> The proportion of mistakes made by the classifier. We count the number of times our model predicts the wrong class. It’s like counting the number of wrong answers on a test.</p>
 <ul>
 <li><p><strong>Training error rate:</strong></p>
 <p><span class="math display">\[
 \frac{1}{n} \sum_{i=1}^{n} I(y_i \ne \hat{y}_i)
 \]</span></p>
 <ul>
-<li>yᵢ: True class label.</li>
-<li>ŷᵢ: Predicted class label.</li>
-<li>I(yᵢ ≠ ŷᵢ): Indicator variable (1 if mistake, 0 if correct).</li>
+<li>yᵢ: True class label. The correct category.</li>
+<li>ŷᵢ: Predicted class label. Our model’s prediction.</li>
+<li>I(yᵢ ≠ ŷᵢ): Indicator variable (1 if mistake, 0 if correct). A function that is 1 if the prediction is wrong and 0 if it’s correct.</li>
 </ul></li>
-<li><p><strong>Test error rate:</strong> <code>Ave(I(y₀ ≠ ŷ₀))</code>. This is what we care about!</p></li>
+<li><p><strong>Test error rate:</strong> <code>Ave(I(y_0 ≠ ŷ₀))</code>. This is what we care about! The average error rate on new, unseen data. It’s like the average error rate on a real exam.</p></li>
 </ul></li>
-<li><strong>Goal:</strong> Choose the classifier with the <em>lowest</em> test error rate.</li>
+<li><p><strong>Goal:</strong> Choose the classifier with the <em>lowest</em> test error rate.</p></li>
 </ul>
-</div>
 </section>
 <section id="the-bayes-classifier" class="level2">
 <h2 class="anchored" data-anchor-id="the-bayes-classifier">The Bayes Classifier</h2>
-<div style="font-size: 0.7em;">
+<p>The Bayes classifier is the theoretical “best” classifier. It’s like the ideal student who always gets the right answer.</p>
+</section>
+<section id="bayes-classifier-definition" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classifier-definition">Bayes Classifier: Definition</h2>
 <ul>
-<li><strong>The “ideal” classifier:</strong> Assigns each observation to the <em>most likely</em> class, given its predictor values.</li>
-<li><strong>Conditional probability:</strong> Pr(Y = j | X = x₀) - the probability that Y = j (class j), given the predictor values x₀.</li>
-<li><strong>Bayes Classifier:</strong> Assigns an observation to the class <em>j</em> for which Pr(Y = j | X = x₀) is <em>largest</em>.</li>
-<li><strong>Bayes Decision Boundary:</strong> The points where the conditional probabilities for different classes are equal.</li>
-<li><strong>Bayes Error Rate:</strong> The <em>lowest possible</em> test error rate achievable. Analogous to the irreducible error.</li>
+<li><p><strong>The “ideal” classifier:</strong> Assigns each observation to the <em>most likely</em> class, given its predictor values. It makes the best possible prediction based on the true probabilities. It’s like knowing the exact probability of each answer being correct and always choosing the most probable one.</p></li>
+<li><p><strong>Conditional probability:</strong> Pr(Y = j | X = x₀) - the probability that Y = j (class j), given the predictor values x₀. The probability of belonging to a specific category, given the observed features.</p></li>
+<li><p><strong>Bayes Classifier:</strong> Assigns an observation to the class <em>j</em> for which Pr(Y = j | X = x₀) is <em>largest</em>. Choose the class with the highest probability.</p></li>
+<li><p><strong>Bayes Decision Boundary:</strong> The points where the conditional probabilities for different classes are equal. This is the boundary between where we would predict different classes. It’s like the dividing line between different territories.</p></li>
+<li><p><strong>Bayes Error Rate:</strong> The <em>lowest possible</em> test error rate achievable. Analogous to the irreducible error. This is the best we can possibly do, even with perfect knowledge. It’s like the minimum possible error rate, even for the ideal student.</p></li>
 </ul>
-</div>
 </section>
 <section id="example-bayes-classifier" class="level2">
 <h2 class="anchored" data-anchor-id="example-bayes-classifier">Example: Bayes Classifier</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s visualize the Bayes classifier.</p>
+</section>
+<section id="bayes-classifier-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classifier-visualization">Bayes Classifier: Visualization</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_13.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_13.svg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Bayes Classifier Example</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="bayes-classifier-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classifier-explanation">Bayes Classifier: Explanation</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_13.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Bayes Classifier Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li>Simulated data, two classes (orange, blue).</li>
-<li>Purple dashed line: Bayes decision boundary.</li>
-<li>Orange/blue shaded regions: Regions where the Bayes classifier would predict orange/blue.</li>
-<li>The Bayes error rate is greater than zero because the classes <em>overlap</em>.</li>
+<li><p>Simulated data, two classes (orange, blue).</p></li>
+<li><p>Purple dashed line: Bayes decision boundary. This is the line where the probability of belonging to the orange class is equal to the probability of belonging to the blue class.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="bayes-classifier-explanation-contd" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classifier-explanation-contd">Bayes Classifier: Explanation (Cont’d)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_13.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Bayes Classifier Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p>Orange/blue shaded regions: Regions where the Bayes classifier would predict orange/blue.</p></li>
+<li><p>The Bayes error rate is greater than zero because the classes <em>overlap</em>. Even the best classifier will make mistakes because the classes are not perfectly separable. It’s like having some questions on a test that are ambiguous, even for the best student.</p></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 <section id="k-nearest-neighbors-knn" class="level2">
 <h2 class="anchored" data-anchor-id="k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</h2>
-<div style="font-size: 0.7em;">
+<p>KNN is a practical method that approximates the Bayes classifier. It’s like a practical student who tries to learn from their peers.</p>
+</section>
+<section id="knn-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="knn-motivation">KNN: Motivation</h2>
 <ul>
-<li><strong>Problem:</strong> In reality, we <em>don’t know</em> the conditional distribution of Y given X. So, we can’t directly use the Bayes classifier.</li>
-<li><strong>KNN:</strong> A <em>non-parametric</em> method that <em>estimates</em> the conditional distribution and then classifies based on the estimate.</li>
+<li><p><strong>Problem:</strong> In reality, we <em>don’t know</em> the conditional distribution of Y given X. So, we can’t directly use the Bayes classifier. We don’t know the true probabilities. It’s like not knowing the exact probabilities of each answer being correct.</p></li>
+<li><p><strong>KNN:</strong> A <em>non-parametric</em> method that <em>estimates</em> the conditional distribution and then classifies based on the estimate. It uses the training data to approximate the probabilities. It’s like looking at similar past exam questions and their answers to guess the answer to a new question.</p></li>
+</ul>
+</section>
+<section id="knn-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="knn-algorithm">KNN: Algorithm</h2>
+<ul>
 <li><strong>How it works:</strong>
 <ol type="1">
-<li>Given a test observation, x₀, find the <em>K</em> closest training observations (the “neighborhood”).</li>
-<li>Estimate the conditional probability for class <em>j</em> as the fraction of neighbors in the neighborhood whose response value is <em>j</em>.</li>
-<li>Classify x₀ to the class with the <em>highest</em> estimated probability.</li>
+<li>Given a test observation, x₀, find the <em>K</em> closest training observations (the “neighborhood”). Find the K most similar examples in the training data.</li>
+<li>Estimate the conditional probability for class <em>j</em> as the fraction of neighbors in the neighborhood whose response value is <em>j</em>. Calculate the proportion of neighbors belonging to each class.</li>
+<li>Classify x₀ to the class with the <em>highest</em> estimated probability. Choose the class that is most common among the neighbors.</li>
 </ol></li>
 </ul>
-</div>
 </section>
 <section id="example-knn" class="level2">
 <h2 class="anchored" data-anchor-id="example-knn">Example: KNN</h2>
-<div style="font-size: 0.7em;">
+<p>Let’s visualize how KNN works.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/2_14.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_14.svg" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>KNN Example</figcaption>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="knn-explanation-left" class="level2">
+<h2 class="anchored" data-anchor-id="knn-explanation-left">KNN: Explanation (Left)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_14.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>KNN Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <ul>
-<li><p><strong>Left:</strong> Small training set (6 blue, 6 orange). Black cross is the test observation. Circle shows the 3 nearest neighbors (K=3): 2 blue, 1 orange. KNN predicts “blue”.</p></li>
-<li><p><strong>Right:</strong> KNN decision boundary (K=3) for all possible values of X₁ and X₂.</p></li>
+<li><p><strong>Left:</strong> Small training set (6 blue, 6 orange). Black cross is the test observation. We want to predict the class of the black cross.</p></li>
+<li><p>Circle shows the 3 nearest neighbors (K=3): 2 blue, 1 orange. We find the three closest training observations to the black cross.</p></li>
+<li><p>KNN predicts “blue”. Because the majority of the neighbors are blue.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="knn-explanation-right" class="level2">
+<h2 class="anchored" data-anchor-id="knn-explanation-right">KNN: Explanation (Right)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_14.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>KNN Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<ul>
+<li><p><strong>Right:</strong> KNN decision boundary (K=3) for all possible values of X₁ and X₂. This shows how KNN would classify any point in the space. This is like drawing a map showing which class KNN would predict for any combination of X₁ and X₂.</p></li>
 <li><p>KNN can produce a decision boundary and classifier that’s close to Bayes Classifier.</p></li>
 </ul>
+</div>
+</div>
 </div>
 </section>
 <section id="knn-the-choice-of-k" class="level2">
 <h2 class="anchored" data-anchor-id="knn-the-choice-of-k">KNN: The Choice of <em>K</em></h2>
-<div style="font-size: 0.7em;">
+<p>The choice of <em>K</em> (the number of neighbors) is crucial in KNN. It’s like choosing how many friends to ask for advice.</p>
+</section>
+<section id="knn-choosing-k" class="level2">
+<h2 class="anchored" data-anchor-id="knn-choosing-k">KNN: Choosing K</h2>
 <ul>
 <li><p>The choice of <em>K</em> (the number of neighbors) controls the flexibility of the KNN classifier.</p>
 <ul>
-<li><em>Small K</em>: More flexible, lower bias, higher variance (risk of overfitting).</li>
-<li><em>Large K</em>: Less flexible, higher bias, lower variance.</li>
+<li><em>Small K</em>: More flexible, lower bias, higher variance (risk of overfitting). The decision boundary is more jagged. It’s like asking only a few close friends – their opinions might be biased or vary a lot.</li>
+<li><em>Large K</em>: Less flexible, higher bias, lower variance. The decision boundary is smoother. It’s like asking many friends – their opinions will be more stable but might not capture specific nuances.</li>
 </ul></li>
-<li><p><strong>Example:</strong> Figure 2.16 shows KNN fits with K=1 and K=100. K=1 overfits, K=100 is too inflexible.</p></li>
-<li><p><strong>Finding the best K:</strong> We want to choose <em>K</em> to minimize the <em>test</em> error rate. Techniques like cross-validation can help.</p></li>
+<li><p><strong>Example:</strong> Figure 2.15 and 2.16 shows KNN fits with different K.</p></li>
+<li><p><strong>Finding the best K:</strong> We want to choose <em>K</em> to minimize the <em>test</em> error rate. Techniques like cross-validation can help. We need to find the value of K that gives the best generalization performance. It’s like finding the optimal number of friends to ask for advice to get the most reliable answer.</p></li>
 </ul>
+</section>
+<section id="knn-choosing-k-example-visualization-k1" class="level2">
+<h2 class="anchored" data-anchor-id="knn-choosing-k-example-visualization-k1">KNN: Choosing K, Example Visualization (K=1)</h2>
+<div>
+
 </div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_15.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>KNN Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="knn-choosing-k-example-visualization-k100" class="level2">
+<h2 class="anchored" data-anchor-id="knn-choosing-k-example-visualization-k100">KNN: Choosing K, Example Visualization (K=100)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F2_16.svg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>KNN Example</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="knn-k1-vs-k100" class="level2">
+<h2 class="anchored" data-anchor-id="knn-k1-vs-k100">KNN: K=1 vs K=100</h2>
+<ul>
+<li>Figure 2.15 (K=1): The KNN decision boundary is overly flexible, and follow the training data too closely.</li>
+<li>Figure 2.16 (K=100): The KNN decision boundary is almost linear and too inflexible.</li>
+</ul>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<div style="font-size: 0.8em;">
+<p>Let’s recap the key concepts we’ve covered.</p>
+</section>
+<section id="summary-key-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="summary-key-concepts">Summary: Key Concepts</h2>
 <ul>
-<li><strong>Statistical learning</strong> is about estimating relationships between variables, for prediction and/or inference.</li>
-<li><strong>Parametric methods</strong> assume a specific functional form; <strong>non-parametric methods</strong> don’t.</li>
-<li>There’s a <strong>trade-off</strong> between model flexibility and interpretability.</li>
-<li>We need to assess model accuracy using <strong>test data</strong> (or estimates of test error).</li>
-<li>The <strong>bias-variance trade-off</strong> is fundamental: Good models need both low bias and low variance.</li>
-<li>In classification, the <strong>Bayes classifier</strong> is optimal, but we often have to approximate it (e.g., with KNN).</li>
-<li>Choosing the right level of <strong>flexibility</strong> is crucial.</li>
+<li><strong>Statistical learning</strong> is about estimating relationships between variables, for prediction and/or inference. It’s like using data to understand the world and make predictions.</li>
+<li><strong>Parametric methods</strong> assume a specific functional form; <strong>non-parametric methods</strong> don’t. It’s like choosing between cooking with a recipe and cooking without one.</li>
+<li>There’s a <strong>trade-off</strong> between model flexibility and interpretability. It’s like choosing between a powerful but complex tool and a simple but easy-to-use tool.</li>
+<li>We need to assess model accuracy using <strong>test data</strong> (or estimates of test error). It’s like evaluating a student on a real exam, not just practice questions.</li>
+<li>The <strong>bias-variance trade-off</strong> is fundamental: Good models need both low bias and low variance. It’s like finding the right balance on a seesaw.</li>
+<li>In classification, the <strong>Bayes classifier</strong> is optimal, but we often have to approximate it (e.g., with KNN). It’s like having an ideal student as a benchmark, but using practical methods to approximate their performance.</li>
+<li>Choosing the right level of <strong>flexibility</strong> is crucial. It’s like choosing the right tool for the job.</li>
 </ul>
-</div>
 </section>
 <section id="thoughts-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="thoughts-and-discussion">Thoughts and Discussion</h2>
-<div style="font-size: 0.8em;">
+<p>Let’s think about some broader implications and questions.</p>
+</section>
+<section id="thoughts-and-discussion-questions" class="level2">
+<h2 class="anchored" data-anchor-id="thoughts-and-discussion-questions">Thoughts and Discussion: Questions</h2>
 <ul>
-<li>Think about real-world problems you’re interested in. Would you approach them with a focus on prediction, inference, or both?</li>
-<li>Can you think of examples where a simple, interpretable model might be preferable to a more complex, “black box” model, even for prediction?</li>
-<li>How might the “best” model (in terms of test error) depend on the <em>amount</em> of data available?</li>
-<li>How does the concept of “overfitting” relate to the bias-variance trade-off?</li>
-<li>Discuss the differences and similarities between supervised, unsupervised, and semi-supervised learning, and how they apply to real-world problems.</li>
+<li>Think about real-world problems you’re interested in. Would you approach them with a focus on prediction, inference, or both? (e.g., predicting stock prices, understanding customer behavior, diagnosing diseases)</li>
+<li>Can you think of examples where a simple, interpretable model might be preferable to a more complex, “black box” model, even for prediction? (e.g., credit scoring, medical diagnosis where explainability is important)</li>
+<li>How might the “best” model (in terms of test error) depend on the <em>amount</em> of data available? (e.g., with limited data, simpler models might be better; with lots of data, more complex models might be better)</li>
+<li>How does the concept of “overfitting” relate to the bias-variance trade-off? (Overfitting is a result of high variance – the model is too sensitive to the training data and doesn’t generalize well.)</li>
+<li>Discuss the differences and similarities between supervised, unsupervised, and semi-supervised learning, and how they apply to real-world problems. (e.g.&nbsp;Supervised: spam filtering; unsupervised: customer segmentation; semi-supervised: image classification with some labeled and some unlabeled images)</li>
 </ul>
-</div>
 
 
 </section>
