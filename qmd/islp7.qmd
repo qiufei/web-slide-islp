@@ -1,92 +1,196 @@
-## Introduction
+---
+title: "Statistical Learning - Beyond Linearity"
+---
 
-::: {layout-ncol=2}
-Linear models are relatively simple and interpretable, but they might not be powerful enough for prediction, because the linearity assumption is often an oversimplification.
+## Introduction to Data Mining, Machine Learning, and Statistical Learning
 
-![](figures/7_12.png)
+::: {layout="[80, 20]"}
+<div>
 
-*  Linear Regression
-*  Ridge Regression
-*  Lasso
-*  PCR
+Let's start with the basics!  What are data mining, machine learning, and statistical learning?
+
+**Data Mining:** The process of discovering patterns, anomalies, and knowledge from *large* datasets.  Think of it as "mining" for valuable insights in a mountain of data. ⛏️ We're looking for hidden treasures!
+
+**Machine Learning:** A subset of artificial intelligence (AI).  It's about enabling systems to *learn from data* without being explicitly programmed. Algorithms learn patterns and make predictions, like teaching a computer to learn by example. 🤖
+
+**Statistical Learning:** A framework of tools for *understanding data*. It's closely related to both data mining and machine learning, but with a stronger emphasis on statistical models and inference. 🤔
+
+</div>
+<div>
+
+::: callout-note
+##
+These fields are highly interdisciplinary!
+:::
+</div>
 :::
 
-## Introduction (Cont.)
+## Relationship: Data Mining, Machine Learning, and Statistical Learning
 
-This chapter will focus on relaxing the linearity assumption while trying to maintain interpretability. We will explore several non-linear approaches:
+```{mermaid}
+graph LR
+    A[Data Mining] --> C(Common Ground)
+    B[Machine Learning] --> C
+    D[Statistical Learning] --> C
+    C --> E[Insights & Predictions]
+```
 
--   **Polynomial Regression**: Introduces non-linearity by adding polynomial terms of the predictors.
+-   **Common Goal:** All three aim to extract insights and make predictions from data.  They're different paths to the same destination! 🗺️
+-   **Data Mining:** Often emphasizes discovering *previously unknown* patterns.  It's like exploratory detective work. 🕵️‍♀️
+-   **Machine Learning:** Focuses on *prediction accuracy*.  It's like building a super-powered prediction machine. ⚙️
+-   **Statistical Learning:** Emphasizes *model interpretability* and *quantifying uncertainty*.  It's like building a model *and* understanding how confident we are in its predictions. 📊
 
--   **Step Functions**: Divides the range of a variable into distinct regions, fitting a constant within each.
+## Why Go Beyond Linearity?
 
--   **Regression Splines**:  A more flexible approach, dividing the predictor's range into regions and fitting polynomials within each, but with constraints for smoothness.
+Linear models (like linear regression) are great! They're simple, interpretable, and a good starting point. But... they have limitations.
 
--   **Smoothing Splines**: Minimizes a combination of the residual sum of squares and a penalty for function roughness.
+::: {layout="[7,3]"}
+<div>
 
--   **Local Regression**:  Fits a model locally, using only nearby data points.
+**Limitations of Linear Models:**
 
--   **Generalized Additive Models (GAMs)**:  Extends the above methods to multiple predictors.
+-   **Linearity Assumption:** They assume a *straight-line* relationship between predictors and the response. This is often *too simplistic* for the real world.
+-   **Limited Predictive Power:** If the true relationship is *not* linear, linear models will give poor predictions.
+-   **Independence Assumption**: The effect of the change on one predictor is irrelavant to other predictors.
+
+</div>
+
+<div>
+
+::: callout-tip
+## Analogy
+Imagine trying to fit a straight line through a curved set of points. You'll *miss* the real pattern!
+:::
+</div>
+:::
+
+## Linear Models vs. Reality (Example)
+
+::: {layout="[6,4]"}
+<div>
+The figure shows simulated data.
+- The *red line* represents the *true* (but unknown) relationship between the predictor and the response.
+- The *blue line* is the linear model we fitted to the data.
+
+**Key Takeaway:** Linear models might not capture the full complexity of the relationship.
+</div>
+
+<div>
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Ff6_22.png)
+</div>
+:::
+
+## Examples of Linear Models
+
+Here are some familiar examples of linear models:
+
+-   **Linear Regression:** The foundation! Predicts a *continuous* response.
+-   **Ridge Regression:** Adds a penalty to reduce model complexity and prevent overfitting.  It shrinks the coefficients towards zero.
+-   **Lasso:**  Similar to ridge, but uses a different penalty that can perform *feature selection* (setting some coefficients to zero).
+-   **PCR (Principal Components Regression):** Reduces dimensionality using PCA *before* applying linear regression.
+
+## Introduction to Non-Linear Approaches
+
+This chapter is all about *relaxing the linearity assumption*!  We'll explore techniques that can capture *curved* relationships. 
+
+**Goal:** Find models that are both *flexible* (can fit complex patterns) and *interpretable* (we can understand *how* they work).
+
+## Non-Linear Approaches: Overview
+
+Here's a roadmap of what we'll cover:
+
+-   **Polynomial Regression:** Add polynomial terms (e.g., $x^2$, $x^3$) to capture curves.
+-   **Step Functions:** Divide the predictor's range into bins and fit a constant in each.  Like creating categories.
+-   **Regression Splines:** More flexible! Piecewise polynomials with smoothness constraints.
+-   **Smoothing Splines:** Minimize RSS *plus* a penalty for roughness.  Balance fit and smoothness.
+-   **Local Regression:** Fit a model *locally* using only nearby data.
+-   **Generalized Additive Models (GAMs):** Extend these ideas to *multiple predictors*.
 
 ## Polynomial Regression
 
-Instead of a linear model:
+Instead of a straight line:
 
 $$
 y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 $$
 
-We use a polynomial function:
+We use a *polynomial*:
 
 $$
 y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + ... + \beta_d x_i^d + \epsilon_i
 $$
 
-- This is still a linear model in terms of the *coefficients*, so we can use least squares!  
-- The coefficients themselves aren't usually of direct interest, but we examine the *entire fitted function*.
-- It is unusual to use $d > 3$ or $4$ as higher degrees can lead to overly flexible and strange shapes.
+This allows us to model curves! 📈
 
-## Polynomial Regression: Example
+## Polynomial Regression: Important Points
 
-::: {layout-ncol=2}
-We fit a degree-4 polynomial to the `Wage` data. The solid blue curve shows the polynomial fit, and the dashed curves represent a 95% confidence interval.
+-   **Linear in Coefficients:** The equation is *linear in the coefficients* ($\beta_0, \beta_1, ...$). This means we can still use least squares! 👍
+-   **Focus on the Fitted Function:**  We usually don't care about the individual coefficients. We look at the *overall shape* of the fitted function.
+-   **Degree (d):** The highest power ($d$) is the *degree*.  We rarely use $d > 3$ or $4$ because high degrees can lead to *overly flexible* and *strange* curves.
 
-The confidence interval is calculated by:
+## Polynomial Regression: Example (Wage Data)
 
-- Computing the fitted value at a specific age: $\hat{f}(x_0)$.
-- Estimating the variance of the fit: $\text{Var}[\hat{f}(x_0)]$.
-- Calculating the pointwise standard error: $\sqrt{\text{Var}[\hat{f}(x_0)]}$.
-- Forming an approximate 95% confidence interval: $\hat{f}(x_0) \pm 2 \cdot \text{SE}[\hat{f}(x_0)]$.
+We'll use the `Wage` dataset (from the ISLR book) to predict `wage` based on `age`.  Let's see how a degree-4 polynomial fits the data.
+
+## Visualizing the Polynomial Fit (Wage Data)
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_1.svg){width=80%}
+
+-   **Blue Curve:** The degree-4 polynomial fit.  It captures the non-linear trend!
+-   **Dashed Curves:**  95% confidence interval.  This shows the *uncertainty* in our fit.
+
+## Understanding the Confidence Interval
+
+The confidence interval (dashed lines) tells us how much our fitted curve might vary.  It's calculated like this:
+
+1.  **Fitted Value:** For a specific age ($x_0$), we get the fitted value: $\hat{f}(x_0)$.
+2.  **Variance:** We estimate the *variance* of the fit at that point: $\text{Var}[\hat{f}(x_0)]$.
+3.  **Standard Error:** The pointwise standard error is: $\sqrt{\text{Var}[\hat{f}(x_0)]}$.
+4.  **Confidence Interval:** The 95% confidence interval is: $\hat{f}(x_0) \pm 2 \cdot \text{SE}[\hat{f}(x_0)]$.
+
+::: callout-note
+## Interpretation
+We're 95% confident that the *true* relationship lies within the dashed curves.
 :::
-
-
-![Wage data with a degree-4 polynomial fit.](figures/7_1.png){width=80%}
-
 
 ## Polynomial Logistic Regression
 
-::: {layout-ncol=2}
-We can also use polynomial terms within logistic regression to model a binary outcome. Here, we model the probability that `wage` > 250 given `age`.
+We can also use polynomial terms in *logistic regression* to model a *binary* outcome (e.g., yes/no, 0/1).
+
+**Example:** Model the probability that `wage` > 250, given `age`.
+
+## Polynomial Logistic Regression: Equation
+
+The equation looks like this:
 
 $$
 \text{Pr}(y_i > 250 | x_i) = \frac{\exp(\beta_0 + \beta_1 x_i + \beta_2 x_i^2 + ... + \beta_d x_i^d)}{1 + \exp(\beta_0 + \beta_1 x_i + \beta_2 x_i^2 + ... + \beta_d x_i^d)}
 $$
-:::
 
-![Logistic regression with a degree-4 polynomial.](figures/7_1.png){width=80%}
+This models the *probability* as a non-linear function of the predictor.
+
+## Visualizing Polynomial Logistic Regression (Wage Data)
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_1.svg){width=80%}
 
 ::: aside
-Note the wide confidence intervals, especially for older ages, due to fewer high earners in the dataset.
+Notice the wider confidence intervals for older ages. This is because there are fewer high earners in the dataset.
 :::
+
+-   **Key Point:**  The confidence intervals are wider for older ages. This means we're *less certain* about our predictions in that range, because we have less data.
 
 ## Step Functions
 
-- Polynomial regression imposes a *global* structure.
-- Step functions impose a *local* structure by:
+-   **Global vs. Local:** Polynomial regression imposes a *global* structure (the same polynomial applies everywhere).  Step functions are *local*.
 
-    - Breaking the range of $X$ into bins (defined by cutpoints $c_1, c_2, ..., c_K$).
-    - Fitting a *different constant* in each bin.
-    - Creating $K+1$ new variables:
-    
+-   **How They Work:**
+    1.  **Bins:** Divide the range of the predictor ($X$) into *bins* using *cutpoints* ($c_1, c_2, ..., c_K$).
+    2.  **Constant Fit:** Fit a *constant* within each bin.  The predicted value is the same for all values of $X$ within a bin.
+
+## Step Functions: Creating Indicator Variables
+
+To do this, we create *indicator variables*:
+
 ```{=tex}
 \begin{aligned}
 C_0(X) &= I(X < c_1), \\
@@ -98,322 +202,431 @@ C_K(X) &= I(c_K \le X),
 \end{aligned}
 ```
 
-where $I(\cdot)$ is an *indicator function*.
+where $I(\cdot)$ is an *indicator function*. It's 1 if the condition is true, and 0 otherwise.
 
-## Step Functions (Cont.)
+## Step Functions: Regression Equation
 
-::: nonincremental
-- We then use least squares with $C_1(X), C_2(X), ..., C_K(X)$ as predictors:
-    
-  $$y_i = \beta_0 + \beta_1C_1(x_i) + \beta_2C_2(x_i) + \dots + \beta_KC_K(x_i) + \epsilon_i$$
+We then use least squares with $C_1(X), C_2(X), ..., C_K(X)$ as predictors:
 
-- Note that $C_0(X)$ is excluded to avoid multicollinearity (since $\sum_{k=0}^{K} C_k(X) = 1$). $\beta_0$ is the mean value of $Y$ for $X < c_1$.
+$$y_i = \beta_0 + \beta_1 C_1(x_i) + \beta_2 C_2(x_i) + \dots + \beta_K C_K(x_i) + \epsilon_i$$
 
-- $\beta_j$ represents the *average increase* in the response for $X$ in the range  $c_j \le X < c_{j+1}$ *relative to* $X < c_1$.
+-   **Multicollinearity:** We *exclude* $C_0(X)$ to avoid perfect multicollinearity (the indicator functions sum to 1).
+-   **Interpretation:**
+    -   $\beta_0$: Mean value of $Y$ for $X < c_1$ (the baseline group).
+    -   $\beta_j$: *Average increase* in the response for $X$ in bin $j$, *relative to* the baseline.
 
-- We essentially converted a continuous variable into an *ordered categorical* variable.
-:::
+## Step Functions: Converting Continuous to Categorical
 
-## Step Functions: Example
+-   **Ordered Categorical Variable:** We've turned a *continuous* variable into an *ordered categorical* variable. The order of the categories matters!
 
-::: {layout-ncol=2}
-Here's an example of fitting step functions to the `Wage` data. The left panel shows a piecewise constant fit to `wage`, and the right panel shows the fitted probabilities from a logistic regression model for `wage` > 250.
+## Step Functions: Example (Wage Data)
 
-:::
+Let's fit step functions to the `Wage` data.
 
-![Piecewise constant fit and logistic regression with step functions.](figures/7_2.png)
+-   **Left Panel:** Piecewise constant fit to `wage`.
+-   **Right Panel:** Fitted probabilities from logistic regression for `wage` > 250 (also using step functions).
+
+## Visualizing Step Functions (Wage Data)
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_2.svg)
 
 ::: aside
-Step functions can miss trends, like the initial increase of wage with age.  They are popular in biostatistics and epidemiology (e.g., using 5-year age groups).
+Step functions can miss trends. They're popular in biostatistics (e.g., using 5-year age groups).
 :::
 
-## Basis Functions
+-   **Limitation:** Step functions can miss overall trends (like the initial increase of wage with age).
+-   **Use Cases:** Common in biostatistics and epidemiology (e.g., grouping ages into 5-year intervals).
 
-- Polynomial and piecewise-constant regression are special cases of a *basis function* approach.
-- We have a family of functions/transformations to apply to a variable $X$: $b_1(X), b_2(X), ..., b_K(X)$.
-- Instead of fitting a linear model in $X$, we fit:
+## Basis Functions: A General Framework
 
-   $$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_K b_K(x_i) + \epsilon_i$$
+-   **Generalization:** Polynomial and piecewise-constant regression are special cases of the *basis function* approach.
 
-- Basis functions are *fixed and known*.  We choose them.
-- This is *still a linear model*!  We can use least squares.
-- All inference tools from linear models (Chapter 3) are still available!
+-   **How it Works:**
+    1.  **Choose Basis Functions:** Select transformations to apply to $X$:  $b_1(X), b_2(X), ..., b_K(X)$.
+    2.  **Linear Model:** Fit a linear model using these basis functions:
 
-## Regression Splines
+        $$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_K b_K(x_i) + \epsilon_i$$
 
-- Regression splines extend upon polynomial and piecewise-constant regression.
-- They provide more flexibility by combining the strengths of these two approaches.
+## Basis Functions: Important Points
 
-### Piecewise Polynomials
+-   **Fixed and Known:** The basis functions are *fixed* (we choose them).
+-   **Still a Linear Model!:** This is *still* a linear model in the coefficients! We can use least squares.
+-   **Inference Tools:** All the usual inference tools (hypothesis tests, confidence intervals) still apply! This is a *huge* advantage.
 
-- Instead of a high-degree polynomial over the *entire* range of $X$, we fit *separate low-degree* polynomials over *different regions* of $X$.
-- Example: Piecewise cubic polynomial:
+## Regression Splines: Combining Polynomials and Piecewise-Constants
 
-  $$y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \epsilon_i$$
+-   **Motivation:** Regression splines combine the best of both worlds! They're more flexible than either approach alone.
 
-  where the coefficients $\beta_0, \beta_1, \beta_2, \beta_3$ *differ* in different parts of the range of $X$.
-- *Knots*: Points where the coefficients change.
+-   **Piecewise Polynomials:** Fit *separate low-degree* polynomials in *different regions* of $X$, instead of one high-degree polynomial everywhere.
 
-## Piecewise Polynomials (Example)
-Piecewise Cubic:
+## Regression Splines: Piecewise Polynomials (Details)
+
+-   **Example: Piecewise Cubic:**
+
+    $$y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \epsilon_i$$
+
+    but the coefficients ($\beta_0, \beta_1, \beta_2, \beta_3$) *change* in different regions.
+
+-   **Knots:** The points where the coefficients change are called *knots*.
+
+## Piecewise Polynomials: Example (One Knot)
+
+Consider a piecewise cubic with *one* knot at $c$:
 
 $$y_i = \begin{cases}
 \beta_{01} + \beta_{11}x_i + \beta_{21}x_i^2 + \beta_{31}x_i^3 + \epsilon_i & \text{if } x_i < c \\
 \beta_{02} + \beta_{12}x_i + \beta_{22}x_i^2 + \beta_{32}x_i^3 + \epsilon_i & \text{if } x_i \ge c
 \end{cases}$$
 
-::: {layout-ncol=2}
-![Unconstrained piecewise cubic polynomial](figures/7_3.png){width=80%}
+Two different cubic polynomials!
+
+## Unconstrained Piecewise Cubic Polynomial
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3.svg){width=80%}
 
 ::: aside
-This fit has a problem: It's discontinuous!  It looks ridiculous! We have 8 degrees of freedom (2 sets of 4 parameters)
-:::
+Problem: It's *discontinuous*!  It looks terrible! (8 degrees of freedom)
 :::
 
-## Constraints and Splines
-To make the piecewise cubic more reasonable, we introduce constraints:
+-   **Problem:** This fit is *discontinuous* at the knot. This is usually undesirable.
+-   **Degrees of Freedom:** 8 (2 sets of 4 parameters).
+
+## Constraints and Splines: Making it Smooth
+
+To make it better, we add *constraints*:
 
 ::: nonincremental
-* **Continuity**: Make the function continuous at the knot.
-* **Continuous 1st Derivative**: Make the function *smooth* (no sharp turns) at the knot.
-* **Continuous 2nd Derivative**:  Make the function even smoother.
+-   **Continuity:** The function must be *continuous* at the knot (the pieces must meet).
+-   **Continuous 1st Derivative:** The *first derivative* must be continuous (no sharp turns).
+-   **Continuous 2nd Derivative:** The *second derivative* can also be continuous (even smoother).
 :::
 
-::: {layout-ncol=3}
-![Unconstrained piecewise cubic polynomial](figures/7_3.png){width=80%}
+## Visualizing Constraints: Unconstrained
 
-![Continuous Piecewise Cubic](figures/7_3.png){width=80%}
+Let's see the effect of adding constraints. First, the *unconstrained* version:
 
-![Cubic Spline. Continuous, first and second contiuous derivatives](figures/7_3.png){width=80%}
-:::
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3.svg){width=80%}
 
-## Constraints and Splines (Cont.)
+## Visualizing Constraints: Continuous
 
-- Each constraint *reduces* the degrees of freedom.
+Now, with the *continuity* constraint:
 
-- A *cubic spline* with *K* knots uses 4 + *K* degrees of freedom.
-  -   4: base cubic polynomial
-  -   K: number of knots
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_2.svg){width=80%}
 
-- A *linear spline* is continuous, fitting a line in each region, with continuity at each knot.
+## Visualizing Constraints: Cubic Spline
 
-![Linear Spline](figures/7_3.png)
+Finally, the *cubic spline* (continuity, continuous 1st and 2nd derivatives):
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_3.svg){width=80%}
+
+## Constraints and Degrees of Freedom
+
+-   **Reducing Degrees of Freedom:** Each constraint *reduces* the degrees of freedom. We have fewer parameters to estimate.
+-   **Cubic Spline:** A cubic spline with *K* knots has 4 + *K* degrees of freedom.
+    -   4: From the base cubic polynomial.
+    -   *K*: One for each knot.
+
+## Linear Spline
+
+A *linear spline* is continuous, fitting straight lines that meet at the knots:
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_3_4.svg)
 
 ## The Spline Basis Representation
 
-- A cubic spline with K knots can be represented using a basis function model:
+-   **Basis Function Model:** A cubic spline with K knots can be written as:
 
-   $$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i$$
+    $$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + ... + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i$$
 
-- A simple basis is:  $x, x^2, x^3$, and then one *truncated power basis function* per knot:
+-   **Simple Basis:** A common basis is: $x, x^2, x^3$, and *truncated power basis functions*:
 
-   $$h(x, \xi) = (x - \xi)^3_+ = \begin{cases} (x-\xi)^3 & \text{if } x > \xi \\ 0 & \text{otherwise} \end{cases}$$
+    $$h(x, \xi) = (x - \xi)^3_+ = \begin{cases} (x-\xi)^3 & \text{if } x > \xi \\ 0 & \text{otherwise} \end{cases}$$
 
-   where $\xi$ is the knot.
+    where $\xi$ is a knot.
 
-- We can fit this model using least squares.
+## The Spline Basis Representation: Truncated Power Basis
 
-## The Spline Basis Representation (Cont.)
+-   **Truncated Power Basis Function:**  $h(x, \xi)$ is zero until it reaches the knot ($\xi$), then it becomes a cubic. This adds flexibility *locally*.
+-   **Fitting:** We fit this model using least squares.
 
-- To fit a cubic spline with K knots, use least squares with an intercept and 3 + K predictors:  $X, X^2, X^3, h(X, \xi_1), h(X, \xi_2), ..., h(X, \xi_K)$.
+## The Spline Basis Representation: Summary
 
-- Splines can have high variance at the boundaries.
+-   **Cubic Spline with K Knots:** Use least squares with an intercept and 3 + K predictors: $X, X^2, X^3, h(X, \xi_1), ..., h(X, \xi_K)$.
 
-- A *natural spline* adds boundary constraints: the function is *linear* outside the boundary knots.
+-   **Boundary Variance:** Splines can have high variance at the *boundaries* (extreme values of X).
 
-![Cubic Spline and Natural Cubic Spline.](figures/7_4.png)
+## Natural Splines
+
+-   **Boundary Constraints:** A *natural spline* adds boundary constraints: the function is *linear* outside the boundary knots. This stabilizes the fit.
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_4.svg)
+
+The figure shows a cubic spline and a natural cubic spline. The natural spline is linear beyond the boundary knots.
 
 ## Choosing the Number and Locations of the Knots
 
-- Place more knots where the function might vary rapidly, fewer where it's stable.
+-   **Knot Placement:** Where do we put the knots?
 
-- Common practice: Place knots uniformly (e.g., at quantiles of the data).
-  - Specify degrees of freedom.
-  - Software places knots automatically.
+    -   **More Knots Where Function Varies:** More knots where the function changes rapidly, fewer where it's stable.
+    -   **Uniform Placement:** Often, place knots *uniformly* (e.g., at quantiles of the data).
+    -   **Software Automation:** Specify the *degrees of freedom*, and the software places the knots.
 
-![Natural cubic spline with four degrees of freedom.](figures/7_5.png)
+## Choosing the Number and Locations of the Knots: Example
 
-## Choosing the Number and Locations of the Knots(Cont.)
-- How many knots (or degrees of freedom)?
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_5.svg)
 
-- Cross-validation is a more objective approach.
-  - Fit splines with varying numbers of knots.
-  - Compute cross-validated RSS.
-  - Choose the number of knots that minimizes the cross-validated RSS.
+This natural cubic spline (4 degrees of freedom) likely has one knot near the middle, where the curve changes most.
 
-![Ten-fold cross-validated mean squared errors](figures/7_6.png)
+## Choosing the Number of Knots: Cross-Validation
+
+-   **How Many Knots?** Use *cross-validation*!
+
+    1.  **Fit Splines:** Fit splines with different numbers of knots.
+    2.  **Cross-Validated RSS:** Compute the cross-validated RSS for each.
+    3.  **Minimize:** Choose the number of knots that *minimizes* the cross-validated RSS. This gives the best generalization.
+
+## Cross-Validation Example
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_6.svg)
+
+The plot shows ten-fold cross-validated MSE.  Lower is better! The optimal degrees of freedom are where the curve is lowest.
 
 ## Comparison to Polynomial Regression
 
-::: {layout-ncol=2}
-- Regression splines often give better results than polynomial regression.
-- Splines introduce flexibility by increasing knots, *keeping degree fixed*.
-- Polynomials need high degrees for flexibility.
-:::
+-   **Splines vs. Polynomials:** Splines often give *better* results (lower test error).
 
-![Natural cubic spline versus high-degree polynomial.](figures/7_7.png){width=80%}
+-   **Flexibility:**
+    -   **Splines:** Increase flexibility by adding *knots*, keeping the degree fixed (usually cubic).
+    -   **Polynomials:** Need *high degrees* for flexibility, which can lead to problems.
 
-::: aside
-High-degree polynomials can show wild behavior, especially near boundaries.
-:::
+## Splines vs. Polynomials: Visual Comparison
 
-## Smoothing Splines
-
-- An alternative approach that also produces a spline.
-
-### An Overview of Smoothing Splines
-
-- We want to find a function $g(x)$ that fits the data well (small RSS) *and* is *smooth*.
-
-- We minimize:
-
-   $$\sum_{i=1}^{n}(y_i - g(x_i))^2 + \lambda \int g''(t)^2 dt$$
-   - Loss + Penalty
-   - $\lambda$: Non-negative tuning parameter.
-   - $\int g''(t)^2 dt$: Measures the roughness of the function. (Integral of the squared second derivative).
-
-## Smoothing Splines (Cont.)
-
-- $\lambda \int g''(t)^2 dt$ encourages $g$ to be smooth.
-   - Larger $\lambda$ $\Rightarrow$ smoother $g$.
-   - $\lambda = 0$:  $g$ interpolates the data (overfits).
-   - $\lambda \to \infty$: $g$ becomes a linear least squares line.
-- $\lambda$ controls the *bias-variance trade-off*.
-- The function $g(x)$ that minimizes the above equation is a *natural cubic spline* with knots at *every unique value* of $x_i$.
-
-## Choosing the Smoothing Parameter $\lambda$
-
-- A smoothing spline has knots at every data point.
-- But, the tuning parameter $\lambda$ controls the *effective degrees of freedom*.
-- As $\lambda$ increases from 0 to $\infty$, the effective degrees of freedom ($df_{\lambda}$) decrease from $n$ to 2.
-
-- LOOCV (Leave-One-Out Cross-Validation) can be used efficiently:
-
-  $$\text{RSS}_{cv}(\lambda) = \sum_{i=1}^{n} \left( \frac{y_i - \hat{g}_{\lambda}^{(-i)}(x_i)}{1 - \{\mathbf{S}_{\lambda}\}_{ii}} \right)^2$$
-
-- $\hat{g}_{\lambda}^{(-i)}(x_i)$: Fit with observation $i$ left out.
-- $\mathbf{S}_{\lambda}$:  A matrix depending on $\lambda$.
-- LOOCV lets us choose $\lambda$ efficiently.
-
-## Smoothing Splines: Example
-::: {layout-ncol=2}
-Smoothing spline fits to the Wage data. Red curve: 16 effective degrees of freedom. Blue curve: $\lambda$ chosen by LOOCV, resulting in 6.8 effective degrees of freedom.
-
-:::
-
-![Smoothing spline fits with different effective degrees of freedom.](figures/7_8.png)
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_7.svg){width=80%}
 
 ::: aside
-Simpler models are preferred, unless there is strong evidence for a more complex model.
+High-degree polynomials can be *wild*, especially near boundaries.
 :::
 
-## Local Regression
+-   **Key Point:** High-degree polynomials can oscillate wildly. Splines are more stable.
 
-- Fits a model locally, using only *nearby* training observations.
-- **Algorithm:**
-    1. Gather the fraction *s* = *k/n* of training points closest to $x_0$.
-    2. Assign a weight $K_{i0} = K(x_i, x_0)$ to each point in this neighborhood.
-       - Points farthest from $x_0$ get weight zero.
-       - Closest points get the highest weight.
-    3. Fit a *weighted least squares regression*:
+## Smoothing Splines: A Different Approach
+
+-   **Alternative:** Smoothing splines are another way to get a spline, but they take a different path.
+
+-   **Goal:** Find a function $g(x)$ that fits the data well (small RSS) *and* is *smooth*.
+
+## Smoothing Splines: The Optimization Problem
+
+-   **Minimization:** Find $g(x)$ that minimizes:
+
+    $$\sum_{i=1}^{n}(y_i - g(x_i))^2 + \lambda \int g''(t)^2 dt$$
+
+-   **Loss + Penalty:** This is a *loss + penalty* formulation.
+
+    -   **Loss:** $\sum_{i=1}^{n}(y_i - g(x_i))^2$ (RSS). Measures fit.
+    -   **Penalty:** $\lambda \int g''(t)^2 dt$. Penalizes roughness.
+
+## Smoothing Splines: Understanding the Penalty
+
+-   **Roughness Penalty:** $\lambda \int g''(t)^2 dt$ measures the total change in the function's slope.
+
+    -   $g''(t)$: Second derivative. Measures the rate of change of the slope.
+    -   $\int g''(t)^2 dt$: Integrates the squared second derivative. Large value = wiggly. Small value = smooth.
+    -   $\lambda$: Tuning parameter. Controls the trade-off between fit and smoothness.
+
+## Smoothing Splines: The Role of λ
+
+-   **Effect of λ:**
+    -   Larger $\lambda$ $\Rightarrow$ smoother $g$.
+    -   $\lambda = 0$: $g$ *interpolates* the data (perfect fit, but probably overfit).
+    -   $\lambda \to \infty$: $g$ becomes a straight line (least squares line).
+
+-   **Bias-Variance Trade-Off:** $\lambda$ controls the *bias-variance trade-off*.
+
+## Smoothing Splines: The Solution
+
+-   **Natural Cubic Spline:** The solution is a *natural cubic spline*!
+-   **Knots at Data Points:** This spline has knots at *every unique* $x_i$ (every data point)! The penalty ($\lambda$) controls the complexity.
+
+## Choosing the Smoothing Parameter (λ)
+
+-   **Effective Degrees of Freedom:**  $\lambda$ controls the *effective degrees of freedom* ($df_{\lambda}$).
+    -   As $\lambda$ increases, $df_{\lambda}$ decreases from $n$ to 2.
+
+-   **LOOCV:** Use *leave-one-out cross-validation* (LOOCV) to choose $\lambda$.
+
+## LOOCV for Smoothing Splines
+
+The LOOCV formula is:
+
+$$\text{RSS}_{cv}(\lambda) = \sum_{i=1}^{n} \left( \frac{y_i - \hat{g}_{\lambda}^{(-i)}(x_i)}{1 - \{\mathbf{S}_{\lambda}\}_{ii}} \right)^2$$
+
+-   $\hat{g}_{\lambda}^{(-i)}(x_i)$: Fitted value leaving out observation $i$.
+-   $\mathbf{S}_{\lambda}$: A matrix depending on $\lambda$.
+-   **Efficiency:** We *don't* need to refit $n$ times! LOOCV can be computed efficiently.
+
+## Smoothing Splines: Example (Wage Data)
+
+Let's see smoothing splines on the `Wage` data.
+
+-   **Red Curve:** 16 effective degrees of freedom.
+-   **Blue Curve:** $\lambda$ chosen by LOOCV (6.8 effective degrees of freedom).
+
+## Visualizing Smoothing Splines (Wage Data)
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_8.svg)
+
+::: aside
+Simpler models are usually preferred.
+:::
+
+-   **Key Point:** We often prefer the simpler model (blue curve) unless there's strong evidence for the more complex one.
+
+## Local Regression: Fitting Locally
+
+-   **Local Fits:** Fit a model *locally*, using only *nearby* training points.
+
+-   **Algorithm:**
+
+    1.  **Gather Neighbors:** For a target point $x_0$, gather the fraction $s = k/n$ of *closest* points ($k$ neighbors, $n$ total points).
+    2.  **Assign Weights:** Weight each neighbor: $K_{i0} = K(x_i, x_0)$.
+        -   Farthest points: Weight = 0.
+        -   Closest points: Highest weight.
+    3.  **Weighted Least Squares:** Fit *weighted* least squares:
+
         $$\text{minimize } \sum_{i=1}^{n} K_{i0} (y_i - \beta_0 - \beta_1 x_i)^2$$
-    4. The fitted value at $x_0$ is: $\hat{f}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0$.
 
-## Local Regression (Cont.)
+    4.  **Fitted Value:** $\hat{f}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0$.
 
-![Illustration of local regression.](figures/7_9.png)
+## Local Regression: Illustration
 
-- **Key Choice**: The *span*, *s*.
-    - Smaller *s*: More local and wiggly fit.
-    - Larger *s*: Smoother, more global fit.
-- We can use cross-validation to choose *s*.
-- Local regression can be generalized.
-  - Varying coefficient model.
-  - Multi-dimension.
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_9.svg)
 
-![Local linear fits to the Wage data.](figures/7_10.png)
+The shaded region shows the `s = 1/3` closest neighbors to x0.
+
+## Local Regression: The Span (s)
+
+-   **Key Choice: The Span (s):**  Determines the neighborhood size.
+
+    -   Smaller $s$: More *local*, *wigglier* fit.
+    -   Larger $s$: *Smoother*, more *global* fit.
+
+-   **Cross-Validation:** Use cross-validation to choose $s$.
+
+## Local Regression: Example (Wage Data)
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_10.svg)
+
+The figure shows two local linear fits.  A smaller span (s) gives a wigglier curve, and a larger span gives a smoother curve.
+
+## Local Regression: Generalizations
+
+-   **Varying Coefficient Model:** Local regression is a type of *varying coefficient model* (coefficients vary locally).
+-   **Multi-dimensional:** Can be generalized to multiple predictors.
 
 ## Generalized Additive Models (GAMs)
 
-- Extends multiple linear regression to allow non-linear functions of predictors, while maintaining *additivity*.
+-   **Extending Linear Regression:** GAMs allow *non-linear functions* of predictors, while maintaining *additivity*.
 
-$$y_i = \beta_0 + f_1(x_{i1}) + f_2(x_{i2}) + ... + f_p(x_{ip}) + \epsilon_i$$
+-   **The GAM Equation:**
 
-- GAMs allow non-linear functions $f_j$ for each $X_j$.
+    $$y_i = \beta_0 + f_1(x_{i1}) + f_2(x_{i2}) + ... + f_p(x_{ip}) + \epsilon_i$$
 
-- We can use various building blocks: splines, local regression, polynomial regression, step functions.
-- We can fit GAM by "backfitting"
+    -   $f_j$: A (potentially) non-linear function for predictor $j$.
 
-## GAMs: Example
+## GAMs: Key Features
 
-- For the `Wage` data:
+-   **Non-Linear Functions:** Allow non-linear $f_j$ for *each* predictor.
+-   **Additivity:** The model is *additive*. Effects of predictors are added together. This helps with interpretability.
+-   **Building Blocks:** Use various functions for $f_j$:
+    -   Splines (natural, smoothing)
+    -   Local regression
+    -   Polynomials
+    -   Step functions
+    -   Other basis functions
+-   **Fitting:** Use *backfitting*.
 
-   ```
-   wage = β0 + f1(year) + f2(age) + f3(education) + ε
-   ```
+## GAMs: Example (Wage Data)
 
-   - `year`, `age`: quantitative.
-   - `education`: qualitative (5 levels).
+```
+wage = β0 + f1(year) + f2(age) + f3(education) + ε
+```
 
-- Fit using natural splines (for `year`, `age`) and dummy variables (for `education`).
-- The entire model is a large regression on spline basis variables and dummy variables.
+-   `year`, `age`: Quantitative.
+-   `education`: Qualitative (5 levels).
 
-![GAM fit with natural splines.](figures/7_11.png)
+## GAMs: Example (Wage Data) - Implementation
 
-## GAMs: Example (Smoothing Splines)
+-   **Natural Splines:** Use natural splines for `year` and `age`.
+-   **Dummy Variables:** Use dummy variables for `education`.
+-   **Large Regression:** The GAM is a large regression on spline basis variables and dummy variables.
 
-![GAM fit with smoothing splines.](figures/7_12.png)
+## GAMs: Example (Wage Data) - Natural Splines
 
-- We can also fit using *smoothing splines*.
-- In most cases, results are similar between natural and smoothing splines.
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_11.svg)
+
+Each panel shows the effect of a predictor, holding others constant. Year and age are non-linear. Education's effect is shown by level shifts.
+
+## GAMs: Example (Wage Data) - Smoothing Splines
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_12.svg)
+
+-   **Smoothing Splines:** Can also use smoothing splines.
+-   **Similar Results:** Natural and smoothing splines usually give similar results.
 
 ## GAMs for Classification Problems
 
-- Can be used when Y is qualitative (e.g., binary).
+-   **Qualitative Response:** GAMs can be used when $Y$ is qualitative.
 
-- Logistic regression GAM:
+-   **Logistic Regression GAM:** For a binary response:
 
-  $$\log\left( \frac{p(X)}{1 - p(X)} \right) = \beta_0 + f_1(X_1) + f_2(X_2) + ... + f_p(X_p)$$
+    $$\log\left( \frac{p(X)}{1 - p(X)} \right) = \beta_0 + f_1(X_1) + f_2(X_2) + ... + f_p(X_p)$$
 
-- Example:  Predict `wage` > 250 using a GAM.
+    where $p(X) = \text{Pr}(Y = 1 | X)$.
 
-![Logistic regression GAM.](figures/7_13.png)
+## GAMs for Classification: Example
+
+-   **Example:** Predict `wage` > 250 using a GAM.
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F7_13.svg)
+
+This shows a logistic regression GAM.  Year and age have non-linear effects. The plot for education shows the effect of each level on the log-odds of high earnings.
 
 ## Pros and Cons of GAMs
 
 ::: nonincremental
-- **Pros:**
-    - Automatic modeling of non-linear relationships.
-    - Potentially more accurate predictions.
-    - Additivity helps interpret individual effects.
-    - Smoothness can be summarized via degrees of freedom.
+-   **Pros:**
+    -   **Automatic Non-Linearity:** Model non-linearity automatically.
+    -   **Potentially More Accurate:** Better predictions when relationships are non-linear.
+    -   **Interpretability:** Additivity helps with interpretation.
+    -   **Smoothness Summarization:** Smoothness is summarized by effective degrees of freedom.
 
-- **Cons:**
-    - Restricted to be additive (can miss interactions).
-    - Interactions can be manually added.
+-   **Cons:**
+    -   **Additivity Restriction:** GAMs are *additive*. They can miss *interactions* (unless explicitly added).
+    - **Interaction Handling**
+        - The effect of the change of one predictor on the response variable may also depend on other predictors. This is so-called *interaction*.
+        - By default, GAM assumes no interaction between predictors.
+        - We can manually add interaction terms: `y ~ x1 + x2 + f(x3, x4)`.
 :::
 
 ## Summary
 
-- This chapter explored techniques for *moving beyond linearity* in regression models.
-- We saw how to incorporate non-linear relationships using:
-    - Polynomial regression
-    - Step functions
-    - Regression splines
-    - Smoothing splines
-    - Local regression
-    - Generalized Additive Models (GAMs)
-- These methods allow for more flexibility while maintaining interpretability.
-- Cross-validation is crucial for choosing tuning parameters.
-- GAMs extend these ideas to multiple predictors.
+-   **Beyond Linearity:** We explored techniques for going *beyond* linear models.
+-   **Non-Linear Techniques:** Learned about:
+    -   Polynomial regression
+    -   Step functions
+    -   Regression splines
+    -   Smoothing splines
+    -   Local regression
+    -   GAMs
+-   **Flexibility and Interpretability:** These methods offer more flexibility while maintaining interpretability.
+-   **Cross-Validation:** Crucial for choosing tuning parameters to avoid overfitting.
+-   **GAMs:** Extend non-linear ideas to multiple predictors.
 
 ## Thoughts and Discussion
 
-- When would you choose a linear model over a non-linear model, and vice-versa?
-
-- How do the different non-linear techniques compare in terms of flexibility and interpretability?
-
-- Can you think of situations where a GAM might not be sufficient, and a more complex model (e.g., tree-based methods) would be needed?
-
-- How can you incorporate interactions into GAMs?
-- Discuss the trade-off between using smoothing splines and regression splines. When might one be preferred over the other?
+-   **Linear vs. Non-Linear:** When choose linear vs. non-linear? Consider simplicity vs. accuracy.
+-   **Comparing Techniques:** How do the techniques compare in flexibility and interpretability?
+-   **Beyond GAMs:** When might a GAM *not* be enough? (Complex interactions, highly non-linear relationships).
+-   **Interactions in GAMs:** How can you add interactions? Trade-offs?
+-   **Smoothing Splines vs. Regression Splines:** Discuss the trade-offs between smoothing and regression splines. Consider computation, implementation, and knot placement.

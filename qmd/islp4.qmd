@@ -1,170 +1,404 @@
-## Introduction to Classification 
+---
+title: "Statistical Learning: Classification"
+---
 
-::: {.incremental}
--  So far, we've focused on **regression** problems, where the response variable is *quantitative*.
--  Now, we shift gears to **classification** problems, where the response variable is *qualitative* (categorical).
--  **Goal:** To predict a qualitative response – that is, to classify an observation into a category or class.
-- Examples:
-    -  Predicting whether a patient has a specific disease (yes/no).
-    -  Classifying an email as spam or not spam.
-    -  Determining whether a credit card transaction is fraudulent.
+## Welcome to Classification! 👋
+
+::: {layout-ncol=1}
+So far, we've journeyed through the world of **regression**, where we predicted *numbers*. Now, we're switching gears to **classification**, where we predict *categories*.  Think of it like sorting objects into different boxes! 📦
+:::
+
+## Regression vs. Classification: The Big Picture
+
+::: {layout-ncol=1}
+::: {.callout-note appearance="simple"}
+**Regression:** Predicting a *quantitative* (numerical) response.
+:::
+-   Examples:
+    -   Predicting house prices 🏠
+    -   Estimating sales revenue 💰
+    -   Forecasting stock prices 📈
+:::
+
+## Regression vs. Classification: The Big Picture (Continued)
+
+::: {layout-ncol=1}
+::: {.callout-note appearance="simple"}
+**Classification:** Predicting a *qualitative* (categorical) response.
+:::
+-   Examples:
+    -   Diagnosing a disease (present or absent) ⚕️
+    -   Filtering spam emails (spam or not spam) 📧
+    -   Detecting fraudulent transactions (fraud or not fraud) 💳
 :::
 
 ## What is Classification?
 
--  **Classification** involves assigning an observation to a category, or class.
--  It's like sorting things into different boxes. 📦
-- Many methods first predict the *probability* of belonging to each category, and classify based on those probabilities.
+::: {layout-ncol=1}
+-   **Classification** is like sorting objects into distinct groups based on their features.
+-   We assign each observation to a specific category or class.
 
-## Classification vs. Regression
-
-| Feature | Regression  | Classification  |
-| ------- | ------------------ | ------------------ |
-| Response Variable | Quantitative | Qualitative |
-| Goal  | Predict a numerical value | Predict a category |
-| Example  | Predict house price  | Predict disease presence (yes/no)  |
-
-## Why Not Linear Regression?
-
-::: {layout-ncol=2}
-- Text material pointed out linear regression is not appropriate in the case of a qualitative response.
--  Suppose there are three possible diagnoses: *stroke*, *drug overdose*, and *epileptic seizure*. 
-- We *could* try coding them numerically (e.g., 1=stroke, 2=drug overdose, 3=epileptic seizure).
-
-![Medical conditions coding](figures/4_1a.png){fig-align="center"}
+```{mermaid}
+graph LR
+    A[Observation 1] --> C(Class A)
+    B[Observation 2] --> D(Class B)
+    C --> E[Classification]
+    D --> E
+```
 :::
 
-::: incremental
-- But this imposes an *order* and *equal differences* that may not make sense!
--  Different codings would give completely different models and predictions!
--  For *binary* (two-level) responses, linear regression *can* work (0/1 coding), but probabilities might fall outside [0,1]. Better options exist!
+##  Classification: Probabilities First
+
+- Many classification methods start by predicting the *probability* of an observation belonging to each category.
+-  Then, based on these probabilities (and a threshold), we make the final classification.
+
+::: {layout-ncol=1}
+-   **Example:**
+    -   An email: 70% chance of being spam, 30% chance of not being spam.
+    -   With a 50% threshold, we'd classify it as spam! 📧
 :::
 
-## Example: The Default Data
+## Classification vs. Regression: A Clear Comparison
 
--   We'll use a simulated dataset called "Default".
--   Goal: Predict whether an individual will default on their credit card payment.
--   Predictors:
-    -   Annual income.
-    -   Monthly credit card balance.
-- Response: `default` (Yes/No)
+::: {layout-ncol=1}
+
+| Feature           | Regression                             | Classification                           |
+| :---------------- | :------------------------------------- | :--------------------------------------- |
+| Response Variable | Quantitative (numerical)               | Qualitative (categorical)                |
+| Goal              | Predict a *number*                     | Predict a *category*                     |
+| Example           | Predict house price                    | Predict disease presence (yes/no)       |
+| Output            | Continuous value                       | Discrete category                        |
+
+: {tbl-colwidths="[20,40,40]"}
+:::
+
+## Why NOT Linear Regression for Categories? 🤔
+
+- Linear regression is designed for *numbers*.  What happens if we try to use it for categories?  Let's consider predicting a medical diagnosis with three possibilities:
+
+    1.  Stroke
+    2.  Drug overdose
+    3.  Epileptic seizure
+
+## A Problematic Coding Scheme 🤕
+
+- We *could* try to code these numerically:
+
+    -   1 = Stroke
+    -   2 = Drug overdose
+    -   3 = Epileptic seizure
+
+- But this approach introduces serious problems!
+
+![Medical conditions coding](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Fcoding.png){fig-align="center"}
+
+## The Problems with Numerical Coding ❌
+
+::: {layout-ncol=1}
+-   **Problem 1: Arbitrary Order:** The coding implies an order (stroke < drug overdose < epileptic seizure) that is medically *meaningless*.
+
+-   **Problem 2: Equal Differences:**  It suggests equal differences between conditions (stroke to drug overdose = drug overdose to seizure), which is also *not* medically valid.
+
+-   **Problem 3: Inconsistent Results:**  Different coding schemes (e.g., 1=drug overdose, 2=seizure, 3=stroke) would lead to completely *different* models and predictions!
+:::
+
+##  Binary Responses: A Special Case?
+
+-   **Binary Responses (Two Categories):**  If we have only *two* categories (yes/no, true/false), we *can* code them as 0 and 1. Linear regression *can* be used in this case.
+
+-   **However:**
+    -   Linear regression might predict probabilities *outside* the [0, 1] range. This is nonsensical.
+    -   Better methods exist that are specifically designed for binary classification (like logistic regression!).
+
+## Example: The Default Data 💳
+
+- We'll use a simulated dataset called "Default" to explore classification.
+
+::: {layout-ncol=1}
+-   **Goal:** Predict whether an individual will *default* on their credit card payment.
+-   **Response:** `default` (Yes/No) – a binary, qualitative variable.
+-   **Predictors:**
+    -   `balance`: Credit card balance (quantitative).
+    -   `income`: Annual income (quantitative).
+:::
 
 ## Visualizing the Default Data
 
-![The Default data set](figures/4_1a.png){fig-align="center" width="800"}
+![The Default data set](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg){fig-align="center" width="800"}
 
-::: {.callout-note appearance="simple"}
-- **Left:** Scatterplot of income and balance, color-coded by default status (orange = defaulted, blue = did not default).
-- **Center:** Boxplots of balance, separated by default status. Defaulters tend to have higher balances.
-- **Right:** Boxplots of income, separated by default status. The relationship is less clear here.
-:::
-::: {.callout-tip appearance="simple"}
-Higher credit card balances seem associated with a higher probability of default.
+## Default Data: Left Panel - Scatterplot
+
+::: {layout-ncol=1}
+![The Default data set](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg){fig-align="center" width="800"}
 :::
 
-## Logistic Regression: The Core Idea
+-   **Left Panel (Scatterplot):**
+    -   `income` (x-axis) vs. `balance` (y-axis).
+    -   Orange: Individuals who defaulted.
+    -   Blue: Individuals who did not default.
+    -   We see *some* separation: defaulters tend to have higher balances, but there's overlap.
 
--   Instead of modeling the *response* directly, logistic regression models the *probability* that Y belongs to a particular category.
--   For the Default data, we model:  Pr(default = Yes | balance, income)
--   This probability will always be between 0 and 1. 👍
--   Once we have the probability, we can classify (e.g., predict "default=Yes" if the probability is > 0.5).
+## Default Data: Center Panel - Balance Boxplots
 
-## The Logistic Model
+::: {layout-ncol=1}
+![The Default data set](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg){fig-align="center" width="800"}
+:::
 
--   We need a function that outputs values between 0 and 1, for any input. The **logistic function** does this!
+-   **Center Panel (Boxplots of Balance):**
+    -   Compares `balance` distribution for defaulters (orange) and non-defaulters (blue).
+    -   The orange boxplot is shifted *higher*, indicating higher balances for defaulters on average.
+    -   Boxes show the interquartile range (IQR), and whiskers show the range (excluding outliers).
+
+## Default Data: Right Panel - Income Boxplots
+
+::: {layout-ncol=1}
+![The Default data set](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_1.svg){fig-align="center" width="800"}
+:::
+
+-   **Right Panel (Boxplots of Income):**
+    -   Compares `income` distribution for defaulters (orange) and non-defaulters (blue).
+    -   The relationship is *much less clear* than with `balance`. The boxplots largely overlap.
+
+## Default Data: Key Takeaway
+
+- The visualizations suggest that `balance` is a *stronger predictor* of `default` than `income`. Higher balances seem associated with a higher probability of default. This guides our model building.
+
+## Logistic Regression: Modeling the *Probability*
+
+-   Logistic regression doesn't directly model the *response* (`default`). Instead, it models the *probability* that the response belongs to a specific category.
+
+::: {layout-ncol=1}
+-   **Specifically:** We model Pr(default = Yes | balance, income) – the probability of defaulting, *given* balance and income.
+-   This probability will always be between 0 and 1, which makes perfect sense! 👍
+:::
+
+## Logistic Regression: From Probability to Classification
+
+-   Once we have the estimated probability of default, we can *classify*.
+
+::: {layout-ncol=1}
+-   **Example:**
+    -   If Pr(default = Yes | balance, income) > 0.5, predict "default = Yes".
+    -   If Pr(default = Yes | balance, income) ≤ 0.5, predict "default = No".
+-   The 0.5 threshold is common, but it's adjustable.
+:::
+
+## The Logistic Function: Bending Between 0 and 1
+
+-   We need a function that always outputs a value between 0 and 1, no matter the input. The **logistic function** is perfect for this:
 
 $$
 p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}
 $$
 
-::: {.callout-note appearance="simple"}
+##  Logistic Function: Breaking it Down
+
 -   *p(X)*: Probability of the event (e.g., default) given predictor(s) *X*.
--   β₀ and β₁: Coefficients estimated from the data.
--   *e*: The base of the natural logarithm (approximately 2.718).
+-   β₀ and β₁: Coefficients estimated from the data. They control the curve's shape and position.
+-   *e*: The base of the natural logarithm (≈ 2.718).
+
+-   **Crucial Feature:**  No matter the value of β₀ + β₁X, the output *p(X)* is *always* between 0 and 1.
+
+## The Logistic Function: An S-Shaped Curve
+
+-   The logistic function creates an S-shaped curve (a sigmoid).
+
+```{mermaid}
+graph LR
+    A[Low X] --> B(Low p(X) ~ 0)
+    B --> C{Increasing X}
+    C --> D(Increasing p(X))
+    D --> E[High X]
+    E --> F(High p(X) ~ 1)
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+```
+
+-   As X increases, p(X) smoothly transitions from near 0 to near 1.
+
+## Linear vs. Logistic: A Visual Comparison
+
+![Classification using the Default data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg){fig-align="center" width="800"}
+
+## Linear Regression: The Problem
+
+::: {layout-ncol=1}
+![Classification using the Default data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg){fig-align="center" width="800"}
 :::
 
-- This produces an S-shaped curve.
+-   **Left Panel (Linear Regression):**
+    -   Blue line: Fit of a linear regression to the `default` data (0/1 coded).
+    -   *Major Issue:*  For low/high `balance`, predicted probabilities are *outside* [0, 1]!  Probabilities can't be negative or greater than 1. 🙁
 
-## Linear vs. Logistic Regression on Default Data
+## Logistic Regression: The Solution
 
-![Classification using the Default data](figures/4_2.png){fig-align="center" width="800"}
-
-::: {.callout-note appearance="simple"}
-- **Left:** Linear regression.  Notice the negative probabilities and probabilities > 1! 🙁
-- **Right:** Logistic regression.  Probabilities are always between 0 and 1. 🙂
+::: {layout-ncol=1}
+![Classification using the Default data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_2.svg){fig-align="center" width="800"}
 :::
 
-::: {.callout-tip appearance="simple"}
-Logistic regression provides a more sensible fit for binary outcomes.
-:::
+-   **Right Panel (Logistic Regression):**
+    -   Orange curve: Fit of a logistic regression.
+    -   Predicted probabilities are *always* between 0 and 1, as they should be! 🙂
+    -   The characteristic S-shape.
 
-## The Logistic Model (Continued)
+## Linear vs. Logistic: The Verdict
 
-- A little algebra reveals a connection to *odds*:
+- Logistic regression is *far* more appropriate for modeling probabilities and binary outcomes. It respects the fundamental constraint that probabilities must be between 0 and 1.
+
+##  Odds: Another Way to Think About Probability
+
+-   We can rewrite the logistic model to highlight its connection to *odds*:
 
 $$
 \frac{p(X)}{1 - p(X)} = e^{\beta_0 + \beta_1X}
 $$
 
-- The left side is the **odds**, which can range from 0 to ∞.
+-   **Left-hand side:** The *odds* of the event (e.g., default).
+    -   Odds range from 0 to ∞.
+    -   Odds = 1: Event is equally likely to happen or not.
+    -   Odds > 1: Event is *more* likely to happen.
+    -   Odds < 1: Event is *less* likely to happen.
+- **Relationship:** Odds = p / (1 - p)
 
-- Taking the logarithm of both sides:
+- **Example:** If p(X) = 0.8, odds are 0.8 / (1 - 0.8) = 4. The event is four times more likely to happen than not.
+
+##  Log-Odds (Logit): The Linear Connection
+
+-   Taking the *logarithm* of both sides of the odds equation:
 
 $$
 \log\left(\frac{p(X)}{1 - p(X)}\right) = \beta_0 + \beta_1X
 $$
 
-- The left side is the **log-odds** or **logit**.  This is *linear* in X!
+-   **Left-hand side:** The *log-odds* or *logit*.
+-   **Right-hand side:** A *linear* function of X.
 
-## Interpreting the Coefficients
+-   **Key Insight:** Logistic regression models the *log-odds* as a linear function of the predictors. This explains the "logistic" in its name, even though it's for classification!
 
--   In linear regression, β₁ is the *average change in Y* for a one-unit increase in X.
--   In logistic regression, β₁ is the *change in the log-odds* for a one-unit increase in X.
+##  Interpreting Logistic Regression Coefficients
+
+-   **Linear Regression:**  β₁ is the *average change in Y* for a one-unit increase in X.
+
+-   **Logistic Regression:** The interpretation is different because we're modeling the log-odds.
+
+::: {layout-ncol=1}
+-   β₁ is the *change in the log-odds* for a one-unit increase in X.
 -   Equivalently, a one-unit increase in X *multiplies the odds* by e<sup>β₁</sup>.
--   The *amount* p(X) changes depends on the *current value* of X, because the relationship is non-linear.
 
-## Estimating the Coefficients
+-   Because of the non-linear S-curve, the *amount* p(X) changes for a one-unit increase in X depends on the *current value* of X. The change is not probability.
+:::
 
--   We use **maximum likelihood estimation (MLE)**.  
-- The goal is to find the coefficients (β₀, β₁, etc.) that make the *observed data* most likely.
-- The likelihood function for logistic regression:
+##  Estimating Coefficients: Maximum Likelihood (MLE)
+
+-   We use **maximum likelihood estimation (MLE)** to find the best estimates for β₀, β₁, etc.
+
+-   **Goal of MLE:** Find the coefficient values that make the *observed data* most likely.  We want to maximize the probability of observing the actual outcomes (defaults/non-defaults) in our training data, *given* the coefficients.
+
+## The Likelihood Function: Making Data Likely
+
+-   The **likelihood function** for logistic regression is:
 
 $$
 l(\beta_0, \beta_1) = \prod_{i:y_i=1} p(x_i) \prod_{i':y_{i'}=0} (1 - p(x_{i'}))
 $$
 
-::: {.callout-note appearance="simple"}
-- We multiply the probabilities of observing each data point, given the coefficients.
-- For defaulters (yᵢ=1), we use p(xᵢ).  For non-defaulters (yᵢ'=0), we use 1-p(xᵢ').
-:::
-- Software (like R) handles the maximization for us.
+##  Likelihood Function: Demystified
 
-## Making Predictions
+-   This formula might look complex, but the core idea is simple.
 
-- Once we have the estimated coefficients, we can predict the probability of default for *any* given values of balance and income.
+-   We multiply the probabilities of observing each data point, *given* coefficients β₀ and β₁.
 
--   Example (using coefficients from Table 4.1):
-    -   balance = $1,000:  p(X) ≈ 0.00576 (less than 1% chance of default)
-    -   balance = $2,000:  p(X) ≈ 0.586 (58.6% chance of default)
+-   **First Product:**  Π<sub>i:yᵢ=1</sub> p(xᵢ)
+    -   Considers individuals who *did* default (yᵢ = 1).
+    -   For each, p(xᵢ) is the probability of default, given their predictors (xᵢ) and the current coefficients.
 
-- We can classify based on a threshold (e.g., classify as "default" if p(X) > 0.5).
+-   **Second Product:**  Π<sub>i':yᵢ'=0</sub> (1 - p(xᵢ'))
+    -   Considers individuals who *did not* default (yᵢ' = 0).
+    -   For each, 1 - p(xᵢ') is the probability of *not* defaulting.
 
-## Multiple Logistic Regression
+-   **Overall:** Multiplying these probabilities gives the likelihood of the entire dataset, given the coefficients. MLE finds the coefficients that maximize this product.
 
--   Just like with linear regression, we can include *multiple predictors*:
+##  Optimization: Letting the Computer Do the Work
+
+-   We don't maximize the likelihood function by hand! Statistical software (like R) has built-in optimization algorithms.
+
+-   These algorithms find the values of β₀, β₁, etc., that maximize the likelihood, giving us the *maximum likelihood estimates*.
+
+## Making Predictions: From Coefficients to Probabilities
+
+-   With the estimated coefficients (β̂₀, β̂₁, etc.), we can predict the probability of default for *any* given predictor values.
+
+-   Plug the values into the logistic function:
+
+   p(X) = e<sup>(β̂₀ + β̂₁X)</sup> / (1 + e<sup>(β̂₀ + β̂₁X)</sup>)
+
+## Prediction Example: Putting it into Practice
+
+-   Suppose we get these estimated coefficients (illustrative values):
+
+    -   β̂₀ = -2
+    -   β̂₁ = 0.005 (where X is `balance`)
+
+-   Predict default probability for two individuals:
+
+    1.  Individual A: `balance` = $1,000
+    2.  Individual B: `balance` = $2,000
+
+-   **Calculations:**
+
+    -   Individual A: p(X) = e<sup>(-2 + 0.005 * 1000)</sup> / (1 + e<sup>(-2 + 0.005 * 1000)</sup>) ≈ 0.95
+    -   Individual B: p(X) = e<sup>(-2 + 0.005 * 2000)</sup> / (1 + e<sup>(-2 + 0.005 * 2000)</sup>) ≈ 1
+
+-   **Predictions:**
+
+    -   Individual A: Estimated probability of default ≈ 95%.
+    -   Individual B: Estimated probability of default ≈ 100%.
+
+##  From Probabilities to Classes: The Threshold
+
+-   After calculating probabilities, we *classify* using a threshold.
+
+-   **Common Threshold:** 0.5
+
+-   **Classification Rule:**
+
+    -   If p(X) > 0.5, predict "default = Yes".
+    -   If p(X) ≤ 0.5, predict "default = No".
+
+-   **In our example:**
+
+    -   Individual A: Predict "default = Yes" (0.95 > 0.5).
+    -   Individual B: Predict "default = Yes" (1 > 0.5).
+
+## Multiple Logistic Regression: More Predictors!
+
+-   Like linear regression, we can include *multiple* predictors.
+
+-   **The Model:**
 
 $$
 \log\left(\frac{p(X)}{1 - p(X)}\right) = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p
 $$
+
 $$
 p(X) = \frac{e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}}{1 + e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}}
 $$
--   We estimate the coefficients using MLE.
-- Interpretation:  βⱼ represents the change in log-odds for a one-unit increase in Xⱼ, *holding all other predictors constant*.
 
-## Example: Multiple Logistic Regression on Default Data
+## Multiple Logistic Regression: Explained
 
--   Predictors: balance, income, student (dummy variable: 1 if student, 0 if not).
+-   X₁, X₂, ..., X<sub>p</sub>: The *p* predictors.
+-   β₀, β₁, β₂, ..., β<sub>p</sub>: Coefficients estimated from the data.
+-   The log-odds are now a linear function of *all* predictors.
+-   We still use MLE to estimate coefficients.
+
+-   **Interpretation:**
+    -   β<sub>j</sub>: Change in log-odds for a one-unit increase in X<sub>j</sub>, *holding all other predictors constant*.
+    -   Equivalently, a one-unit increase in X<sub>j</sub> multiplies the odds by e<sup>β<sub>j</sub></sup>, holding others constant.
+
+##  Example: Multiple Logistic Regression on Default
+
+-   Model: `default` ~ `balance` + `income` + `student`
+-   `student` is a *dummy variable*:
+    -   `student` = 1 if student, 0 if not.
 
 |             | Coefficient | Std. error | z-statistic | p-value  |
 | :---------- | :---------- | :--------- | :---------- | :------- |
@@ -174,172 +408,321 @@ $$
 | student[Yes]| -0.6468     | 0.2362     | -2.74       | 0.0062   |
 : {tbl-colwidths="[25,25,20,15,15]"}
 
--   *Surprising* result: The coefficient for `student` is *negative*!  This suggests students are *less* likely to default, holding balance and income constant.
+## Interpreting the Coefficients: A Deep Dive
 
-## Confounding
+-   **Intercept (β₀ = -10.8690):** Log-odds of default for a non-student with `balance` = 0 and `income` = 0. Not directly interpretable.
 
-![Confounding in the Default data.](figures/4_3.png)
+-   **balance (β₁ = 0.0057):**  For each $1 increase in `balance`, the log-odds of default increase by 0.0057, *holding income and student status constant*.  Equivalently, odds multiply by e<sup>0.0057</sup> ≈ 1.0057.
 
-::: {.callout-note appearance="simple"}
--   **Left:** Default rates for students (orange) and non-students (blue) as a function of balance.  Solid lines:  default rate at each balance.  Dashed lines:  *overall* default rate.
--   **Right:** Boxplots of balance for students and non-students.
+-   **income (β₂ = 0.0030):** For each $1 increase in `income`, the log-odds of default *increase* by 0.003, holding other variables constant. It's not significant.
+
+-   **student[Yes] (β₃ = -0.6468):** Being a student *decreases* the log-odds of default by 0.6468, holding `balance` and `income` constant.  Odds multiply by e<sup>-0.6468</sup> ≈ 0.52. *Surprising!* We might expect the opposite, but this is *controlling for balance and income*.
+
+## Confounding: Unmasking Hidden Relationships
+
+-   The surprising student result is due to **confounding**.
+
+![Confounding in the Default data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg)
+
+## Confounding: Left Panel - Default Rates
+
+::: {layout-ncol=1}
+![Confounding in the Default data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg)
 :::
 
--   Students have *higher* overall default rates (dashed lines), but *lower* default rates at each balance level (solid lines).
--   Reason:  `student` and `balance` are *correlated*.  Students tend to have higher balances, which are associated with higher default rates.
--   This is **confounding**:  The effect of one predictor is mixed up with the effect of another.
+-   **Left Panel (Default Rates vs. Balance):**
+    -   Orange: Students.
+    -   Blue: Non-students.
+    -   Solid: Default rate at *each* balance level.
+    -   Dashed: *Overall* (average) default rate.
 
-## Multinomial Logistic Regression
+-   **Key:** Students have *higher overall* default rates (dashed), but *lower* rates at *each balance level* (solid).
 
--   What if the response has *more than two* categories? (e.g., medical diagnosis: stroke, drug overdose, epileptic seizure)
--   **Multinomial logistic regression** extends the two-class case.
--   We choose a *baseline* category (e.g., the Kth category).
--   We model the log-odds of each category *relative to the baseline*:
+## Confounding: Right Panel - Balance Distribution
+
+::: {layout-ncol=1}
+![Confounding in the Default data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_3.svg)
+:::
+
+-   **Right Panel (Boxplots of Balance):**
+    -   Compares `balance` distribution for students (orange) and non-students (blue).
+    -   Students tend to have *higher* credit card balances.
+
+##  Confounding: The Full Story
+
+1.  **Students have higher balances.** (Right panel boxplots)
+2.  **Higher balances lead to higher default rates.** (Our initial finding)
+3.  **Thus, students have higher *overall* default rates due to higher balances.** (Dashed lines in left panel)
+4.  **But, *controlling for balance*, students have *lower* default rates.** (Solid lines in left panel, and the multiple logistic regression coefficient)
+
+-   **Confounding:** The effect of `student` status is mixed up with `balance`. Without controlling for `balance`, we get a misleading impression.
+
+## Multinomial Logistic Regression: Beyond Two Categories
+
+-   What if we have *more than two* response categories?
+
+-   **Example:** Medical diagnosis:
+
+    1.  Stroke
+    2.  Drug overdose
+    3.  Epileptic seizure
+
+-   **Multinomial logistic regression** extends logistic regression to handle this.
+
+##  Multinomial Logistic Regression: The Core Concept
+
+-   We choose one category as a *baseline* (e.g., "stroke").
+-   We model the log-odds of *each other category relative to the baseline*.
+
+-   **Model:**
 
 $$
 \log\left(\frac{\Pr(Y = k|X = x)}{\Pr(Y = K|X = x)}\right) = \beta_{k0} + \beta_{k1}x_1 + \dots + \beta_{kp}x_p
 $$
 
--   There are K-1 sets of coefficients.
-- The choice of baseline is arbitrary; the *predictions* will be the same regardless.
+## Multinomial Logistic Regression: Details
 
-## Multinomial Logistic Regression: Softmax Coding
+-   *k*: Index for categories (k = 1, 2, ..., K-1). We have K-1 equations.
+-   *K*: Baseline category.
+-   β<sub>k0</sub>, β<sub>k1</sub>, ..., β<sub>kp</sub>: Coefficients for category *k* (relative to baseline). K-1 sets of these.
+-   X = (x₁, x₂, ..., x<sub>p</sub>): Predictors.
 
-- An alternative, equivalent formulation is **softmax coding**.
-- Instead of a baseline, we treat all *K* classes symmetrically:
+-   This models the log-odds of being in category *k* *compared to* the baseline *K*, as a linear function of the predictors.
+
+-   **Key:** The baseline choice is arbitrary. *Predicted probabilities* are the same regardless.
+
+##  Multinomial Logistic Regression: Softmax Coding (Alternative)
+
+-   **Softmax coding** is an equivalent formulation, treating all *K* categories symmetrically.
+
+-   **Model:**
 
 $$
 \Pr(Y = k|X = x) = \frac{e^{\beta_{k0} + \beta_{k1}x_1 + \dots + \beta_{kp}x_p}}{\sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}x_1 + \dots + \beta_{lp}x_p}}
 $$
 
-- This is often used in machine learning.
+## Softmax Coding: Breakdown
 
-## Generative Models for Classification
+-   This calculates Pr(Y = k | X).
+-   Numerator: Exponentiated linear combination for category *k*.
+-   Denominator: *Sum* of exponentiated linear combinations for *all* categories.  Ensures probabilities sum to 1.
 
-- Logistic regression *directly* models Pr(Y = k | X = x).
-- Now we explore an *indirect* approach:
-    1.  Model the distribution of the predictors *X* separately in each response class (i.e., for each value of *Y*).
-    2.  Use **Bayes' theorem** to "flip" these around into estimates of Pr(Y = k | X = x).
+-   **Softmax Function:** Transforms linear combinations into probabilities. Generalizes the logistic function.
 
-- These are called **generative models** because they specify how the data is generated.
+-   **Use in Machine Learning:** Common in neural networks for multi-class classification.
 
-## Bayes' Theorem for Classification
+##  Generative Models: A Different Approach
 
-- Let π<sub>k</sub> be the *prior probability* that an observation comes from class *k*.
-- Let f<sub>k</sub>(X) = Pr(X | Y = k) be the *density function* of X for an observation from class *k*.
-- **Bayes' theorem** states:
+-   So far, we've *directly* modeled Pr(Y = k | X) (e.g., logistic regression).
+
+-   **Generative models** take an *indirect* approach:
+
+    1.  **Model the distribution of predictors *X* *separately for each response class*.**  This is Pr(X | Y = k).
+    2.  **Use Bayes' theorem to "flip" this to get Pr(Y = k | X).** This is what we want for classification.
+
+## Bayes' Theorem: The Key to "Flipping"
+
+-   Definitions:
+    -   π<sub>k</sub>: *Prior probability* of an observation coming from class *k* (overall probability).
+    -   f<sub>k</sub>(X) = Pr(X | Y = k): *Density function* of predictors *X* for class *k* (how predictors are distributed *within* class *k*).
+
+-   **Bayes' Theorem:**
 
 $$
 \Pr(Y = k|X = x) = \frac{\pi_k f_k(x)}{\sum_{l=1}^K \pi_l f_l(x)}
 $$
 
-- To use this, we need to estimate π<sub>k</sub> and f<sub>k</sub>(x). Estimating π<sub>k</sub> is usually easy (fraction of training observations in class k). Estimating f<sub>k</sub>(x) is harder.
+## Bayes' Theorem: Explained
 
-## Why Bother with Generative Models?
+-   **Left-hand side:** Pr(Y = k | X = x) – *Posterior probability*. Probability of class *k*, *given* predictors *x*. What we want.
 
-::: {layout-ncol=2}
-If we already have logistic regression, why use this indirect approach?
+-   **Right-hand side:**
 
-- When there is substantial separation between classes, logistic regression parameters can be unstable. Generative models may be better.
-- If the distribution of predictors is approximately normal within each class, and the sample size is small, generative models may be more accurate.
-- Generative models can be easily extended to more than two response classes.
-:::
+    -   π<sub>k</sub>: Prior probability of class *k*.
+    -   f<sub>k</sub>(x): Density of predictors *X* for class *k*.
+    -   Σ<sub>l=1</sub><sup>K</sup> π<sub>l</sub>f<sub>l</sub>(x): Normalizing constant (sum over all classes). Ensures probabilities sum to 1.
 
-## Linear Discriminant Analysis (LDA)
+-   **Intuition:** Bayes' theorem updates our prior belief (π<sub>k</sub>) based on evidence from predictors (f<sub>k</sub>(x)).
 
-- **Assumptions:**
-    -   f<sub>k</sub>(x) is *normal* (Gaussian).
-    -   We have a *common variance* across all K classes (σ²).
+- To use Bayes' theorem, we must estimate πk and fk(x). Estimating πk is easy, while estimating fk(x) is hard.
 
-- For a single predictor (p=1):
+##  Why Generative Models? Advantages
+
+-   Why this indirect approach when we have direct methods like logistic regression?
+
+-   **Stability:** With *substantial class separation* (predictors clearly distinguish classes), logistic regression parameter estimates can be unstable. Generative models can be more stable.
+
+-   **Small Sample Size + Normality:** If predictors are approximately *normal* within each class, *and* the sample size is small, generative models like LDA can be more accurate.
+
+-   **More Than Two Classes:** Generative models easily handle multiple classes.
+
+## Linear Discriminant Analysis (LDA): A Generative Model
+
+-   **LDA** is a generative model with specific assumptions about predictor distribution.
+
+-   **LDA Assumptions:**
+
+    1.  **Normality:** Density functions f<sub>k</sub>(x) are *normal* (Gaussian). Predictors follow a bell-shaped distribution within each class.
+    2.  **Common Variance:** *Common variance* (σ²) across all *K* classes. The spread is the same, though means may differ.
+
+## LDA: The Normal Density (Single Predictor)
+
+-   For one predictor (p = 1):
 
 $$
 f_k(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2\sigma^2}(x - \mu_k)^2\right)
 $$
 
-::: {.callout-note appearance="simple"}
-- μ<sub>k</sub>: mean for class k
-- σ²:  common variance
-:::
+-   μ<sub>k</sub>: *Mean* of predictor *X* for class *k*.
+-   σ²: *Common variance* across all classes.
+-   The familiar bell-shaped curve.
 
-## LDA (Continued)
+## LDA: The Discriminant Function
 
-- Plugging f<sub>k</sub>(x) into Bayes' theorem and simplifying, we classify an observation to the class for which this is largest:
+-   Plugging f<sub>k</sub>(x) into Bayes' theorem and simplifying gives a simple result.
+
+-   Classify to the class with the *largest*:
 
 $$
 \delta_k(x) = x \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log(\pi_k)
 $$
 
-- This is the **discriminant function**.  It's *linear* in x. That's why it's called *Linear* Discriminant Analysis!
-- In practice, we don't know the true parameters (π<sub>k</sub>, μ<sub>k</sub>, σ²).  We *estimate* them from the training data.
+-   This is the **discriminant function**.
 
-## LDA: Estimating the Parameters
+##  LDA Discriminant Function: Breakdown
 
--   μ̂<sub>k</sub> = (1/n<sub>k</sub>) Σ<sub>i:yᵢ=k</sub> xᵢ  (sample mean for class k)
--   σ̂² = (1/(n-K)) Σ<sub>k=1</sub><sup>K</sup> Σ<sub>i:yᵢ=k</sub> (xᵢ - μ̂<sub>k</sub>)²  (pooled variance estimate)
--   π̂<sub>k</sub> = n<sub>k</sub>/n (sample proportion for class k)
+-   δ<sub>k</sub>(x): Discriminant score for class *k*. Classify to the class with the highest score.
 
-- We plug these estimates into the discriminant function.
+-   **Key:**  *Linear* in *x*. Hence, *Linear* Discriminant Analysis! Decision boundaries are straight lines (or hyperplanes).
 
-## LDA: Example
+-   Terms:
+    -   x ⋅ (μ<sub>k</sub> / σ²): Influence of predictor *x* and class mean μ<sub>k</sub>, scaled by variance.
+    -   - (μ<sub>k</sub>² / 2σ²): Constant for each class, related to mean.
+    -   log(π<sub>k</sub>): Incorporates prior probability of class *k*.
 
-![One-dimensional normal density functions and LDA decision boundary](figures/4_4.png)
+##  LDA: Estimating the Parameters (From Data)
 
-::: {.callout-note appearance="simple"}
--   **Left:** Two normal density functions.  Dashed line: Bayes decision boundary.
--   **Right:** 20 observations from each class (histograms).  Dashed line: Bayes boundary. Solid line: LDA boundary.
+-   We don't know true parameters (π<sub>k</sub>, μ<sub>k</sub>, σ²). We *estimate* them from training data.
+
+-   **Estimates:**
+
+    -   μ̂<sub>k</sub> = (1/n<sub>k</sub>) Σ<sub>i:yᵢ=k</sub> xᵢ: *Sample mean* of *X* for class *k*. Average predictor values for observations in class *k*.
+
+    -   σ̂² = (1/(n-K)) Σ<sub>k=1</sub><sup>K</sup> Σ<sub>i:yᵢ=k</sub> (xᵢ - μ̂<sub>k</sub>)²: *Pooled variance estimate*. Weighted average of within-class variances (reflects common variance assumption).
+
+    -   π̂<sub>k</sub> = n<sub>k</sub> / n: *Sample proportion* of observations in class *k*.
+
+-   Plug *estimates* into the discriminant function for predictions.
+
+## LDA: A Visual Example (One Predictor)
+
+![One-dimensional normal density functions and LDA decision boundary](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg)
+
+## LDA Example: Left Panel - Density Functions
+
+::: {layout-ncol=1}
+![One-dimensional normal density functions and LDA decision boundary](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg)
 :::
-- LDA approximates the Bayes classifier.
 
-## LDA with Multiple Predictors (p > 1)
+-   **Left Panel:**
+    -   Two normal density functions (p=1, K=2).
+    -   Orange: Class 1 (f₁(x)).
+    -   Blue: Class 2 (f₂(x)).
+    -   Dashed: *Bayes decision boundary*. Optimal boundary, given true distributions. Where densities intersect.
 
-- We assume X = (X₁, X₂, ..., X<sub>p</sub>) follows a *multivariate Gaussian* distribution, with a class-specific mean vector and a *common covariance matrix*.
+## LDA Example: Right Panel - Histograms and Boundaries
 
-- Multivariate Gaussian density:
+::: {layout-ncol=1}
+![One-dimensional normal density functions and LDA decision boundary](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_4.svg)
+:::
+
+-   **Right Panel:**
+    -   Histograms of 20 observations from each class.
+    -   Orange: Class 1.
+    -   Blue: Class 2.
+    -   Dashed: Bayes decision boundary (same as left).
+    -   Solid: *LDA decision boundary*. Found by LDA using *estimated* parameters.
+
+-   **Key:** LDA approximates the Bayes boundary. Here, with normal data and equal variances, LDA does well.
+
+## LDA with Multiple Predictors (p > 1): Going Multivariate
+
+-   With multiple predictors, we extend LDA's assumptions.
+
+-   **Assumption:** Predictors X = (X₁, X₂, ..., X<sub>p</sub>) follow a *multivariate Gaussian* distribution, with a class-specific mean vector and a *common covariance matrix*.
+
+-   **Multivariate Gaussian Density:**
 
 $$
 f(x) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T\Sigma^{-1}(x - \mu)\right)
 $$
 
-::: {.callout-note appearance="simple"}
-- μ: mean vector
-- Σ: covariance matrix
-- |Σ|: determinant of Σ
-:::
+## Multivariate Gaussian: Deconstructed
 
-## LDA with Multiple Predictors (Continued)
+-   *x*: Vector of predictor values (x₁, x₂, ..., x<sub>p</sub>).
+-   μ: *Mean vector* (μ₁, μ₂, ..., μ<sub>p</sub>). Mean of each predictor. In LDA, each class has its own μ<sub>k</sub>.
+-   Σ: *Covariance matrix*. p × p matrix describing relationships (covariances) between all predictor pairs. In LDA, *common* Σ for all classes.
+-   |Σ|: *Determinant* of Σ.
+-   Generalizes the one-dimensional normal distribution to multiple dimensions.
 
-- Plugging the multivariate Gaussian density into Bayes' theorem, we classify to the class for which this is largest:
+##  LDA with Multiple Predictors: The Discriminant Function
+
+-   Plug the multivariate Gaussian density into Bayes' theorem and simplify.
+
+-   Classify to the class with the largest:
 
 $$
 \delta_k(x) = x^T \Sigma^{-1}\mu_k - \frac{1}{2}\mu_k^T\Sigma^{-1}\mu_k + \log \pi_k
 $$
 
-- Again, this is *linear* in x.
-- We estimate the parameters (μ<sub>k</sub>, Σ, π<sub>k</sub>) from the training data.
+-   **Key:** Still *linear* in *x*. LDA produces linear decision boundaries even with multiple predictors.
+- We estimate the parameters (μk, Σ, πk) from the training data, similar to one-dimension case.
 
-## LDA: Example with Three Classes
+## LDA: Example with Three Classes (Visual)
 
-![Multivariate Gaussian distribution with three classes, and LDA decision boundaries](figures/4_6.png)
+![Multivariate Gaussian distribution with three classes, and LDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg)
 
-::: {.callout-note appearance="simple"}
-- **Left:**  Ellipses contain 95% of the probability for each class. Dashed lines: Bayes decision boundaries.
-- **Right:** 20 observations from each class. Solid lines: LDA decision boundaries.
+## LDA Example (Three Classes): Left Panel - Ellipses
+
+::: {layout-ncol=1}
+![Multivariate Gaussian distribution with three classes, and LDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg)
 :::
 
-- LDA approximates the Bayes decision boundaries.
+-   **Left Panel:**
+    -   Two-dimensional example (p=2), three classes (K=3).
+    -   Ellipses: Contours of constant probability density for each class (95% probability, assuming multivariate Gaussian).
+    -   Dashed: *Bayes decision boundaries*. Optimal boundaries, given true distributions.
 
-## LDA on the Default Data
+## LDA Example (Three Classes): Right Panel - Scatterplot and Boundaries
 
--   We can apply LDA to the Default data (predicting default based on balance and student status).
--   Training error rate: 2.75%.  Sounds good, but...
--   Two problems:
-    1.  Training error rates are usually lower than *test error rates*.
-    2.  Only 3.33% of individuals in the training data defaulted.  A *useless* classifier that always predicts "no default" would have a 3.33% error rate! (This is the **null classifier**.)
+::: {layout-ncol=1}
+![Multivariate Gaussian distribution with three classes, and LDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_6.svg)
+:::
 
-## Confusion Matrix
+-   **Right Panel:**
+    -   20 observations from each class.
+    -   Solid: *LDA decision boundaries*. Found by LDA using estimated parameters.
 
--   A **confusion matrix** shows the types of errors being made.
+-   **Key:** LDA approximates Bayes boundaries. LDA boundaries are linear; Bayes boundaries are slightly curved.
+
+## LDA on the Default Data: Assessing Performance
+
+-   Applying LDA to Default data (predicting default from `balance` and `student`).
+
+-   **Training Error Rate:** 2.75%.  Seems low, but be careful!
+
+-   **Two Problems with Training Error:**
+
+    1.  **Overfitting:** Training error is usually *lower* than *test error*. The model might fit training data too closely, not generalizing well to new data.
+    2.  **Imbalanced Data:** Only 3.33% of individuals defaulted in training data. *Imbalanced*. A classifier always predicting "no default" (the *null classifier*) would have a 3.33% error rate.  Our 2.75% isn't much better!
+
+## Confusion Matrix: A Detailed Performance View
+
+-   A **confusion matrix** summarizes classifier performance. It shows counts of:
+    -   True Positives (TP)
+    -   True Negatives (TN)
+    -   False Positives (FP) - Type I error
+    -   False Negatives (FN) - Type II error
 
 |                 | Predicted No Default | Predicted Default | Total |
 | :-------------- | :------------------- | :---------------- | :---- |
@@ -348,133 +731,269 @@ $$
 | Total           | 9896                | 104               | 10000   |
 : {tbl-colwidths="[25,35,25,15]"}
 
--   LDA misclassifies 252/333 = 75.7% of defaulters! (Low **sensitivity**.)
--   But it correctly classifies (1 - 23/9667) = 99.8% of non-defaulters. (High **specificity**.)
+## Confusion Matrix: Interpreted
 
-## Modifying the Threshold
+::: {layout-ncol=1}
 
--   LDA (and the Bayes classifier) uses a threshold of 0.5 for the posterior probability of default.
--   If we *lower* the threshold (e.g., to 0.2), we can increase sensitivity (correctly identify more defaulters), but at the cost of decreased specificity (more false positives).
-- The best threshold depends on the *relative costs* of the two types of errors.
+|                 | Predicted No Default | Predicted Default | Total |
+| :-------------- | :------------------- | :---------------- | :---- |
+| Actual No Default | 9644                | 23               | 9667  |
+| Actual Default    | 252                 | 81               | 333   |
+| Total           | 9896                | 104               | 10000   |
+: {tbl-colwidths="[25,35,25,15]"}
 
-## ROC Curves
+-   **Rows:** *Actual* class labels.
+-   **Columns:** *Predicted* class labels.
 
-![Error rates as a function of threshold](figures/4_7.png)
+-   **From the table:**
 
-::: {.callout-note appearance="simple"}
-- Shows various error rates as the threshold changes.
-- Black solid line: overall error rate
-- Blue dashed line: fraction of defaulters incorrectly classified
-- Orange dotted line: fraction of errors among non-defaulters
+    -   **TN:** 9644 non-defaulters, correctly predicted "no default".
+    -   **FP:** 23 non-defaulters, *incorrectly* predicted "default".
+    -   **FN:** 252 defaulters, *incorrectly* predicted "no default".
+    -   **TP:** 81 defaulters, correctly predicted "default".
 :::
 
-- A **Receiver Operating Characteristic (ROC) curve** plots the *true positive rate* (sensitivity) versus the *false positive rate* (1 - specificity) for all possible thresholds.
+## Confusion Matrix: Key Insights and Trade-offs
 
-## ROC Curve (Continued)
+::: {layout-ncol=1}
 
-![ROC curve for LDA classifier on Default data](figures/4_8.png)
+|                 | Predicted No Default | Predicted Default | Total |
+| :-------------- | :------------------- | :---------------- | :---- |
+| Actual No Default | 9644                | 23               | 9667  |
+| Actual Default    | 252                 | 81               | 333   |
+| Total           | 9896                | 104               | 10000   |
+: {tbl-colwidths="[25,35,25,15]"}
 
-::: {.callout-note appearance="simple"}
-- Ideal curve hugs the top left corner (high true positive rate, low false positive rate).
-- Dotted line: "no information" classifier.
+-   **Key Problem:** LDA misclassifies 252/333 defaulters (75.7%). Low *sensitivity* (recall) – not good at identifying positive cases (defaulters).
+-  **However:** LDA correctly classifies 99.8% of non-defaulters (1 - 23/9667). High *specificity* – good at identifying negative cases.
 :::
 
-- The **area under the curve (AUC)** summarizes performance.  AUC = 1 is perfect; AUC = 0.5 is no better than chance.
+## Modifying the Threshold: Adjusting Sensitivity and Specificity
 
-## Quadratic Discriminant Analysis (QDA)
+-   LDA (and Bayes classifier) typically use a 0.5 threshold for posterior probability. If Pr(default = Yes | X) > 0.5, predict "default".
 
--   **QDA** relaxes the assumption of a *common* covariance matrix.
--   Each class has its *own* covariance matrix, Σ<sub>k</sub>.
--   The discriminant function becomes *quadratic* in x:
+-   We can *modify* this threshold to change the sensitivity/specificity trade-off.
+
+-   **Lowering the Threshold (e.g., to 0.2):**
+    -   *Increases* sensitivity: Identify *more* defaulters (more TPs).
+    -   *Decreases* specificity: Incorrectly classify *more* non-defaulters as defaulters (more FPs).
+
+-   **Raising the Threshold (e.g., to 0.8):**
+    -   *Decreases* sensitivity: Identify *fewer* defaulters (fewer TPs).
+    -   *Increases* specificity: Incorrectly classify *fewer* non-defaulters (fewer FPs).
+
+-   **Best threshold depends on context and relative costs of errors (FP vs. FN).**
+
+## ROC Curves: Visualizing Performance Across Thresholds
+
+![Error rates as a function of threshold](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_7.svg)
+
+## ROC Curves: Explanation
+
+::: {layout-ncol=1}
+![Error rates as a function of threshold](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_7.svg)
+
+- Shows various error rates as threshold changes.
+-   **Black solid line:** Overall error rate.
+-   **Blue dashed line:** Fraction of defaulters incorrectly classified (1 - sensitivity).
+-   **Orange dotted line:** Fraction of errors among non-defaulters (false positive rate, 1 - specificity).
+:::
+
+-   A **Receiver Operating Characteristic (ROC) curve** visualizes classifier performance across *all possible thresholds*.
+
+-   **Axes:**
+    -   X-axis: False Positive Rate (FPR) = 1 - Specificity
+    -   Y-axis: True Positive Rate (TPR) = Sensitivity
+
+-   **Each point on the ROC curve represents a different threshold.**
+
+## ROC Curve: Interpreting the Shape
+
+![ROC curve for LDA classifier on Default data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_8.svg)
+
+-   **Ideal ROC Curve:** Hugs the top-left corner. High sensitivity (TPR) with low FPR.
+
+-   **Worst-Case ROC Curve:** Diagonal line from bottom-left to top-right (dotted line). No better than random guessing.
+
+-   **Area Under the Curve (AUC):** Summarizes performance.
+    -   AUC = 1: Perfect classifier.
+    -   AUC = 0.5: No better than random.
+    -   AUC > 0.5: Better than random. Higher AUC is better.
+
+## Quadratic Discriminant Analysis (QDA): Relaxing Assumptions
+
+-   **QDA** is another generative model, like LDA.
+
+-   **Key Difference:** QDA *relaxes* the assumption of a *common* covariance matrix.
+
+-   **QDA Assumption:** Each class has its *own* covariance matrix, Σ<sub>k</sub>. Spread and orientation can differ for each class.
+
+-   **Discriminant Function:** Becomes *quadratic* in *x*:
 
 $$
 \delta_k(x) = -\frac{1}{2}x^T\Sigma_k^{-1}x + x^T\Sigma_k^{-1}\mu_k - \frac{1}{2}\mu_k^T\Sigma_k^{-1}\mu_k - \frac{1}{2}\log|\Sigma_k| + \log \pi_k
 $$
 
-- We estimate the parameters (μ<sub>k</sub>, Σ<sub>k</sub>, π<sub>k</sub>) from the training data.
+## QDA Discriminant Function: Explained
 
-## LDA vs. QDA: Bias-Variance Trade-Off
+-   Similar terms to LDA, but with Σ<sub>k</sub> (covariance matrix for class *k*) instead of Σ.
 
--   QDA is more *flexible* than LDA (more parameters to estimate).
--   QDA has *higher variance* but potentially *lower bias*.
--   LDA tends to be better when there are *fewer* training observations (reducing variance is crucial).
--   QDA is recommended when the training set is *large*, or when the assumption of a common covariance matrix is clearly untenable.
+-   **Key:** *Quadratic* in *x*. Decision boundaries are curves (ellipses, parabolas, hyperbolas), not lines.
 
-## LDA vs. QDA: Example
+- We estimate parameters (μk, Σk, πk) from training data.
 
-![LDA and QDA decision boundaries](figures/4_9.png)
+## LDA vs. QDA: The Bias-Variance Trade-Off
 
-::: {.callout-note appearance="simple"}
--   **Left:**  Classes have *common* correlation.  Bayes boundary (dashed) is linear.  LDA (black dotted) is better than QDA (green solid).
--   **Right:** Classes have *different* correlations. Bayes boundary is quadratic. QDA is better than LDA.
+-   **QDA is more flexible than LDA.** More parameters to estimate (own covariance matrix for each class).
+
+-   **QDA: Higher variance, potentially lower bias.** More flexible, so can fit data better (lower bias), but more prone to overfitting (higher variance).
+
+-   **LDA: Lower variance, potentially higher bias.** Stronger assumption (common covariance), so less flexible (higher bias), but less likely to overfit (lower variance).
+
+-   **Which is better?** Depends on data and bias-variance trade-off.
+
+    -   **LDA better when:**
+        -   *Fewer* training observations. Reducing variance is crucial.
+        -   Common covariance assumption is reasonable.
+
+    -   **QDA recommended when:**
+        -   Training set is *large*. Variance less of a concern.
+        -   Common covariance assumption is clearly *not* tenable (classes have very different spreads/orientations).
+
+## LDA vs. QDA: A Visual Comparison
+
+![LDA and QDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg)
+
+## LDA vs. QDA Example: Left Panel - Common Correlation
+
+::: {layout-ncol=1}
+![LDA and QDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg)
 :::
 
-## Naive Bayes
+-   **Left Panel (Common Correlation):**
+    -   Classes have *same* correlation between predictors.
+    -   Bayes boundary (dashed): Linear.
+    -   LDA boundary (dotted): Linear, approximates Bayes well.
+    -   QDA boundary (solid): Quadratic, *worse* than LDA here. QDA overfits.
 
-- Makes a *very* strong assumption: **Within each class, the *p* predictors are independent.**
-- f<sub>k</sub>(x) = f<sub>k1</sub>(x₁) × f<sub>k2</sub>(x₂) × ... × f<sub>kp</sub>(x<sub>p</sub>)
-    - f<sub>kj</sub> is the density function of the jth predictor in class k.
-- This simplifies things *a lot*! We only need to estimate *one-dimensional* densities.
-- We plug this into Bayes' theorem:
+## LDA vs. QDA Example: Right Panel - Different Correlations
+
+::: {layout-ncol=1}
+![LDA and QDA decision boundaries](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_9.svg)
+:::
+
+-   **Right Panel (Different Correlations):**
+    -   Classes have *different* correlations.
+    -   Bayes boundary (dashed): Quadratic.
+    -   QDA boundary (solid): Quadratic, approximates Bayes well.
+    -   LDA boundary (dotted): Linear, performs *poorly*. Cannot capture the quadratic relationship.
+
+## Naive Bayes: The "Naive" Assumption
+
+-   **Naive Bayes** is another generative model. It makes a *very strong* simplifying assumption.
+
+-   **Assumption:** *Within each class, the p predictors are independent*. Knowing the class, the value of one predictor gives no info about others.
+
+- Mathematically:
+  f<sub>k</sub>(x) = f<sub>k1</sub>(x₁) × f<sub>k2</sub>(x₂) × ... × f<sub>kp</sub>(x<sub>p</sub>)
+    -   f<sub>kj</sub>(x<sub>j</sub>): Density function of *j*th predictor *within class k*.
+
+## Naive Bayes: Explained
+
+-   Independence assumption simplifies things *dramatically*. Instead of estimating a complex *p*-dimensional joint density f<sub>k</sub>(x), we estimate *p* one-dimensional densities f<sub>kj</sub>(x<sub>j</sub>).
+
+-   Plug into Bayes' theorem:
 
 $$
 \Pr(Y = k|X = x) = \frac{\pi_k \times f_{k1}(x_1) \times f_{k2}(x_2) \times \dots \times f_{kp}(x_p)}{\sum_{l=1}^K \pi_l \times f_{l1}(x_1) \times f_{l2}(x_2) \times \dots \times f_{lp}(x_p)}
 $$
 
-## Naive Bayes: Estimating the One-Dimensional Densities
+##  Naive Bayes: Estimating One-Dimensional Densities
 
-- If X<sub>j</sub> is *quantitative*:
-    - We can assume X<sub>j</sub> | Y = k ~ N(μ<sub>jk</sub>, σ<sub>j</sub>²) (Gaussian).
-    - Or, we can use a non-parametric estimate (e.g., histogram, kernel density estimator).
-- If X<sub>j</sub> is *qualitative*:
-    - We can simply count the proportion of training observations for each level of the predictor within each class.
+-   Key is estimating f<sub>kj</sub>(x<sub>j</sub>). Depends on whether X<sub>j</sub> is quantitative or qualitative.
 
-## Naive Bayes: Example
-::: {layout-ncol=3}
-![f11](figures/4_10a.png)
+-   **If X<sub>j</sub> is quantitative:**
 
-![f12](figures/4_10a.png)
+    -   **Option 1 (Parametric):** Assume X<sub>j</sub> | Y = k ~ N(μ<sub>jk</sub>, σ<sub>j</sub>²). Estimate mean (μ<sub>jk</sub>) and variance (σ<sub>j</sub>²) for each predictor *j* within each class *k*. *Different* variance for each predictor and class (unlike LDA).
 
-![f13](figures/4_10b.png)
+    -   **Option 2 (Non-parametric):**
+        -   *Histogram*: Divide range of X<sub>j</sub> into bins, count observations in each bin for each class.
+        -   *Kernel Density Estimation (KDE)*: More sophisticated, produces smooth density estimate.
+
+-   **If X<sub>j</sub> is qualitative:**
+
+    -   Count *proportion* of training observations for each level of predictor *within each class*. Direct probability estimate.
+
+## Naive Bayes: Example (Illustrative)
+-   Two classes (K=2), three predictors (p=3). The first two predictors are quantitative, and the third predictor is qualitative with three levels.
+
+-   Shows estimated one-dimensional density functions fkj.
+
+::: {layout-ncol=1}
+![f11](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_1.svg)
 :::
 
-::: {layout-ncol=3}
-![f21](figures/4_10a.png)
-
-![f22](figures/4_10b.png)
-
-![f23](figures/4_10b.png)
+::: {layout-ncol=1}
+![f12](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_2.svg)
+:::
+::: {layout-ncol=1}
+![f13](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_3.svg)
 :::
 
-::: {.callout-note appearance="simple"}
--   Two classes (K=2), three predictors (p=3). First two predictors are quantitative, third is qualitative (three levels).
--   Estimated density functions f<sub>kj</sub> are shown.
+::: {layout-ncol=1}
+![f21](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_4.svg)
+:::
+::: {layout-ncol=1}
+
+![f22](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_5.svg)
 :::
 
--   Naive Bayes often works surprisingly well, despite the strong independence assumption.  It reduces variance, which can be beneficial.
+::: {layout-ncol=1}
+![f23](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_10_6.svg)
+:::
 
-## Comparison of Classification Methods: An Analytical Perspective
+##  Naive Bayes: Surprisingly Good Performance!
 
--   Logistic regression, LDA, QDA, and naive Bayes can all be expressed in terms of maximizing Pr(Y = k | X = x).
--   Equivalently, we can maximize the log-odds relative to a baseline class (K):
+-   Despite the strong (and often unrealistic) independence assumption, Naive Bayes often works well.
+
+-   **Why?** Reduces variance. Fewer parameters to estimate, so less prone to overfitting, especially with small data relative to predictors.
+
+-   **Bias-Variance Trade-off:** Naive Bayes has high bias (independence assumption) but low variance. Can be a good trade-off.
+
+##  Comparing Classification Methods: An Analytical View
+
+-   Logistic regression, LDA, QDA, Naive Bayes: All can be expressed in terms of maximizing Pr(Y = k | X), or log-odds relative to baseline (K):
 
 $$
 \log\left(\frac{\Pr(Y = k|X = x)}{\Pr(Y = K|X = x)}\right)
 $$
 
--   The *form* of this log-odds expression differs for each method.
+-   The *form* of this log-odds expression distinguishes the methods.
 
-| Method            | Log-Odds Form                                                                                                                                         |
-| :---------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Logistic Regression | β<sub>k0</sub> + Σ<sub>j=1</sub><sup>p</sup> β<sub>kj</sub>x<sub>j</sub>  (linear)                                                                                                 |
-| LDA               | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> (linear)                                                                                                  |
-| QDA               | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> + Σ<sub>j=1</sub><sup>p</sup> Σ<sub>l=1</sub><sup>p</sup> c<sub>kj</sub><sub>l</sub>x<sub>j</sub>x<sub>l</sub> (quadratic)                        |
-| Naive Bayes      | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> g<sub>kj</sub>(x<sub>j</sub>) (additive, where g<sub>kj</sub> is a function of x<sub>j</sub>)                                                          |
+| Method            | Log-Odds Form                                                                                            |
+| :---------------- | :------------------------------------------------------------------------------------------------------- |
+| Logistic Regression | β<sub>k0</sub> + Σ<sub>j=1</sub><sup>p</sup> β<sub>kj</sub>x<sub>j</sub>  (linear)                                               |
+| LDA               | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> (linear)                                                |
+| QDA               | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> b<sub>kj</sub>x<sub>j</sub> + Σ<sub>j=1</sub><sup>p</sup> Σ<sub>l=1</sub><sup>p</sup> c<sub>kj,l</sub>x<sub>j</sub>x<sub>l</sub> (quadratic) |
+| Naive Bayes      | a<sub>k</sub> + Σ<sub>j=1</sub><sup>p</sup> g<sub>kj</sub>(x<sub>j</sub>) (additive)                                                  |
+: {tbl-colwidths="[30,70]"}
 
--   LDA is a special case of QDA.
--   Any classifier with a *linear* decision boundary is a special case of naive Bayes.
--   Logistic regression has the same *linear* form as LDA, but the coefficients are estimated differently.
-- None of the method dominate others universally.
+## Comparison: Explained
+
+-   **Logistic Regression:** Log-odds are *linear* in predictors. Coefficients (β<sub>kj</sub>) estimated by MLE.
+
+-   **LDA:** Log-odds also *linear*. Coefficients (a<sub>k</sub>, b<sub>kj</sub>) from multivariate normality and common covariance assumptions.
+
+-   **QDA:** Log-odds are *quadratic*. Allows for more complex boundaries.
+
+-   **Naive Bayes:** Log-odds are *additive*. Each predictor contributes independently through g<sub>kj</sub>(x<sub>j</sub>). Reflects independence.
+
+-   **Relationships:**
+
+    -   LDA is special case of QDA (equal covariance matrices).
+    -   Any classifier with *linear* boundary is special case of Naive Bayes.
+    -   Logistic regression has same *linear* form as LDA, but coefficients estimated differently (MLE vs. normal assumptions).
+- None of these methods universally dominate the others. The best choice depends on the characteristics of data.
 
 ## A comparison of classification methods：An empirical comparison
 
@@ -488,104 +1007,202 @@ $$
 }
 </style>
 ```
-::: {layout-ncol=2}
-::: half-width
-![FIGURE 4.11](figures/4_11.png)
+
+::: {layout-ncol=1}
+![FIGURE 4.11](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_11.svg)
 :::
 
-::: half-width
-![FIGURE 4.12](figures/4_12.png)
-:::
-:::
-
-::: {.callout-note appearance="simple"}
-- Six different scenarios are involved, scenarios 1-3 Bayes decision boundaries are linear, and scenarios 4-6 Bayes decision boundaries are non-linear.
-- There were p=2 quantitative predictors in each of the six scenarios.
-- For each scenario, 100 random training data sets were generated.
-- Scenario 1 to Scenario 6 are described in the text material page 31 and page 32.
+::: {layout-ncol=1}
+![FIGURE 4.12](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_12.svg)
 :::
 
-- When the true decision boundaries are *linear*, LDA and logistic regression perform well.
-- When boundaries are moderately non-linear, QDA or naive Bayes may be better.
-- For *very* complex boundaries, a non-parametric method like KNN can be superior, *but* the level of smoothness must be chosen carefully.
+## Empirical Comparison: Details
 
-## Generalized Linear Models (GLMs)
+::: {layout-ncol=1}
+![FIGURE 4.11](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_11.svg)
 
-- So far, the response Y is either quantitative(use least squares linear regression to predict) or qualitative(use classification methods).
-- But Y is neither qualitative nor quantitative is also possible, like the number of hourly users of a bike sharing program.
-- To predict the number of bike users, the least squares linear regression model shown defects(negative fitted values, variance increasing when mean number increasing, response not continuous-valued)
-- Poisson regression could provide a much more natural and elegant approach.
+![FIGURE 4.12](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F4_12.svg)
+:::
 
-## Poisson Regression
+-   Six scenarios. Scenarios 1-3: Bayes boundaries are linear. Scenarios 4-6: Bayes boundaries are non-linear.
+-   p=2 quantitative predictors in each scenario.
+-   For each scenario, 100 random training sets generated.
 
-- Suppose the random variable Y takes on nonnegative integer values and follows the Poisson distribution. The probability could be written as:
+-   **Scenario Details:**
+
+    -   **Scenario 1:** Two classes, predictors correlation 0, n = 100
+    -   **Scenario 2:** Two classes, predictors correlation -0.5, n = 100
+    -   **Scenario 3:** Two classes, predictors correlation 0.5, n = 100, modified predictors (nonlinear boundary).
+    -   **Scenario 4:** Two classes, independent standard normals, response from QDA (quadratic boundary).
+    -   **Scenario 5:** Same as 4, but response from more complex quadratic.
+    -   **Scenario 6:** Two classes, independent predictors, complex response (highly non-linear boundary). Compare with K-nearest neighbors (KNN).
+
+-   **Results:**
+    -   *Linear* boundaries (1 and 2): LDA and logistic regression do well.
+    -   Moderately non-linear (3): QDA outperforms LDA, but logistic regression still good.
+    -   More complex (4, 5, 6): QDA can be better than LDA and logistic.
+    -   *Very* complex (6): Non-parametric KNN can be superior, *but* smoothness (K) must be chosen carefully.
+
+## Generalized Linear Models (GLMs): Beyond Normality
+
+-   So far:
+    -   *Quantitative* responses: Least squares linear regression.
+    -   *Qualitative* responses: Classification methods (logistic, LDA, QDA, Naive Bayes).
+
+- What if *Y* is neither?
+
+-   **Example:** Predicting hourly users of a bike-sharing program.
+
+-   **Characteristics:**
+    -   *Non-negative integers*: Can't have negative or fractional users.
+    -   *Counts*: Number of events (rentals) in a time period.
+
+## Why Not Linear Regression for Counts?
+
+-   Problems with using linear regression:
+
+    1.  **Negative Predictions:** Linear regression can predict negative values (nonsensical for counts).
+    2.  **Mean-Variance Relationship:** For counts, variance often *increases* with the mean. Linear regression assumes constant variance.
+    3.  **Non-Continuous:** Response is discrete. Linear regression assumes continuous.
+
+-   **Solution:** **Poisson regression**. A more natural approach for count data.
+
+## Poisson Regression: Modeling Counts
+
+-   **Poisson Distribution:** Often used to model *counts*.
+
+-   **Probability Mass Function:** If Y is Poisson, probability of *k* events is:
 
 $$
 \Pr(Y = k) = \frac{e^{-\lambda}\lambda^k}{k!}  \quad \text{for } k = 0, 1, 2, \dots
 $$
 
-::: {.callout-note appearance="simple"}
-- k! means `k factorial`, λ > 0 is the expected value of Y, which also equals the variance of Y.
-- Larger the mean of Y, larger the variance of Y.
-:::
+-   *k*: Number of events (non-negative integer).
+-   *k!*: *k* factorial (k! = k × (k-1) × ... × 2 × 1). 0! = 1.
+-   λ: Parameter (λ > 0). *Expected value* (mean) *and* *variance* of Y.
 
-- Poisson distribution is used to model counts.
-- Number of bike users could be modeled as Poisson distribution with mean value. The mean could vary as a function of the covariates.
+-   **Key:** Mean and variance are *equal*. As mean (λ) increases, variance increases. Suitable for count data.
 
-## Poisson Regression Model
+## Poisson Regression Model: Connecting Mean to Predictors
+
+-   Model the *mean* (λ) as a function of predictors.
 
 $$
 \log(\lambda(X_1, \dots, X_p)) = \beta_0 + \beta_1X_1 + \dots + \beta_pX_p
 $$
+
 or equivalently
 
 $$
 \lambda(X_1, \dots, X_p) = e^{\beta_0 + \beta_1X_1 + \dots + \beta_pX_p}
 $$
 
-- The log of λ is linear in predictors.
-- λ takes on nonnegative values for all values of covariates.
--  We use maximum likelihood to estimate parameters.
+## Poisson Regression Model: Explained
+
+-   λ(X₁, X₂, ..., X<sub>p</sub>): Mean (and variance) of Poisson, depends on predictors.
+-   β₀, β₁, ..., β<sub>p</sub>: Coefficients estimated from data.
+-   **Link Function:** *Log* link. *Logarithm* of mean is linear in predictors.
+
+-   **Why log link?**
+
+    -   **Non-negativity:** Ensures predicted mean (λ) is *non-negative*. Exponential function (e<sup>x</sup>) is always positive.
+    -   **Linearity:** Models relationship between predictors and *log* of mean as linear.
+
+-   **Estimation:** Use MLE to estimate coefficients.
 
 ## Comparing Poisson Regression Model to the linear regression model
 
+::: {layout-ncol=1}
 - Interpretation of the coefficients
+    - In linear regression, coefficients represent linear increase.
+    - In Poisson regression, coefficients represents the change in the log-mean for a one-unit increase in X, or increase the expected count by a factor of e<sup>β</sup>.
 - Mean-variance relationship
+    -  In linear regression, variance doesn't change when mean changes.
+    - In Poisson regression, variance is equal to mean. The larger the mean, the larger the variance.
 - Nonnegative fitted values
+    - In linear regression, fitted values could be negative.
+    - In Poisson regression, fitted values will always be positive.
 - Please read text material for details.
+:::
 
-## Generalized Linear Models in Greater Generality
+##  Generalized Linear Models (GLMs): The Big Picture
 
-- Three types of regression models have been discussed: linear, logistic and Poisson. They share some common characteristics:
-    1.  Predictors are used to predict response variable.
-        Conditional on predictors, Y belongs to a certain family of distributions.
-        We make different assumption on the family of distributions that Y belongs to, correspondingly, we have different regression models.
-    2.  Modeling the mean of Y.
-        Use different *link function* η, these regression models could be expressed as below:
+-   Three regression models:
+
+    1.  **Linear Regression:** Quantitative responses (normal distribution, constant variance).
+    2.  **Logistic Regression:** Binary responses (Bernoulli/binomial distribution).
+    3.  **Poisson Regression:** Count responses (Poisson distribution).
+
+-   Common characteristics:
+
+    1.  **Predictors and Response:** Predictors (X₁, X₂, ..., X<sub>p</sub>) predict response (Y).
+    2.  **Conditional Distribution:**  Given predictors, *Y* belongs to a *family of distributions*.
+    3.  **Modeling the Mean:** Model *mean* of *Y*, conditional on predictors.
+    4.  **Link Function:**  *Link function* (η) relates mean of *Y* to linear combination of predictors.
+
+-   **General Form (GLM):**
 
 $$
 \eta(E(Y|X_1, \dots, X_p)) = \beta_0 + \beta_1X_1 + \dots + \beta_pX_p
 $$
 
--  All these regression models are examples of **Generalized Linear Model(GLM)**
+- **Components:**
+    - *Response (Y)* and its distribution.
+    - *Predictors (X1, X2, ..., Xp)*.
+    - *Link Function (η)*.
+    - *Linear Predictor*: β₀ + β₁X₁ + ... + β<sub>p</sub>X<sub>p</sub>
 
 ## Summary
 
--   Classification predicts *qualitative* responses.
--   Logistic regression, LDA, QDA, and naive Bayes are common classification methods.
--   Logistic regression models the *probability* of class membership using the logistic function.
--   LDA and QDA assume the predictors follow a Gaussian distribution within each class.  LDA assumes a *common* covariance matrix; QDA does not.
--   Naive Bayes assumes *independence* of predictors within each class.
--   The choice of method depends on the data and the bias-variance trade-off.
--   ROC curves are useful for evaluating classifier performance across a range of thresholds.
--   Generalized linear models handle responses from non-normal distributions, Poisson regression model is an example.
+-   **Classification:** Predicting *qualitative* responses.
+-   Key methods:
+    -   **Logistic Regression:** Models *probability* using logistic function. Directly models Pr(Y = k | X).
+    -   **LDA:** Generative. Assumes multivariate Gaussian predictors, *common* covariance.
+    -   **QDA:** Like LDA, but *own* covariance matrix per class.
+    -   **Naive Bayes:** Generative. Assumes *independence* of predictors within each class.
+-   **Choosing:** Depends on data and bias-variance trade-off.
+    -   LDA/logistic: Linear boundaries.
+    -   QDA: More flexible, non-linear, but higher variance.
+    -   Naive Bayes: Simple, surprisingly good, despite independence.
+-   **ROC Curves:** Evaluate performance across thresholds. AUC summarizes.
+- **Generalized linear models** handle responses from non-normal distributions, and Poisson regression model is an example for count data.
 
 ## Thoughts and Discussion 🤔
 
-::: incremental
--   Can you think of real-world scenarios where each classification method (logistic regression, LDA, QDA, naive Bayes) might be most appropriate?
--   How would you choose the "best" classification method for a given dataset? What metrics would you consider?
--   What are the limitations of each method? When might they fail?
--   How does the bias-variance trade-off play a role in choosing a classification method?
+::: {layout-ncol=1}
+-   Real-world scenarios for each method?
+    -   *Logistic:* Credit scoring, medical diagnosis, marketing (churn).
+    -   *LDA:* Predictors approximately normal, similar covariance.  Some image recognition/signal processing.
+    -   *QDA:* Normal predictors, *different* covariances. More complex problems.
+    -   *Naive Bayes:* Text classification (spam filtering), document categorization, sentiment analysis.
+
+-   Choosing the "best" method?
+    -   *Understand Data:* Explore. Linear/nonlinear? Normal predictors?
+    -   *Assumptions:* Violations?
+    -   *Bias-Variance:* Flexible (high variance, low bias) or constrained (low variance, high bias)? Depends on dataset size/complexity.
+    -   *Metrics:* Cross-validation for test error.
+        -   Accuracy
+        -   Sensitivity (Recall)
+        -   Specificity
+        -   Precision
+        -   F1-score
+        -   AUC
+    -   *Experiment:* Try different methods, compare with cross-validation.
+
+-   Limitations? When might they fail?
+    -   *Logistic:* Assumes linear log-odds. Unstable with severe separation.
+    -   *LDA:* Multivariate normality, common covariance. Outliers.
+    -   *QDA:* Multivariate normality. Overfitting with small data.
+    -   *Naive Bayes:* Independence often violated.
+- How does the bias-variance trade-off play a role in choosing a classification method?
+    -   *High Bias, Low Variance:* Simpler models (e.g., LDA, Naive Bayes) tend to have higher bias but lower variance. They are less likely to overfit, but they might miss complex relationships in the data.
+    -   *Low Bias, High Variance:* More complex models (e.g., QDA) tend to have lower bias but higher variance. They can fit the data more closely, but they are more prone to overfitting, especially with small datasets.
+    -  The optimal balance depends on the specific dataset and the goals of the analysis.
+
 - Can we apply the knowledge of mean-variance relationship and fitted values to choose suitable regression model?
+    - Yes.
+    - If variance increases as the mean increase and the response is count data, Poisson regression could be considered.
+    - If the fitted values are probabilities, which must be between 0 and 1, then models like logistic regression could be considered.
+    - Understanding the characteristics of data will guide us to select suitable models.
 :::
+

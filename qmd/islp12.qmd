@@ -1,137 +1,188 @@
+---
+title: "Unsupervised Learning"
+---
 
+## Introduction: What is Statistical Learning?
 
-## Introduction to Unsupervised Learning
-
-::: {style="font-size: 0.8em;"}
-So far, most of this course has focused on **supervised learning** methods like regression and classification.
-
--   **Supervised Learning:** We have a set of features (X1, X2, ..., Xp) and a response variable (Y). The Goal is to *predict* Y using the Xs. We "teach" the algorithm.
--   **Examples:** Linear regression, logistic regression, Support Vector Machine (SVM).
-
-Now, we'll explore **unsupervised learning**.
-
--   **Unsupervised Learning:** We only have features (X1, X2, ..., Xp), *without* any response variable Y. No "teaching" or "supervision".
--   **Goal:** Discover *interesting patterns* and *structure* in the data, find relationships.
--   **Examples:** Principal Component Analysis (PCA), Clustering.
-:::
-
-## What is Unsupervised Learning?
-
-::: {style="font-size: 0.8em;"}
-Unsupervised learning is a set of statistical tools designed for situations where we have only input features and no output or response variable. Since there's no "correct answer" to guide the learning process, it's called "unsupervised." We're exploring the data without a specific prediction task in mind.
-
-**Key Goals:**
-
--   **Data Visualization:** Find ways to represent the data to see patterns.
--   **Discover Subgroups:** Identify clusters or groups within the data or among the variables.
--   **Data Pre-processing:** Prepare data for supervised learning.
-
-We will cover two major types:
-
-1.  **Principal Components Analysis (PCA):** Used for visualization and pre-processing.
-2.  **Clustering:** Discovering unknown subgroups in data.
-:::
-
-## Supervised vs. Unsupervised Learning
-
-::: {style="font-size: 0.8em;"}
-
-| Feature             | Supervised Learning                                  | Unsupervised Learning                                      |
-| :------------------ | :--------------------------------------------------- | :--------------------------------------------------------- |
-| **Goal**            | Predict a response variable (Y)                     | Discover patterns and structure                             |
-| **Data**            | Features (X) and response (Y)                       | Features (X) only                                         |
-| **Evaluation**      | Clear metrics (e.g., accuracy, R-squared)            | More subjective, harder to evaluate                          |
-| **Examples**        | Regression, classification                           | PCA, clustering                                            |
-| **"Correct Answer"** | Yes (the response variable)                         | No (no response variable)                                 |
+Statistical learning refers to a set of tools and techniques used to understand and extract insights from data. It's a broad field encompassing both supervised and unsupervised learning approaches. The goal is to build models that can either predict an outcome (supervised) or discover patterns (unsupervised) in data. 📊
 
 ::: {.callout-note appearance="simple"}
-Unsupervised learning is often more challenging because there's no straightforward way to check our work. It's more exploratory and subjective. We don't have a "ground truth" to compare our results against.
+**Key Idea:** Statistical learning provides a framework for using data to gain knowledge and make predictions.
 :::
+
+## Supervised vs. Unsupervised Learning: Overview
+
+Let's start by understanding the fundamental difference between supervised and unsupervised learning. Think of it like learning with a teacher versus learning on your own.
+
+-   **Supervised Learning:** We have a "teacher" (the response variable, Y) guiding the learning process. 👨‍🏫 The goal is to learn a function that maps inputs to outputs.
+-   **Unsupervised Learning:** We're exploring the data "without a teacher" to discover hidden patterns. 🕵️‍♀️ There's no explicit output variable to predict.
+
+## Supervised Learning
+
+-   **Supervised Learning:** We have a set of features (X1, X2, ..., Xp) and a response variable (Y). The goal is to *predict* Y using the Xs. We "teach" the algorithm by providing examples of inputs and their corresponding outputs.
+-   **Examples:** Linear regression (predicting house prices), logistic regression (predicting customer churn), Support Vector Machine (SVM) (image classification).
+
+```{mermaid}
+graph LR
+    A[Features (X)] --> B(Model);
+    C[Response (Y)] --> B;
+    B --> D[Predictions];
+    style A fill:#ccf,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style D fill:#ccf,stroke:#333,stroke-width:2px
+```
+::: {.callout-note appearance="simple"}
+The model learns the relationship between features (X) and the response (Y).
+:::
+
+## Unsupervised Learning
+
+-   **Unsupervised Learning:** We only have features (X1, X2, ..., Xp), *without* any response variable Y.  No "teaching" or "supervision" – the algorithm explores the data on its own.
+-   **Goal:** Discover *interesting patterns* and *structure* in the data; find relationships among the features and/or observations.
+-   **Examples:** Principal Component Analysis (PCA) (dimensionality reduction), Clustering (finding groups of similar customers).
+
+```{mermaid}
+graph LR
+    A[Features (X)] --> B(Model);
+    B --> C[Patterns & Structure];
+style A fill:#f9f,stroke:#333,stroke-width:2px
+style B fill:#ccf,stroke:#333,stroke-width:2px
+style C fill:#ccf,stroke:#333,stroke-width:2px
+```
+
+::: {.callout-note appearance="simple"}
+The model identifies inherent structure within the features (X).
+:::
+
+## What is Unsupervised Learning? (Detailed)
+
+Unsupervised learning is a collection of statistical methods used when we only have input data (features) and no corresponding output (response variable). Because there's no "correct answer" to guide the analysis, we call it "unsupervised." We're essentially detectives, exploring the data to uncover hidden relationships and structures. 🔍  It's about learning the underlying structure of the data itself.
+
+## Key Goals of Unsupervised Learning
+
+Unsupervised learning serves several important purposes:
+
+-   **Data Visualization:**  Finding ways to represent complex, high-dimensional data in a visually intuitive manner, often by reducing its dimensionality. Think of it like creating a map of your data, making it easier to navigate. 🗺️
+-   **Discover Subgroups:** Identifying clusters or groups within the data. This could be groups of customers with similar buying habits, or groups of genes with related functions. 🧑‍🤝‍🧑 This helps us understand the heterogeneity within the data.
+-   **Data Pre-processing:** Preparing data for supervised learning techniques. For example, we might use unsupervised learning to reduce the number of features or to create new, more informative features before applying a supervised learning algorithm. ⚙️ This can improve the performance and efficiency of supervised models.
+
+## Types of Unsupervised Learning
+
+We'll focus on two primary types of unsupervised learning:
+
+1.  **Principal Components Analysis (PCA):** Primarily used for data visualization and dimensionality reduction, making complex data easier to understand by finding the most important "directions" in the data.
+2.  **Clustering:**  Used to discover unknown subgroups or clusters within a dataset, grouping similar observations together.
+
+## Supervised vs. Unsupervised Learning: Comparison Table
+
+Let's solidify our understanding with a side-by-side comparison:
+
+| Feature             | Supervised Learning                                                                 | Unsupervised Learning                                                                     |
+| :------------------ | :---------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| **Goal**            | Predict a response variable (Y) based on input features (X).                         | Discover patterns, structure, and relationships within the data (X).                     |
+| **Data**            | Features (X) and a corresponding response variable (Y).                              | Features (X) only; no response variable.                                                 |
+| **Evaluation**      | Clear metrics (e.g., accuracy, R-squared, precision, recall) to assess performance. | More subjective, harder to evaluate; often relies on visual inspection or domain knowledge. |
+| **Examples**        | Regression, classification, support vector machines.                                 | PCA, clustering, association rule mining.                                               |
+| **"Correct Answer"** | Yes (the response variable provides the "ground truth").                               | No (no response variable, so no "ground truth").                                           |
+
+## Supervised vs. Unsupervised: A Note of Caution
+
+::: {.callout-note appearance="simple"}
+Unsupervised learning is often more challenging than supervised learning. Why? Because there's no easy way to check our results! We don't have a "ground truth" (like a response variable) to compare against. This means the process is more exploratory and subjective, requiring careful interpretation and domain expertise. 🤔
 :::
 
 ## Applications of Unsupervised Learning
 
-::: {style="font-size: 0.8em;"}
-Unsupervised learning is increasingly important in various fields:
+Unsupervised learning has become incredibly valuable across numerous fields:
 
--   **Genomics:**  A cancer researcher analyzes gene expression levels in patients. Unsupervised learning can help find *subgroups* of patients or genes, leading to a better understanding of the disease.
--   **E-commerce:**  An online shopping site identifies groups of shoppers with similar browsing and purchase histories. This allows for *targeted recommendations*, showing each shopper items they're more likely to be interested in.
--   **Search Engines:**  Search results can be customized based on the *click histories* of similar users.
--   **Marketing:** Identify *market segments* (groups of customers) for targeted advertising.
+-   **Genomics:** Researchers studying cancer might use unsupervised learning to analyze gene expression data.  This can help identify different subtypes of cancer, leading to more targeted treatments. 🧬
+-   **E-commerce:** Online retailers use unsupervised learning to group customers with similar browsing and purchasing patterns. This allows for personalized product recommendations, increasing sales and customer satisfaction. 🛍️
+-   **Search Engines:** Unsupervised learning can be used to cluster users based on their click histories, leading to more relevant search results. 🔎
+-   **Marketing:** Identifying *market segments* (groups of customers with shared characteristics) for targeted advertising campaigns. 🎯
 
-These are just a few examples. Unsupervised learning is a powerful tool for extracting insights from data where there's no predefined outcome.
-:::
+## Applications of Unsupervised Learning (Cont.)
 
-## Principal Component Analysis (PCA)
+These are just a few examples. The power of unsupervised learning lies in its ability to extract insights from data *without* needing a predefined outcome, making it a versatile tool for discovery in various domains. The ability to uncover hidden patterns is what makes it so powerful.
 
-::: {style="font-size: 0.8em;"}
-Principal Component Analysis (PCA) is a technique to reduce the dimensionality of data while retaining as much *variability* (information) as possible. It's like finding the most important "directions" in your data.
+## Diving into Principal Component Analysis (PCA)
 
--   **Dimensionality Reduction:**  Simplifies data by finding a smaller set of *representative variables* (principal components).
--   **Data Visualization:**  Allows us to visualize high-dimensional data in lower dimensions (e.g., 2D or 3D plots).
--   **Unsupervised:**  PCA only uses the features (X), not any response (Y).
--   **Feature Space Directions:** Identifies the directions in the feature space along which the original data varies most.
--   **Data Pre-processing:** Can be used to create new, uncorrelated features for use in supervised learning (e.g., Principal Components Regression).
-:::
+Now, let's explore our first unsupervised learning technique: Principal Component Analysis (PCA). PCA is like taking a high-dimensional dataset (many features) and finding the best way to "flatten" it while preserving as much of its original information as possible. It's a dimensionality reduction technique that finds the most important "directions" in your data.
 
-## What are Principal Components?
+## What does PCA do?
 
-::: {style="font-size: 0.8em;"}
-Imagine you have many features (variables). PCA finds new variables, called **principal components**, that are *linear combinations* of the original features.
+-   **Dimensionality Reduction:** PCA simplifies data by finding a smaller set of *representative variables*, called **principal components**. These components capture most of the variability in the original data.
+-   **Data Visualization:** It allows us to visualize high-dimensional data in lower dimensions (e.g., 2D or 3D plots), making it easier to spot patterns and relationships that would be hidden in higher dimensions.
+-   **Unsupervised:** PCA only uses the features (X) and doesn't rely on any response variable (Y). It focuses solely on the relationships *between* the features.
+- **Feature Space Directions:** Identifies the directions in the feature space along which the original data varies most.  These are the "principal components".
+-   **Data Pre-processing:** PCA can create new, uncorrelated features that can be used in subsequent supervised learning models. This can improve model performance and reduce overfitting.
 
--   **First Principal Component (Z1):** The normalized linear combination of features with the *largest variance*.  It captures the *most* variability in the data.
+## What are Principal Components? (Explained)
 
-    -   **Normalized:**  The sum of the squared coefficients (loadings) equals 1. This prevents arbitrarily large variances.
-    -   **Loadings:**  The coefficients (φ) in the linear combination. They tell us how much each original feature contributes to the principal component.
+Imagine you have a dataset with many variables (features). PCA helps you find new variables, called **principal components**, which are *linear combinations* of the original features. It's like creating new "summary" variables from the original ones, but in a way that maximizes the captured variance.
 
--   **Subsequent Principal Components:** Linear combinations that capture the *most remaining variance*, subject to being *uncorrelated* with previous components.
+## Understanding the First Principal Component (Z1)
+
+-   **First Principal Component (Z1):** This is the most important principal component. It's the normalized linear combination of the original features that captures the *largest variance* in the data. It represents the direction of greatest variability in the data cloud.
+
+    -   **Normalized:** The sum of the squared coefficients (loadings) equals 1. This ensures that the variance isn't artificially inflated by using large coefficients. It's a mathematical constraint for uniqueness.
+    -   **Loadings:** The coefficients (φ) in the linear combination are called *loadings*. They tell us how much each original feature contributes to the principal component. A large loading (in absolute value) means the feature has a strong influence on that component.
+
+## Subsequent Principal Components
+
+-   **Subsequent Principal Components:** These are also linear combinations of the original features, but they capture the *most remaining variance*, with the constraint that they are *uncorrelated* (orthogonal) to the previous components. Each component captures a different "direction" of variability in the data, and they are all perpendicular to each other.
 
 ::: {.callout-note appearance="simple"}
 **Formula for the first principal component:**
 $$Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + ... + \phi_{p1}X_p$$
-where $\sum_{j=1}^{p} \phi_{j1}^2 = 1$ (normalization constraint).
-:::
+where $\sum_{j=1}^{p} \phi_{j1}^2 = 1$ (normalization constraint). The values $\phi_{11},...,\phi_{p1}$ are the *loadings* of the first principal component.
 :::
 
 ## Geometric Interpretation of PCA
 
-::: {style="font-size: 0.8em;"}
 The principal component loading vectors define directions in the feature space.
 
-- **First Principal Component:** The direction along which the data points *vary the most*.
-- **Second Principal Component:**  The direction, *orthogonal* (perpendicular) to the first, that captures the *next most variance*. And so on.
+-   **First Principal Component:** Represents the direction along which the data points *vary the most*. It's the line of best fit through the data, minimizing the squared distances from the points to the line.
+-   **Second Principal Component:** The direction, *orthogonal* (perpendicular) to the first, that captures the *next most variance*. And so on for subsequent components.
 
-Projecting the original data points onto these directions gives us the **principal component scores**.
+## Geometric Interpretation of PCA (Visual)
 
-![alt text](figures/6_14.png)
+![alt text](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F6_14.svg)
 
 ::: {.callout-note appearance="simple"}
-In the figure, which displays an advertising data, the green solid line represents the first principal component direction.  The blue dashed line represents the second.  Since this is a 2D example, there are only two components.
-:::
+This figure, from an advertising dataset, shows the first two principal components. The green solid line represents the first principal component direction (Z1). The blue dashed line represents the second (Z2). Because this is a two-dimensional example, we only have two components. The lines show the directions of greatest variability in the data.  The origin is at the mean of each feature.
 :::
 
 ## Example: USArrests Data
 
-::: {style="font-size: 0.8em;"}
-Let's look at an example using the `USArrests` dataset, which contains crime statistics for each of the 50 US states:
+Let's apply PCA to a real-world dataset: the `USArrests` dataset. This dataset contains crime statistics for each of the 50 US states.
 
--   **Features:**  `Murder`, `Assault`, `UrbanPop`, `Rape` (per 100,000 residents)
--   **Goal:**  Visualize the data and find patterns using PCA.
+-   **Features:** `Murder`, `Assault`, `UrbanPop`, `Rape` (all measured per 100,000 residents).
+-   **Goal:** Visualize the data and identify patterns using PCA.  We want to see if we can reduce these four crime variables down to a smaller number of "summary" variables.
 
-![First two principal components for the USArrests data.](figures/12_1.png)
+## USArrests Data: PCA Biplot - Image
 
-::: {.callout-note appearance="simple"}
-This is a **biplot**.  It shows both the principal component *scores* (blue state names) and the principal component *loadings* (orange arrows).  For example, the loading for `Rape` on the first component is 0.54, and on the second component is 0.17. The word `Rape` is centered at the point (0.54, 0.17).
-:::
-:::
+![First two principal components for the USArrests data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_1.svg)
 
-## Interpreting the USArrests Biplot
+## USArrests Data: PCA Biplot - Explanation 1
 
-::: {style="font-size: 0.8em;"}
--   **First Principal Component (PC1):**  Places roughly equal weight on `Murder`, `Assault`, and `Rape`, with much less weight on `UrbanPop`.  This component represents overall crime rates.
--   **Second Principal Component (PC2):**  Places most of its weight on `UrbanPop`, representing the level of urbanization.
--   **Correlation:**  `Murder`, `Assault`, and `Rape` are close together, indicating they are correlated. `UrbanPop` is farther away, indicating it's less correlated with the other three.
+This plot is called a **biplot**. It shows both the principal component *scores* (blue state names) and the principal component *loadings* (orange arrows). The scores represent the projection of each state onto the plane defined by the first two principal components.
 
+## USArrests Data: PCA Biplot - Explanation 2
+
+The loadings (orange arrows) show the contribution of each original variable to the principal components.  For example, the loading for `Rape` on the first component is 0.54, and on the second component is 0.17. The word `Rape` is centered at the point (0.54, 0.17). The length and direction of the arrows indicate the strength and direction of the relationship.
+
+## USArrests Data: PCA Biplot - Explanation 3
+
+The axes are labeled as PC1 and PC2. Each point represents a state, and its position is determined by its scores on the two principal components. States closer together in this plot have similar crime profiles.
+
+## Interpreting the USArrests Biplot (Cont.)
+
+-   **First Principal Component (PC1):** This component places roughly equal weight on `Murder`, `Assault`, and `Rape`, with much less weight on `UrbanPop`. This suggests that PC1 primarily captures the overall level of violent crime. States with high scores on PC1 have high crime rates across these three categories.
+-   **Second Principal Component (PC2):** This component places most of its weight on `UrbanPop`, suggesting that it represents the degree of urbanization. States with high scores on PC2 are more urbanized.
+-   **Correlation:** The proximity of `Murder`, `Assault`, and `Rape` in the biplot indicates that these variables are positively correlated. `UrbanPop` is farther away, indicating it's less correlated with the other three.
+
+## Interpreting the USArrests Biplot: Loading Table - Image
 |          | PC1     | PC2     |
 | :------- | :------ | :------ |
 | Murder   | 0.536   | -0.418  |
@@ -139,126 +190,156 @@ This is a **biplot**.  It shows both the principal component *scores* (blue stat
 | UrbanPop | 0.278   | 0.873   |
 | Rape     | 0.543   | 0.167   |
 
-::: {.callout-note appearance="simple"}
-The table shows loading vectors. States with large positive scores on PC1 (e.g., California, Nevada, Florida) have high crime rates.  States with large positive scores on PC2 (e.g., California) have high urbanization.
-:::
-:::
+## Interpreting the USArrests Biplot: Loading Table - Explanation 1
+This table shows the numerical values of the loading vectors for each principal component. These numbers correspond to the lengths and directions of the arrows in the biplot.
 
-## Another Interpretation of PCA
+## Interpreting the USArrests Biplot: Loading Table - Explanation 2
+States with large positive scores on PC1 (e.g., California, Nevada, Florida) have high crime rates, as indicated by the biplot and the large positive loadings for Murder, Assault, and Rape on PC1.
 
-::: {style="font-size: 0.8em;"}
-Besides finding directions of greatest variance, PCA also finds *linear surfaces* that are closest to the data points.
+## Interpreting the USArrests Biplot: Loading Table - Explanation 3
+States with large positive scores on PC2 (e.g., California) have high urbanization, as indicated by the biplot and the large positive loading for UrbanPop on PC2.
 
--   **First Principal Component:** The *line* in p-dimensional space closest to the n observations (in terms of average squared Euclidean distance).
--   **First Two Principal Components:** The *plane* closest to the observations.
--   **And so on...**
+## Another Interpretation of PCA: Closest Linear Surfaces
 
-![Ninety observations simulated in three dimensions.](figures/12_2a.png)
+PCA can also be understood as finding *linear surfaces* that are closest to the data points.
 
-::: {.callout-note appearance="simple"}
-*Left*: The first two principal component directions span the plane that best fits the data. *Right*: The first two principal component score vectors give the coordinates of the projection of the 90 observations onto the plane.
-:::
-:::
+-   **First Principal Component:** The *line* in p-dimensional space that is closest to the n observations (in terms of average squared Euclidean distance). It's the best-fitting line in the sense of minimizing the sum of squared distances from the points to the line.
+-   **First Two Principal Components:** The *plane* that is closest to the observations. It's the best-fitting plane in the same least-squares sense.
+-   **And so on...** For higher dimensions, PCA finds the best-fitting hyperplanes (generalizations of planes to higher dimensions).
+
+## Another Interpretation of PCA: Visual - Image
+
+![Ninety observations simulated in three dimensions.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_2.svg)
+
+## Another Interpretation of PCA: Visual - Explanation (Left)
+*Left*: The first two principal component directions (shown in green) span the plane that best fits the data. It's like finding the "flattest" plane that passes through the cloud of points, minimizing the distances from the points to the plane.
+
+## Another Interpretation of PCA: Visual - Explanation (Right)
+*Right*: The first two principal component score vectors give the coordinates of the projection of the 90 observations onto this plane. Projecting the data onto this plane gives us a lower-dimensional representation, capturing the most important aspects of the data's variability.
 
 ## Proportion of Variance Explained (PVE)
 
-::: {style="font-size: 0.8em;"}
-How much information is *lost* when we project data onto the first few principal components?  We use the **Proportion of Variance Explained (PVE)** to measure this.
+How much information do we *lose* when we project our data onto the first few principal components? The **Proportion of Variance Explained (PVE)** helps us answer this question.  It quantifies the amount of information retained by each principal component.
 
--   **Total Variance:** The sum of the variances of all the original features (assuming they are centered).
--   **Variance Explained by the m-th PC:** The variance of the m-th principal component.
--   **PVE of the m-th PC:** The *proportion* of the total variance explained by the m-th principal component.
+## Understanding PVE
+
+-   **Total Variance:** The sum of the variances of all the original features (assuming the features have been centered). This represents the total variability in the original dataset.
+-   **Variance Explained by the m-th PC:** The variance of the m-th principal component. This is the amount of variability captured by that single component.
+-   **PVE of the m-th PC:** The *proportion* of the total variance that is explained by the m-th principal component. It tells us how much information is retained by that component, expressed as a percentage of the total.
+
+## PVE Formula
 
 ::: {.callout-note appearance="simple"}
 **Formula for PVE of the m-th PC:**
 $$\frac{\sum_{i=1}^{n} z_{im}^2}{\sum_{j=1}^{p} \sum_{i=1}^{n} x_{ij}^2}$$
-:::
-:::
-
-## PVE: USArrests Example
-
-::: {style="font-size: 0.8em;"}
-![Scree plot and cumulative PVE plot for the USArrests data.](figures/12_3.png)
-
-::: {.callout-note appearance="simple"}
-*Left*: A **scree plot**, showing the PVE of each principal component. *Right*: The cumulative PVE.
+Where:
+- *z<sub>im</sub>* is the score of the i-th observation on the m-th principal component.
+- *x<sub>ij</sub>* is the value of the j-th feature for the i-th observation (after centering).  The denominator represents the total variance.
 :::
 
--   **PC1:** Explains 62.0% of the variance.
+## PVE: USArrests Example (Visual) - Image
+
+![Scree plot and cumulative PVE plot for the USArrests data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_3.svg)
+
+## PVE: USArrests Example (Visual) - Explanation (Left)
+
+*Left*: A **scree plot**, showing the PVE of each principal component. Each bar represents a principal component, and the height of the bar indicates the proportion of variance explained by that component.
+
+## PVE: USArrests Example (Visual) - Explanation (Right)
+
+*Right*: The cumulative PVE. This plot shows the cumulative proportion of variance explained as we add more principal components.  It helps us see how much variance is explained by the first few components together.
+
+## PVE: USArrests Example (Interpretation)
+
+-   **PC1:** Explains 62.0% of the variance in the data.
 -   **PC2:** Explains 24.7% of the variance.
--   **Together:** PC1 and PC2 explain almost 87% of the variance.
+-   **Together:** PC1 and PC2 explain almost 87% of the total variance.
 
-This means that Figure 12.1 (the biplot) provides a good two-dimensional summary of the data.  The scree plot helps us decide how many components to keep (look for an "elbow").
-:::
+This means that the biplot (from earlier slides) provides a reasonably good two-dimensional summary of the data, capturing a large portion of its variability. The scree plot helps us decide how many components to keep. We often look for an "elbow" in the plot – a point where the PVE starts to drop off significantly. This suggests that adding further components adds little additional information.
 
-## Scaling the Variables
+## Scaling the Variables: A Crucial Step
 
-::: {style="font-size: 0.8em;"}
-Before performing PCA, we usually *scale* the variables to have a standard deviation of one.
+Before performing PCA, we usually *scale* the variables to have a standard deviation of one (also called standardization or z-scoring). This is a very important step in most cases!
 
--   **Why scale?**  If variables are measured in different units or have vastly different variances, the variables with the *largest variances* will dominate the principal components, regardless of whether they are actually the most *important*.
--   **Exception:**  If variables are measured in the *same units* (e.g., gene expression levels), we might *not* want to scale.
+## Why Scale?
 
-![Effect of scaling on the USArrests biplot.](figures/12_4.png)
+-   **Different Units/Variances:** If variables are measured in different units (e.g., meters and kilograms) or have vastly different variances (e.g., one variable ranges from 0 to 1, another from 0 to 1000), the variables with the *largest variances* will dominate the principal components, regardless of whether they are actually the most *important* or informative.
+-   **Equal Weight:** Scaling prevents this by putting all variables on a "level playing field."  It ensures that each variable contributes equally to the principal components, based on its *relative* variability, not its absolute scale.
 
-::: {.callout-note appearance="simple"}
-*Left*: PCA with scaled variables (like Figure 12.1). *Right*: PCA with unscaled variables.  `Assault` dominates the first PC because it has the highest variance.
-:::
-:::
+## When *Not* to Scale
+
+-   **Same Units:** If variables are measured in the *same units* (e.g., gene expression levels measured using the same technology), and the differences in variance are scientifically meaningful, we might *not* want to scale. In this case, the differences in variance might reflect real biological differences.
+
+## Scaling: USArrests Example (Visual) - Image
+
+![Effect of scaling on the USArrests biplot.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_4.svg)
+
+## Scaling: USArrests Example (Visual) - Explanation (Left)
+*Left*: PCA with scaled variables (this is the same as the biplot we saw earlier). Notice that all variables contribute reasonably to PC1.
+
+## Scaling: USArrests Example (Visual) - Explanation (Right)
+*Right*: PCA with unscaled variables. Notice how `Assault` dominates the first principal component in the unscaled version simply because it has the highest variance among the four variables. Scaling gives a more balanced representation, reflecting the relative importance of the variables.
 
 ## How Many Principal Components to Use?
 
-::: {style="font-size: 0.8em;"}
-There's no single, definitive answer.  It depends on the context and the data.
+This is a common question, and unfortunately, there's no single "magic number" that works for all datasets. The best approach depends on the specific context, the dataset, and the goals of the analysis.
 
--   **Scree Plot:**  Look for an "elbow" in the scree plot – a point where the PVE drops off significantly.
--   **Interpretation:**  Keep enough components to capture the *interesting patterns* in the data.
--   **Ad Hoc:**  This process is inherently subjective.
--   **Supervised Learning:**  If PCA is used for pre-processing for supervised learning (e.g., Principal Components Regression), we can use cross-validation to select the number of components.
-:::
+## Guidelines for Choosing the Number of Components
 
-## Clustering Methods
+-   **Scree Plot:** Look for an "elbow" in the scree plot – a point where the PVE drops off significantly. This suggests that adding more components beyond that point doesn't provide much additional information.
+-   **Interpretation:** Keep enough components to capture the *interesting patterns* in the data. If you can interpret the first few components in a meaningful way, that's a good sign.
+-   **Ad Hoc:** The process is inherently somewhat subjective and requires judgment.
+-   **Supervised Learning:** If PCA is used for pre-processing in a supervised learning context (e.g., Principal Components Regression), we can use cross-validation to select the optimal number of components. This involves trying different numbers of components and seeing which number leads to the best predictive performance on unseen data.
 
-::: {style="font-size: 0.8em;"}
-Clustering aims to find *subgroups* (clusters) within a dataset.
+## Clustering Methods: Finding Subgroups
 
-- **Goal:** Partition observations into groups so that observations *within* a group are similar, and observations in *different* groups are dissimilar.
-- **Similarity:**  What does "similar" mean? This is a crucial, often domain-specific, consideration.
-- **Unsupervised:** We're looking for structure without a predefined outcome.
+Now, let's move on to the second major type of unsupervised learning: **clustering**. Clustering aims to find *subgroups* (clusters) within a dataset, grouping observations that are similar to each other.
 
-We'll cover two main types:
+## Clustering: The Goal
 
-1.  **K-Means Clustering:**  Partitions data into a *pre-specified* number (K) of clusters.
-2.  **Hierarchical Clustering:**  Builds a *hierarchy* of clusters, represented by a dendrogram.
-:::
+-   **Goal:** Partition observations into groups (clusters) so that observations *within* a group are similar, and observations in *different* groups are dissimilar. It's like sorting a collection of objects into meaningful categories based on their shared characteristics.
+-   **Similarity:** What does "similar" mean? This is a crucial, and often domain-specific, consideration. We need to define how we measure the similarity or dissimilarity between observations, and this choice can significantly affect the results.
+-   **Unsupervised:** We're looking for structure *without* a predefined outcome or "correct answer."  We don't know the "true" clusters beforehand.
 
-## K-Means Clustering
+## Two Main Types of Clustering
 
-::: {style="font-size: 0.8em;"}
-K-means clustering is a simple and widely used clustering algorithm.
+We'll cover two main types of clustering:
 
-- **Input:**  A dataset and a desired number of clusters, *K*.
-- **Output:**  Assigns each observation to *exactly one* of K clusters.
-- **Goal:**  Minimize the *within-cluster variation*.
+1.  **K-Means Clustering:** Partitions data into a *pre-specified* number (K) of clusters. We have to tell the algorithm how many clusters we *expect* to find.
+2.  **Hierarchical Clustering:** Builds a *hierarchy* of clusters, represented by a dendrogram (a tree-like diagram). This approach doesn't require us to pre-specify the number of clusters; we can decide *after* seeing the dendrogram.
 
-![K-means clustering results on simulated data.](figures/12_7.png)
+## K-Means Clustering: A Popular Choice
+
+K-means clustering is a simple, widely used, and efficient clustering algorithm.
+
+-   **Input:** A dataset and a desired number of clusters, *K*.
+-   **Output:** Assigns each observation to *exactly one* of K clusters.
+-   **Goal:** Minimize the *within-cluster variation*. This means we want the observations within each cluster to be as close to each other as possible, forming tight, compact groups.
+
+## K-Means Clustering (Visual) - Image
+
+![K-means clustering results on simulated data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_7.svg)
+
+## K-Means Clustering (Visual) - Explanation (K=2)
+This figure shows the results of applying K-means clustering with K=2 (two clusters). The color of each observation indicates the cluster to which it was assigned. The algorithm has separated the data into two distinct groups.
+
+## K-Means Clustering (Visual) - Explanation (K=3)
+Here, K=3. The algorithm has identified three clusters. Notice how the cluster assignments change as we change the value of K.
+
+## K-Means Clustering (Visual) - Explanation (K=4)
+With K=4, the data is further divided. The choice of K significantly impacts the resulting clusters.
+
+## The K-Means Algorithm: Step-by-Step
+
+1.  **Initialization:** Randomly assign each observation to one of the K clusters. This is our initial "guess" at the cluster assignments. These are *random* starting points.
+2.  **Iteration:** Repeat the following steps until the cluster assignments stop changing (or until a maximum number of iterations is reached):
+    a.  **Compute Centroids:** For each cluster, calculate the *centroid*. The centroid is the mean vector of all the observations in that cluster. It represents the "center" of the cluster in the feature space.
+    b.  **Reassign Observations:** Assign each observation to the cluster whose centroid is *closest* (usually using Euclidean distance). This step refines the cluster assignments based on the current centroids, moving observations between clusters to minimize within-cluster distances.
+
+## The K-Means Algorithm (Local Optima)
 
 ::: {.callout-note appearance="simple"}
-The results of applying K-means clustering with different values of K (the number of clusters) are presented. The color of each observation indicates the cluster to which it was assigned.
-:::
-:::
-
-## The K-Means Algorithm
-
-::: {style="font-size: 0.8em;"}
-1.  **Initialization:** Randomly assign each observation to one of the K clusters.
-2.  **Iteration:** Repeat until the cluster assignments stop changing:
-    a.  **Compute Centroids:**  For each cluster, calculate the *centroid* (the mean vector of the observations in that cluster).
-    b.  **Reassign Observations:** Assign each observation to the cluster whose centroid is *closest* (usually using Euclidean distance).
-
-::: {.callout-note appearance="simple}
-The algorithm is guaranteed to decrease the within-cluster variation at each step. It finds a *local* optimum, not necessarily the global optimum.
-:::
+The K-means algorithm is guaranteed to decrease the within-cluster variation at each step. However, it finds a *local* optimum, not necessarily the *global* optimum. This means the final cluster assignments can depend on the initial random assignments. Different starting points can lead to different final clusters.
 :::
 
 ## K-Means: An Illustrative Example
@@ -270,127 +351,194 @@ graph LR
     C --> D(Iteration 1, Step 2b: Reassign Observations);
     D --> E(Iteration 2, Step 2a: Compute Centroids);
      E --> F(Iteration 2, Step 2b: Reassign Observations);
-    F --> G(Final Results);
+    F --> G(Continue Iterating Until Convergence);
+    G --> H(Final Cluster Assignments);
     style A fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#ccf,stroke:#333,stroke-width:4px
+    style H fill:#ccf,stroke:#333,stroke-width:4px
 ```
 
-![Progress of the K-means algorithm.](figures/12_8.png)
+This flowchart illustrates the iterative nature of the K-means algorithm. The process continues until the cluster assignments no longer change, indicating that a local optimum has been reached.
 
-## K-Means: Local Optima
+## K-Means Algorithm in Action - Image
 
-::: {style="font-size: 0.8em;"}
-Because K-means finds a local optimum, the results depend on the *initial random assignment* of observations to clusters.
+![Progress of the K-means algorithm.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_8.svg)
 
--   **Recommendation:** Run K-means multiple times with different initializations and choose the solution with the *lowest* within-cluster variation.
+## K-Means Algorithm in Action - Explanation (First Row)
+This figure shows the progress of the K-means algorithm over several iterations. The crosses represent the cluster centroids. The first row shows the random initialization of cluster assignments and the initial centroids.
 
-![K-means clustering with different initializations.](figures/12_9.png)
+## K-Means Algorithm in Action - Explanation (Second Row)
+The second row shows the state after the first iteration. The centroids have moved, and some observations have been reassigned to different clusters.
 
-::: {.callout-note appearance="simple}
-K-means clustering was performed six times on the data, each with a different random assignment of observations. Three different local optima were obtained, one of which resulted in better separation between the clusters.
-:::
-:::
+## K-Means Algorithm in Action - Explanation (Third and Fourth Rows)
+The third and fourth rows show further iterations. The algorithm continues to update the centroids and reassign observations until convergence.
 
-## Hierarchical Clustering
+## K-Means: The Problem of Local Optima
 
-::: {style="font-size: 0.8em;"}
-Hierarchical clustering builds a *hierarchy* of clusters, represented by a **dendrogram**.
+Because K-means finds a local optimum, the results can vary depending on the *initial random assignment* of observations to clusters. Different starting points can lead to different final cluster assignments, and some solutions may be better (lower within-cluster variation) than others.
 
-- **Advantage:**  Doesn't require pre-specifying the number of clusters (K). We can choose the number of clusters by "cutting" the dendrogram.
-- **Dendrogram:**  A tree-like diagram that shows how clusters are merged.
-- **Agglomerative (Bottom-Up):**  Start with each observation as its own cluster, and successively merge the most similar clusters.
+## Dealing with Local Optima
 
-![Dendrogram of hierarchically clustering the data.](figures/12_11.png)
-:::
+-   **Recommendation:** Run K-means multiple times with different initializations and choose the solution with the *lowest* within-cluster variation. This helps to mitigate the problem of getting stuck in a poor local optimum.  It increases the chances of finding a good solution, although it doesn't guarantee finding the global optimum.
+
+## K-Means: Local Optima (Visual) - Image
+
+![K-means clustering with different initializations.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_9.svg)
+
+## K-Means: Local Optima (Visual) - Explanation 1
+This figure shows K-means clustering performed six times on the same data, each with a different random initialization.
+
+## K-Means: Local Optima (Visual) - Explanation 2
+Three different local optima were obtained.  This highlights the variability in the results due to the random initialization.
+
+## K-Means: Local Optima (Visual) - Explanation 3
+One of these local optima (bottom right) resulted in a better separation between the clusters. This emphasizes the importance of running K-means multiple times and comparing the results.
+
+## Hierarchical Clustering: A Different Approach
+
+Hierarchical clustering offers an alternative to K-means, building a *hierarchy* of clusters. It provides a more nuanced view of the relationships between observations.
+
+## Advantages of Hierarchical Clustering
+
+-   **No Need to Pre-specify K:** Unlike K-means, we don't need to pre-specify the number of clusters (K). We can choose the number of clusters *after* the algorithm has run by examining the resulting dendrogram. This provides more flexibility.
+-   **Dendrogram:** The output of hierarchical clustering is a **dendrogram**, a tree-like diagram that visually represents the hierarchy of clusters and the relationships between observations. It provides a visual summary of the clustering process.
+
+## Agglomerative Clustering (Bottom-Up)
+
+-   **Agglomerative (Bottom-Up):** We'll focus on agglomerative clustering, which is the most common type of hierarchical clustering. It starts with each observation as its own cluster and successively merges the most similar clusters until only one cluster remains, building the hierarchy from the bottom up.
+
+## Hierarchical Clustering: Dendrogram - Image
+
+![Dendrogram of hierarchically clustering the data.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_11.svg)
+
+## Hierarchical Clustering: Dendrogram - Explanation
+This dendrogram visually represents the hierarchy of clusters. Each leaf represents an observation, and the branches show how clusters are merged.
 
 ## Interpreting a Dendrogram
 
-::: {style="font-size: 0.8em;"}
--   **Leaves:** Represent individual observations.
--   **Fusions:**  As you move up the tree, leaves and branches *fuse*, representing the merging of similar clusters.
--   **Height of Fusion:**  Indicates the *dissimilarity* between the merged clusters.  Lower fusions mean more similar clusters.
--   **Cutting the Dendrogram:**  A horizontal cut across the dendrogram gives a specific number of clusters. The height of the cut determines the number of clusters.
+-   **Leaves:** The leaves at the bottom of the dendrogram represent individual observations.
+-   **Fusions:** As you move up the tree, leaves and branches *fuse* together. These fusions represent the merging of similar clusters.  Earlier fusions indicate greater similarity.
+-   **Height of Fusion:** The height at which two clusters fuse indicates their *dissimilarity*. Lower fusions mean the merged clusters are more similar. Higher fusions mean the clusters are more dissimilar.  The height provides a measure of the distance between merged clusters.
+-   **Cutting the Dendrogram:** A horizontal cut across the dendrogram gives a specific number of clusters. The height of the cut determines the number of clusters obtained.  This is how we can choose the number of clusters *after* running the algorithm.
 
-![Interpreting a dendrogram.](figures/12_12.png)
+## Interpreting a Dendrogram (Visual) - Image
 
-::: {.callout-note appearance="simple}
-The figure illustrates how to *properly* interpret a dendrogram. *Left*: A dendrogram generated using Euclidean distance and complete linkage. Observations 5 and 7 are quite similar. *Right*: The raw data used to generate the dendrogram.
-:::
-:::
+![Interpreting a dendrogram.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_12.svg)
 
-## The Hierarchical Clustering Algorithm
+## Interpreting a Dendrogram (Visual) - Explanation (Left)
 
-::: {style="font-size: 0.8em;"}
-1.  **Initialization:** Start with each observation as its own cluster (n clusters). Calculate all pairwise dissimilarities (e.g., using Euclidean distance).
+*Left*: A dendrogram generated using Euclidean distance and complete linkage. Observations 5 and 7 are quite similar, as indicated by the low height of their fusion.  Observations 1 and 6 are also quite similar.
+
+## Interpreting a Dendrogram (Visual) - Explanation (Right)
+*Right*: The raw data that was used to generate the dendrogram. This allows us to see how the dendrogram reflects the relationships in the original data. The dendrogram accurately captures the similarity between observations 5 and 7, and between observations 1 and 6.
+
+## The Hierarchical Clustering Algorithm: Step-by-Step
+
+1.  **Initialization:** Begin with each observation as its own cluster (n clusters). Calculate all pairwise dissimilarities between the observations (e.g., using Euclidean distance).
 2.  **Iteration:** For i = n, n-1, ..., 2:
-    a.  **Find Most Similar Clusters:** Identify the two *most similar* clusters (least dissimilar).
-    b.  **Merge Clusters:** *Fuse* these two clusters into a single cluster.  The dissimilarity between these clusters is the *height* in the dendrogram where they fuse.
-    c.  **Update Dissimilarities:**  Calculate the new pairwise inter-cluster dissimilarities between the remaining i-1 clusters.
+    a.  **Find Most Similar Clusters:** Identify the two *most similar* clusters (the two clusters with the smallest dissimilarity).
+    b.  **Merge Clusters:** *Fuse* these two clusters into a single cluster. The dissimilarity between these two clusters is represented by the *height* in the dendrogram where their branches fuse.
+    c.  **Update Dissimilarities:** Calculate the new pairwise inter-cluster dissimilarities between the remaining i-1 clusters. This is where different *linkage* methods come into play.  The choice of linkage affects how the distances between clusters are calculated.
 
-::: {.callout-note appearance="simple}
-**Key Question:** How do we define the dissimilarity between *clusters* (groups of observations), not just individual observations? This is where **linkage** comes in.
+## The Key Question: Linkage
+
+::: {.callout-note appearance="simple"}
+**Key Question:** How do we define the dissimilarity between *clusters* (groups of observations), not just between individual observations?  We know how to calculate the distance between two *points*, but how do we calculate the distance between two *sets* of points? This is where **linkage** comes in.
 :::
-:::
-## Linkage
 
-::: {style="font-size: 0.8em;"}
-**Linkage** defines the dissimilarity between two *groups* of observations.
+## Linkage: Defining Inter-Cluster Dissimilarity
 
-| Linkage    | Description                                                                                                        |
-| :--------- | :----------------------------------------------------------------------------------------------------------------- |
-| Complete   | *Maximal* intercluster dissimilarity (dissimilarity between the *most dissimilar* points in the two clusters).       |
-| Single     | *Minimal* intercluster dissimilarity (dissimilarity between the *most similar* points in the two clusters).        |
-| Average    | *Mean* intercluster dissimilarity (average dissimilarity between all pairs of points in the two clusters).     |
-| Centroid   | Dissimilarity between the *centroids* of the two clusters.                                                        |
+**Linkage** defines how we measure the dissimilarity between two *groups* of observations (clusters).  It's a crucial choice in hierarchical clustering. There are several different linkage methods:
 
-::: {.callout-note appearance="simple}
-Average and complete linkage are generally preferred. Centroid linkage can lead to undesirable *inversions*.
-:::
+## Linkage Methods: A Table
+
+| Linkage    | Description                                                                                                                                                  |
+| :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Complete   | *Maximal* intercluster dissimilarity. Calculates the dissimilarity between the *most dissimilar* points in the two clusters (the largest pairwise distance).          |
+| Single     | *Minimal* intercluster dissimilarity. Calculates the dissimilarity between the *most similar* points in the two clusters (the smallest pairwise distance). |
+| Average    | *Mean* intercluster dissimilarity. Calculates the average dissimilarity between all pairs of points in the two clusters.                                             |
+| Centroid   | Dissimilarity between the *centroids* (means) of the two clusters.                                                                                                   |
+
+## Linkage: Recommendations
+
+::: {.callout-note appearance="simple"}
+Average and complete linkage are generally preferred over single and centroid linkage. Single linkage can lead to "chaining," where clusters become elongated and stringy. Centroid linkage can sometimes lead to undesirable *inversions* in the dendrogram, where clusters merge at a lower height than their individual members, making interpretation difficult.
 :::
 
 ## Choice of Dissimilarity Measure
 
-::: {style="font-size: 0.8em;"}
-Besides linkage, we also need to choose a *dissimilarity measure* between individual observations.
+In addition to choosing a linkage method, we also need to choose a *dissimilarity measure* between individual observations. This is the foundation upon which the clustering is built.
 
--   **Euclidean Distance:**  The most common choice. Measures the straight-line distance between two points.
--   **Correlation-Based Distance:**  Considers two observations similar if their features are *highly correlated*, even if their values are far apart in terms of Euclidean distance.
+## Common Dissimilarity Measures
 
-The choice depends on the *type of data* and the *scientific question*.
+-   **Euclidean Distance:** The most common choice. Measures the straight-line distance between two points in the feature space: $$\sqrt{\sum_{j=1}^{p}(x_{ij} - x_{i'j})^2}$$. Suitable when features are continuous and on similar scales (or have been scaled).
+-   **Correlation-Based Distance:** Considers two observations to be similar if their features are *highly correlated*, even if their absolute values are far apart in terms of Euclidean distance. Useful when we're interested in the *shape* of the feature profiles, rather than their magnitude.  It's calculated as `1 - correlation`.
 
-![Euclidean vs. correlation-based distance.](figures/12_15.png)
-:::
+## Dissimilarity Measures: An Example - Image
+
+![Euclidean vs. correlation-based distance.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F12_15.svg)
+
+## Dissimilarity Measures: An Example - Explanation (Top)
+The top panel shows three observations with two features. In terms of Euclidean distance, observations 1 and 3 are most similar, and observations 2 and 3 are most dissimilar.
+
+## Dissimilarity Measures: An Example - Explanation (Bottom)
+The bottom panel shows the same observations, but now we consider correlation-based distance. Observations 1 and 2 have a perfect correlation of 1, so their correlation-based distance is 0. Observation 3 is negatively correlated with observations 1 and 2.
+
+The choice of dissimilarity measure depends on the *type of data* and the *scientific question* being addressed. Euclidean distance focuses on the magnitude of differences, while correlation-based distance focuses on the pattern of changes across features.
 
 ## Practical Issues in Clustering
 
-::: {style="font-size: 0.8em;"}
--   **Scaling:** Should we scale the variables before clustering? (Usually yes, to give equal weight to each variable.)
--   **Small Decisions, Big Consequences:** Choices of dissimilarity measure, linkage, and scaling can have a *large impact* on the results.
--   **Validating Clusters:**  It's hard to know if the clusters found are *real* or just an artifact of the clustering process.
--   **Robustness:** Clustering methods are often *not very robust* to small changes in the data.
+Clustering, while powerful, comes with some practical challenges that require careful consideration.
 
-**Recommendation:** Try different choices, look for consistent patterns, and be cautious about over-interpreting the results. Clustering should be a starting point for further investigation, not the final answer.
-:::
+-   **Scaling:** Should we scale the variables before clustering? (Usually yes, for the same reasons as in PCA: to give equal weight to each variable and prevent variables with large variances from dominating the results.)
+-   **Small Decisions, Big Consequences:** Seemingly small choices, such as the dissimilarity measure, linkage method, and scaling, can have a *substantial impact* on the clustering results. There's no single "correct" set of choices, and different choices can lead to very different clusters.
+-   **Validating Clusters:** It's difficult to definitively know if the clusters found are *real* and meaningful, or just an artifact of the clustering process. There's no "ground truth" to compare against in most unsupervised learning scenarios.
+-   **Robustness:** Clustering methods are often *not very robust*. Small changes in the data (e.g., adding or removing a few observations) can lead to significantly different cluster assignments.
+
+## Clustering: Recommendations and Cautions
+
+**Recommendations:**
+
+-   **Experiment:** Try different choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling. Don't rely on a single clustering result.
+-   **Consistency:** Look for consistent patterns across different clustering results. If different methods produce similar clusters, this increases confidence in the findings.
+-   **Domain Knowledge:** Use domain knowledge to assess the plausibility and interpretability of the clusters. Do the clusters make sense in the context of the problem?
+
+**Caution:** Clustering should be viewed as a starting point for further investigation, not as the final answer. It's an exploratory technique that can generate hypotheses, but these hypotheses should be validated using other methods or domain knowledge. Don't over-interpret clustering results.
+
+## Data Mining, Machine Learning and Statistical Learning
+
+```{mermaid}
+graph LR
+    A[Data Mining] --> C(Common Ground)
+    B[Machine Learning] --> C
+    D[Statistical Learning] --> C
+    C --> E[Insights & Predictions]
+    style A fill:#ccf,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style D fill:#ccf,stroke:#333,stroke-width:2px
+     style C fill:#f9f,stroke:#333,stroke-width:4px
+      style E fill:#ccf,stroke:#333,stroke-width:4px
+```
+
+- **Data Mining:** Focuses on discovering patterns, anomalies, and insights from large datasets, often using techniques from both machine learning and statistical learning.
+- **Machine Learning:** Emphasizes the development of algorithms that can learn from data and make predictions without explicit programming.
+- **Statistical Learning:**  A subfield of statistics that focuses on developing and understanding models and methods for learning from data, with a strong emphasis on statistical inference and uncertainty quantification.
+
+All three fields share the common goal of extracting knowledge and making predictions from data, but they differ in their emphasis and approaches.
 
 ## Summary
 
-::: {style="font-size: 0.8em;"}
--   **Unsupervised learning** is about finding patterns and structure in data *without* a response variable.
--   **PCA** reduces dimensionality by finding linear combinations of features that capture the most variance. It's useful for visualization and pre-processing.
--   **Clustering** aims to find subgroups within the data.
-    -   **K-means** requires pre-specifying the number of clusters (K).
-    -   **Hierarchical clustering** builds a hierarchy of clusters, represented by a dendrogram.
--   Choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling can significantly affect clustering results.
--   Clustering is a powerful but often subjective and non-robust technique.  It's best used for exploration and hypothesis generation.
-:::
+-   **Unsupervised learning** is about finding patterns and structure in data *without* a response variable (no "teacher" to guide the learning).  It's about discovering hidden relationships.
+-   **PCA** reduces dimensionality by finding linear combinations of features (principal components) that capture the most variance. It's useful for visualization and pre-processing data for other analyses.
+-   **Clustering** aims to find subgroups (clusters) within the data, grouping similar observations together.
+    -   **K-means** requires pre-specifying the number of clusters (K). It's an iterative algorithm that minimizes within-cluster variation.  It's sensitive to initialization.
+    -   **Hierarchical clustering** builds a hierarchy of clusters, represented by a dendrogram. It doesn't require pre-specifying K, and it provides a visual representation of the relationships between observations.
+-   Choices of dissimilarity measure, linkage (for hierarchical clustering), and scaling can significantly affect clustering results.  These choices should be made carefully and thoughtfully.
+-   Clustering is a powerful, but often subjective and non-robust, technique. It's best used for exploration and hypothesis generation, not for definitive conclusions. Always consider the limitations.
 
 ## Thoughts and Discussion
 
-::: {style="font-size: 0.8em;"}
--   Can you think of other real-world applications where unsupervised learning might be useful?
--   What are the potential limitations of relying too heavily on clustering results without further validation?
--   How might you combine supervised and unsupervised learning techniques in a single analysis?
--	How do you understand the differences and connections between data mining, machine learning, and statistical learning?
-
-:::
-
+-   Can you think of other real-world applications where unsupervised learning might be useful? Consider areas like image analysis (grouping similar images), anomaly detection (identifying unusual transactions), or natural language processing (clustering documents by topic).
+-   What are the potential limitations of relying too heavily on clustering results without further validation? How could you try to validate the clusters you find? (e.g., using external data, domain expertise, or comparing results across different methods).
+-   How might you combine supervised and unsupervised learning techniques in a single analysis? For example, could you use clustering to identify subgroups and then build separate supervised models for each subgroup (this is called "cluster-then-predict")?  Or could you use PCA to reduce dimensionality before applying a supervised learning algorithm?
+-	How do you understand the differences and connections between data mining, machine learning, and statistical learning? Can you give examples of techniques used in each field?
+- What is the biggest difference do you think supervised and unsupervised learning?

@@ -1,348 +1,521 @@
-## Introduction 
+---
+title: "Resampling Methods"
+subtitle: "Statistical Learning - Chapter 5"
+---
 
-::: {layout-ncol=2}
-- Welcome to Chapter 5: Resampling Methods!
+## Introduction
 
-- This chapter introduces powerful statistical techniques that help us better understand and utilize our models.
+::: {layout-valign="center"}
+Welcome to Chapter 5: Resampling Methods! 🎉
 
-![](figures/5_1.png)
-
+This chapter introduces powerful statistical techniques that help us better understand and utilize our models. We will learn two key resampling methods: Cross-Validation and Bootstrap. These methods are essential tools in the data scientist's toolkit!
 :::
+
+## Introduction: What Will be Covered?
+
+::: {layout-valign="center"}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2Fchapter_5.png)
+:::
+
+## Introduction: Roadmap
+
+This image provides an overview of what will be covered in this chapter about resampling methods. It shows the conceptual flow and various techniques:
+
+- **Cross-Validation:** Used for model assessment and selection.  Techniques include the validation set approach, leave-one-out cross-validation (LOOCV), and k-fold cross-validation.
+- **Bootstrap:**  A method for quantifying uncertainty in our estimates.
 
 ## What are Resampling Methods?
 
--   **Resampling methods** are indispensable tools in modern statistics.
-
+::: {layout-valign="center"}
+-   **Resampling methods** are indispensable tools in modern statistics. 💯
 -   They involve repeatedly drawing samples from a training set and refitting a model of interest on each sample.
+- Imagine you are baking a cake; you can modify the amount of each ingredient to get many versions of the cake. Resampling methods is like that, you are making many "cakes" (model) by ingredients(data).
 
-    -   This allows us to obtain additional information about the fitted model, such as the variability of a linear regression fit.
-    -   This kind of information might be difficult to get from the original training sample alone.
+:::
 
--   Resampling approaches can be computationally expensive but are usually not prohibitive because they involve fitting the same statistical method multiple times using different data subsets.
+## Resampling Methods: Detailed Explanation
+
+-   This allows us to obtain additional information about the fitted model.
+    -   **Example:**  Consider linear regression. Resampling lets us examine the *variability* of the coefficient estimates. How much do the slope and intercept change with different samples?
+    -   This information is usually difficult to get with a single model fit on the original training sample *alone*.  We only have *one* set of estimates!
+
+-   Resampling can be computationally expensive.
+    -   We refit the same statistical method *multiple times* with different data subsets.
+    -   However, with modern computing power, this is usually not a major obstacle. 💪
 
 ## Key Concepts
 
--   **Model Assessment:** Evaluating a model's performance (e.g., estimating test error).
--   **Model Selection:** Choosing the appropriate level of flexibility for a model.
--   **Bootstrap:** A method to measure the accuracy of a parameter estimate or a statistical learning method.
+-   **Model Assessment:**  Evaluating a model's performance.
+    -   Crucially, we want to estimate the *test error*. This tells us how well the model will generalize to *unseen* data.
+
+-   **Model Selection:**  Choosing the best level of flexibility for a model.
+    -   **Example:**  For polynomial regression, what degree of polynomial should we use?  For k-NN, how many neighbors?
+
+-   **Bootstrap:** A method to measure the accuracy (or uncertainty) of a parameter estimate or a statistical learning method.
+    -  The Bootstrap helps us quantify how much our estimates might vary if we had different samples.
 
 ## Why Resampling?
 
--   Imagine you fit a linear regression model. How confident are you in the coefficient estimates?
+-   Suppose you fit a linear regression model.  How confident are you in the coefficient estimates (slope and intercept)?
 
--   Resampling lets us answer this by:
+-   Are the estimates *reliable*, or would they change significantly with a slightly different sample?
 
-    1.  Repeatedly drawing different samples from the training data.
-    2.  Fitting the model to each new sample.
-    3.  Examining how much the resulting fits differ.
+-   Resampling helps us answer this:
 
--   This provides insights beyond a single model fit.
+    1.  Repeatedly draw *different* samples from the training data.
+    2.  Fit the model to each *new* sample.
+    3.  Examine how much the fitted models *differ* from each other.
+
+- This gives us a sense of the *variability* (or uncertainty) of our estimates, which goes beyond a single model fit.
 
 ## Two Main Resampling Methods
 
-We will cover the two most commonly used resampling methods:
+We'll cover two commonly used resampling methods:
 
 1.  **Cross-Validation:**
-    -   Estimating test error for model assessment.
-    -   Selecting model complexity.
+    -   Primarily for estimating *test error*.  Essential for both *model assessment* (how good is a model?) and *model selection* (which model is best?).
+    -  It gives us an idea of how well our model will perform on *new*, unseen data.
+
 2.  **Bootstrap:**
-    -   Quantifying uncertainty (e.g., standard errors) of estimates.
-    -   Useful when standard statistical software doesn't provide the uncertainty information you need.
+    -   Primarily for quantifying *uncertainty*.  Example: calculating standard errors of coefficient estimates.
+    -  Useful when standard software doesn't give us the uncertainty, or when assumptions of standard methods aren't valid.
 
 ## Cross-Validation: Introduction
 
--   Remember the distinction between **test error** and **training error** (from Chapter 2)?
+-   Remember the critical distinction between **test error** and **training error** (from Chapter 2)?
 
-    -   **Training Error:** Calculated on the data used to train the model. It often underestimates the test error.
-    -   **Test Error:** The average error on *new*, unseen data. This is what we really care about!
-    -   We want statistical learning methods that yield low test error.
+    -   **Training Error:**  Calculated on the data *used to train* the model.  It often *underestimates* the test error. (The model is *optimized* for this specific data.)
+    -   **Test Error:** The average error on *new*, *unseen* data.  This is what we truly care about!  It shows how well the model *generalizes*.
+    -   Our goal: statistical learning methods with *low* test error.
 
--   Ideally, we'd have a large, separate test set to estimate test error directly. Often, we don't!
+-   Ideally, we'd have a large, separate test set.  But, we often *don't*!
 
--   Cross-validation helps us estimate test error using *only* the available training data.
+-   Cross-validation cleverly estimates test error using *only* the available training data. 😉
 
 ## The Core Idea of Cross-Validation
 
-::: {layout-ncol=2}
--   **Hold Out Data:** We *hold out* a subset of the training data.
--   **Train and Predict**: We train the model on the remaining data and then predict the held-out observations.
--   **Estimate Test Error:** Because the held-out data wasn't used for training, the prediction error on this subset gives us an estimate of the test error.
--   There are a few different ways to do this hold-out, leading to different cross-validation techniques.
+-  **Hold Out Data:** We *hold out* a portion of the training data.  This held-out subset acts as a miniature "test set".
 
-![](figures/5_1.png)
+-   **Train and Predict:**
+    -   Train the model on the *remaining* data (the data *not* held out).
+    -   *Predict* the responses for the held-out observations.
 
-- A schematic display of the validation set approach. A set of n observations are randomly split into a training set (shown in blue) and a validation set (shown in beige).
-:::
+-   **Estimate Test Error:**
+    -   The held-out data *wasn't* used for training.
+    -   So, the prediction error on this subset provides a more realistic estimate of the test error.
+
+## Different Cross-Validation Techniques
+
+- Several different cross-validation techniques exist, based on how we hold out the data. We'll discuss these next.
+
+## The Core Idea of Cross-Validation: Visualized
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_1.svg)
+
+## The Core Idea of Cross-Validation: Visualized
+
+-   This figure illustrates the validation set approach, a basic form of cross-validation.
+-   A set of *n* observations is randomly split into two parts:
+    -   **Training set** (shown in blue).
+    -   **Validation set** (shown in beige).
 
 ## 5.1.1 The Validation Set Approach
 
 -   **Simplest form of cross-validation.**
+
 -   **Procedure:**
 
-    1.  Randomly divide the data into two parts:
-        -   **Training set:** Used to fit the model.
-        -   **Validation set** (or hold-out set): Used to estimate test error.
-    2.  Fit the model on the training set.
-    3.  Predict the responses for the observations in the validation set.
-    4.  Calculate the validation set error (e.g., MSE for regression). This is our estimate of the test error.
+    1.  Randomly split the data into two parts:
+        -   **Training set:** Used to *fit* the model.
+        -   **Validation set** (or hold-out set): Used to *estimate* the test error.
+    2. Fit the model to the training set.
+
+## Validation Set Approach: Procedure (Continued)
+
+    3. Use the fitted model to *predict* the responses for the observations in the *validation set*.
+    4. Calculate the validation set error.
+        -   **Example:** For regression, use Mean Squared Error (MSE).
+        -   This error is our estimate of the *test error*.
 
 ## Validation Set Approach: Example (Auto Data)
 
--   Recall the `Auto` data set (Chapter 3). We saw a non-linear relationship between `mpg` and `horsepower`.
+-   Recall the `Auto` dataset (Chapter 3). We saw a non-linear relationship between `mpg` and `horsepower`.
 
--   We can use the validation set approach to see if a quadratic or cubic model predicts `mpg` better than a linear model.
+-   Let's use the validation set approach to compare models:
 
-## Validation Set Approach: Example (Auto Data)
+    -   Linear model:  `mpg ~ horsepower`
+    -   Quadratic model:  `mpg ~ horsepower + horsepower²`
+    -   Cubic model:  `mpg ~ horsepower + horsepower² + horsepower³`
 
-::: {layout-ncol=2}
--   **Left Panel:** Shows the validation set MSE for a *single* random split of the data. The quadratic model has lower MSE than the linear model.
--   **Right Panel:** Shows validation set MSE for *ten* different random splits.  Notice the variability!
+-   Which model predicts `mpg` *best*? Cross-validation helps us decide!
 
-![](figures/5_2.png)
+## Validation Set Approach: Example (Auto Data) - Left Panel
 
-:::
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg)
 
-## Validation Set Approach: Drawbacks
+## Validation Set Approach: Example (Auto Data) - Left Panel - Explanation
 
-::: {layout-ncol=2}
-1.  **High Variability:** The test error estimate can vary significantly depending on *which* observations end up in the training and validation sets (as seen in the previous slide).
+-   **Left Panel:** Shows the validation set MSE for a *single* random split of the data.
+-   **Blue:** Linear model.
+-   **Orange:** Quadratic model.
+-   **Green:** Cubic model.
+-   The quadratic model (orange) has *lower* MSE than the linear model (blue), suggesting a better fit.
+-   The cubic model (green) has slightly *higher* MSE than the quadratic, suggesting overfitting.
 
-2.  **Overestimation of Test Error:** Only a *subset* of the data is used for training.  Models tend to perform worse with less data, so the validation set error may overestimate the test error of a model trained on the *entire* dataset.
+## Validation Set Approach: Example (Auto Data) - Right Panel
 
-![](figures/5_2.png)
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg)
 
-:::
+## Validation Set Approach: Example (Auto Data) - Right Panel - Explanation
+
+-   **Right Panel:** Shows validation set MSE for *ten* different random splits.
+-   Notice the *variability*! The MSE changes depending on *which* observations are in the training and validation sets.
+-   This illustrates a key drawback: The validation set approach can be highly variable.
+
+## Validation Set Approach: Drawbacks - Variability
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_2.svg)
+
+1.  **High Variability:** The test error estimate can change significantly depending on *which* observations are assigned to the training and validation sets (as seen in the right panel).  This makes the estimate less reliable.
+
+## Validation Set Approach: Drawbacks - Overestimation
+
+2.  **Overestimation of Test Error:** Only a *subset* of the data is used to train the model.  Models typically perform *worse* with less data.
+
+    -   Therefore, the validation set error tends to *overestimate* the test error of a model trained on the *entire* dataset.
+    - We're evaluating a model trained on *less* data than we actually have.
 
 ## 5.1.2 Leave-One-Out Cross-Validation (LOOCV)
 
--   **Addresses the drawbacks of the validation set approach.**
+-   **Addresses the drawbacks of the validation set approach.** A more refined approach.
+
 -   **Procedure:**
 
-    1.  For each observation *i* in the dataset (from 1 to *n*):
-        -   Hold out observation *i* as the validation set.
+    1.  For each observation *i* (from 1 to *n*):
+        -   Hold out observation *i* as the validation set. The validation set has only *one* observation!
+
+## LOOCV: Procedure (Continued)
+
         -   Train the model on the remaining *n-1* observations.
-        -   Predict the response for observation *i* (using its predictor values).
-        -   Calculate the error for observation *i* (e.g.,  `(yi - ŷi)²` for regression).
-    2.  Calculate the LOOCV estimate of the test MSE as the average of these *n* individual errors:
+        -   *Predict* the response for the held-out observation *i*.
+        -   Calculate the error for observation *i*.
+            -  **Example (Regression):**  `(yi - ŷi)²`  (squared error).
+            -  $y_i$: Actual value for observation *i*.
+            -  $\hat{y}_i$: Predicted value for observation *i*.
+
+## LOOCV: Procedure (Continued)
+
+    2.  Calculate the LOOCV estimate of the test MSE by averaging the *n* individual errors:
 
     $$
     CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}MSE_i
     $$
+    Where $MSE_i = (y_i - \hat{y}_i)^2$.
 
 ## LOOCV: Visualized
 
-::: {layout-ncol=2}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_3.svg)
 
-![](figures/5_3.png)
+## LOOCV: Visualized
 
-- A schematic display of LOOCV. A set of n data points is repeatedly split into a training set (shown in blue) containing all but one observation, and a validation set that contains only that observation (shown in beige). The test error is then estimated by averaging the n resulting MSEs.
+-   Schematic of LOOCV.
+-   *n* data points are repeatedly split:
+    -   **Training set** (blue): Contains *all but one* observation (*n-1* observations).
+    -   **Validation set** (beige): Contains *only that one* observation.
+-   The test error is estimated by averaging the *n* resulting MSEs.
 
-:::
+## LOOCV: Advantages - Less Bias
 
-## LOOCV: Advantages
+1.  **Less Bias:** LOOCV uses almost all the data (*n-1* observations) for training in *each* iteration.
 
-1.  **Less Bias:** LOOCV uses almost all the data (n-1 observations) for training in each iteration. This leads to a less biased estimate of the test error compared to the validation set approach.
-2.  **No Randomness:**  Unlike the validation set approach, LOOCV always produces the same result because there's no random splitting.
+    -   This results in a *less biased* estimate of the test error compared to the validation set approach.
+    -   The model trained in each iteration is very similar to the model we'd train on the *full* dataset.
 
-## LOOCV: Auto Data Example
+## LOOCV: Advantages - No Randomness
 
-::: {layout-ncol=2}
+2.  **No Randomness:**  Unlike the validation set approach, LOOCV always produces the *same* result. There's no random splitting.
 
-![](figures/5_4.png)
+    -   Every observation gets to be the validation data *exactly once*.
 
--   **Left Panel:**  The LOOCV error curve for different polynomial models predicting `mpg` from `horsepower`.
--   **Right Panel:** Shows multiple 10-fold CV curves.
+## LOOCV: Auto Data Example - Left Panel
 
-:::
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_4.svg)
+
+## LOOCV: Auto Data Example - Left Panel - Explanation
+
+-   **Left Panel:** The LOOCV error curve for different polynomial models predicting `mpg` from `horsepower`.
+-   The curve shows how the LOOCV error changes as the model complexity (degree of the polynomial) increases.
+
+## LOOCV: Auto Data Example - Right Panel
+
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_4.svg)
+
+## LOOCV: Auto Data Example - Right Panel - Explanation
+
+-   **Right Panel:** Shows multiple 10-fold CV curves (we'll discuss k-fold CV shortly).
+-   This demonstrates that 10-fold CV can produce *different* results depending on the random splits, while LOOCV is *deterministic* (always gives the same result).
 
 ## LOOCV: A Computational Shortcut
 
--   LOOCV can be computationally expensive, requiring *n* model fits.
--   **Shortcut for Least Squares Linear/Polynomial Regression:**  There's a magic formula!
+-   LOOCV can be computationally expensive: It requires *n* model fits.  Imagine *n* = 1 million!
+
+-   **Shortcut for Least Squares Linear/Polynomial Regression:**  A remarkable formula exists! ✨
 
 $$
 CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}\left( \frac{y_i - \hat{y}_i}{1 - h_i} \right)^2
 $$
 
--   $\hat{y}_i$ is the *i*th fitted value from the original least squares fit.
--   $h_i$ is the *leverage* (a measure of how much an observation influences its own fit).
--   **Key Point:** This formula lets us calculate LOOCV with the cost of just *one* model fit!
--   This shortcut does *not* generally apply to other models (like logistic regression).
+## LOOCV Shortcut: Explanation
+
+-   $\hat{y}_i$ is the *i*th fitted value from the *original* least squares fit (using the *entire* dataset).
+-   $h_i$ is the *leverage* statistic.
+    -   Leverage measures how much an observation influences its own fitted value.  Observations with high leverage have a larger influence on the fitted model.
+-   **Key Point:**  This formula allows us to calculate LOOCV with the cost of just *one* model fit!  This is a *huge* computational saving.
+
+## LOOCV Shortcut: Important Note
+
+-   This shortcut *does not* generally apply to other models (like logistic regression or more complex models).
+
+-   It's specific to *least squares linear and polynomial regression*.
+
+-   For other models, you typically need to perform the full LOOCV procedure (fitting the model *n* times).
 
 ## 5.1.3 k-Fold Cross-Validation
 
--   **A compromise between the validation set approach and LOOCV.**
+-   **A compromise between the validation set approach and LOOCV.**  Balances computational cost and accuracy.
+
 -   **Procedure:**
 
     1.  Randomly divide the data into *k* groups (or "folds") of approximately equal size.
+
+## k-Fold CV: Procedure (Continued)
+
     2.  For each fold *j* (from 1 to *k*):
         -   Treat fold *j* as the validation set.
         -   Train the model on the remaining *k-1* folds.
         -   Compute the error (e.g., MSE) on the held-out fold *j*.
-    3.  Calculate the k-fold CV estimate as the average of the *k* errors:
+
+## k-Fold CV: Procedure (Continued)
+
+    3. Calculate the k-fold CV estimate by averaging the *k* errors:
 
     $$
     CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k}MSE_i
     $$
+    Where $MSE_i$ is the mean squared error calculated on fold *i*.
 
 ## k-Fold CV: Visualized
 
-::: {layout-ncol=2}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_5.svg)
 
-![](figures/5_5.png)
+## k-Fold CV: Visualized - Explanation
 
-- A schematic display of 5-fold CV. A set of n observations is randomly split into five non-overlapping groups. Each of these fifths acts as a validation set (shown in beige), and the remainder as a training set (shown in blue). The test error is estimated by averaging the five resulting MSE estimates.
-
-:::
+-   Schematic of 5-fold CV.
+-   *n* observations are randomly split into *five* non-overlapping groups.
+-   Each "fifth" acts as a validation set (beige), and the remainder as the training set (blue).
+-   The test error is estimated by averaging the five resulting MSE estimates.
 
 ## k-Fold CV: Choosing k
 
--   Common choices for *k* are 5 or 10.
--   **Computational Advantage:**  k-fold CV (with k < n) is less computationally expensive than LOOCV.  It only requires *k* model fits, not *n*.
+-   Common choices for *k* are 5 or 10.  These values have been empirically shown to provide good estimates of the test error.
+
+-   **Computational Advantage:** k-fold CV (with k < n) is *less* computationally expensive than LOOCV.  It requires only *k* model fits, not *n*.  This is significant for large datasets.
 
 ## 5.1.4 Bias-Variance Trade-Off for k-Fold CV
 
 -   **Bias:**
-    -   LOOCV is nearly unbiased (uses almost all data for training).
-    -   k-fold CV has slightly more bias (uses (k-1)n/k observations for training).
-    -   Validation set approach has the most bias (uses roughly half the data).
+    -   LOOCV: Nearly unbiased (uses almost all data for training).
+    -   k-fold CV: Slightly more bias (uses (k-1)n/k observations for training).
+    -   Validation set approach: Most bias (uses roughly half the data, leading to overestimation of test error).
+
+## Bias-Variance Trade-Off for k-Fold CV (Continued)
+
 -   **Variance:**
-    -   LOOCV has *higher* variance than k-fold CV. Why? The *n* fitted models in LOOCV are highly correlated (they share almost all their training data).  Averaging highly correlated quantities has higher variance.
-    -   k-fold CV averages *k* models with less overlap in training data, leading to lower variance.
--   **Conclusion:** 5-fold or 10-fold CV often achieves a good balance between bias and variance.
+    -   LOOCV: *Higher* variance than k-fold CV.  The *n* fitted models in LOOCV are highly correlated (they share almost all their training data). Averaging highly correlated quantities has higher variance.
+    -   k-fold CV: Averages *k* models with *less* overlap in training data, leading to lower variance.
+-   **Conclusion:** 5-fold or 10-fold CV often achieve a good balance between bias and variance.  They offer a reasonable compromise between accuracy and computational cost.
 
 ## Cross-Validation on Simulated Data
 
-::: {layout-ncol=2}
-![](figures/5_6.png)
-:::
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_6.svg)
 
-::: {.callout-note appearance="simple"}
--   **Blue:** True test MSE.
+## Cross-Validation on Simulated Data
+
+-   **Blue:** True test MSE (known because it's simulated data).
 -   **Black Dashed:** LOOCV estimate.
 -   **Orange Solid:** 10-fold CV estimate.
 -   Crosses: Minimum points of each curve.
--   The plots show that CV curves can sometimes underestimate the true test MSE, but they generally identify the correct level of flexibility.
-:::
+-   The plots show that CV curves can sometimes *underestimate* the true test MSE.
+-   However, they generally identify the *correct level of flexibility* (the model with the lowest test error).
 
 ## 5.1.5 Cross-Validation for Classification
 
 -   So far, we've focused on regression (quantitative response).
+
 -   Cross-validation works similarly for classification (qualitative response).
+
 -   Instead of MSE, we use the **number of misclassified observations** to quantify error.
--   For example, the LOOCV error rate is:
+
+## Cross-Validation for Classification (Continued)
+
+-   **Example: LOOCV error rate:**
 
 $$
 CV_{(n)} = \frac{1}{n}\sum_{i=1}^{n}Err_i
 $$
 
-where $Err_i = I(y_i \neq \hat{y}_i)$ (1 if misclassified, 0 otherwise).
+where $Err_i = I(y_i \neq \hat{y}_i)$.
+-  $I(y_i \neq \hat{y}_i)$ is an *indicator function*:
+    -   1 if misclassified (predicted class $\hat{y}_i$ is different from the true class $y_i$).
+    -   0 otherwise.
 
-## CV for Classification: Example
+-   The k-fold CV error rate is calculated similarly, averaging the misclassification rates across the *k* folds.
 
-::: {layout-ncol=2}
-![](figures/5_7.png)
-:::
+## CV for Classification: Example - Decision Boundaries
 
-::: {.callout-note appearance="simple"}
-- **Purple Dashed Line**: Bayes decision boundary.
-- **Black Lines**: Decision boundaries from logistic regression with different polynomial degrees.
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_7.svg)
 
-:::
+## CV for Classification: Example - Decision Boundaries
 
-## CV for Classification: Example (cont.)
+-   **Purple Dashed Line:** Bayes decision boundary (the optimal decision boundary, usually unknown in practice).
+-   **Black Lines:** Decision boundaries from logistic regression with different polynomial degrees.  Observe how the decision boundary changes with model complexity.
 
-::: {layout-ncol=2}
-![](figures/5_8.png)
-:::
+## CV for Classification: Example - Error Curves
 
-::: {.callout-note appearance="simple"}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_8.svg)
+
+## CV for Classification: Example - Error Curves
+
 -   **Left:** Logistic regression with polynomial terms.
--   **Right:** KNN classifier with different values of K.
+-   **Right:** KNN classifier with different values of K (number of neighbors).
 -   **Brown:** True test error.
--   **Blue:** Training error.
+-   **Blue:** Training error (typically overly optimistic).
 -   **Black:** 10-fold CV error.
--   Cross-validation curves often underestimate the true test error but identify the minimum.
-:::
+-   CV curves often *underestimate* the true test error.
+-   Crucially, they tend to identify the *minimum*, corresponding to the best model complexity.
 
 ## 5.2 The Bootstrap
 
--   A powerful and widely applicable tool to quantify the uncertainty of an estimator or statistical learning method.
--   **Example:** Estimating the standard errors of regression coefficients. (Standard software *does* this for linear regression, but the bootstrap is useful in more general cases).
+-   A powerful and widely applicable tool for quantifying the *uncertainty* associated with an estimator or statistical learning method.
+
+-   It helps us understand how much our estimates might vary if we had different samples from the population.
+
+-   **Example:** Estimating standard errors of regression coefficients.  (Standard software *does* this for linear regression, but the bootstrap is useful in more general cases.)
 
 ## Bootstrap: The Core Idea
 
--   **Problem:**  We usually can't generate new samples from the *population*.
--   **Bootstrap Solution:**  We repeatedly sample observations *with replacement* from the *original data set* to create *bootstrap data sets*.
-    -   **With Replacement:**  The same observation can appear multiple times in a bootstrap data set.
--   We treat the original data set as if it *were* the population.
+-   **Problem:** We usually *cannot* generate new samples from the *population*.  We only have our *one* observed dataset.
+
+-   **Bootstrap Solution:**  Repeatedly sample observations *with replacement* from the *original dataset* to create *bootstrap datasets*.
+    -   **With Replacement:**  The *same* observation can appear *multiple times* in a bootstrap dataset.  This is the *key* to the bootstrap!
+
+## Bootstrap: The Core Idea (Continued)
+
+- We treat the original dataset *as if* it *were* the population.  This allows us to simulate the process of drawing multiple samples.
 
 ## Bootstrap: Visualized
 
-::: {layout-ncol=2}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_11.svg)
 
-![](figures/5_11.png)
+## Bootstrap: Visualized
 
-- A graphical illustration of the bootstrap approach on a small sample containing n = 3 observations. Each bootstrap data set contains n observations, sampled with replacement from the original data set.
-
-:::
+-   Graphical illustration of the bootstrap with a small sample (n = 3).
+-   Each bootstrap dataset contains *n* observations, sampled *with replacement* from the original data.
+-   Note that the same observation can appear multiple times in a single bootstrap sample.
 
 ## Bootstrap: Procedure
 
-1.  Create *B* bootstrap data sets (each of size *n*) by sampling with replacement from the original data.
-2.  For each bootstrap data set, calculate the statistic of interest (e.g., a regression coefficient).  This gives you *B* bootstrap estimates.
-3.  Estimate the standard error of the statistic using the standard deviation of the *B* bootstrap estimates.
-    $$SE_B(\hat{\alpha}) = \sqrt{\frac{1}{B-1} \sum_{r=1}^B \left( \hat{\alpha}^{*r} - \frac{1}{B}\sum_{r'=1}^B \hat{\alpha}^{*r'} \right)^2}$$
+1.  Create *B* bootstrap datasets (each of size *n*).
+    -   Sample *with replacement* from the original data.
+    -   *B* is typically a large number (e.g., 100 or 1000).
+
+## Bootstrap: Procedure (Continued)
+
+2.  For *each* bootstrap dataset:
+    -   Calculate the statistic of interest (e.g., regression coefficient, mean, median, etc.).
+    -   This yields *B* bootstrap estimates.
+
+## Bootstrap: Procedure (Continued)
+
+3.  Estimate the standard error of the statistic using the standard deviation of the *B* bootstrap estimates:
+
+   $$SE_B(\hat{\alpha}) = \sqrt{\frac{1}{B-1} \sum_{r=1}^B \left( \hat{\alpha}^{*r} - \frac{1}{B}\sum_{r'=1}^B \hat{\alpha}^{*r'} \right)^2}$$
+   - $\hat{\alpha}^{*r}$: Estimate of the statistic from the *r*-th bootstrap dataset.
 
 ## Bootstrap: Investment Example
 
-- We want to invest in two assets, X and Y, and minimize the risk (variance) of our investment.
-- The optimal fraction (α) to invest in X is given by a formula involving the variances and covariance of X and Y returns.
+-   We want to invest in two assets, X and Y.
+-   Our goal: Minimize the *risk* (variance) of our investment.
+-   The optimal fraction (α) to invest in X is:
 
 $$
 \alpha = \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 - 2\sigma_{XY}}
 $$
 
-- In practice, the population variances and covariance are unknown.
+## Investment Example: Explanation
 
-## Bootstrap Example Continued
+-   $\sigma_X^2$: Variance of returns for asset X.
+-   $\sigma_Y^2$: Variance of returns for asset Y.
+-   $\sigma_{XY}$: Covariance between returns of assets X and Y.
+-   In practice, these population variances and covariance are *unknown*.  We only have *estimates* from our observed data.
 
-::: {layout-ncol=2}
+## Bootstrap Example - Simulated Data
 
-![](figures/5_9.png)
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_9.svg)
 
-- Each panel shows 100 simulated returns for investments X and Y.
+## Bootstrap Example - Simulated Data
 
-:::
+-   Each panel shows 100 simulated returns for investments X and Y.
+-   This simulates different possible scenarios for asset returns.
 
-## Bootstrap: Example (cont.)
+## Bootstrap: Example - Histograms
 
-::: {layout-ncol=2}
+![](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F5_10.svg)
 
-![](figures/5_10.png)
+## Bootstrap: Example - Histograms - Explanation
 
--   **Left:** Histogram of α estimates from 1,000 *simulated* data sets.
--   **Center:** Histogram of α estimates from 1,000 *bootstrap* samples from a *single* data set.
--   **Right:** Boxplots comparing the two.
--   The bootstrap accurately estimates the variability of α!
-:::
+-   **Left:** Histogram of α estimates from 1,000 *simulated* datasets (if we *could* repeatedly sample from the true population).
+-   **Center:** Histogram of α estimates from 1,000 *bootstrap* samples from a *single* dataset (what we *can* do in practice).
+-   **Right:** Boxplots comparing the two distributions.
+
+## Bootstrap Example: Conclusion
+
+-   The bootstrap *accurately* estimates the variability of α!
+-   The distribution of bootstrap estimates (center) closely resembles the distribution of estimates from repeated sampling (left).
+-   This demonstrates how the bootstrap can provide a good estimate of uncertainty even with only *one* dataset.
 
 ## Summary
 
--   **Resampling methods** are crucial for:
+-   **Resampling methods** are essential for:
     -   Assessing model performance (cross-validation).
     -   Quantifying uncertainty (bootstrap).
+
+## Summary: Cross-Validation
+
 -   **Cross-validation:**
-    -   Estimates test error by holding out data.
-    -   Validation set, LOOCV, and k-fold CV are common techniques.
-    -   k-fold CV often provides a good bias-variance trade-off.
+    -   Estimates test error by holding out data (creating a "fake" test set).
+    -   Common techniques: Validation set, LOOCV, and k-fold CV.
+    -   k-fold CV (k=5 or k=10) often provides a good bias-variance trade-off, balancing accuracy and computation.
+
+## Summary: Bootstrap
+
 -   **Bootstrap:**
     -   Estimates uncertainty by resampling *with replacement* from the original data.
-    -   Widely applicable, especially when standard error formulas are unavailable.
+    -   Widely applicable, especially when standard error formulas are unavailable or assumptions are violated.
 
 ## Thoughts and Discussion 🤔
 
 -   When might you prefer LOOCV over k-fold CV, despite the higher computational cost?
+    -   *Answer:*  With very small datasets, the bias reduction of LOOCV might be crucial. Also, when computational cost isn't a major concern (simple models).
+
 -   Can you think of situations where the bootstrap would be particularly useful?
+    - *Answer:* When working with a statistic without a simple standard error formula (e.g., median, custom metric), or when assumptions of standard methods (like normality) are violated.
+
+## Thoughts and Discussion 🤔 (Continued)
+
 -   How do these resampling methods relate to the concepts of bias and variance we discussed in earlier chapters?
+    - *Answer:* Cross-validation helps us choose models with a good balance of bias and variance (by estimating test error). The bootstrap helps us estimate the variance of parameter estimates.
+
 -   What are the limitations of these methods? When might they not be appropriate?
+    -   *Answer:* Resampling can be computationally intensive. Cross-validation assumes independent and identically distributed (i.i.d.) data. The bootstrap relies on the original sample being representative of the population. Severe violations of these assumptions can lead to misleading results.
+

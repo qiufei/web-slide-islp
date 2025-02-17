@@ -1,14 +1,17 @@
-lang: zh
-subtitle: "教材补充解释与说明"
+lang: en
+#subtitle: "教材补充解释与说明"
 title-slide-attributes:
-    data-background-image: world_cn.png
+    data-background-image: https://assets.qiufei.site/zwu/nice_to_meet_you.png
     data-background-size: contain
     data-background-opacity: "0.5"
-author: "邱飞"
+author: "peter(邱飞)"
+institute: "zhejiang wanli university"
 
 format:
   revealjs:
-    slide-level: 3
+    width: 1280
+    height: 720
+    slide-level: 4
     slide-number: true
     show-slide-number: all
     fig-align: center
@@ -16,7 +19,7 @@ format:
     theme: serif
     logo: zwu_logo.png
     embed-resources: true
-    footer: "邱飞 💌 hfutqiufei@163.com"
+    footer: "邱飞(peter) 💌 qiufei@zwu.edu.cn"
     scrollable: true
     css: my.css
 

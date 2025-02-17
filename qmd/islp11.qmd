@@ -1,43 +1,186 @@
+---
+title: "Survival Analysis"  
+---
+
 ## Introduction
 
-::: {style="font-size: 0.8em;"}
-Welcome to the fascinating world of **survival analysis**! 🕰️ In this chapter, we delve into analyzing a unique type of data: the *time until an event occurs*. This is different from typical regression problems because of a crucial concept: **censoring**.
-
-Think of a medical study tracking patient survival after cancer treatment. Some patients might still be alive at the study's end. We know they survived *at least* that long, but not their exact survival time. This is censored data.
-
-**Key Concepts:**
-- **Survival Analysis:** Statistical methods for analyzing time-to-event data.
-- **Censored Data:** Observations where the event of interest has not occurred for all subjects by the end of the observation period.
-- **Event:** The outcome of interest (e.g., death, recovery, machine failure, customer churn).
-- **Survival Time:** The time until the event occurs.
-
-We will explore how to deal with censoring and effectively extract information using tools like survival analysis.
+::: {style="text-align: center;"}
+Welcome to the fascinating world of **survival analysis**! 🕰️
 :::
+
+## Introduction
+
+In this chapter, we delve into analyzing a unique type of data: the *time until an event occurs*.
+
+::: {.callout-note appearance="minimal"}
+This is different from typical regression problems because we are not just predicting a value, but the *time* it takes for something to happen.
+:::
+
+## Introduction: The Challenge of Censoring
+
+The key challenge in survival analysis is **censoring**.
+
+::: {.callout-note appearance="minimal"}
+Censoring means we don't always know the *exact* time the event occurs.
+:::
+
+## Introduction: Censoring Example
+
+Think of a medical study tracking patient survival after cancer treatment. 🏥
+
+::: {.fragment}
+Some patients might still be alive at the study's end. 🧑‍⚕️
+:::
+
+::: {.fragment}
+We know they survived *at least* that long, but not their exact survival time. This is censored data. 🤔
+:::
+
+## Introduction: Censoring Example - Visual
+
+![Censored Data Example](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Censored_Data_Example.png/640px-Censored_Data_Example.png){width=60%}
+
+::: {.callout-note appearance="minimal"}
+This image illustrates different types of censoring. We'll focus on *right-censoring*, where we only know the event happened *after* a certain time.
+:::
+
+## Key Concepts
+
+Let's define some essential terms.
+
+::: columns
+::: {.column width="50%"}
+- **Survival Analysis:** Statistical methods for analyzing time-to-event data.
+
+- **Censored Data:** Observations where the event of interest has not occurred for all subjects by the end of the observation period.
+
+- **Event:** The outcome of interest (e.g., death, recovery, machine failure, customer churn).
+
+- **Survival Time:** The time until the event occurs.
+:::
+::: {.column width="50%"}
+![Time to event concept.](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/Time_to_Event.png)
+:::
+:::
+
+## Key Concepts: Survival Analysis
+
+**Survival Analysis:** Statistical methods for analyzing time-to-event data.
+
+::: {.callout-note appearance="minimal"}
+Survival analysis focuses on the distribution of time until an event. It's not just about *whether* an event happens, but *when*. It's like being a detective, but instead of solving a crime, you're solving for *time*! 🕵️‍♀️⏰
+:::
+
+## Key Concepts: Censored Data
+
+**Censored Data:** Observations where the event of interest has not occurred for all subjects by the end of the observation period.
+
+::: {.callout-note appearance="minimal"}
+Censoring means we have incomplete information about the event time.  We only know a lower bound (right-censoring), upper bound (left-censoring), or an interval (interval-censoring). Think of it like reading a book with missing pages – you know *something* happened, but not the full story. 📖✂️
+:::
+
+## Key Concepts: Event
+
+**Event:** The outcome of interest (e.g., death, recovery, machine failure, customer churn).
+
+::: {.callout-note appearance="minimal"}
+The "event" can be anything we're interested in tracking the time to.  It doesn't have to be something negative! It could be a machine breaking down 🛠️, a customer leaving 🏃, or even a plant flowering! 🌸
+:::
+
+## Key Concepts: Survival Time
+
+**Survival Time:** The time until the event occurs.
+
+::: {.callout-note appearance="minimal"}
+This is the variable we're ultimately trying to understand and predict.  We often denote it with the letter T.  It's the unknown we're trying to uncover! 🔍
+:::
+
+## Introduction: Summary
+
+We will explore how to deal with censoring and effectively extract information using tools like survival analysis. This is like learning a new language to decipher incomplete data! 🗣️
 
 ## Why Survival Analysis?
 
-::: {style="font-size: 0.8em;"}
-Survival analysis isn't limited to medical studies. It's relevant in many fields:
+Survival analysis isn't limited to medical studies. It's a versatile tool with broad applications! 🌍
+
+## Why Survival Analysis? - Medicine
 
 -   **Medicine:** Predicting patient survival times, time to disease recurrence.
--   **Business:** Modeling customer churn (time until a customer cancels a subscription).
--   **Engineering:** Assessing the reliability of components (time until failure).
--   **Finance:** Evaluating credit risk (time until default).
-- **Even beyond time:** Modeling weight when scales have upper limits. Any weight above that limit is censored.
 
-::: incremental
-- **Key Insight:** Survival analysis techniques allows us to work with *incomplete* information. We don't need to observe the event for every individual to gain valuable insights.
+::: {.callout-note appearance="minimal"}
+Survival analysis helps doctors estimate prognosis and evaluate treatment effectiveness.  It allows them to make informed decisions and provide better care.  It's like giving doctors a crystal ball, but based on data! 🔮🩺
 :::
+
+## Why Survival Analysis? - Business
+
+-   **Business:** Modeling customer churn (time until a customer cancels a subscription).
+
+::: {.callout-note appearance="minimal"}
+Understanding churn allows businesses to take proactive steps to retain customers.  Knowing *when* a customer might leave is as valuable as knowing *why*.  It helps businesses keep their customers happy! 😊💼
+:::
+
+## Why Survival Analysis? - Engineering
+
+-   **Engineering:** Assessing the reliability of components (time until failure).
+
+::: {.callout-note appearance="minimal"}
+Reliability analysis helps engineers design more durable and dependable products.  It's about building things that last!  Think of it as making sure your bridge doesn't collapse! 🌉💪
+:::
+
+## Why Survival Analysis? - Finance
+
+-   **Finance:** Evaluating credit risk (time until default).
+
+::: {.callout-note appearance="minimal"}
+Survival models can predict the likelihood of loan defaults, informing lending decisions.  This helps banks and lenders make smarter choices.  It's like having a financial advisor who can see into the future! 💰🔮
+:::
+
+## Why Survival Analysis? - Beyond Time
+
+-  **Even beyond time:** Modeling weight when scales have upper limits. Any weight above that limit is censored.
+
+::: {.callout-note appearance="minimal"}
+   The concept of censoring extends to situations with measurement limitations.  If your scale only goes up to 300 lbs, and someone weighs more, you only know their weight is *at least* 300 lbs.  It's like measuring with a ruler that's too short! 📏🤔
+:::
+
+## Key Insight
+
+**Key Insight:** Survival analysis techniques allow us to work with *incomplete* information.
+
+::: {.fragment}
+We don't need to observe the event for every individual to gain valuable insights. This is like solving a puzzle with missing pieces! 🧩
 :::
 
 ## Survival and Censoring Times
 
-::: {style="font-size: 0.8em;"}
-Let's define some core concepts:
+Let's define some core concepts mathematically.
+
+## Survival Time (T)
 
 -   **Survival Time (T):** The true time until the event of interest occurs. Also called *failure time* or *event time*.
+
+::: {.callout-note appearance="minimal"}
+This is the underlying quantity we're interested in, even if we don't always observe it directly. It's the "true" time, even if we don't know it yet.
+:::
+
+## Censoring Time (C)
+
 -   **Censoring Time (C):** The time at which observation ends, either because the study ends, the patient drops out, or the event occurs.
--   **Observed Time (Y):** What we actually see: either the survival time or the censoring time. Mathematically,  Y = min(T, C).
+
+::: {.callout-note appearance="minimal"}
+This represents the point at which we lose track of the individual.  It's like the end of a movie, but you don't know what happens next! 🎬❓
+:::
+
+## Observed Time (Y)
+
+-   **Observed Time (Y):** What we actually see: either the survival time or the censoring time. Mathematically, Y = min(T, C).
+
+::: {.callout-note appearance="minimal"}
+This is the data we have to work with – the minimum of the true survival time and the censoring time. It's what we *actually* observe.
+:::
+
+## Status Indicator (δ)
+
 -   **Status Indicator (δ):** Tells us whether we observed the event (δ = 1) or the observation was censored (δ = 0).
 
 $$
@@ -48,113 +191,182 @@ $$
 \end{cases}
 $$
 
-These variables form the basis of survival analysis.
+::: {.callout-note appearance="minimal"}
+This indicator variable tells us whether Y represents a true survival time or a censoring time. It's like a flag that tells us if we have complete information or not. 🚩
 :::
+
+## Survival and Censoring Times - Summary
+
+These variables (T, C, Y, and δ) form the basis of survival analysis. They are the building blocks of our analysis! 🧱
 
 ## Visualizing Censored Data
 
-::: {style="font-size: 0.8em;"}
-Let's consider a simple example:
+Let's consider a simple example to illustrate these concepts.
 
-![alt text](figures/11_1.png)
+![Visualizing Censored Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg)
 
-::: fragment
+## Visualizing Censored Data: Patients 1 & 3
+
+![Visualizing Censored Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg)
+
 -   **Patients 1 & 3:** The event (e.g., death) was *observed*. We know their exact survival times.
--   **Patient 2:** Was *alive* at the end of the study. Their survival time is censored.
--   **Patient 4:** *Dropped out* of the study. Also censored.
+
+::: {.callout-note appearance="minimal"}
+These are uncensored observations.  The event happened *during* the observation period. We have complete information for these patients.
 :::
 
-::: fragment
-**Important:** Censored observations still provide valuable information! They tell us the event *didn't* happen before a certain time.
+## Visualizing Censored Data: Patient 2
+
+![Visualizing Censored Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg)
+
+-   **Patient 2:** Was *alive* at the end of the study. Their survival time is censored.
+
+::: {.callout-note appearance="minimal"}
+This is a right-censored observation. We know the patient survived *at least* until the end of the study, but we don't know their *exact* survival time.
 :::
+
+## Visualizing Censored Data: Patient 4
+
+![Visualizing Censored Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg)
+
+-   **Patient 4:** *Dropped out* of the study. Also censored.
+
+::: {.callout-note appearance="minimal"}
+This is another example of right-censoring.  We lost track of the patient before the event occurred, so we don't know their exact survival time.
 :::
+
+## Visualizing Censored Data: Importance of Censored Data
+
+**Important:** Censored observations still provide valuable information! They tell us the event *didn't* happen before a certain time. This is crucial for accurate analysis!
 
 ## A Closer Look at Censoring
 
-::: {style="font-size: 0.8em;"}
 Censoring isn't always straightforward. The *reason* for censoring matters.
 
-::: nonincremental
+## Independent Censoring
+
 -   **Independent Censoring:** The censoring mechanism is unrelated to the survival time (conditional on features). This is a crucial assumption for many survival analysis methods.
--   **Example of violation:** Patients dropping out because they are very sick. This biases the results, making survival times seem longer than they are.
+
+::: {.callout-note appearance="minimal"}
+This means that the reason someone is censored doesn't provide extra information about their *likely* survival time, beyond what we already know from their features.  Think of it like a coin flip – the reason you stop flipping (censoring) doesn't affect the probability of heads or tails (survival). 🪙
 :::
 
-::: {layout-ncol=2}
+## Independent Censoring: Example of Violation
+
+-   **Example of violation:** Patients dropping out because they are very sick. This biases the results, making survival times seem longer than they are.
+
+::: {.callout-note appearance="minimal"}
+This is *informative censoring*.  The censoring is related to the survival time, which violates the independence assumption. It's like stacking the deck in a card game – the outcome is no longer random! 🃏❌
+:::
+
+## Types of Censoring
+
 **Types of Censoring**
 
--   **Right Censoring:** Most common.  We know the event time is *greater than* the observed time (T ≥ Y).
+-   **Right Censoring:** Most common. We know the event time is *greater than* the observed time (T ≥ Y).
 -   **Left Censoring:** We know the event time is *less than or equal* to the observed time.
 -   **Interval Censoring:** We know the event time falls within a specific interval.
 
-![alt text](figures/11_1.png)
+## Types of Censoring - Illustration
+
+![alt text](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_1.svg)
+
+::: {.callout-note appearance="minimal"}
+The image shows the example of *Right Censoring*
 :::
 
-::: callout-note
-We will focus mainly on **right censoring**, the most prevalent type in practice.
-:::
+## Focus on Right Censoring
+
+::: {.callout-note appearance="minimal"}
+We will focus mainly on **right censoring**, the most prevalent type in practice. It's the most common scenario we encounter.
 :::
 
 ## The Kaplan-Meier Survival Curve
 
-::: {style="font-size: 0.8em;"}
 The **survival curve**, denoted by S(t), is a fundamental concept. It gives the probability of surviving *past* time t:
 
 $$S(t) = Pr(T > t)$$
 
-::: fragment
+::: {.callout-note appearance="minimal"}
+This is the cornerstone of survival analysis!  It tells us the probability of "surviving" (not experiencing the event) beyond a certain time.
+:::
+## Survival Curve Interpretation
+
 The larger the value of S(t), the more likely the event will occur at time greater than t.
+
+::: {.callout-note appearance="minimal"}
+A higher S(t) means a higher chance of *not* experiencing the event before time t. It's like the probability of staying dry in the rain – the longer you stay inside, the higher the probability of staying dry! ☔
 :::
 
-::: fragment
-How do we estimate S(t) from data with censoring? The **Kaplan-Meier estimator** is a powerful tool.
-:::
-:::
+## Kaplan-Meier Estimator
+
+How do we estimate S(t) from data with censoring? The **Kaplan-Meier estimator** is a powerful tool. It's like a statistical superhero for survival data! 🦸‍♀️
 
 ## Estimating the Survival Curve: Challenges
 
-::: {style="font-size: 0.8em;"}
-Let's consider the `BrainCancer` dataset. We want to estimate S(20): the probability of surviving at least 20 months.  Naive approaches fail:
+Let's consider the `BrainCancer` dataset. We want to estimate S(20): the probability of surviving at least 20 months. Naive approaches fail:
 
-1.  **Simply using Y > 20:**  This ignores that Y is not always the true survival time (due to censoring).  It underestimates survival.
+## Naive Approach 1: Using Y > 20
+
+1.  **Simply using Y > 20:** This ignores that Y is not always the true survival time (due to censoring). It underestimates survival.
+
+::: {.callout-note appearance="minimal"}
+Using Y directly treats censored observations as if the event occurred at the censoring time, leading to an underestimate.  It's like saying everyone who left the party early went home, even if they might have gone somewhere else! 🎉🏠❓
+:::
+
+## Naive Approach 2: Ignoring Censored Observations
+
 2.  **Ignoring censored observations:** This throws away valuable information. A patient censored at 19.9 months almost certainly would have survived past 20.
 
-::: callout-tip
-The Kaplan-Meier estimator elegantly handles censoring to provide a more accurate estimate.
+::: {.callout-note appearance="minimal"}
+Discarding censored data reduces the sample size and biases the results.  It's like throwing away puzzle pieces – you can't see the full picture! 🧩🗑️
 :::
+
+## Kaplan-Meier: The Solution
+
+::: {.callout-tip appearance="minimal"}
+The Kaplan-Meier estimator elegantly handles censoring to provide a more accurate estimate. It's the clever way to deal with incomplete data!💡
 :::
 
 ## The Kaplan-Meier Estimator: Intuition
 
-::: {style="font-size: 0.8em;"}
-The Kaplan-Meier estimator works *sequentially*, considering events as they unfold in time.
+The Kaplan-Meier estimator works *sequentially*, considering events as they unfold in time. It's like watching a movie frame by frame! 🎞️
 
-::: {layout-ncol=2}
+## Kaplan-Meier: Key Idea
+
 -   **Key Idea:** At each death time, we calculate the *conditional* probability of surviving that time point, given survival up to that point.
--   We then multiply these conditional probabilities together to get the overall survival probability.
+
+::: {.fragment}
+-   We then multiply these conditional probabilities together to get the overall survival probability. It's like calculating the probability of a chain of events! 🔗
+:::
+
+## Kaplan-Meier: Notation
 
 - Let $d_1 < d_2 < ... < d_K$ be the distinct death times.
 - $q_k$: Number of deaths at time $d_k$.
 - $r_k$: Number of individuals *at risk* (alive and in the study) just before $d_k$. This is the *risk set*.
+
+::: {.callout-note appearance="minimal"}
+These are the ingredients we need for our Kaplan-Meier recipe! 🍲
 :::
 
-::: fragment
+## Kaplan-Meier Estimator Formula
+
 The Kaplan-Meier estimator formula is:
-:::
 
-::: fragment
 $$
 \hat{S}(d_k) = \prod_{j=1}^{k} \left( \frac{r_j - q_j}{r_j} \right)
 $$
+
+::: {.callout-note appearance="minimal"}
+This looks complicated, but we'll break it down step-by-step!
 :::
 
-::: fragment
-For times between death times, $\hat{S}(t)$ remains constant, creating a step-like curve.
-:::
-:::
+## Kaplan-Meier Estimator: Step Function
+
+For times between death times, $\hat{S}(t)$ remains constant, creating a step-like curve. It's like a staircase, not a smooth slope! 🪜
 
 ## The Kaplan-Meier Estimator: Explanation
-
-::: {style="font-size: 0.8em;"}
 
 The formula is derived from the law of total probability:
 
@@ -162,67 +374,89 @@ $$
 Pr(T > d_k) = Pr(T > d_k | T > d_{k-1})Pr(T > d_{k-1}) + Pr(T>d_k|T \leq d_{k-1})Pr(T\leq d_{k-1})
 $$
 
-::: fragment
+::: {.callout-note appearance="minimal"}
+This is a fundamental probability rule, breaking down a complex probability into simpler parts.
+:::
+
+## Kaplan-Meier: Simplification
+
 Since $d_{k-1} < d_k$, $Pr(T>d_k|T \leq d_{k-1}) = 0$, then the above formula is:
+
 $$
 S(d_k) = Pr(T > d_k) = Pr(T > d_k | T > d_{k-1})Pr(T > d_{k-1})
 $$
+
+::: {.callout-note appearance="minimal"}
+Because if you've already survived past $d_{k-1}$, you can't possibly experience the event *before* $d_{k-1}$!
 :::
 
-::: fragment
+## Kaplan-Meier: Recursive Formula
+
 Plug in $S(t)$ and rearrange the above formula:
 $$
 S(d_k) = Pr(T>d_k|T>d_{k-1}) \times ... \times Pr(T>d_2|T>d_1)Pr(T>d_1)
 $$
+
+::: {.callout-note appearance="minimal"}
+We're expressing the overall survival probability as a product of conditional probabilities.
 :::
 
-::: fragment
+## Kaplan-Meier: Conditional Probability Estimation
+
 We estimate each term on the right-hand side using the fraction of the risk set at time $d_j$ who survived past time $d_j$:
 
 $$\widehat{Pr}(T > d_j | T > d_{j-1}) = (r_j - q_j) / r_j$$
+
+::: {.callout-note appearance="minimal"}
+This is the heart of the Kaplan-Meier estimator!  We're using the observed data to estimate these conditional probabilities.
 :::
 
-::: fragment
+## Kaplan-Meier: Final Estimator
+
 Finally, we arrive at the Kaplan-Meier estimator:
-:::
 
-::: fragment
 $$
 \hat{S}(d_k) = \prod_{j=1}^{k} \left( \frac{r_j - q_j}{r_j} \right)
 $$
-:::
+
+::: {.callout-note appearance="minimal"}
+This is the formula we use to calculate the estimated survival probabilities!
 :::
 
 ## Kaplan-Meier Curve: Example
 
-::: {style="font-size: 0.8em;"}
 Here's the Kaplan-Meier curve for the `BrainCancer` data:
 
-![alt text](figures/11_2.png)
+![Kaplan-Meier Curve for BrainCancer Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_2.svg)
+
+## Kaplan-Meier Curve: Interpretation
+
+![Kaplan-Meier Curve for BrainCancer Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_2.svg)
 
 -   The curve steps down at each observed death time.
 -   The height of the curve at any time point represents the estimated survival probability.
 -   The estimated probability of survival past 20 months is 71%.
+
+::: {.callout-note appearance="minimal"}
+We can read the estimated survival probabilities directly from the curve!
 :::
 
 ## Comparing Survival Curves: The Log-Rank Test
 
-::: {style="font-size: 0.8em;"}
-Often, we want to compare survival curves between groups (e.g., males vs. females).
+Often, we want to compare survival curves between groups (e.g., males vs. females). Is there a *significant* difference in survival between groups? 🤔
 
-![alt text](figures/11_3.png)
+## Log-Rank Test
 
-::: fragment
-The **log-rank test** is a statistical test for comparing survival curves. It accounts for censoring.
-:::
-:::
+![Log-Rank Test Example](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_3.svg)
+
+The **log-rank test** is a statistical test for comparing survival curves. It accounts for censoring. It's like a statistical judge deciding if there's a real difference! ⚖️
 
 ## Log-Rank Test: Details
 
-::: {style="font-size: 0.7em;"}
-The log-rank test examines events sequentially, like the Kaplan-Meier estimator.
+The log-rank test examines events sequentially, like the Kaplan-Meier estimator. It's a step-by-step comparison!
 
-::: {layout-ncol=2}
+## Log-Rank Test: 2x2 Table
+
 - At each death time $d_k$, we construct a 2x2 table:
 
 |             | Group 1   | Group 2   | Total    |
@@ -235,10 +469,16 @@ The log-rank test examines events sequentially, like the Kaplan-Meier estimator.
 - $r_{1k}$, $r_{2k}$: Number at risk in each group at time $d_k$.
 - $q_{1k}$, $q_{2k}$: Number of deaths in each group at time $d_k$.
 
--   **Key Idea:** If there's no difference in survival, we'd expect the *proportion* of deaths in each group to be proportional to the number at risk.
+::: {.callout-note appearance="minimal"}
+This table summarizes the observed events and the number of individuals at risk in each group at each death time.
 :::
 
-::: fragment
+## Log-Rank Test: Key Idea
+
+-   **Key Idea:** If there's no difference in survival, we'd expect the *proportion* of deaths in each group to be proportional to the number at risk. It's like expecting a fair coin to land heads and tails equally often! 🪙
+
+## Log-Rank Test Statistic (W)
+
 The log-rank test statistic (W) is calculated based on the *observed* and *expected* number of deaths in group 1:
 
 $$
@@ -248,29 +488,35 @@ where
 $ \mu_k = \frac{r_{1k}}{r_k}q_k $
 and
 $Var(q_{1k}) = \frac{q_k(r_{1k}/r_k)(1-r_{1k}/r_k)(r_k - q_k)}{r_k - 1}$
+
+::: {.callout-note appearance="minimal"}
+This formula measures the difference between what we *observed* and what we would *expect* if there were no difference between the groups.
 :::
 
-::: fragment
-Under the null hypothesis (no difference in survival), W approximately follows a standard normal distribution.
-:::
-:::
+## Log-Rank Test: Null Distribution
+
+Under the null hypothesis (no difference in survival), W approximately follows a standard normal distribution. This allows us to calculate a p-value!
 
 ## Log-Rank Test: Brain Cancer Example
 
-::: {style="font-size: 0.8em;"}
 Comparing survival times of males and females in the `BrainCancer` data:
+
+## Log-Rank Test: Results
 
 -   Log-rank test statistic W = 1.2.
 -   Two-sided p-value = 0.2 (using the theoretical null distribution).
 -   We *cannot* reject the null hypothesis of no difference in survival curves between males and females.
+
+::: {.callout-note appearance="minimal"}
+In this case, the data doesn't provide strong evidence of a difference in survival between males and females.
 :::
 
 ## Regression Models with a Survival Response
 
-::: {style="font-size: 0.8em;"}
-So far, we've looked at describing survival curves and comparing them between groups. Now, we want to *predict* survival time based on covariates (features).
+So far, we've looked at describing survival curves and comparing them between groups. Now, we want to *predict* survival time based on covariates (features). It's like predicting the future, but with data! 🔮📊
 
-::: {layout-ncol=2}
+## Regression Setup
+
 -   We have observations of the form $(Y_i, \delta_i, X_i)$, where:
     -   $Y_i$ is the observed time (min(T, C)).
     -   $\delta_i$ is the status indicator.
@@ -278,30 +524,29 @@ So far, we've looked at describing survival curves and comparing them between gr
 
 - A simple linear regression of log(Y) on X is problematic due to censoring.
 
-- *Why not regress on Y directly?*: We are interested in T not Y.
-:::
+## Why Not Regress on Y Directly?
+- *Why not regress on Y directly?*: We are interested in T not Y. Y is just what we see, and the difference from T exists due to censoring.
 
-::: fragment
--   **Solution:** Use a sequential approach, similar to Kaplan-Meier and the log-rank test.  We introduce the **hazard function**.
-:::
-:::
+## The Solution: Hazard Function
+-   **Solution:** Use a sequential approach, similar to Kaplan-Meier and the log-rank test. We introduce the **hazard function**. It's like focusing on the *instantaneous* risk, rather than the overall survival time.
 
 ## The Hazard Function
 
-::: {style="font-size: 0.8em;"}
 The **hazard function**, h(t), is also known as the *hazard rate* or *force of mortality*. It represents the *instantaneous* risk of the event occurring at time t, given survival up to time t:
 
 $$h(t) = \lim_{\Delta t \to 0} \frac{Pr(t < T \leq t + \Delta t | T > t)}{\Delta t}$$
 
-::: fragment
--   Think of it as the "death rate" in a tiny interval after time t, given survival up to t.
--   It's closely related to the survival curve, S(t).
--   It's crucial for modeling survival data as a function of covariates.
-:::
+::: {.callout-note appearance="minimal"}
+This is a key concept for modeling survival data!
 :::
 
+## Hazard Function: Intuition
+
+-   Think of it as the "death rate" in a tiny interval after time t, given survival up to t. It's like the risk of slipping on a banana peel *right now*, given you haven't slipped yet! 🍌
+-   It's closely related to the survival curve, S(t).
+-   It's crucial for modeling survival data as a function of covariates.
+
 ## Hazard Function: More Details
-::: {style="font-size: 0.8em;"}
 
 $$
 \begin{aligned}
@@ -312,15 +557,25 @@ h(t) &= \lim_{\Delta t \to 0} Pr((t<T\le t+\Delta t)\cap (T>t))/\Delta t \over P
 $$
 
 where
+
 $$
 f(t) = \lim_{\Delta t\to 0} {Pr(t<T\le t+\Delta t)\over \Delta t}
 $$
 
-::: fragment
-$f(t)$ is probability density function.
+::: {.callout-note appearance="minimal"}
+   We can derive the relationship between the hazard function, probability density function and survival function.
 :::
 
-::: fragment
+## Hazard Function: Probability Density Function
+
+$f(t)$ is probability density function.
+
+::: {.callout-note appearance="minimal"}
+   $f(t)$ is different from $S(t)$, it measures the instantaneous probability.
+:::
+
+## Hazard Function: Likelihood
+
 The likelihood associated with the i-th observation is:
 
 $$
@@ -330,78 +585,109 @@ S(y_i) \quad \text{if the i-th observation is censored}
 \end{cases} \\
 = f(y_i)^{\delta_i}S(y_i)^{1-\delta_i}
 $$
+
+::: {.callout-note appearance="minimal"}
+This is how we quantify the contribution of each observation to the overall likelihood.
 :::
 
-::: fragment
-If $Y=y_i$ and the i-th observation is not censored, then the likelihood is the probability of dying in a tiny interval around time $y_i$. If the i-th observation is censored, then the likelihood is the probability of surviving at least until time $y_i$
-:::
+## Likelihood: Explanation
+If $Y=y_i$ and the i-th observation is not censored, then the likelihood is the probability of dying in a tiny interval around time $y_i$.
+
+::: {.fragment}
+If the i-th observation is censored, then the likelihood is the probability of surviving at least until time $y_i$
 :::
 
 ## Cox Proportional Hazards Model
 
-::: {style="font-size: 0.8em;"}
-The **Cox proportional hazards model** is a powerful and flexible approach to model the relationship between covariates and the hazard function.
+The **Cox proportional hazards model** is a powerful and flexible approach to model the relationship between covariates and the hazard function. It's the workhorse of survival regression! 🐎
 
-::: fragment
+## Proportional Hazards Assumption
 **The Proportional Hazards Assumption:**
-:::
 
 $$h(t|x_i) = h_0(t) \exp(\sum_{j=1}^{p} x_{ij}\beta_j)$$
 
-::: {layout-ncol=2}
+::: {.callout-note appearance="minimal"}
+This is the core assumption of the Cox model!
+:::
+
+## Cox Model: Components
+
 -   $h(t|x_i)$: Hazard function for an individual with features $x_i$.
--   $h_0(t)$:  **Baseline hazard function**.  This is the hazard for an individual with all features equal to zero. It's left *unspecified*.
+-   $h_0(t)$:  **Baseline hazard function**. This is the hazard for an individual with all features equal to zero. It's left *unspecified*.
 -   $\exp(\sum_{j=1}^{p} x_{ij}\beta_j)$:  **Relative risk**. It's a multiplicative factor that scales the baseline hazard based on the features.
 
-- The key is that we don't assume a specific form for $h_0(t)$.  This makes the model very flexible.
-- A one-unit increase in $x_{ij}$ multiplies the hazard by a factor of $\exp(\beta_j)$.
+::: {.callout-note appearance="minimal"}
+The model breaks down the hazard into a baseline part and a part that depends on the features.
 :::
-:::
+
+## Cox Model: Key Features
+
+- The key is that we don't assume a specific form for $h_0(t)$. This makes the model very flexible. It can handle many different underlying hazard patterns!
+- A one-unit increase in $x_{ij}$ multiplies the hazard by a factor of $\exp(\beta_j)$. This is the *proportional hazards* assumption – the effect of a covariate is constant over time.
 
 ## Proportional Hazards: Illustration
 
-::: {style="font-size: 0.8em;"}
-![alt text](figures/11_4.png)
+![Proportional Hazards Illustration](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg)
 
-- **Top Row:** Proportional hazards *holds*. Log hazard functions are parallel; survival curves don't cross.
-- **Bottom Row:** Proportional hazards *doesn't hold*.  Log hazard and survival curves cross.
+## Proportional Hazards: Interpretation
+
+![Proportional Hazards Illustration](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg)
+
+- **Top Row:** Proportional hazards *holds*. Log hazard functions are parallel; survival curves don't cross. The ratio of hazards between groups is constant over time.
+
+## Proportional Hazards: Interpretation
+
+![Proportional Hazards Illustration](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_4.svg)
+
+- **Bottom Row:** Proportional hazards *doesn't hold*. Log hazard and survival curves cross. The ratio of hazards changes over time.
+
+::: {.callout-note appearance="minimal"}
+This visual check helps us assess whether the proportional hazards assumption is reasonable.
 :::
 
 ## Cox Proportional Hazards Model: Estimation
 
-::: {style="font-size: 0.7em;"}
-How do we estimate the coefficients, $\beta$, in the Cox model *without* knowing $h_0(t)$?  We use the **partial likelihood**.
+How do we estimate the coefficients, $\beta$, in the Cox model *without* knowing $h_0(t)$? We use the **partial likelihood**. It's a clever trick to get around the unknown baseline hazard!
 
-::: {layout-ncol=2}
+## Partial Likelihood: Intuition
+
 - Assume no ties in failure times.
 - Consider the *i*th observation, which *fails* at time $y_i$ ($\delta_i = 1$).
 - What's the probability that *this* observation fails at $y_i$, given the set of individuals at risk at that time?
+
+::: {.callout-note appearance="minimal"}
+We're focusing on the *relative* risk of failure, compared to others who are still at risk.
+:::
+
+## Partial Likelihood: Probability Calculation
 
 - The probability that i-th observation is the one to fail at time $y_i$ is:
 
 $$
 \frac{h_0(y_i) \exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}h_0(y_i)\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)} = \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}
 $$
-:::
 
-::: fragment
-- Crucially, $h_0(y_i)$ cancels out!
+## Partial Likelihood: Baseline Hazard Cancellation
+
+- Crucially, $h_0(y_i)$ cancels out! This is the magic of the partial likelihood! ✨
+
+## The Partial Likelihood
+
 - The **partial likelihood** is the product of these probabilities over all *uncensored* observations:
-:::
 
-::: fragment
 $$PL(\beta) = \prod_{i:\delta_i = 1} \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}$$
+
+::: {.callout-note appearance="minimal"}
+We multiply the probabilities together, assuming independence between observations.
 :::
 
-::: fragment
+## Partial Likelihood: Maximization
+
 - We estimate $\beta$ by maximizing the partial likelihood.
-- This is done numerically (no closed-form solution).
-:::
-:::
+- This is done numerically (no closed-form solution). Computers do the heavy lifting! 💻
 
 ## Cox Model: Example (Brain Cancer Data)
 
-::: {style="font-size: 0.8em;"}
 Let's apply the Cox model to the `BrainCancer` data:
 
 | Variable                | Coefficient | Std. error | z-statistic | p-value |
@@ -415,31 +701,72 @@ Let's apply the Cox model to the `BrainCancer` data:
 | gtv                     | 0.03        | 0.02       | 1.54        | 0.12    |
 | stereo[SRT]             | 0.18        | 0.60       | 0.30        | 0.77    |
 
-::: {layout-ncol=2}
+## Cox Model: Interpretation - Sex
+
+| Variable                | Coefficient | Std. error | z-statistic | p-value |
+|-------------------------|-------------|------------|-------------|---------|
+| sex[Male]               | 0.18        | 0.36       | 0.51        | 0.61    |
+| diagnosis[LG Glioma]    | 0.92        | 0.64       | 1.43        | 0.15    |
+| diagnosis[HG Glioma]    | 2.15        | 0.45       | 4.78        | 0.00    |
+| diagnosis[Other]        | 0.89        | 0.66       | 1.35        | 0.18    |
+| loc[Supratentorial]     | 0.44        | 0.70       | 0.63        | 0.53    |
+| ki                      | -0.05       | 0.02       | -3.00       | <0.01   |
+| gtv                     | 0.03        | 0.02       | 1.54        | 0.12    |
+| stereo[SRT]             | 0.18        | 0.60       | 0.30        | 0.77    |
+
 -   **Interpretation:**
     -   Males have an estimated hazard 1.2 times greater than females (e<sup>0.18</sup>), but this is not statistically significant.
+
+## Cox Model: Interpretation - Karnofsky Index
+
+| Variable                | Coefficient | Std. error | z-statistic | p-value |
+|-------------------------|-------------|------------|-------------|---------|
+| sex[Male]               | 0.18        | 0.36       | 0.51        | 0.61    |
+| diagnosis[LG Glioma]    | 0.92        | 0.64       | 1.43        | 0.15    |
+| diagnosis[HG Glioma]    | 2.15        | 0.45       | 4.78        | 0.00    |
+| diagnosis[Other]        | 0.89        | 0.66       | 1.35        | 0.18    |
+| loc[Supratentorial]     | 0.44        | 0.70       | 0.63        | 0.53    |
+| ki                      | -0.05       | 0.02       | -3.00       | <0.01   |
+| gtv                     | 0.03        | 0.02       | 1.54        | 0.12    |
+| stereo[SRT]             | 0.18        | 0.60       | 0.30        | 0.77    |
+
+-   **Interpretation:**
     -   Higher Karnofsky index (ki) is associated with a *lower* hazard (e<sup>-0.05</sup> = 0.95), and this effect is significant.
 
-- The p-value associated with a coefficient tests the null hypothesis that the coefficient is zero.
+::: {.callout-note appearance="minimal"}
+Each coefficient tells us how the hazard changes with a one-unit increase in the corresponding feature, holding all other features constant.
 :::
-:::
+
+## Cox Model: Hypothesis Testing
+
+- The p-value associated with a coefficient tests the null hypothesis that the coefficient is zero. This tells us if the feature has a statistically significant effect on the hazard.
 
 ## Cox Model: Example (Publication Data)
-::: {style="font-size: 0.8em;"}
-Next, we will introduce the dataset `Publication`, involving the time to publication of journal papers reporting the results of clinical trials funded by the National Heart, Lung, and Blood Institue. For 244 trials, the time in months until publication is recorded.
-:::
-::: {style="font-size: 0.8em;"}
+Next, we will introduce the dataset `Publication`, involving the time to publication of journal papers reporting the results of clinical trials funded by the National Heart, Lung, and Blood Institute.
 
-::: {layout-ncol=2}
-![alt text](figures/11_5.png)
+::: {.fragment}
+For 244 trials, the time in months until publication is recorded.
+:::
+
+## Cox Model: Example (Publication Data) - Log-Rank Test
+
+![alt text](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_5.svg)
 
 - Using the log-rank test, we can test whether the studies with positive results have significant difference in publication time.
+
+## Cox Model: Example (Publication Data) - Log-Rank Test Result
+
+![alt text](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_5.svg)
 
 - The figure shows slight evidence that time until publication is lower for studies with a positive result.
 - However, the log-rank test yields a very unimpressive p-value of 0.36.
 
+::: {.callout-note appearance="minimal"}
+The log-rank test suggests a weak, non-significant difference.
 :::
-::: {style="font-size: 0.8em;"}
+
+## Cox Model: Example (Publication Data) - Cox Model
+
 Now, let's fit Cox's proportional hazards model using all available features:
 
 | Variable          | Coefficient | Std. error | z-statistic | p-value |
@@ -464,84 +791,141 @@ Now, let's fit Cox's proportional hazards model using all available features:
 | budget            | 0.00        | 0.00       | 1.67        | 0.09    |
 | impact            | 0.06        | 0.01       | 8.23        | 0.00    |
 
+## Cox Model: Example (Publication Data) - Interpretation - Positive Result
+
+| Variable          | Coefficient | Std. error | z-statistic | p-value |
+|-------------------|-------------|------------|-------------|---------|
+| posres[Yes]       | 0.55        | 0.18       | 3.02        | 0.00    |
+| multi[Yes]        | 0.15        | 0.31       | 0.47        | 0.64    |
+| clinend[Yes]      | 0.51        | 0.27       | 1.89        | 0.06    |
+| mech[K01]         | 1.05        | 1.06       | 1.00        | 0.32    |
+| mech[K23]         | -0.48       | 1.05       | -0.45       | 0.65    |
+| mech[P01]         | -0.31       | 0.78       | -0.40       | 0.69    |
+| mech[P50]         | 0.60        | 1.06       | 0.57        | 0.57    |
+| mech[R01]         | 0.10        | 0.32       | 0.30        | 0.76    |
+| mech[R18]         | 1.05        | 1.05       | 0.99        | 0.32    |
+| mech[R21]         | -0.05       | 1.06       | -0.04       | 0.97    |
+| mech[R24, K24]    | 0.81        | 1.05       | 0.77        | 0.44    |
+| mech[R42]         | -14.78      | 3414.38    | -0.00       | 1.00    |
+| mech[R44]         | -0.57       | 0.77       | -0.73       | 0.46    |
+| mech[RC2]         | -14.92      | 2243.60    | -0.01       | 0.99    |
+| mech[U01]         | -0.22       | 0.32       | -0.70       | 0.48    |
+| mech[U54]         | 0.47        | 1.07       | 0.44        | 0.66    |
+| sampsize          | 0.00        | 0.00       | 0.19        | 0.85    |
+| budget            | 0.00        | 0.00       | 1.67        | 0.09    |
+| impact            | 0.06        | 0.01       | 8.23        | 0.00    |
 - We find that the chance of publication of a study with a positive result is $e^{0.55} = 1.74$ time higher than the chance of publication of a study with a negative result at any point in time, holding all other covariates fixed.
 
-:::
-:::
+## Cox Model: Example (Publication Data) - Interpretation - Impact
+
+| Variable          | Coefficient | Std. error | z-statistic | p-value |
+|-------------------|-------------|------------|-------------|---------|
+| posres[Yes]       | 0.55        | 0.18       | 3.02        | 0.00    |
+| multi[Yes]        | 0.15        | 0.31       | 0.47        | 0.64    |
+| clinend[Yes]      | 0.51        | 0.27       | 1.89        | 0.06    |
+| mech[K01]         | 1.05        | 1.06       | 1.00        | 0.32    |
+| mech[K23]         | -0.48       | 1.05       | -0.45       | 0.65    |
+| mech[P01]         | -0.31       | 0.78       | -0.40       | 0.69    |
+| mech[P50]         | 0.60        | 1.06       | 0.57        | 0.57    |
+| mech[R01]         | 0.10        | 0.32       | 0.30        | 0.76    |
+| mech[R18]         | 1.05        | 1.05       | 0.99        | 0.32    |
+| mech[R21]         | -0.05       | 1.06       | -0.04       | 0.97    |
+| mech[R24, K24]    | 0.81        | 1.05       | 0.77        | 0.44    |
+| mech[R42]         | -14.78      | 3414.38    | -0.00       | 1.00    |
+| mech[R44]         | -0.57       | 0.77       | -0.73       | 0.46    |
+| mech[RC2]         | -14.92      | 2243.60    | -0.01       | 0.99    |
+| mech[U01]         | -0.22       | 0.32       | -0.70       | 0.48    |
+| mech[U54]         | 0.47        | 1.07       | 0.44        | 0.66    |
+| sampsize          | 0.00        | 0.00       | 0.19        | 0.85    |
+| budget            | 0.00        | 0.00       | 1.67        | 0.09    |
+| impact            | 0.06        | 0.01       | 8.23        | 0.00    |
+- We also find the impact of a study has a very significant positive relationship to the chance of publication.
 
 ## Cox Model: Example (Publication Data) - Adjusted Curves
 
-::: {style="font-size: 0.8em;"}
-![alt text](figures/11_6.png)
+![Adjusted Survival Curves for Publication Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_6.svg)
+
+## Adjusted Curves: Interpretation
+
+![Adjusted Survival Curves for Publication Data](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_6.svg)
 
 - After *adjusting* for other covariates (using representative values), we see a much clearer difference in survival curves between positive and negative results.
-- This highlights the importance of considering multiple predictors.
-:::
+- This highlights the importance of considering multiple predictors. Controlling for other factors reveals a stronger effect of the study's results on publication time.
 
 ## Shrinkage for the Cox Model
 
-::: {style="font-size: 0.8em;"}
-We can apply shrinkage methods (like ridge and lasso) to the Cox model.
+We can apply shrinkage methods (like ridge and lasso) to the Cox model. This is useful for high-dimensional data (many features) and can improve prediction accuracy.
 
-::: {layout-ncol=2}
--   **Idea:**  Minimize a penalized version of the negative log partial likelihood:
+## Shrinkage: Idea
+
+-   **Idea:** Minimize a penalized version of the negative log partial likelihood:
 
     $$-\log\left(\prod_{i:\delta_i=1} \frac{\exp(\sum_{j=1}^p x_{ij}\beta_j)}{\sum_{i':y_{i'}\ge y_i}\exp(\sum_{j=1}^{p}x_{i'j}\beta_j)}\right) + \lambda P(\beta)$$
 
     -   $\lambda$: Tuning parameter.
     -   $P(\beta)$: Penalty term (e.g., lasso: $\sum_{j=1}^p |\beta_j|$).
 
-- We now apply lasso-penalized Cox model to the `Publication` data.
+::: {.callout-note appearance="minimal"}
+This adds a penalty to the model's complexity, encouraging simpler models with fewer features.
+:::
 
+## Shrinkage: Publication Data Example
+- We now apply lasso-penalized Cox model to the `Publication` data. This helps us select the most important features for predicting publication time.
+
+## Shrinkage: Cross-Validation
 - The figure on the right hand displays the cross-validation results.
 - Note the "U-shape" of the partial likelihood deviance.
 - Specifically, the cross-validation error is minimized when just two predictors, `budget` and `impact`, have non-zero estimated coefficients.
 
-![Partial likelihood deviance](figures/11_7.png)
-:::
+![Partial likelihood deviance](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_7.svg)
+
+::: {.callout-note appearance="minimal"}
+Cross-validation helps us choose the optimal level of shrinkage (the value of λ).
 :::
 
 ## Assessing Model Fit on Test Data
-::: {style="font-size: 0.8em;"}
-We can use risk score to categorize the observations based on their "risk". For example, we use the risk score:
+We can use risk score to categorize the observations based on their "risk".
+
+::: {.fragment}
+For example, we use the risk score:
 $$
 budget_i \cdot \hat{\beta}_{budget} + impact_i \cdot \hat{\beta}_{impact}
 $$
 where $\hat{\beta}_{budget}$ and $\hat{\beta}_{impact}$ are the coefficients estimates for these two features from the training set.
+:::
 
-![alt text](figures/11_8.png)
+## Assessing Model Fit - Result
+![alt text](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F11_8.svg)
 
-The figure shows that there is clear seperation between the three strata, and that the strata are correctly ordered in terms of low, medium, and high risk of publication.
+::: {.fragment}
+The figure shows that there is clear separation between the three strata, and that the strata are correctly ordered in terms of low, medium, and high risk of publication.
+:::
+::: {.callout-note appearance="minimal"}
+We can evaluate how well the model separates observations into different risk groups on a test set.
 :::
 
 ## Additional Topics
 
-::: {style="font-size: 0.8em;"}
--   **Area Under the Curve (AUC) for Survival Analysis:**  Harrell's concordance index (C-index) generalizes AUC to survival data, accounting for censoring.
--   **Choice of Time Scale:** The definition of "time zero" can be crucial and depends on the context.
--   **Time-Dependent Covariates:** The Cox model can handle predictors that change over time.
--   **Checking the Proportional Hazards Assumption:**  Visual checks (log hazard plots) and stratification can help assess the assumption.
--   **Survival Trees:** Tree-based methods can be adapted for survival analysis.
-:::
+-   **Area Under the Curve (AUC) for Survival Analysis:** Harrell's concordance index (C-index) generalizes AUC to survival data, accounting for censoring. This measures the model's ability to discriminate between individuals with different event times.
+-   **Choice of Time Scale:** The definition of "time zero" can be crucial and depends on the context.  (e.g., time since diagnosis, time since start of treatment, age).
+-   **Time-Dependent Covariates:** The Cox model can handle predictors that change over time. (e.g., a patient's treatment status might change during the study).
+-   **Checking the Proportional Hazards Assumption:** Visual checks (log hazard plots) and stratification can help assess the assumption. If the assumption is violated, we might need to use more complex models.
+-   **Survival Trees:** Tree-based methods can be adapted for survival analysis. These are useful for finding non-linear relationships and interactions between features.
 
 ## Summary
 
-::: {style="font-size: 0.8em;"}
--   Survival analysis deals with *time-to-event* data, where **censoring** is a key challenge.
--   The **Kaplan-Meier estimator** provides a non-parametric estimate of the survival curve.
--   The **log-rank test** compares survival curves between groups.
--   The **Cox proportional hazards model** allows us to model the relationship between covariates and the *hazard function*, making it a powerful tool for prediction.
--   Shrinkage methods can be applied to the Cox model.
+-   Survival analysis deals with *time-to-event* data, where **censoring** is a key challenge. We're not just predicting *if* something happens, but *when*.
+-   The **Kaplan-Meier estimator** provides a non-parametric estimate of the survival curve. It's our first line of defense for understanding survival probabilities.
+-   The **log-rank test** compares survival curves between groups. It helps us determine if there are significant differences in survival.
+-   The **Cox proportional hazards model** allows us to model the relationship between covariates and the *hazard function*, making it a powerful tool for prediction. It's the workhorse for understanding how features influence survival.
+-   Shrinkage methods can be applied to the Cox model. This helps us deal with high-dimensional data and improve prediction.
 -   Various extensions and considerations (AUC, time scale, time-dependent covariates, proportional hazards assumption, survival trees) broaden the applicability of survival analysis.
-:::
 
 ## Thoughts and Discussion
 
-::: {style="font-size: 0.8em;"}
--   How might survival analysis be applied in *your* field of interest?
--   What are the ethical considerations when dealing with survival data, especially in medical contexts?
--   How could you explain the concept of censoring to someone without a statistical background?
+-   How might survival analysis be applied in *your* field of interest? Think beyond the examples we've discussed!
+-   What are the ethical considerations when dealing with survival data, especially in medical contexts?  Think about privacy, informed consent, and the potential impact of predictions on individuals.
+-   How could you explain the concept of censoring to someone without a statistical background?  Use a simple analogy or real-world example.
 -   Can you think of situations where the proportional hazards assumption might be violated? How could you address this?
 -   What are the limitations of survival analysis? What types of questions can it *not* answer?
-:::
 
