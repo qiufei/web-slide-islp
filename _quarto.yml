@@ -13,8 +13,8 @@ website:
       - text: "首页"
         href: https://qiufei.github.io
     right:
-      # - text: R课件
-      #   href: https://qiufei.github.io/web-slide-r
+      - text: 课件
+        href: https://qiufei.github.io/web-slide
       # - text: python课件
       #   href: https://qiufei.github.io/web-slide-python
       # - text: supermind课件
