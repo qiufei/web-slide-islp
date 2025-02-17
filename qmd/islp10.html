@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>islp10</title>
+<title>Introduction to Deep Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +53,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,80 +133,134 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Deep Learning</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<pre class="qmd"><code>---
-title: "Introduction to Deep Learning"
-format:
-  revealjs:
-    theme: [default]
-    slide-number: true
-    show-slide-number: all
-    preview-links: auto
----
+    
+  
+    
+  </div>
+  
 
-## What is Deep Learning?
 
--   **Very Active Research Area:** 🚀 Deep learning is at the forefront of artificial intelligence research, with new discoveries and advancements happening constantly.
+</header>
 
--   **Subfield of Machine Learning:** It's a specialized branch of machine learning, focusing on algorithms inspired by the structure and function of the human brain.
 
--   **Neural Networks are Key:** The core building block of deep learning is the **neural network**, a complex structure of interconnected nodes (called "neurons") that can learn intricate patterns from data.
+<section id="what-is-deep-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-deep-learning">What is Deep Learning?</h2>
+<ul>
+<li><p><strong>Very Active Research Area:</strong> 🚀 Deep learning is at the forefront of artificial intelligence research, with new discoveries and advancements happening constantly.</p></li>
+<li><p><strong>Subfield of Machine Learning:</strong> It’s a specialized branch of machine learning, focusing on algorithms inspired by the structure and function of the human brain.</p></li>
+<li><p><strong>Neural Networks are Key:</strong> The core building block of deep learning is the <strong>neural network</strong>, a complex structure of interconnected nodes (called “neurons”) that can learn intricate patterns from data.</p></li>
+</ul>
+</section>
+<section id="what-is-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-machine-learning">What is Machine Learning?</h2>
+<div>
 
-## What is Machine Learning?
-
-::: {layout-ncol=2}
-- Machine learning is a field of study that gives computers the ability to learn without being explicitly programmed. - Arthur Samuel, 1959
-
-- A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. - Tom M. Mitchell, 1997
-
-:::
-
-::: {.callout-note}
-Machine learning focuses on the development of algorithms that can learn from and make predictions on data. These algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions, rather than following strictly static program instructions.
-:::
-
-## What is Statistical Learning?
-
-- Statistical learning is a framework for understanding data based on statistics. It involves building a statistical model for inference or prediction.
-
-- The goal is often to estimate a function  $f$  such that $Y = f(X) + \epsilon$, where  $X$  represents the input variables,  $Y$  represents the output variable, and $\epsilon$  is the random error term.
-
-- **Emphasis:** Statistical learning emphasizes models and their interpretability and precision, offering tools to assess the model (such as confidence intervals).
-
-::: {.callout-note}
-Statistical learning focuses on drawing inferences from data using statistical models. Unlike machine learning, which often prioritizes predictive accuracy, statistical learning also focuses on the interpretability of models and understanding the underlying data generation process.
-:::
-
-## Deep Learning in Action
-
-![A simple neural network.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F10_1_1.png){fig-align="center"}
-
-::: {.callout-note}
-This image visually represents a simple neural network.  The circles represent *neurons*, and the lines connecting them represent the *connections* between neurons. The input layer receives data, the hidden layers process it, and the output layer produces the result.
-:::
-
-## Defining the Landscape: Data Mining, Machine Learning, and Statistical Learning
-
-Let's clarify these related terms, which are often used interchangeably, but have important distinctions:
-
-- **Data Mining:** 🔍 The process of discovering patterns, anomalies, and insights from *large* datasets.  It's like "unearthing" valuable information hidden within a mountain of data.
-
-- **Machine Learning:** 🤖 Algorithms that can *learn* from data and improve their performance *without* being explicitly programmed. Focuses on making accurate *predictions* or *decisions*.
-
-- **Statistical Learning:** 📊 A subfield of statistics focused on statistical *models* for understanding data. Bridges statistics and machine learning, often emphasizing *interpretability*.
-
-## Relationships Between Concepts
-
-```{mermaid}
-graph LR
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li><p>Machine learning is a field of study that gives computers the ability to learn without being explicitly programmed. - Arthur Samuel, 1959</p></li>
+<li><p>A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. - Tom M. Mitchell, 1997</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Machine learning focuses on the development of algorithms that can learn from and make predictions on data. These algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions, rather than following strictly static program instructions.</p>
+</div>
+</div>
+</section>
+<section id="what-is-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-statistical-learning">What is Statistical Learning?</h2>
+<ul>
+<li><p>Statistical learning is a framework for understanding data based on statistics. It involves building a statistical model for inference or prediction.</p></li>
+<li><p>The goal is often to estimate a function <span class="math inline">\(f\)</span> such that <span class="math inline">\(Y = f(X) + \epsilon\)</span>, where <span class="math inline">\(X\)</span> represents the input variables, <span class="math inline">\(Y\)</span> represents the output variable, and <span class="math inline">\(\epsilon\)</span> is the random error term.</p></li>
+<li><p><strong>Emphasis:</strong> Statistical learning emphasizes models and their interpretability and precision, offering tools to assess the model (such as confidence intervals).</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Statistical learning focuses on drawing inferences from data using statistical models. Unlike machine learning, which often prioritizes predictive accuracy, statistical learning also focuses on the interpretability of models and understanding the underlying data generation process.</p>
+</div>
+</div>
+</section>
+<section id="deep-learning-in-action" class="level2">
+<h2 class="anchored" data-anchor-id="deep-learning-in-action">Deep Learning in Action</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F10_1_1.png" class="img-fluid figure-img"></p>
+<figcaption>A simple neural network.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This image visually represents a simple neural network. The circles represent <em>neurons</em>, and the lines connecting them represent the <em>connections</em> between neurons. The input layer receives data, the hidden layers process it, and the output layer produces the result.</p>
+</div>
+</div>
+</section>
+<section id="defining-the-landscape-data-mining-machine-learning-and-statistical-learning" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-landscape-data-mining-machine-learning-and-statistical-learning">Defining the Landscape: Data Mining, Machine Learning, and Statistical Learning</h2>
+<p>Let’s clarify these related terms, which are often used interchangeably, but have important distinctions:</p>
+<ul>
+<li><p><strong>Data Mining:</strong> 🔍 The process of discovering patterns, anomalies, and insights from <em>large</em> datasets. It’s like “unearthing” valuable information hidden within a mountain of data.</p></li>
+<li><p><strong>Machine Learning:</strong> 🤖 Algorithms that can <em>learn</em> from data and improve their performance <em>without</em> being explicitly programmed. Focuses on making accurate <em>predictions</em> or <em>decisions</em>.</p></li>
+<li><p><strong>Statistical Learning:</strong> 📊 A subfield of statistics focused on statistical <em>models</em> for understanding data. Bridges statistics and machine learning, often emphasizing <em>interpretability</em>.</p></li>
+</ul>
+</section>
+<section id="relationships-between-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="relationships-between-concepts">Relationships Between Concepts</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
     A[Data Mining] --&gt; C(Common Ground)
     B[Machine Learning] --&gt; C
     D[Statistical Learning] --&gt; C
-    C --&gt; E[Insights &amp; Predictions]</code></pre>
+    C --&gt; E[Insights &amp; Predictions]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -217,6 +274,7 @@ Note
 <p>This diagram illustrates the overlapping nature of these fields. They all share the common goal of extracting insights and making predictions from data, but they approach this goal with different tools and emphases. Data mining is often applied to very large datasets, machine learning focuses on prediction, and statistical learning emphasizes inference and model understanding.</p>
 </div>
 </div>
+</section>
 <section id="a-bit-of-history" class="level2">
 <h2 class="anchored" data-anchor-id="a-bit-of-history">A Bit of History</h2>
 <ul>

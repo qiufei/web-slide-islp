@@ -7597,504 +7597,546 @@
   {
     "objectID": "qmd/islp10.html",
     "href": "qmd/islp10.html",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "",
-    "text": "---\ntitle: \"Introduction to Deep Learning\"\nformat:\n  revealjs:\n    theme: [default]\n    slide-number: true\n    show-slide-number: all\n    preview-links: auto\n---\n\n## What is Deep Learning?\n\n-   **Very Active Research Area:** 🚀 Deep learning is at the forefront of artificial intelligence research, with new discoveries and advancements happening constantly.\n\n-   **Subfield of Machine Learning:** It's a specialized branch of machine learning, focusing on algorithms inspired by the structure and function of the human brain.\n\n-   **Neural Networks are Key:** The core building block of deep learning is the **neural network**, a complex structure of interconnected nodes (called \"neurons\") that can learn intricate patterns from data.\n\n## What is Machine Learning?\n\n::: {layout-ncol=2}\n- Machine learning is a field of study that gives computers the ability to learn without being explicitly programmed. - Arthur Samuel, 1959\n\n- A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. - Tom M. Mitchell, 1997\n\n:::\n\n::: {.callout-note}\nMachine learning focuses on the development of algorithms that can learn from and make predictions on data. These algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions, rather than following strictly static program instructions.\n:::\n\n## What is Statistical Learning?\n\n- Statistical learning is a framework for understanding data based on statistics. It involves building a statistical model for inference or prediction.\n\n- The goal is often to estimate a function  $f$  such that $Y = f(X) + \\epsilon$, where  $X$  represents the input variables,  $Y$  represents the output variable, and $\\epsilon$  is the random error term.\n\n- **Emphasis:** Statistical learning emphasizes models and their interpretability and precision, offering tools to assess the model (such as confidence intervals).\n\n::: {.callout-note}\nStatistical learning focuses on drawing inferences from data using statistical models. Unlike machine learning, which often prioritizes predictive accuracy, statistical learning also focuses on the interpretability of models and understanding the underlying data generation process.\n:::\n\n## Deep Learning in Action\n\n![A simple neural network.](https://axwslyfy9krb.objectstorage.ap-singapore-1.oci.customer-oci.com/n/axwslyfy9krb/b/qiufei/o/textbook%2Fisl_figures%2F10_1_1.png){fig-align=\"center\"}\n\n::: {.callout-note}\nThis image visually represents a simple neural network.  The circles represent *neurons*, and the lines connecting them represent the *connections* between neurons. The input layer receives data, the hidden layers process it, and the output layer produces the result.\n:::\n\n## Defining the Landscape: Data Mining, Machine Learning, and Statistical Learning\n\nLet's clarify these related terms, which are often used interchangeably, but have important distinctions:\n\n- **Data Mining:** 🔍 The process of discovering patterns, anomalies, and insights from *large* datasets.  It's like \"unearthing\" valuable information hidden within a mountain of data.\n\n- **Machine Learning:** 🤖 Algorithms that can *learn* from data and improve their performance *without* being explicitly programmed. Focuses on making accurate *predictions* or *decisions*.\n\n- **Statistical Learning:** 📊 A subfield of statistics focused on statistical *models* for understanding data. Bridges statistics and machine learning, often emphasizing *interpretability*.\n\n## Relationships Between Concepts\n\n```{mermaid}\ngraph LR\n    A[Data Mining] --&gt; C(Common Ground)\n    B[Machine Learning] --&gt; C\n    D[Statistical Learning] --&gt; C\n    C --&gt; E[Insights & Predictions]"
+    "text": "Very Active Research Area: 🚀 Deep learning is at the forefront of artificial intelligence research, with new discoveries and advancements happening constantly.\nSubfield of Machine Learning: It’s a specialized branch of machine learning, focusing on algorithms inspired by the structure and function of the human brain.\nNeural Networks are Key: The core building block of deep learning is the neural network, a complex structure of interconnected nodes (called “neurons”) that can learn intricate patterns from data."
+  },
+  {
+    "objectID": "qmd/islp10.html#what-is-deep-learning",
+    "href": "qmd/islp10.html#what-is-deep-learning",
+    "title": "Introduction to Deep Learning",
+    "section": "",
+    "text": "Very Active Research Area: 🚀 Deep learning is at the forefront of artificial intelligence research, with new discoveries and advancements happening constantly.\nSubfield of Machine Learning: It’s a specialized branch of machine learning, focusing on algorithms inspired by the structure and function of the human brain.\nNeural Networks are Key: The core building block of deep learning is the neural network, a complex structure of interconnected nodes (called “neurons”) that can learn intricate patterns from data."
+  },
+  {
+    "objectID": "qmd/islp10.html#what-is-machine-learning",
+    "href": "qmd/islp10.html#what-is-machine-learning",
+    "title": "Introduction to Deep Learning",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\n\n\n\n\n\n\nMachine learning is a field of study that gives computers the ability to learn without being explicitly programmed. - Arthur Samuel, 1959\nA computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. - Tom M. Mitchell, 1997\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nMachine learning focuses on the development of algorithms that can learn from and make predictions on data. These algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions, rather than following strictly static program instructions."
+  },
+  {
+    "objectID": "qmd/islp10.html#what-is-statistical-learning",
+    "href": "qmd/islp10.html#what-is-statistical-learning",
+    "title": "Introduction to Deep Learning",
+    "section": "What is Statistical Learning?",
+    "text": "What is Statistical Learning?\n\nStatistical learning is a framework for understanding data based on statistics. It involves building a statistical model for inference or prediction.\nThe goal is often to estimate a function \\(f\\) such that \\(Y = f(X) + \\epsilon\\), where \\(X\\) represents the input variables, \\(Y\\) represents the output variable, and \\(\\epsilon\\) is the random error term.\nEmphasis: Statistical learning emphasizes models and their interpretability and precision, offering tools to assess the model (such as confidence intervals).\n\n\n\n\n\n\n\nNote\n\n\n\nStatistical learning focuses on drawing inferences from data using statistical models. Unlike machine learning, which often prioritizes predictive accuracy, statistical learning also focuses on the interpretability of models and understanding the underlying data generation process."
+  },
+  {
+    "objectID": "qmd/islp10.html#deep-learning-in-action",
+    "href": "qmd/islp10.html#deep-learning-in-action",
+    "title": "Introduction to Deep Learning",
+    "section": "Deep Learning in Action",
+    "text": "Deep Learning in Action\n\n\n\nA simple neural network.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis image visually represents a simple neural network. The circles represent neurons, and the lines connecting them represent the connections between neurons. The input layer receives data, the hidden layers process it, and the output layer produces the result."
+  },
+  {
+    "objectID": "qmd/islp10.html#defining-the-landscape-data-mining-machine-learning-and-statistical-learning",
+    "href": "qmd/islp10.html#defining-the-landscape-data-mining-machine-learning-and-statistical-learning",
+    "title": "Introduction to Deep Learning",
+    "section": "Defining the Landscape: Data Mining, Machine Learning, and Statistical Learning",
+    "text": "Defining the Landscape: Data Mining, Machine Learning, and Statistical Learning\nLet’s clarify these related terms, which are often used interchangeably, but have important distinctions:\n\nData Mining: 🔍 The process of discovering patterns, anomalies, and insights from large datasets. It’s like “unearthing” valuable information hidden within a mountain of data.\nMachine Learning: 🤖 Algorithms that can learn from data and improve their performance without being explicitly programmed. Focuses on making accurate predictions or decisions.\nStatistical Learning: 📊 A subfield of statistics focused on statistical models for understanding data. Bridges statistics and machine learning, often emphasizing interpretability."
+  },
+  {
+    "objectID": "qmd/islp10.html#relationships-between-concepts",
+    "href": "qmd/islp10.html#relationships-between-concepts",
+    "title": "Introduction to Deep Learning",
+    "section": "Relationships Between Concepts",
+    "text": "Relationships Between Concepts\n\n\n\n\n\ngraph LR\n    A[Data Mining] --&gt; C(Common Ground)\n    B[Machine Learning] --&gt; C\n    D[Statistical Learning] --&gt; C\n    C --&gt; E[Insights & Predictions]\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis diagram illustrates the overlapping nature of these fields. They all share the common goal of extracting insights and making predictions from data, but they approach this goal with different tools and emphases. Data mining is often applied to very large datasets, machine learning focuses on prediction, and statistical learning emphasizes inference and model understanding."
   },
   {
     "objectID": "qmd/islp10.html#a-bit-of-history",
     "href": "qmd/islp10.html#a-bit-of-history",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "A Bit of History",
     "text": "A Bit of History\n\nEarly Days (Late 1980s): Neural networks first gained attention, sparking initial excitement.\nStabilization: The initial hype subsided as researchers explored the practical challenges of training and applying these networks.\nDecline in Popularity: Other machine learning methods, like Support Vector Machines (SVMs), boosting, and random forests, became more popular. These were considered more “automatic.”\nThe Resurgence (Post-2010): Neural networks made a spectacular comeback, rebranded as “Deep Learning.”"
   },
   {
     "objectID": "qmd/islp10.html#drivers-of-the-deep-learning-renaissance",
     "href": "qmd/islp10.html#drivers-of-the-deep-learning-renaissance",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Drivers of the Deep Learning Renaissance",
     "text": "Drivers of the Deep Learning Renaissance\nWhat fueled this resurgence? Three key factors:\n\nNew Architectures: Researchers developed more sophisticated and effective neural network architectures.\nLarger Datasets: The explosion of digital data provided the massive datasets needed to train complex models.\nMore Computing Power: Advances in hardware, especially GPUs (Graphics Processing Units), made training large models feasible."
   },
   {
     "objectID": "qmd/islp10.html#neural-networks-the-building-blocks",
     "href": "qmd/islp10.html#neural-networks-the-building-blocks",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Neural Networks: The Building Blocks",
     "text": "Neural Networks: The Building Blocks\n\nBrain Inspiration: 🧠 Neural networks are inspired by the human brain, mimicking how neurons connect and process information.\nInterconnected Nodes: Composed of interconnected nodes (“neurons”), organized in layers.\nLearning Complex Relationships: Can learn intricate, non-linear relationships between inputs (data) and outputs (predictions).\nFoundation of Deep Learning: Form the foundation for most deep learning models."
   },
   {
     "objectID": "qmd/islp10.html#single-layer-neural-networks-the-basics",
     "href": "qmd/islp10.html#single-layer-neural-networks-the-basics",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Single Layer Neural Networks: The Basics",
     "text": "Single Layer Neural Networks: The Basics\n\nInput: It starts with an input vector \\(\\mathbf{X} = (X_1, X_2, \\dots, X_p)\\), representing your data (e.g., pixel values of an image).\nGoal: Build a non-linear function \\(f(\\mathbf{X})\\) to predict a response \\(Y\\) (e.g., the category of an image)."
   },
   {
     "objectID": "qmd/islp10.html#single-layer-neural-network-structure",
     "href": "qmd/islp10.html#single-layer-neural-network-structure",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Single Layer Neural Network Structure",
     "text": "Single Layer Neural Network Structure\n\nInput Layer: Receives the input features \\(X_1, \\dots, X_p\\).\nHidden Layer: Computes activations \\(A_k = h_k(\\mathbf{X})\\). These are non-linear transformations of linear combinations of the inputs. Think of them as “hidden features.”\nOutput Layer: A linear model that uses the activations from the hidden layer, producing the final output \\(f(\\mathbf{X})\\)."
   },
   {
     "objectID": "qmd/islp10.html#learning-the-functions",
     "href": "qmd/islp10.html#learning-the-functions",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Learning the Functions",
     "text": "Learning the Functions\n\nThe functions \\(h_k(\\cdot)\\) in the hidden layer are not pre-defined; they are learned during training. This allows the network to adapt to the data."
   },
   {
     "objectID": "qmd/islp10.html#visualizing-a-single-layer-network",
     "href": "qmd/islp10.html#visualizing-a-single-layer-network",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Visualizing a Single Layer Network",
     "text": "Visualizing a Single Layer Network\n\n\n\nA single-layer neural network.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis diagram shows a single-layer neural network. The input layer (left) receives the data. The hidden layer (middle) performs the non-linear transformation. The output layer (right) produces the prediction. The arrows represent the weights that connect the neurons."
   },
   {
     "objectID": "qmd/islp10.html#single-layer-network-the-math",
     "href": "qmd/islp10.html#single-layer-network-the-math",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Single Layer Network: The Math",
     "text": "Single Layer Network: The Math\nThe neural network model can be expressed mathematically as:\n\\[\nf(\\mathbf{X}) = \\beta_0 + \\sum_{k=1}^K \\beta_k h_k(\\mathbf{X})\n\\]\nwhere:\n\\[\nA_k = h_k(\\mathbf{X}) = g\\left(w_{k0} + \\sum_{j=1}^p w_{kj}X_j\\right)\n\\]"
   },
   {
     "objectID": "qmd/islp10.html#breaking-down-the-equation",
     "href": "qmd/islp10.html#breaking-down-the-equation",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Breaking Down the Equation",
     "text": "Breaking Down the Equation\n\n\\(K\\): The number of hidden units (neurons in the hidden layer).\n\\(g(\\cdot)\\): The activation function (introduces non-linearity).\n\\(w_{kj}\\) and \\(\\beta_k\\): The weights or parameters of the network (learned during training).\n\\(A_k\\): called activations."
   },
   {
     "objectID": "qmd/islp10.html#activation-functions-introducing-non-linearity",
     "href": "qmd/islp10.html#activation-functions-introducing-non-linearity",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Activation Functions: Introducing Non-Linearity",
     "text": "Activation Functions: Introducing Non-Linearity\n\nWhy Non-Linearity? Without it, the network would collapse into a simple linear model. Activation functions allow learning complex, non-linear relationships.\nCommon Choices:\n\nSigmoid: \\(g(z) = \\frac{1}{1 + e^{-z}}\\) (Squashes values between 0 and 1. A “smooth” on/off switch.)\nReLU (Rectified Linear Unit): \\(g(z) = \\max(0, z)\\) (Computationally efficient. Zero for negative inputs, the input itself for positive inputs.)"
   },
   {
     "objectID": "qmd/islp10.html#visualizing-activation-functions",
     "href": "qmd/islp10.html#visualizing-activation-functions",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Visualizing Activation Functions",
     "text": "Visualizing Activation Functions\n\n\n\nSigmoid (left) and ReLU (right) activation functions.\n\n\n\nLeft (Sigmoid): Notice the smooth, S-shaped curve. It “squashes” any input value into the range between 0 and 1. This was historically popular but can lead to problems during training (vanishing gradients)."
   },
   {
     "objectID": "qmd/islp10.html#visualizing-activation-functions-1",
     "href": "qmd/islp10.html#visualizing-activation-functions-1",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Visualizing Activation Functions",
     "text": "Visualizing Activation Functions\n\n\n\nSigmoid (left) and ReLU (right) activation functions.\n\n\n\nRight (ReLU): Notice how it’s simply zero for negative inputs and a straight line for positive inputs. This simple form is computationally efficient and helps with training deeper networks. It’s a very popular choice in modern deep learning."
   },
   {
     "objectID": "qmd/islp10.html#why-non-linearity-matters-capturing-complexity",
     "href": "qmd/islp10.html#why-non-linearity-matters-capturing-complexity",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Why Non-linearity Matters: Capturing Complexity",
     "text": "Why Non-linearity Matters: Capturing Complexity\n\nReal-World Complexity: Relationships in the real world are rarely simple straight lines.\nInteractions: Non-linearities enable the model to capture interactions between input variables. The effect of one variable might depend on another."
   },
   {
     "objectID": "qmd/islp10.html#example-modeling-interactions",
     "href": "qmd/islp10.html#example-modeling-interactions",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Example: Modeling Interactions",
     "text": "Example: Modeling Interactions\n\nConsider:\n\n\\(p=2\\) inputs (\\(X_1\\) and \\(X_2\\)).\n\\(K=2\\) hidden units.\n\\(g(z) = z^2\\) (a simple non-linear activation function).\n\nWith appropriate weights, this can model the interaction \\(X_1X_2\\):\n\\[\nf(\\mathbf{X}) = X_1X_2\n\\]\n\n\n\n\n\n\n\nNote\n\n\n\nBy choosing the weights \\(w_{10} = 0, w_{11} = 1, w_{12} = 1, w_{20} = 0, w_{21} = 1, w_{22} = -1\\) and activation function \\(g(z)=z^2\\), the activations can be formed as: \\(A_1 = (X_1 + X_2)^2, A_2 = (X_1 - X_2)^2\\). If we further set \\(\\beta_0 = 0, \\beta_1=0.25, \\beta_2 = -0.25\\), the output becomes: \\(f(\\mathbf{X}) = 0.25(X_1 + X_2)^2 - 0.25(X_1 - X_2)^2 = X_1X_2\\). This illustrates how non-linear activation functions, combined with appropriate weights, allow neural networks to capture interaction effects."
   },
   {
     "objectID": "qmd/islp10.html#multilayer-neural-networks-going-deeper",
     "href": "qmd/islp10.html#multilayer-neural-networks-going-deeper",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Multilayer Neural Networks: Going Deeper",
     "text": "Multilayer Neural Networks: Going Deeper\n\nMultiple Hidden Layers: Modern neural networks often have multiple hidden layers, stacked one after another (“deep” learning).\nHierarchical Representations: Each layer builds upon the previous, creating increasingly complex and abstract representations."
   },
   {
     "objectID": "qmd/islp10.html#mnist-digit-classification",
     "href": "qmd/islp10.html#mnist-digit-classification",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "MNIST Digit Classification",
     "text": "MNIST Digit Classification\n\nMNIST: A classic dataset: images of handwritten digits (0-9).\nImage Format: Each image is 28x28 pixels, grayscale values (0-255). 784 (28*28) input features."
   },
   {
     "objectID": "qmd/islp10.html#visualizing-a-multilayer-network-mnist",
     "href": "qmd/islp10.html#visualizing-a-multilayer-network-mnist",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Visualizing a Multilayer Network (MNIST)",
     "text": "Visualizing a Multilayer Network (MNIST)\n\n\n\nA multilayer neural network for MNIST digit classification.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis diagram shows a multilayer neural network for classifying handwritten digits from the MNIST dataset. The input layer is large (784 pixels). Subsequent layers progressively reduce the number of units. The output layer has 10 units (one for each digit)."
   },
   {
     "objectID": "qmd/islp10.html#the-mnist-dataset-details",
     "href": "qmd/islp10.html#the-mnist-dataset-details",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "The MNIST Dataset: Details",
     "text": "The MNIST Dataset: Details\n\nGoal: Classify each image into its correct digit category (0-9).\nOne-Hot Encoding: Output: a vector \\(\\mathbf{Y} = (Y_0, Y_1, \\dots, Y_9)\\), where \\(Y_i = 1\\) if the image represents digit \\(i\\), and 0 otherwise.\nDataset Size: 60,000 training images and 10,000 test images."
   },
   {
     "objectID": "qmd/islp10.html#mnist-examples",
     "href": "qmd/islp10.html#mnist-examples",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "MNIST Examples",
     "text": "MNIST Examples\n\n\n\nExamples of handwritten digits from the MNIST dataset.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure shows examples of handwritten digits from the MNIST dataset. The goal is to train a neural network to correctly classify these images. Notice the variations in handwriting style, making this a non-trivial task."
   },
   {
     "objectID": "qmd/islp10.html#multilayer-networks-key-differences",
     "href": "qmd/islp10.html#multilayer-networks-key-differences",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Multilayer Networks: Key Differences",
     "text": "Multilayer Networks: Key Differences\n\nMultiple Hidden Layers: Layers like \\(L_1\\) (e.g., 256 units), \\(L_2\\) (e.g., 128 units). Each layer learns increasingly complex features.\nMultiple Outputs: Output layer can have multiple units (e.g., 10 for MNIST).\nMultitask Learning: A single network can predict multiple responses simultaneously.\nLoss Function: Choice depends on the task. For multi-class classification (like MNIST), use cross-entropy loss."
   },
   {
     "objectID": "qmd/islp10.html#multilayer-networks-mathematical-formulation-13",
     "href": "qmd/islp10.html#multilayer-networks-mathematical-formulation-13",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Multilayer Networks: Mathematical Formulation (1/3)",
     "text": "Multilayer Networks: Mathematical Formulation (1/3)\n\nFirst Hidden Layer: Similar to the single-layer, but with a superscript (1) for the layer:\n\\[\nA_k^{(1)} = h_k^{(1)}(\\mathbf{X}) = g\\left(w_{k0}^{(1)} + \\sum_{j=1}^p w_{kj}^{(1)} X_j\\right)\n\\]"
   },
   {
     "objectID": "qmd/islp10.html#multilayer-networks-mathematical-formulation-23",
     "href": "qmd/islp10.html#multilayer-networks-mathematical-formulation-23",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Multilayer Networks: Mathematical Formulation (2/3)",
     "text": "Multilayer Networks: Mathematical Formulation (2/3)\n\nSecond Hidden Layer: Takes activations from the first hidden layer as input:\n\\[\nA_l^{(2)} = h_l^{(2)}(\\mathbf{X}) = g\\left(w_{l0}^{(2)} + \\sum_{k=1}^{K_1} w_{lk}^{(2)} A_k^{(1)}\\right)\n\\]\n\nNotice how \\(A_k^{(1)}\\) (output of the first layer) is now the input."
   },
   {
     "objectID": "qmd/islp10.html#multilayer-networks-mathematical-formulation-33",
     "href": "qmd/islp10.html#multilayer-networks-mathematical-formulation-33",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Multilayer Networks: Mathematical Formulation (3/3)",
     "text": "Multilayer Networks: Mathematical Formulation (3/3)\n\nOutput Layer (multi-class classification): Use softmax for probabilities:\n\\[\nf_m(\\mathbf{X}) = \\Pr(Y = m | \\mathbf{X}) = \\frac{e^{Z_m}}{\\sum_{m'=0}^9 e^{Z_{m'}}}\n\\]\nwhere \\(Z_m = \\beta_{m0} + \\sum_{l=1}^{K_2} \\beta_{ml} A_l^{(2)}\\).\n\nSoftmax ensures outputs are probabilities (between 0 and 1, sum to 1)."
   },
   {
     "objectID": "qmd/islp10.html#loss-function-and-optimization",
     "href": "qmd/islp10.html#loss-function-and-optimization",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Loss Function and Optimization",
     "text": "Loss Function and Optimization\n\nCross-Entropy Loss (multi-class classification):\n\\[\n-\\sum_{i=1}^n \\sum_{m=0}^9 y_{im} \\log(f_m(\\mathbf{x}_i))\n\\]\n\nMeasures the difference between predicted probabilities and true labels (one-hot encoded).\n\nGoal: Find weights (all \\(w\\) and \\(\\beta\\) values) that minimize this loss.\nOptimization: Use gradient descent (and variants).\nWeights: refers to all trainable parameters, including the coefficients and bias terms."
   },
   {
     "objectID": "qmd/islp10.html#comparison-with-linear-models-mnist",
     "href": "qmd/islp10.html#comparison-with-linear-models-mnist",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Comparison with Linear Models (MNIST)",
     "text": "Comparison with Linear Models (MNIST)\n\n\n\nMethod\nTest Error\n\n\n\n\nNeural Network + Ridge\n2.3%\n\n\nNeural Network + Dropout\n1.8%\n\n\nMultinomial Logistic Regression\n7.2%\n\n\nLinear Discriminant Analysis\n12.7%\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis table shows that neural networks significantly outperform traditional linear methods (like multinomial logistic regression and linear discriminant analysis) on the MNIST digit classification task. This highlights the power of deep learning for complex pattern recognition. Ridge and Dropout are regularization techniques."
   },
   {
     "objectID": "qmd/islp10.html#convolutional-neural-networks-cnns-specialized-for-images",
     "href": "qmd/islp10.html#convolutional-neural-networks-cnns-specialized-for-images",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Convolutional Neural Networks (CNNs): Specialized for Images",
     "text": "Convolutional Neural Networks (CNNs): Specialized for Images\n\nImage Classification (and more): CNNs are designed for images (and data with spatial structure, like audio).\nHuman Vision Inspiration: Inspired by how humans process visual information, focusing on local patterns.\nKey Idea: Learn local features (edges, corners) and combine them for global patterns (objects)."
   },
   {
     "objectID": "qmd/islp10.html#cnn-architecture-key-components",
     "href": "qmd/islp10.html#cnn-architecture-key-components",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "CNN Architecture: Key Components",
     "text": "CNN Architecture: Key Components\n\nConvolutional Layers:\n\nApply convolution filters (small templates/kernels) to the image.\nDetect local features (edges, textures). Filters are learned.\nWeight sharing: Same filter applied across the entire image (efficient).\n\nPooling Layers:\n\nDownsample feature maps.\nReduce dimensionality, provide translation invariance (small shifts don’t change output much).\nMax pooling: Takes the maximum value in a region.\n\nFlatten Layer: convert multi-dimension feature maps to vector.\nFully Connected Layers: Standard neural network layers for classification."
   },
   {
     "objectID": "qmd/islp10.html#cnn-example-tiger-classification",
     "href": "qmd/islp10.html#cnn-example-tiger-classification",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "CNN Example: Tiger Classification 🐅",
     "text": "CNN Example: Tiger Classification 🐅\n\n\n\n\n\n\nInput: An image of a tiger.\nConvolutional Layers: Early layers find edges, stripes.\nPooling Layers: Downsample, provide invariance.\nHigher Layers: Combine features (eyes, ears).\nOutput: Probability of a tiger."
   },
   {
     "objectID": "qmd/islp10.html#convolution-operation-a-closer-look",
     "href": "qmd/islp10.html#convolution-operation-a-closer-look",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Convolution Operation: A Closer Look",
     "text": "Convolution Operation: A Closer Look\n\nConvolution Filter: A small matrix (e.g., 3x3) of numbers (a kernel).\nSliding the Filter: “Slid” across the image, one pixel at a time (or larger stride).\nElement-wise Multiplication and Summation: At each position, element-wise multiplication between filter and image, then sum.\nConvolved Image: Produces a single value in the convolved image (feature map).\nDifferent Filters, Different Features: Different filters detect different features."
   },
   {
     "objectID": "qmd/islp10.html#visualizing-convolution",
     "href": "qmd/islp10.html#visualizing-convolution",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Visualizing Convolution",
     "text": "Visualizing Convolution\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure illustrates the convolution operation. The filter (small square) is moved across the input image (large square). At each position, the element-wise product of the filter and the corresponding part of the image is computed, and the results are summed to produce a single value in the convolved image."
   },
   {
     "objectID": "qmd/islp10.html#convolution-operation-example",
     "href": "qmd/islp10.html#convolution-operation-example",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Convolution Operation: Example",
     "text": "Convolution Operation: Example\n\nInput Image: \\[\nOriginal Image = \\begin{bmatrix}\na & b & c\\\\\nd & e & f\\\\\ng & h & i\\\\\nj & k & l\n\\end{bmatrix}\n\\]\nFilter: \\[\nConvolutionFilter = \\begin{bmatrix}\n\\alpha & \\beta\\\\\n\\gamma & \\delta\n\\end{bmatrix}\n\\]\nConvolved Image: \\[\nConvolved Image = \\begin{bmatrix}\naa + b\\beta + d\\gamma + e\\delta & ba + c\\beta + e\\gamma + f\\delta\\\\\nda + e\\beta + g\\gamma + h\\delta & ea + f\\beta + h\\gamma + i\\delta\\\\\nga + h\\beta + j\\gamma + k\\delta & ha + i\\beta + k\\gamma + l\\delta\n\\end{bmatrix}\n\\]"
   },
   {
     "objectID": "qmd/islp10.html#convolutional-layer-details",
     "href": "qmd/islp10.html#convolutional-layer-details",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Convolutional Layer: Details",
     "text": "Convolutional Layer: Details\n\nMultiple Channels: Color images: 3 channels (Red, Green, Blue). Filters match input channels.\nMultiple Filters: A layer uses many filters (e.g., 32, 64) for various features.\nReLU Activation: Usually, ReLU after convolution.\nDetector Layer: Convolution + ReLU is a detector layer."
   },
   {
     "objectID": "qmd/islp10.html#pooling-layer-downsampling",
     "href": "qmd/islp10.html#pooling-layer-downsampling",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Pooling Layer: Downsampling",
     "text": "Pooling Layer: Downsampling\n\nPurpose: Reduce spatial dimensions (width, height).\nMax Pooling: Takes the maximum in a non-overlapping region (e.g., 2x2).\nBenefits:\n\nReduces Computation: Smaller feature maps, fewer computations.\nTranslation Invariance: Robust to small shifts."
   },
   {
     "objectID": "qmd/islp10.html#max-pooling-example",
     "href": "qmd/islp10.html#max-pooling-example",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Max Pooling: Example",
     "text": "Max Pooling: Example\nInput:\n\\[\n\\begin{bmatrix}\n1 & 2 & 5 & 3 \\\\\n3 & 0 & 1 & 2 \\\\\n2 & 1 & 3 & 4 \\\\\n1 & 1 & 2 & 0 \\\\\n\\end{bmatrix}\n\\]\nOutput (2x2 max pooling):\n\\[\n\\begin{bmatrix}\n3 & 5 \\\\\n2 & 4\n\\end{bmatrix}\n\\]"
   },
   {
     "objectID": "qmd/islp10.html#putting-it-all-together-a-complete-cnn-architecture",
     "href": "qmd/islp10.html#putting-it-all-together-a-complete-cnn-architecture",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Putting it All Together: A Complete CNN Architecture",
     "text": "Putting it All Together: A Complete CNN Architecture\n\n\n\n\n\n\nSequence of Layers: Convolutional and pooling layers.\nFeature Extraction: Convolutional layers extract.\nDownsampling: Pooling layers downsample."
   },
   {
     "objectID": "qmd/islp10.html#putting-it-all-together-a-complete-cnn-architecture-1",
     "href": "qmd/islp10.html#putting-it-all-together-a-complete-cnn-architecture-1",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Putting it All Together: A Complete CNN Architecture",
     "text": "Putting it All Together: A Complete CNN Architecture\n\n\n\n\n\n\nFlatten Layer: Converts 3D feature maps to 1D vector.\nFully Connected Layers: Classification.\nSoftmax Output Layer: Probabilities for each class."
   },
   {
     "objectID": "qmd/islp10.html#data-augmentation-expanding-the-training-set",
     "href": "qmd/islp10.html#data-augmentation-expanding-the-training-set",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Data Augmentation: Expanding the Training Set",
     "text": "Data Augmentation: Expanding the Training Set\n\nPurpose: Artificially increase training set size.\nMethod: Random transformations:\n\nRotation 📐\nZoom 🔍\nShift ↔︎️\nFlip 🔄\n\nBenefits:\n\nReduces Overfitting: Model sees more variations.\nImproves Generalization: More robust.\nRegularization: Acts as regularization."
   },
   {
     "objectID": "qmd/islp10.html#data-augmentation-examples",
     "href": "qmd/islp10.html#data-augmentation-examples",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Data Augmentation: Examples",
     "text": "Data Augmentation: Examples\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure shows examples of data augmentation. A single image of a digit is transformed in various ways (rotated, shifted, zoomed) to create multiple training examples. This helps the model generalize better to unseen data and reduces overfitting."
   },
   {
     "objectID": "qmd/islp10.html#pretrained-classifiers-leveraging-existing-knowledge",
     "href": "qmd/islp10.html#pretrained-classifiers-leveraging-existing-knowledge",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Pretrained Classifiers: Leveraging Existing Knowledge",
     "text": "Pretrained Classifiers: Leveraging Existing Knowledge\n\nLeverage Pre-trained Models: Use models trained on massive datasets (e.g., ImageNet).\nExample: ResNet50: Popular pre-trained CNN.\nWeight Freezing: Use convolutional layers as feature extractors. Freeze weights, train only final layers. Effective for small datasets."
   },
   {
     "objectID": "qmd/islp10.html#pretrained-classifier-illustration",
     "href": "qmd/islp10.html#pretrained-classifier-illustration",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Pretrained Classifier: Illustration",
     "text": "Pretrained Classifier: Illustration\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure shows how a pretrained classifier (ResNet50) can be used. The convolutional layers (pretrained on ImageNet) are frozen, and only the final layers are trained on a new dataset. This leverages the knowledge learned from a large dataset, even if your own dataset is small."
   },
   {
     "objectID": "qmd/islp10.html#pretrained-classifiers-example-predictions-table-10.10",
     "href": "qmd/islp10.html#pretrained-classifiers-example-predictions-table-10.10",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Pretrained Classifiers: Example Predictions (Table 10.10)",
     "text": "Pretrained Classifiers: Example Predictions (Table 10.10)\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage\nTrue Label\nPrediction 1\nProb 1\nPrediction 2\nProb 2\nPrediction 3\nProb 3\n\n\n\n\n(Flamingo)\nFlamingo\nFlamingo\n0.83\nSpoonbill\n0.17\nWhite stork\n0.00\n\n\n(Cooper’s Hawk)\nCooper’s Hawk\nKite\n0.60\nGreat grey owl\n0.09\nNail\n0.12\n\n\n(Cooper’s Hawk)\nCooper’s Hawk\nFountain\n0.35\nnail\n0.12\nhook\n0.07\n\n\n(Lhasa Apso)\nLhasa Apso\nTibetan terrier\n0.56\nLhasa\n0.32\ncocker spaniel\n0.03\n\n\n(Cat)\nCat\nOld English sheepdog\n0.82\nShih-Tzu\n0.04\nPersian cat\n0.04\n\n\n(Cape weaver)\nCape weaver\njacamar\n0.28\nmacaw\n0.12\nrobin\n0.12\n\n\n\n\nPredictions and Probabilities: The table displays the top 3 predictions and associated probabilities from ResNet50 for different images."
   },
   {
     "objectID": "qmd/islp10.html#pretrained-classifiers-example-predictions-table-10.10-1",
     "href": "qmd/islp10.html#pretrained-classifiers-example-predictions-table-10.10-1",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Pretrained Classifiers: Example Predictions (Table 10.10)",
     "text": "Pretrained Classifiers: Example Predictions (Table 10.10)\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage\nTrue Label\nPrediction 1\nProb 1\nPrediction 2\nProb 2\nPrediction 3\nProb 3\n\n\n\n\n(Flamingo)\nFlamingo\nFlamingo\n0.83\nSpoonbill\n0.17\nWhite stork\n0.00\n\n\n(Cooper’s Hawk)\nCooper’s Hawk\nKite\n0.60\nGreat grey owl\n0.09\nNail\n0.12\n\n\n(Cooper’s Hawk)\nCooper’s Hawk\nFountain\n0.35\nnail\n0.12\nhook\n0.07\n\n\n(Lhasa Apso)\nLhasa Apso\nTibetan terrier\n0.56\nLhasa\n0.32\ncocker spaniel\n0.03\n\n\n(Cat)\nCat\nOld English sheepdog\n0.82\nShih-Tzu\n0.04\nPersian cat\n0.04\n\n\n(Cape weaver)\nCape weaver\njacamar\n0.28\nmacaw\n0.12\nrobin\n0.12\n\n\n\n\nCorrect Predictions: In several cases (Flamingo, Lhasa Apso), the model correctly predicts the true label with high probability.\nReasonable Alternatives: Even when incorrect, the model often provides reasonable alternative predictions (e.g., Spoonbill and White stork for Flamingo).\nUncertainty: The probabilities show the model’s uncertainty. Lower probabilities indicate less confidence.\nLimitation: Pretrained models are limited by the data they were trained on. They might misclassify objects not well-represented in the original training data."
   },
   {
     "objectID": "qmd/islp10.html#document-classification-beyond-images",
     "href": "qmd/islp10.html#document-classification-beyond-images",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Document Classification: Beyond Images",
     "text": "Document Classification: Beyond Images\n\nAnother Key Application: Deep learning is effective for document classification.\nGoal: Predict document attributes:\n\nSentiment (positive, negative)\nTopic (sports, politics)\nAuthor\nSpam detection\n\nFeaturization: Converting text to numerical representation.\nExample: Sentiment analysis of IMDb movie reviews."
   },
   {
     "objectID": "qmd/islp10.html#bag-of-words-model-a-simple-featurization",
     "href": "qmd/islp10.html#bag-of-words-model-a-simple-featurization",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Bag-of-Words Model: A Simple Featurization",
     "text": "Bag-of-Words Model: A Simple Featurization\n\nSimplest Approach: Surprisingly effective.\nHow it Works:\n\nCreate a dictionary of all unique words.\nRepresent each document as a vector: presence (1) or absence (0) of each word. (Or use word counts).\n\nIgnores Word Order: “Bag” of words – order lost.\nSparse Representation: Vectors are mostly zeros.\nBag-of-n-grams: Consider sequences of n words (captures some context)."
   },
   {
     "objectID": "qmd/islp10.html#recurrent-neural-networks-rnns-designed-for-sequences",
     "href": "qmd/islp10.html#recurrent-neural-networks-rnns-designed-for-sequences",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Recurrent Neural Networks (RNNs): Designed for Sequences",
     "text": "Recurrent Neural Networks (RNNs): Designed for Sequences\n\nSequential Data: RNNs for:\n\nText (sequences of words)\nTime series (measurements over time)\nAudio\nDNA\n\nKey Idea: Process input one element at a time, maintaining a “hidden state” (memory) of previous elements.\nUnrolling the RNN: Visualizing it “unrolled” in time."
   },
   {
     "objectID": "qmd/islp10.html#rnn-architecture-visualized",
     "href": "qmd/islp10.html#rnn-architecture-visualized",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNN Architecture: Visualized",
     "text": "RNN Architecture: Visualized\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure shows the architecture of a recurrent neural network (RNN). The input sequence (X) is processed one element at a time. The hidden state (A) is updated at each step, carrying information from previous steps. The output (O) can be produced at each step or only at the final step. Crucially, the same weights (W, U, B) are used at each step (weight sharing). This allows the RNN to handle sequences of varying lengths."
   },
   {
     "objectID": "qmd/islp10.html#rnn-mathematical-formulation",
     "href": "qmd/islp10.html#rnn-mathematical-formulation",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNN: Mathematical Formulation",
     "text": "RNN: Mathematical Formulation\n\nHidden State Update:\n\\[\n\\mathbf{A}_{lk} = g\\left(w_{k0} + \\sum_{j=1}^p w_{kj} \\mathbf{X}_{lj} + \\sum_{s=1}^K u_{ks} \\mathbf{A}_{l-1,s}\\right)\n\\]\nOutput:\n\\[\n\\mathbf{O}_l = \\beta_0 + \\sum_{k=1}^K \\beta_k \\mathbf{A}_{lk}\n\\]\n\\(g(\\cdot)\\): activation function (e.g., ReLU).\n\\(\\mathbf{W, U, B}\\): shared weight matrices."
   },
   {
     "objectID": "qmd/islp10.html#explaining-the-rnn-equations",
     "href": "qmd/islp10.html#explaining-the-rnn-equations",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Explaining the RNN Equations",
     "text": "Explaining the RNN Equations\n\nHidden State Update: New state (\\(\\mathbf{A}_{lk}\\)) depends on:\n\nCurrent input (\\(\\mathbf{X}_{lj}\\)).\nPrevious hidden state (\\(\\mathbf{A}_{l-1,s}\\)) – the memory.\nWeights (\\(\\mathbf{W, U}\\)).\n\nOutput: Output (\\(\\mathbf{O}_l\\)) is a linear combination of the hidden state.\nWeight Sharing: Same weight matrices (\\(\\mathbf{W, U, B}\\)) at every time step."
   },
   {
     "objectID": "qmd/islp10.html#rnns-for-document-classification",
     "href": "qmd/islp10.html#rnns-for-document-classification",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNNs for Document Classification",
     "text": "RNNs for Document Classification\n\nBeyond Bag-of-Words: Use the sequence of words.\nWord Embeddings: Represent each word as a dense vector (word embedding). Captures semantic relationships (e.g., “king,” “queen”). word2vec, GloVe.\nEmbedding Layer: Maps each word (one-hot encoded) to its embedding.\nProcessing the Sequence: RNN processes embeddings, updates state, produces output (e.g., sentiment)."
   },
   {
     "objectID": "qmd/islp10.html#word-embeddings-example",
     "href": "qmd/islp10.html#word-embeddings-example",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Word Embeddings: Example",
     "text": "Word Embeddings: Example\n\n\n\n\n\n\n\nNote\n\n\n\n\nOne hot encoding vector length is the vocabulary size.\nWord embeddings provide dense representation, where semantically similar words have similar vectors. For example, “king” and “queen” would be closer to each other than “king” and “apple”."
   },
   {
     "objectID": "qmd/islp10.html#rnns-for-time-series-forecasting",
     "href": "qmd/islp10.html#rnns-for-time-series-forecasting",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNNs for Time Series Forecasting",
     "text": "RNNs for Time Series Forecasting\n\nTime Series Prediction: RNNs are useful.\nExample: Stock market trading volume.\nInput: Past values (volume, return, volatility).\nOutput: Predicted volume for next day.\nAutocorrelation: Values correlated with past (today’s volume similar to yesterday’s). RNNs capture this."
   },
   {
     "objectID": "qmd/islp10.html#time-series-data-example",
     "href": "qmd/islp10.html#time-series-data-example",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Time Series Data: Example",
     "text": "Time Series Data: Example\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis figure shows an example of time series data: daily trading statistics from the New York Stock Exchange (NYSE). The data includes log trading volume (top), the Dow Jones Industrial Average (DJIA) return (middle), and log volatility (bottom). Notice the patterns and fluctuations over time. Predicting future values of such series is a common task in finance."
   },
   {
     "objectID": "qmd/islp10.html#autocorrelation-function-acf",
     "href": "qmd/islp10.html#autocorrelation-function-acf",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Autocorrelation Function (ACF)",
     "text": "Autocorrelation Function (ACF)\n\n\n\n\n\n\nMeasures Correlation with Past: The ACF measures correlation with lagged values (past).\nInterpreting the ACF: Shows how strongly related values are at different lags. High ACF at lag 1: today’s value correlated with yesterday’s."
   },
   {
     "objectID": "qmd/islp10.html#rnn-forecaster-setting-up-the-data",
     "href": "qmd/islp10.html#rnn-forecaster-setting-up-the-data",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNN Forecaster: Setting up the Data",
     "text": "RNN Forecaster: Setting up the Data\n\nInput Sequence: \\(L\\) past observations (e.g., \\(L=5\\) days): \\[\n\\mathbf{X}_1 = \\begin{pmatrix} v_{t-L} \\\\ r_{t-L} \\\\ z_{t-L} \\end{pmatrix}, \\mathbf{X}_2 = \\begin{pmatrix} v_{t-L+1} \\\\ r_{t-L+1} \\\\ z_{t-L+1} \\end{pmatrix}, \\dots, \\mathbf{X}_L = \\begin{pmatrix} v_{t-1} \\\\ r_{t-1} \\\\ z_{t-1} \\end{pmatrix}\n\\]\n\\(v_t\\): trading volume on day \\(t\\).\n\n\\(r_t\\): return on day \\(t\\).\n\\(z_t\\): volatility on day \\(t\\).\n\nOutput: \\(Y = v_t\\) (trading volume on day \\(t\\), to predict).\nCreating Training Examples: Many \\((\\mathbf{X}, Y)\\) pairs from historical data. Sequence of past, corresponding future value."
   },
   {
     "objectID": "qmd/islp10.html#rnn-forecasting-results",
     "href": "qmd/islp10.html#rnn-forecasting-results",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "RNN Forecasting Results",
     "text": "RNN Forecasting Results\n\n\n\n\n\n\nPerformance: RNN achieves \\(R^2\\) of 0.42 on test data. Explains 42% of variance in volume.\nComparison to Baseline: Outperforms a baseline using yesterday’s volume."
   },
   {
     "objectID": "qmd/islp10.html#autoregression-ar-model-a-traditional-approach",
     "href": "qmd/islp10.html#autoregression-ar-model-a-traditional-approach",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Autoregression (AR) Model: A Traditional Approach",
     "text": "Autoregression (AR) Model: A Traditional Approach\n\nTraditional Time Series Model: Autoregression (AR) is classic.\nLinear Prediction: Predicts based on linear combination of past.\nAR(L) Model: Uses \\(L\\) previous values:\n\\[\n\\hat{v}_t = \\beta_0 + \\beta_1 v_{t-1} + \\beta_2 v_{t-2} + \\dots + \\beta_L v_{t-L}\n\\]\nIncluding Other Variables: Can include lagged values of other variables (return, volatility).\nRNN as a Non-Linear Extension: RNN is a non-linear extension of AR. RNN: complex, non-linear relationships. AR: linear."
   },
   {
     "objectID": "qmd/islp10.html#long-short-term-memory-lstm-a-more-powerful-rnn",
     "href": "qmd/islp10.html#long-short-term-memory-lstm-a-more-powerful-rnn",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Long Short-Term Memory (LSTM): A More Powerful RNN",
     "text": "Long Short-Term Memory (LSTM): A More Powerful RNN\n\nAddressing Vanishing Gradients: LSTMs address “vanishing gradient” problem (in standard RNNs with long sequences).\nTwo Hidden States:\n\nShort-term memory: Like standard RNN.\nLong-term memory: Retains information longer.\n\nImproved Performance: LSTMs often better, especially for long sequences."
   },
   {
     "objectID": "qmd/islp10.html#fitting-neural-networks-the-optimization-challenge",
     "href": "qmd/islp10.html#fitting-neural-networks-the-optimization-challenge",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Fitting Neural Networks: The Optimization Challenge",
     "text": "Fitting Neural Networks: The Optimization Challenge\n\nComplex Optimization: Fitting (finding optimal weights) is non-convex.\nLocal Minima: Loss function has many local minima.\nKey Techniques:\n\nGradient Descent: Iteratively adjust weights “downhill.”\nBackpropagation: Efficient gradient computation.\nRegularization: Prevent overfitting (ridge, lasso, dropout).\nStochastic Gradient Descent (SGD): Small batches for faster, robust optimization.\nEarly Stopping: Stop training when validation error starts to increase."
   },
   {
     "objectID": "qmd/islp10.html#gradient-descent-illustration",
     "href": "qmd/islp10.html#gradient-descent-illustration",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Gradient Descent: Illustration",
     "text": "Gradient Descent: Illustration\n\n\n\n\n\n\n\nNote\n\n\n\nGradient descent is like rolling a ball down a hill. The ball will eventually settle at the lowest point (the minimum). The learning rate controls how big of a step the ball takes at each iteration. A large learning rate might cause the ball to overshoot, while a small learning rate might make the descent slow."
   },
   {
     "objectID": "qmd/islp10.html#gradient-descent-the-algorithm",
     "href": "qmd/islp10.html#gradient-descent-the-algorithm",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Gradient Descent: The Algorithm",
     "text": "Gradient Descent: The Algorithm\n\nIterative Algorithm: Gradient descent is iterative.\nGoal: Find parameters (\\(\\theta\\)) that minimize loss \\(R(\\theta)\\).\nSteps:\n\nInitialize \\(\\theta\\) (often randomly).\nRepeatedly update \\(\\theta\\) opposite the gradient:\n\\[\n\\theta^{(m+1)} \\leftarrow \\theta^{(m)} - \\rho \\nabla R(\\theta^{(m)})\n\\]\n\\(\\rho\\): learning rate (step size). Smaller: smaller steps (slower). Larger: larger steps (might overshoot)."
   },
   {
     "objectID": "qmd/islp10.html#backpropagation-efficient-gradient-computation",
     "href": "qmd/islp10.html#backpropagation-efficient-gradient-computation",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Backpropagation: Efficient Gradient Computation",
     "text": "Backpropagation: Efficient Gradient Computation\n\nEfficient Gradient Calculation: Backpropagation is efficient.\nChain Rule: Uses chain rule to “propagate” error backward.\nEssential for Training: Essential; without it, training is slow."
   },
   {
     "objectID": "qmd/islp10.html#regularization-preventing-overfitting",
     "href": "qmd/islp10.html#regularization-preventing-overfitting",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Regularization: Preventing Overfitting",
     "text": "Regularization: Preventing Overfitting\n\nPurpose: Prevent overfitting (model learns training data too well, performs poorly on unseen data).\nMethods:\n\nRidge/Lasso: Penalty for large weights.\nDropout: Randomly “drop out” units during training (more robust features).\nEarly Stopping: Monitor validation set performance. Stop when validation error increases (even if training error improves)."
   },
   {
     "objectID": "qmd/islp10.html#stochastic-gradient-descent-sgd-speeding-up-training",
     "href": "qmd/islp10.html#stochastic-gradient-descent-sgd-speeding-up-training",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Stochastic Gradient Descent (SGD): Speeding Up Training",
     "text": "Stochastic Gradient Descent (SGD): Speeding Up Training\n\nMinibatches: Use small batches of data (not entire dataset) for gradient.\nFaster Updates: Much faster weight updates.\nRandomness: Randomness helps escape local minima.\nStandard Approach: SGD (and variants) is standard."
   },
   {
     "objectID": "qmd/islp10.html#training-and-validation-errors",
     "href": "qmd/islp10.html#training-and-validation-errors",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Training and Validation Errors",
     "text": "Training and Validation Errors\n\n\n\n\n\n\n\nNote\n\n\n\nIt’s essential to monitor both training and validation error during training. The training error typically decreases as the model learns. The validation error initially decreases, but if it starts to increase, it indicates overfitting. Early stopping is a form of regularization that stops the training process before overfitting becomes significant."
   },
   {
     "objectID": "qmd/islp10.html#dropout-learning-illustration",
     "href": "qmd/islp10.html#dropout-learning-illustration",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Dropout Learning: Illustration",
     "text": "Dropout Learning: Illustration\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nDropout randomly removes units (neurons) during training. This forces the network to learn more robust features and prevents it from relying too heavily on any single neuron. It’s like training multiple different networks and averaging their predictions."
   },
   {
     "objectID": "qmd/islp10.html#network-tuning-finding-the-right-architecture",
     "href": "qmd/islp10.html#network-tuning-finding-the-right-architecture",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Network Tuning: Finding the Right Architecture",
     "text": "Network Tuning: Finding the Right Architecture\n\nArchitecture and Hyperparameters: Choosing architecture (layers, units, activations) and hyperparameters (learning rate, batch size, regularization) is crucial.\nKey Considerations:\n\nNumber of hidden layers.\nUnits per layer.\nRegularization (dropout, ridge/lasso).\nLearning rate.\nBatch size.\nEpochs (passes through training data).\n\nTrial and Error: Finding optimal settings: trial and error (time-consuming). Systematic: grid search, random search. Advanced: Bayesian optimization."
   },
   {
     "objectID": "qmd/islp10.html#interpolation-and-double-descent-a-surprising-phenomenon",
     "href": "qmd/islp10.html#interpolation-and-double-descent-a-surprising-phenomenon",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Interpolation and Double Descent: A Surprising Phenomenon",
     "text": "Interpolation and Double Descent: A Surprising Phenomenon\n\n\nInterpolation: Model perfectly fits training data (zero training error).\nDouble Descent: Test error decreases again after increasing (as complexity increases beyond interpolation).\nNot a Contradiction: Does not contradict bias-variance tradeoff."
   },
   {
     "objectID": "qmd/islp10.html#double-descent-explanation",
     "href": "qmd/islp10.html#double-descent-explanation",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Double Descent: Explanation",
     "text": "Double Descent: Explanation\n\nTest error shows the U-shape at first, then decreases as model complexity further increases.\nRegularization is helpful to reduce test error.\nDoes not contradict the bias-variance tradeoff. The classical bias-variance tradeoff applies within a fixed model class. Double descent occurs when we consider a sequence of increasingly complex models."
   },
   {
     "objectID": "qmd/islp10.html#when-to-use-deep-learning-choosing-the-right-tool",
     "href": "qmd/islp10.html#when-to-use-deep-learning-choosing-the-right-tool",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "When to Use Deep Learning: Choosing the Right Tool",
     "text": "When to Use Deep Learning: Choosing the Right Tool\n\nLarge Datasets: Deep learning shines with lots of data. Small datasets: simpler models might be better (interpretable).\nComplex Relationships: Highly non-linear, complex: deep learning effective.\nDifficult Feature Engineering: Deep learning automates feature learning.\nInterpretability is Less Important: Deep learning: “black boxes.” Interpretability crucial: simpler models.\nComputational Resources: Training: computationally expensive (GPUs)."
   },
   {
     "objectID": "qmd/islp10.html#summary",
     "href": "qmd/islp10.html#summary",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Summary",
     "text": "Summary\n\nDeep Learning Power: Powerful techniques (neural networks), learning complex patterns.\nCNNs and RNNs: CNNs: images. RNNs: sequential data.\nOptimization Challenges: Complex, but software simplifies.\nRegularization is Key: Prevent overfitting, improve generalization.\nData and Complexity: Excels with large data, complex relationships.\nConsider Simpler Models: Simpler model, good performance, interpretable: might be better."
   },
   {
     "objectID": "qmd/islp10.html#thoughts-and-discussion",
     "href": "qmd/islp10.html#thoughts-and-discussion",
-    "title": "",
+    "title": "Introduction to Deep Learning",
     "section": "Thoughts and Discussion",
     "text": "Thoughts and Discussion\n\nEthical Implications: Ethics of deep learning (facial recognition, loans, hiring)? Fairness, avoid bias?\nInterpretability: How to make models more interpretable? Why is it important?\nLimitations: Limitations of deep learning? When are other methods (decision trees, SVMs) better?\nFuture of Deep Learning: Future evolution? New architectures, applications?\nModel Complexity: How to decide model complexity? What will happen if we use a too simple or too complex model?\nData Quality: What are the actions to ensure data quality, and remove bias in data sets?"
   }
