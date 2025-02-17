@@ -1,5 +1,5 @@
 ---
-title: "统计学习导论"
+title: "big data mining and analysis"
 # image: https://assets.qiufei.site/personal/profile.jpg
 # about:
 #   template: broadside
@@ -21,6 +21,14 @@ title: "统计学习导论"
 #       href: https://github.com/qiufei
 # email-obfuscation: javascript
 ---
+
+
+## location
+
+钱湖62-235
+
+1-16周周三上午3-4节
+
 
 
 ## textbook
